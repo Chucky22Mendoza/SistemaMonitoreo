@@ -10,7 +10,7 @@
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
-
+    
     <bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping"/>
 
     <!--
@@ -22,7 +22,6 @@
         <property name="mappings">
             <props>
                 <prop key="index.htm">indexController</prop>
-                <prop key="login.htm">Controller_login</prop>
             </props>
         </property>
     </bean>
@@ -35,12 +34,10 @@
     <!--
     The index controller.
     -->
-    <bean name="Controller_login" class="Controller.Controller_login" />
     <bean name="indexController"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           p:viewName="index" />
     
-    <mvc:resources mapping="/resources/**" location="/resources/" />
-    <mvc:annotation-driven />
-
+    	<mvc:resources mapping="/resources/**" location="/resources/" />
+	<mvc:annotation-driven />
 </beans>
