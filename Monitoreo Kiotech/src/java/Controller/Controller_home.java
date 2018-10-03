@@ -5,6 +5,8 @@
  */
 package Controller;
 
+import org.springframework.stereotype.Controller;
+
 /**
  *
  * @author Jesús Mendoza
