@@ -5,21 +5,21 @@ $(document).ready(function(){
     var pass = $('#pass').val();
     $.ajax({
       type:"POST",
-      url:"index.htm",
+      url:"sesion.htm",
       data:datos,
       beforeSend: function(){
-				showSpinner();
+				//showSpinner();
 			},
 			error: function(error){
-				removeSpinner();
+				//removeSpinner();
         alertify.alert("Error: "+ error);
       },
       success:function(r){
-        removeSpinner();
+        //removeSpinner();
         //showSpinner();
         if(pass.length > 0 && user.length > 0){
           if(r==1){
-            window.location.assign("index.php");
+            //window.location.assign("home.htm");
           }else{
             alertify.alert("Error, usuario o contraseña incorrecta");
             return false;

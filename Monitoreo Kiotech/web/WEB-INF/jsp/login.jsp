@@ -27,7 +27,7 @@
     <title>LOGIN</title>
   </head>
   <body>
-    <form id="formLogIn" method="post" action="<c:url value="index.htm" />" >
+    <form id="formLogIn" method="post" action="<c:url value="sesion.htm" />" >
       <img src="${logo}" width="200px" class="mt-5">
 
     <input type="text" class="mt-5" id= "user" maxlength="50" name="user" placeholder="&#128187; Usuario" >
