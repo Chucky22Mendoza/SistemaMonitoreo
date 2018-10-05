@@ -25,16 +25,20 @@ public class Controller_home {
     
     @RequestMapping("home.htm")
     public ModelAndView home(HttpServletRequest request, HttpServletResponse response) throws IOException{
-       /* HttpSession session = request.getSession();
+        HttpSession session = request.getSession();
         
         String user = session.getAttribute("usuario").toString();
         String correo = session.getAttribute("correo").toString();
         String agencia = session.getAttribute("agencia").toString();
         System.err.println("USUARIO " + user);
-        */
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("home");
-        return mav;
+        if(!user.isEmpty() && !correo.isEmpty() && !agencia.isEmpty()){
+            ModelAndView mav = new ModelAndView();
+            mav.setViewName("home");
+            return mav;
+        }else{
+            return new ModelAndView("redirect:/error.htm");    
+        }
+        
     }
     
 }

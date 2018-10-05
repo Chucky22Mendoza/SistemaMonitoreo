@@ -1,5 +1,136 @@
 
-/* 
-    Created on : 04-oct-2018, 9:30:26
-    Author     : nipan
+/*
+Colores
+naranja: #f58003
+naranja2: #c96800
+azul: #015678
+azul2: #02445e
+fondo: #303a4c
+rojo: #ca2942
 */
+
+.ico-edit{
+  cursor: pointer;
+}
+.ico-del{
+  cursor: pointer;
+}
+
+/*Inicio de Menú*/
+ul.tabs{
+  background: #015678;
+  margin-top: -25px;
+  margin-left:6%;
+  list-style: none;
+  display: flex;
+  overflow-x: hidden;
+}
+
+ul.tabs li{
+  width: 100%;
+}
+
+ul.tabs li:hover{
+  background-color: rgba(201,104,0,.85);
+}
+
+ul.tabs li a{
+  color: #fff;
+  text-decoration:none;
+  font-size: 20px;
+  text-align: center;
+  display: block;
+  padding: 10px 0px;
+}
+
+ul.tabs li a:hover{
+  color: #B3B3B3;
+}
+
+.active{
+  background-color: #c96800;
+}
+.active:hover{
+  color: #321516;
+}
+
+ul.tabs li a .tab-text{
+  margin-left: 8px;
+}
+
+.second-color{
+  color: #F7F6E7;
+}
+/*Fin de Menú*/
+
+/*Inicio de miniMenú*/
+ul.minitab{
+  width: 67%;
+  background: #f58003;
+  margin-top: -70px;
+  margin-left: -5%;
+  list-style: none;
+  display: flex;
+  overflow-x: hidden;
+}
+
+ul.minitab li{
+  width: 100%;
+}
+
+ul.minitab li:hover{
+  background-color: rgba(1,86,120,.85);
+}
+
+ul.minitab li a{
+  color: #fff;
+  text-decoration:none;
+  font-size: 14px;
+  text-align: center;
+  display: block;
+  padding: 10px 0px;
+}
+
+ul.minitab li a:hover{
+  color: #B3B3B3;
+}
+
+.active2{
+  background-color: #015678;
+}
+.active2:hover{
+  color: #321516;
+}
+
+ul.minitab li a .tab-text{
+  margin-left: 8px;
+}
+
+.second-color{
+  color: #F7F6E7;
+}
+/*Fin de miniMenú*/
+
+/*Inicio de secciones para los artículos*/
+.secciones{
+  width: 100%;
+  margin-bottom: 60px;
+}
+
+.secciones article{
+  padding: 30px;
+  text-align: justify;
+}
+/*Fin de secciones para los artículos*/
+
+/*Inicio de secciones para los artículos*/
+.secciones2{
+  width: 100%;
+  margin-bottom: -30px;
+}
+
+.secciones2 article{
+  padding: 10px;
+  text-align: justify;
+}
+/*Fin de secciones para los artículos*/
