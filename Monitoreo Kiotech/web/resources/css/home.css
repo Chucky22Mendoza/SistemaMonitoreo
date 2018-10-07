@@ -11,9 +11,11 @@ rojo: #ca2942
 
 .ico-edit{
   cursor: pointer;
+  list-style: none;
 }
 .ico-del{
   cursor: pointer;
+  list-style: none;
 }
 
 /*Inicio de Menú*/

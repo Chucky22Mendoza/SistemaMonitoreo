@@ -12,8 +12,8 @@
         <spring:url value="/resources/css/home.css" var="homeCSS" />
         <spring:url value="/resources/images/logo.png" var="logo" />
         <spring:url value="/resources/images/home.png" var="homeIMG" />
-        <spring:url value="/resources/css/bootstrap/bootstrap.min.css" var="btCSS" />
-        <spring:url value="/resources/js/bootstap/bootstrap.min.js" var="btJS" />
+        <spring:url value="/resources/css/bootstrap/bootstrap.css" var="btCSS" />
+        <spring:url value="/resources/js/bootstrap/bootstrap.js" var="btJS" />
 
         <link rel="stylesheet" href="${homeCSS}">
         <link rel="shortcut icon" href="${logo}">
@@ -90,30 +90,24 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td class="text-center"><input type="checkbox" class="mt-1 cbSelec" name="cbSelec" style="cursor:pointer;"></td>
-                    <th  class="text-center" scope="row">1</th>
-                    <td class="text-center">imagen1.jpg</td>
-                    <td class="text-center">imagen</td>
-                    <td class="text-center">60</td>
-                    <td class="text-center"><span class="fas fa-edit ico-edit" data-toggle="modal" data-target="#modalEditarArchivo"></span> <i class="fas fa-trash-alt ico-del"></i></td>
-                  </tr>
-                  <tr>
-                    <td class="text-center"><input type="checkbox" class="mt-1 cbSelec" name="cbSelec" style="cursor:pointer;"></td>
-                    <th  class="text-center" scope="row">2</th>
-                    <td class="text-center">video1.mp4</td>
-                    <td class="text-center">video</td>
-                    <td class="text-center">60</td>
-                    <td class="text-center"><span class="fas fa-edit ico-edit" data-toggle="modal" data-target="#modalEditarArchivo"></span> <i class="fas fa-trash-alt ico-del"></i></td>
-                  </tr>
-                  <tr>
-                    <td class="text-center"><input type="checkbox" class="mt-1 cbSelec" name="cbSelec" style="cursor:pointer;"></td>
-                    <th  class="text-center" scope="row">3</th>
-                    <td class="text-center">imagen2.png</td>
-                    <td class="text-center">imagen</td>
-                    <td class="text-center">60</td>
-                    <td class="text-center"><span class="fas fa-edit ico-edit" data-toggle="modal" data-target="#modalEditarArchivo"></span> <i class="fas fa-trash-alt ico-del"></i></td>
-                  </tr>
+                  <c:forEach items="${PlayLists}" var="dato">
+
+                    <tr>
+                      <td class="text-center"><input type="checkbox" class="mt-1 cbSelec" name="cbSelec" style="cursor:pointer;"></td>
+                      <td class="text-center">${dato.id}</td>
+                      <td class="text-center">${dato.nombre}</td>
+                      <td class="text-center">${dato.tipo}</td>
+                      <td class="text-center">${dato.duracion}</td>
+                      <td class="text-center">
+                        <a id="${dato.id}" name="${dato.nombre}" value="${dato.nombre}-${dato.tipo}-${dato.duracion}" class="ico-edit" href="#" data-toggle="modal" data-target="#modalEditarArchivo">
+                          <i class="fas fa-edit"></i>
+                        </a>
+                        <a href="PlayList_Delete/${dato.id}">
+                          <i class="fas fa-trash-alt ico-del"></i>
+                        </a>
+                      </td>
+                    </tr>
+                  </c:forEach>
                 </tbody>
               </table>
             </article>
@@ -135,20 +129,19 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Editar archivo</h5>
+              <div id="titleModal"></div>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-
-              <div class="modal-body">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              </div>
-              <div class="modal-footer">
-                <button type="submit" class="btn btn-success">Aceptar</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-              </div>
-
+              <form action="<c:url value="archiveEdit.htm" />" method="post">
+                <div id="modal-body" class="modal-body">
+                </div>
+                <div class="modal-footer">
+                  <button id="updateArchivo" type"button" class="btn btn-info ml-2"><i class="fas fa-upload"></i> Aceptar</button>
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                </div>
+              </form>
           </div>
         </div>
       </div>
