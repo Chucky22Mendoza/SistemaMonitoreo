@@ -30,10 +30,13 @@
       <!-- Image and text -->
       <nav class="navbar navbar-light " style="background-color:#303a4c">
         <a class="navbar-brand text-center color-light " href="#" style="color:#fff">
-          <img src="${logo}" width="200px" class="">
-          Sistema de Monitoreo y Publicidad
+         <div class="card-body d-flex justify-content-between align-items-center">
+            <img src="${logo}" width="200px" class="">
+          Sistema de Monitoreo y Publicidad 
+        
+	<button type="button" name="button" class="btn btn-warning" style="cursor:pointer"><i class="fa fa-user-circle"></i> Nombre Usuario </button>
+	</div>
         </a>
-
       </nav>
 
       <!-- Inico de barra de Menú-->
@@ -61,8 +64,9 @@
             </ul>
           </ul>
           <!--Fin de barra de Menú publicidad-->
-
+            
           <section class="secciones2">
+              <!--Seccion de tabla 1- Archivos Multimedia-->
             <article id="t1">
               <h4>Archivos multimedia existentes en el servidor</h3>
               <div id="" class="">
@@ -111,11 +115,111 @@
                 </tbody>
               </table>
             </article>
+              <!--Seccion de tabla 2-Listas de Reproduccion-->
             <article id="t2">
-              <p>Segunda sección</p>
+              <h4>Listas de Reprocuccion Existentes</h3>
+              <div id="" class="">
+                <div class="form-check">
+                  <input class="form-check-input ml-4" type="checkbox" value="" id="cbGen" style="cursor:pointer;">
+                  <label class="form-check-label ml-4" for="cbGen">
+                    Seleccionar todos
+                  </label>
+                </div>
+                <div class="d-flex justify-content-end" style="margin-top:-50px;">
+                  <button type="button" name="button" class="btn btn-danger" style="cursor:pointer"><i class="fas fa-ban"></i> Eliminar</button>
+                  <button type="button" name="button" class="btn btn-info ml-2" style="cursor:pointer"><i class="fas fa-plus"></i> Nueva Lista</button>
+                </div>
+              </div>
+
+              <table class="table table-hover mt-2">
+                <thead class="">
+                  <tr>
+                    <th scope="col" class="text-center"> </th>
+                    <th scope="col" class="text-center">ID</th>
+                    <th scope="col" class="text-center">Nombre Lista</th>
+                    <th scope="col" class="text-center">Descripcion</th>
+                    <th scope="col" class="text-center">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+               <!-- ------------------------ -->     
+               <!-- ------------------------ --> 
+               <!-- MODIFICAR CHUKY --> 
+               <!-- ------------------------ --> 
+               <!-- ------------------------ --> 
+                  <c:forEach items="${PlayLists}" var="dato">
+
+                    <tr>
+                      <td class="text-center"><input type="checkbox" class="mt-1 cbSelec" name="cbSelec" style="cursor:pointer;"></td>
+                      <td class="text-center">${dato.id}</td>
+                      <td class="text-center">${dato.nombre}</td>
+                      <td class="text-center">${dato.tipo}</td>
+                      <td class="text-center">${dato.duracion}</td>
+                      <td class="text-center">
+                        <a id="${dato.id}" name="${dato.nombre}" value="${dato.nombre}-${dato.tipo}-${dato.duracion}" class="ico-edit" href="#" data-toggle="modal" data-target="#modalEditarArchivo">
+                          <i class="fas fa-edit"></i>
+                        </a>
+                        <a href="PlayList_Delete/${dato.id}">
+                          <i class="fas fa-trash-alt ico-del"></i>
+                        </a>
+                      </td>
+                    </tr>
+                  </c:forEach>
+                </tbody>
+              </table>
             </article>
+              <!--Seccion de tabla 3- Programacion de Listas -->
             <article id="t3">
-              <p>Tercera sección</p>
+              <h4> Listas Programadas </h3>
+              <div id="" class="">
+                <div class="form-check">
+                  <input class="form-check-input ml-4" type="checkbox" value="" id="cbGen" style="cursor:pointer;">
+                  <label class="form-check-label ml-4" for="cbGen">
+                    Seleccionar todos
+                  </label>
+                </div>
+                <div class="d-flex justify-content-end" style="margin-top:-50px;">
+                  <button type="button" name="button" class="btn btn-danger" style="cursor:pointer"><i class="fas fa-ban"></i> Eliminar</button>
+                  <button type="button" name="button" class="btn btn-info ml-2" style="cursor:pointer"><i class="fa fa-wrench"></i> Editar </button>
+                </div>
+              </div>
+
+              <table class="table table-hover mt-2">
+                <thead class="">
+                  <tr>
+                    <th scope="col" class="text-center"> </th>
+                    <th scope="col" class="text-center">ID</th>
+                    <th scope="col" class="text-center">Nombre de Lista Programada</th>
+                    <th scope="col" class="text-center">Descripcion</th>
+                    <th scope="col" class="text-center">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+               <!-- ------------------------ -->     
+               <!-- ------------------------ --> 
+               <!-- MODIFICAR CHUKY --> 
+               <!-- ------------------------ --> 
+               <!-- ------------------------ --> 
+                  <c:forEach items="${PlayLists}" var="dato">
+
+                    <tr>
+                      <td class="text-center"><input type="checkbox" class="mt-1 cbSelec" name="cbSelec" style="cursor:pointer;"></td>
+                      <td class="text-center">${dato.id}</td>
+                      <td class="text-center">${dato.nombre}</td>
+                      <td class="text-center">${dato.tipo}</td>
+                      <td class="text-center">${dato.duracion}</td>
+                      <td class="text-center">
+                        <a id="${dato.id}" name="${dato.nombre}" value="${dato.nombre}-${dato.tipo}-${dato.duracion}" class="ico-edit" href="#" data-toggle="modal" data-target="#modalEditarArchivo">
+                          <i class="fas fa-edit"></i>
+                        </a>
+                        <a href="PlayList_Delete/${dato.id}">
+                          <i class="fas fa-trash-alt ico-del"></i>
+                        </a>
+                      </td>
+                    </tr>
+                  </c:forEach>
+                </tbody>
+              </table>
             </article>
           </section>
 
