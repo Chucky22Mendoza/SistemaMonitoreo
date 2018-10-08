@@ -48,7 +48,7 @@ public class Controller_login extends HttpServlet {
              return new ModelAndView("redirect:/home.htm","command",dataUser);
 
         } catch (NullPointerException e) {
-            return new ModelAndView("redirect:/error.htm");
+            return new ModelAndView("/");
         }
     } 
 }

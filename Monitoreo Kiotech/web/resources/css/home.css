@@ -12,10 +12,17 @@ rojo: #ca2942
 .ico-edit{
   cursor: pointer;
   list-style: none;
+  color:#000;
+}
+.icono:hover{
+  cursor: pointer;
+  list-style: none;
+  color:#B3B3B3;
 }
 .ico-del{
   cursor: pointer;
   list-style: none;
+  color:#000;
 }
 
 /*Inicio de Menú*/

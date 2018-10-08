@@ -17,20 +17,21 @@ import java.util.List;
 /**
  *
  * @author Jesús Mendoza
+ * 
+ *  OBTENER LA LISTA DE ARCHIVOS PARA ENVIARLAS AL CONTROLADOR
  */
-public class GetArchive {
+public class GetFile {
+    //Llamar a la base de datos para conectividad
     private ConnectionDB dbSource = null;
-    public GetArchive(){
+    public GetFile(){
         this.dbSource = new ConnectionDB();
     }
-    public List<Archivo> obtenerPlayLists(){
+    
+    public List<Archivo> obtenerArchivo(){
         List<Archivo> listasReproduccion = new ArrayList<>();
         String sql ="select * from archivo order by idarchivo";
-        try (
-                Connection dbConnection = dbSource.conectar().getConnection();
-                CallableStatement obtenerListas = dbConnection.prepareCall(sql);
-               )            
-            {
+        try (   Connection dbConnection = dbSource.conectar().getConnection();
+                 CallableStatement obtenerListas = dbConnection.prepareCall(sql);       )            {
 
           //Variables de Entrada (IN)
           System.out.println("Preparando llamada a procedimiento almacenado.");

@@ -14,11 +14,18 @@
         <spring:url value="/resources/images/home.png" var="homeIMG" />
         <spring:url value="/resources/css/bootstrap/bootstrap.css" var="btCSS" />
         <spring:url value="/resources/js/bootstrap/bootstrap.js" var="btJS" />
+        <spring:url value="/resources/js/homeAJAX.js" var="AJAX" />
+        <spring:url value="/resources/alertifyjs/css/alertify.css" var="alertifyCSS" />
+        <spring:url value="/resources/css/spinner.css" var="spinnerCSS" />
+        <spring:url value="/resources/js/spinner.js" var="spinnerJS" />
+        <spring:url value="/resources/alertifyjs/alertify.js" var="alertifyJS" />
 
         <link rel="stylesheet" href="${homeCSS}">
         <link rel="shortcut icon" href="${logo}">
         <link rel="shortcut icon" href="${homeIMG}">
         <link rel="stylesheet" href="${btCSS}">
+        <link rel="stylesheet" href="${alertifyCSS}">
+        <link rel="stylesheet" href="${spinnerJS}">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>HOME</title>
 
@@ -32,8 +39,8 @@
         <a class="navbar-brand text-center color-light " href="#" style="color:#fff">
          <div class="card-body d-flex justify-content-between align-items-center">
             <img src="${logo}" width="200px" class="">
-          Sistema de Monitoreo y Publicidad 
-        
+          Sistema de Monitoreo y Publicidad
+
 	<button type="button" name="button" class="btn btn-warning" style="cursor:pointer"><i class="fa fa-user-circle"></i> Nombre Usuario </button>
 	</div>
         </a>
@@ -64,7 +71,7 @@
             </ul>
           </ul>
           <!--Fin de barra de Menú publicidad-->
-            
+
           <section class="secciones2">
               <!--Seccion de tabla 1- Archivos Multimedia-->
             <article id="t1">
@@ -76,9 +83,9 @@
                     Seleccionar todos
                   </label>
                 </div>
-                <div class="d-flex justify-content-end" style="margin-top:-50px;">
-                  <button type="button" name="button" class="btn btn-danger" style="cursor:pointer"><i class="fas fa-ban"></i> Eliminar</button>
-                  <button type="button" name="button" class="btn btn-info ml-2" style="cursor:pointer"><i class="fas fa-cloud-upload-alt"></i> Subir nuevo archivo</button>
+                <div class="d-flex justify-content-end">
+                  <button type="button" name="button" class="btn btn-danger" style="cursor:pointer;"><i class="fas fa-ban"></i> Eliminar</button>
+                  <button type="button" name="button" class="btn btn-info ml-2" style="cursor:pointer;" href="#" data-toggle="modal" data-target="#modalNuevoArchivo"><i class="fas fa-cloud-upload-alt"></i> Subir nuevo archivo</button>
                 </div>
               </div>
 
@@ -94,7 +101,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <c:forEach items="${PlayLists}" var="dato">
+                  <c:forEach items="${File}" var="dato">
 
                     <tr>
                       <td class="text-center"><input type="checkbox" class="mt-1 cbSelec" name="cbSelec" style="cursor:pointer;"></td>
@@ -103,11 +110,11 @@
                       <td class="text-center">${dato.tipo}</td>
                       <td class="text-center">${dato.duracion}</td>
                       <td class="text-center">
-                        <a id="${dato.id}" name="${dato.nombre}" value="${dato.nombre}-${dato.tipo}-${dato.duracion}" class="ico-edit" href="#" data-toggle="modal" data-target="#modalEditarArchivo">
-                          <i class="fas fa-edit"></i>
+                        <a id="${dato.id}" name="${dato.nombre}" value="${dato.nombre}-${dato.tipo}-${dato.duracion}" class="ico-edit" data-toggle="modal" data-target="#modalEditarArchivo">
+                          <i class="fas fa-edit icono"></i>
                         </a>
-                        <a href="PlayList_Delete/${dato.id}">
-                          <i class="fas fa-trash-alt ico-del"></i>
+                        <a id="${dato.id}" name="${dato.nombre}"  class="ico-del">
+                          <i class="fas fa-trash-alt icono"></i>
                         </a>
                       </td>
                     </tr>
@@ -125,9 +132,9 @@
                     Seleccionar todos
                   </label>
                 </div>
-                <div class="d-flex justify-content-end" style="margin-top:-50px;">
-                  <button type="button" name="button" class="btn btn-danger" style="cursor:pointer"><i class="fas fa-ban"></i> Eliminar</button>
-                  <button type="button" name="button" class="btn btn-info ml-2" style="cursor:pointer"><i class="fas fa-plus"></i> Nueva Lista</button>
+                <div class="d-flex justify-content-end">
+                  <button type="button" name="button" class="btn btn-danger" style="cursor:pointer;" ><i class="fas fa-ban"></i> Eliminar</button>
+                  <button type="button" name="button" class="btn btn-info ml-2" style="cursor:pointer;"><i class="fas fa-plus"></i> Nueva Lista</button>
                 </div>
               </div>
 
@@ -142,24 +149,23 @@
                   </tr>
                 </thead>
                 <tbody>
-               <!-- ------------------------ -->     
-               <!-- ------------------------ --> 
-               <!-- MODIFICAR CHUKY --> 
-               <!-- ------------------------ --> 
-               <!-- ------------------------ --> 
-                  <c:forEach items="${PlayLists}" var="dato">
+               <!-- ------------------------ -->
+               <!-- ------------------------ -->
+               <!-- MODIFICAR CHUKY -->
+               <!-- ------------------------ -->
+               <!-- ------------------------ -->
+                  <c:forEach items="${File}" var="dato">
 
                     <tr>
                       <td class="text-center"><input type="checkbox" class="mt-1 cbSelec" name="cbSelec" style="cursor:pointer;"></td>
                       <td class="text-center">${dato.id}</td>
                       <td class="text-center">${dato.nombre}</td>
                       <td class="text-center">${dato.tipo}</td>
-                      <td class="text-center">${dato.duracion}</td>
                       <td class="text-center">
                         <a id="${dato.id}" name="${dato.nombre}" value="${dato.nombre}-${dato.tipo}-${dato.duracion}" class="ico-edit" href="#" data-toggle="modal" data-target="#modalEditarArchivo">
                           <i class="fas fa-edit"></i>
                         </a>
-                        <a href="PlayList_Delete/${dato.id}">
+                        <a href="<c:url value="Delete_File.htm?id=${dato.id}" />">
                           <i class="fas fa-trash-alt ico-del"></i>
                         </a>
                       </td>
@@ -195,12 +201,12 @@
                   </tr>
                 </thead>
                 <tbody>
-               <!-- ------------------------ -->     
-               <!-- ------------------------ --> 
-               <!-- MODIFICAR CHUKY --> 
-               <!-- ------------------------ --> 
-               <!-- ------------------------ --> 
-                  <c:forEach items="${PlayLists}" var="dato">
+               <!-- ------------------------ -->
+               <!-- ------------------------ -->
+               <!-- MODIFICAR CHUKY -->
+               <!-- ------------------------ -->
+               <!-- ------------------------ -->
+                  <c:forEach items="${File}" var="dato">
 
                     <tr>
                       <td class="text-center"><input type="checkbox" class="mt-1 cbSelec" name="cbSelec" style="cursor:pointer;"></td>
@@ -238,11 +244,11 @@
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-              <form action="<c:url value="archiveEdit.htm" />" method="post">
+              <form id="EditFile">
                 <div id="modal-body" class="modal-body">
                 </div>
                 <div class="modal-footer">
-                  <button id="updateArchivo" type"button" class="btn btn-info ml-2"><i class="fas fa-upload"></i> Aceptar</button>
+                  <button id="updateArchivo" class="btn btn-info ml-2"><i class="fas fa-upload"></i> Aceptar</button>
                   <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                 </div>
               </form>
@@ -251,13 +257,74 @@
       </div>
       <!-- FIN DEL MODAL EDITAR ARCHIVO -->
 
+      <!-- MODAL NUEVO ARCHIVO-->
+      <div class="modal fade" id="modalNuevoArchivo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <div id="titleModal"><h5 class="modal-title" id="titleName">Nuevo Archivo</h5></div>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+              <form id="NewFile">
+                <div id="modal-body" class="modal-body">
+                  <div id="bodyEdit">
+                       <div class="col-sm-12 row d-flex justify-content-center align-items-center mt-3">
+                          <label for="nombre" class="col-sm-2 form-control-label mr-2">Nombre:</label>
+                          <input class="form-control col-sm-8" id="nombre" placeholder="Nombre del archivo" type="text" name="nombre" required="required">
+                       </div>
+                       <div class="col-sm-12 row d-flex justify-content-center align-items-center mt-3">
+                          <label for="tipo" class="col-sm-2 form-control-label">Tipo:</label>
+                          <input class="form-control col-sm-8" id="tipo" placeholder="Tipo de archivo" type="text" name="tipo" required="required">
+                       </div>
+                       <div class="col-sm-12 row d-flex justify-content-start align-items-center mt-3 mb-2">
+                          <label for="duracion" class="col-sm-3 form-control-label">Duración:</label>
+                          <input class="form-control col-sm-4" id="duracion" placeholder="Segundos" type="number" value="60" min="1" name="duracion" required="required">
+                       </div>
+                   </div>
+                </div>
+                <div class="modal-footer">
+                  <button id="nuevoArchivo" type"button" class="btn btn-info ml-2"><i class="fas fa-upload"></i> Aceptar</button>
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                </div>
+              </form>
+          </div>
+        </div>
+      </div>
+      <!-- FIN DEL MODAL NUEVO ARCHIVO -->
 
+      <!-- MODAL BORRAR ARCHIVO-->
+      <div class="modal fade" id="modalBorrarArchivo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <div id="titleModalDel"></div>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+                <div id="modal-bodyDel" class="modal-body">
+                </div>
+                <div class="modal-footer">
+                  <form id="DelFile" action="index.html" method="post">
+                    <a id="borrarArchivo" class="btn btn-warning ml-2"><i class="fas fa-trash-alt"></i> Aceptar</a>
+                  </form>
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                </div>
+          </div>
+        </div>
+      </div>
+      <!-- FIN DEL MODAL BORRAR ARCHIVO -->
 
     <script defer src="https://use.fontawesome.com/releases/v5.0.12/js/all.js" integrity="sha384-Voup2lBiiyZYkRto2XWqbzxHXwzcm4A5RfdfG6466bu5LqjwwrjXCMBQBLMWh7qR" crossorigin="anonymous"></script>
     <script src="${jquery}"></script>
     <script src="${btJS}"></script>
+    <script src="${alertifyJS}"></script>
+    <script src="${spinnerJS}"></script>
     <script src="${homeJS}"></script>
     <script src="${menuJS}"></script>
+    <script src="${AJAX}"></script>
 
     </body>
 

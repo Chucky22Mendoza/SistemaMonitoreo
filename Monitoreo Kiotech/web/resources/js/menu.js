@@ -1,4 +1,4 @@
-//Animación del menú
+//ANIMACIÓN DEL MENÚ CON CSS
 $(document).ready(function(){
 
   $('ul.tabs li a:first').addClass('active');
@@ -28,8 +28,4 @@ $(document).ready(function(){
     $(activeTab2).show();
     return false;
   });
-
-
-
-
 });

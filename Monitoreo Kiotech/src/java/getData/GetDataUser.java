@@ -15,6 +15,8 @@ import java.sql.SQLException;
 /**
  *
  * @author Jesús Mendoza
+ * 
+ * OBTENER SI UN USUARIO ES VÁLIDO EN LA BASE DE DATOS Y ENVIARLO AL CONTROLADOR
  */
 public class GetDataUser {
     //Llamar a la base de datos para conectividad

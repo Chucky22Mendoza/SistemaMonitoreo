@@ -1,34 +1,31 @@
 $(document).ready(function(){
+  //PROCESO CON AJAX PARA EL INICIO DE SESIÓN
   $('#btnLogIn').click(function(){
+    //VARIABLE DEL FORMULARIO
     var datos = $('#formLogIn').serialize();
+
+    //PARAMETROS DENTRO DEL FORMULARIO
     var user = $('#user').val();
     var pass = $('#pass').val();
+
+    //ABRIMOS AJAX
     $.ajax({
       type:"POST",
       url:"sesion.htm",
       data:datos,
+      //MOSTRAMOS SPINNER SI ES TARDADO EL PROCESO
       beforeSend: function(){
-				//showSpinner();
+				showSpinner();
 			},
+      //ERROR
 			error: function(error){
-				//removeSpinner();
-        alertify.alert("Error: "+ error);
+				removeSpinner();
+        alertify.alert("Error al iniciar sesión");
       },
+      //SE HA COMPLETADO
       success:function(r){
-        //removeSpinner();
-        //showSpinner();
-        if(pass.length > 0 && user.length > 0){
-          if(r==1){
-            //window.location.assign("home.htm");
-          }else{
-            alertify.alert("Error, usuario o contraseña incorrecta");
-            return false;
-          }
-        }else{
-          alertify.alert("Error, favor de ingresar los campos correspondientes");
-          return false;
-        }
-
+        showSpinner();
+        window.location.assign("home.htm");
       }
     });
     return false;

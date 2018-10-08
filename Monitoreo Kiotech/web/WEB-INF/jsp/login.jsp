@@ -20,14 +20,14 @@
     <link rel="shortcut icon" href="${logo}">
     <link rel="stylesheet" href="${btCSS}">
     <link rel="stylesheet" href="${login}">
-    <!--<link rel="stylesheet" href="${alertifyCSS}">-->
-    <!--<link rel="stylesheet" href="${spinnerJS}">-->
+    <link rel="stylesheet" href="${alertifyCSS}">
+    <link rel="stylesheet" href="${spinnerJS}">
     <!-- Finish adding tags -->
     <meta charset="utf-8">
     <title>LOGIN</title>
   </head>
   <body>
-  <form id="formLogIn" method="post" action="<c:url value="sesion.htm" />" >
+  <form id="formLogIn">
       <img src="${logo}" width="200px" class="mt-5">
 
     <input type="text" class="mt-5" id= "user" maxlength="50" name="user" placeholder="&#128187; Usuario" >
@@ -38,8 +38,8 @@
 
     <script src="${jquery}"></script>
     <script src="${btJS}"></script>
-    <!--<script src="${alertifyJS}"></script>-->
-    <!--<script src="${spinnerJS}"></script>-->
-    <!--<script src="${sesion}"></script>-->
+    <script src="${alertifyJS}"></script>
+    <script src="${spinnerJS}"></script>
+    <script src="${sesion}"></script>
   </body>
 </html>
