@@ -14,15 +14,17 @@ public class Archivo {
     private String nombre;
     private String tipo;
     private int duracion;
+    private String ubicacion;
 
     public Archivo() {
     }
 
-    public Archivo(int id, String nombre, String tipo, int duracion) {
+    public Archivo(int id, String nombre, String tipo, int duracion, String ubicacion) {
         this.id = id;
         this.nombre = nombre;
         this.tipo = tipo;
         this.duracion = duracion;
+        this.ubicacion = ubicacion;
     }
 
     public int getId() {
@@ -56,6 +58,15 @@ public class Archivo {
     public void setDuracion(int duracion) {
         this.duracion = duracion;
     }
+
+    public String getUbicacion() {
+        return ubicacion;
+    }
+
+    public void setUbicacion(String ubicacion) {
+        this.ubicacion = ubicacion;
+    }
+    
     
     
 }

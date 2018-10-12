@@ -7,39 +7,40 @@ package getData;
 
 import Model.ConnectionDB;
 import Objects.Archivo;
+import Objects.ListaReproduccion;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 
 /**
  *
  * @author Jesús Mendoza
- * 
- * EDITAR UN ARCHIVO EN LA BASE DE DATOS AL RECIBIR LOS PARAMETROS DEL CONTROLADOR
  */
-public class UpdateFile {
-    //Llamar a la base de datos para conectividad
+public class UpdatePlayList {
+        //Llamar a la base de datos para conectividad
     private ConnectionDB dbSource = null;
-    public UpdateFile(){
+    public UpdatePlayList(){
         this.dbSource = new ConnectionDB();
     }
     
-    public int actualizarArchivo(Archivo editFile){
+    public int actualizarLista(ListaReproduccion editLista){
 
-    String sql ="Update archivo set duracion=? where idarchivo=?;";
-
+    String sql ="Update listareproduccion set nombre=?, descripcion=? where idlista=?;";
+    
     try (
            Connection dbConnection = dbSource.conectar().getConnection();
             //Tipo CallableStatement, otra variante tambien es usar PrepareStatement
-            CallableStatement actualizarArchivo= dbConnection.prepareCall(sql);
+            CallableStatement actualizarLista= dbConnection.prepareCall(sql);
            )            
         {
-      
+     
       dbConnection.setAutoCommit(false);
       //Variables de Entrada (IN)
       System.err.println("Preparando llamada a PostgreSQL. ---> ");
-      actualizarArchivo.setInt(1, editFile.getDuracion());
-      actualizarArchivo.setInt(2, editFile.getId());
-      int res = actualizarArchivo.executeUpdate();
+      actualizarLista.setString(1, editLista.getNombre());
+      actualizarLista.setString(2, editLista.getDescripcion());
+      actualizarLista.setInt(3,editLista.getId());
+      
+      int res = actualizarLista.executeUpdate();
         
       System.err.println("<------------------------------------------------ !!!!  " + res);
       
@@ -61,5 +62,5 @@ public class UpdateFile {
         return 0;
     }
     
-}
+    }
 }
