@@ -72,7 +72,55 @@ ul.tabs li a .tab-text{
 }
 /*Fin de Menú*/
 
-/*Inicio de miniMenú*/
+/*Inicio de miniMenú-Alertas*/
+ul.mtab{
+  width: 100%;
+  background: #f58003;
+  margin-top: -70px;
+  margin-left: -5%;
+  list-style: none;
+  display: flex;
+  overflow-x: hidden;
+}
+
+ul.mtab li{
+  width: 100%;
+}
+
+ul.mtab li:hover{
+  background-color: rgba(1,86,120,.85);
+}
+
+ul.mtab li a{
+  color: #fff;
+  text-decoration:none;
+  font-size: 14px;
+  text-align: center;
+  display: block;
+  padding: 10px 0px;
+}
+
+ul.mtab li a:hover{
+  color: #B3B3B3;
+}
+
+.active2{
+  background-color: #015678;
+}
+.active2:hover{
+  color: #321516;
+}
+
+ul.mtab li a .tab-text{
+  margin-left: 8px;
+}
+
+.second-color{
+  color: #F7F6E7;
+}
+/*Fin de miniMenú-Alertas*/
+
+/*Inicio de miniMenúPublicidad*/
 ul.minitab{
   width: 67%;
   background: #f58003;
@@ -118,7 +166,7 @@ ul.minitab li a .tab-text{
 .second-color{
   color: #F7F6E7;
 }
-/*Fin de miniMenú*/
+/*Fin de miniMenú-Publicidad*/
 
 /*Inicio de secciones para los artículos*/
 .secciones{

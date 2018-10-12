@@ -28,4 +28,13 @@ $(document).ready(function(){
     $(activeTab2).show();
     return false;
   });
+   $('ul.mtab li a').click(function(){
+    $('ul.mtab li a').removeClass('active2');
+    $(this).addClass('active2');
+    $('.secciones2 article').hide();
+
+    var activeTab2 = $(this).attr('href');
+    $(activeTab2).show();
+    return false;
+  });
 });
