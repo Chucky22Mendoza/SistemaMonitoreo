@@ -40,9 +40,9 @@
          <div class="card-body d-flex justify-content-between align-items-center">
             <img src="${logo}" width="200px" class="">
           Sistema de Monitoreo y Publicidad
-
+          
 	<button type="button" name="button" class="btn btn-warning" style="cursor:pointer"><i class="fa fa-user-circle"></i> Nombre Usuario </button>
-	</div>
+         </div>
         </a>
       </nav>
 
@@ -57,8 +57,114 @@
       <!--Fin de barra de Menú -->
       <section class="container secciones">
         <article id="tab1">
+             <!-- Inico de barra de Menú Monitoreo de Kiosko-->
+   
         </article>
+          
         <article id="tab2">
+             <!-- Inico de barra de Menú Alertas-->
+             <ul class="mt-5">
+            <ul class="mtab d-flex justify-content-left">
+              <li><a href="#t11" id="pest1"><span class="fa fa-history"></span> <span class="tab-text">Historial de Alertas</span></a></li>
+              <li><a href="#t22" id="pest2"><span class="fa fa-truck"></span> <span class="tab-text">Configuracion Medios de Envio</span></a></li>
+              <li><a href="#t33" id="pest3"><span class="fas fa-calendar-alt"></span> <span class="tab-text">Configuracion de eventos</span></a></li>
+              <li><a href="#t44" id="pest4"><span class="fa fa-user-plus"></span> <span class="tab-text">Asignacion de Usuarios</span></a></li>
+            </ul>
+          </ul>
+             <!--Fin de barra de Menú Alertas-->
+           
+             <section class="secciones2">
+                 <!--Seccion tabla 1 Historial de alertas -->
+              <article id="t11">
+              <div id="" class="">
+                <div class="form-check">
+                  
+                    <button type="button" name="button" class="btn btn-info" style="cursor:pointer;">
+                        <i class="fa fa-info"> </i>
+                        Opciones Avanzadas</button>
+                </div>
+              </div>
+
+              <table class="table table-hover mt-2">
+                <thead class="">
+                  <tr>
+                    <th scope="col" class="text-center"> </th>
+                    <th scope="col" class="text-center">ID</th>
+                    <th scope="col" class="text-center">Fecha y Hora</th>
+                    <th scope="col" class="text-center">Tipi de Alerta</th>
+                    <th scope="col" class="text-center">Mensaje</th>
+                    <th scope="col" class="text-center">Kiosko</th>
+                    <th scope="col" class="text-center">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <c:forEach items="${File}" var="dato">
+
+                  </c:forEach>
+                </tbody>
+              </table>
+            </article>
+                 <!--Fin de Seccion tabla 1 Historial de alertas -->
+                 
+                 <!--Seccion tabla 2 configuracion de medios de envio -->
+                 <article id="t22"> 
+                 
+                 </article>
+                 <!--Fin de Seccion tabla 2 configuracion de medios de envio -->
+                 
+                 <!--Seccion tabla 3 Configuracion de eventos -->
+                 <article id="t33"> 
+                 <table class="table table-hover mt-2">
+                <thead class="">
+                  <tr>
+                    <th scope="col" class="text-center"> </th>
+                    <th scope="col" class="text-center">ID</th>
+                    <th scope="col" class="text-center">Evento (Tipo de Alerta)</th>
+                    <th scope="col" class="text-center">Mensaje</th>
+                    <th scope="col" class="text-center">Activo</th>
+                    <th scope="col" class="text-center">Acciones</th>
+                  </tr>
+                </thead>
+                      </table>
+                     
+                 </article>
+                 <!--Fin de Seccion tabla 3 Configuracion de eventos -->
+                 
+                 <!--Seccion tabla 4 Asignacion de usuarios -->
+                 <article id="t44">
+                    
+              <div id="" class="">
+                <div class="form-check">
+                  <input class="form-check-input ml-4" type="checkbox" value="" id="cbGen" style="cursor:pointer;">
+                  <label class="form-check-label ml-4" for="cbGen">
+                    Seleccionar todos
+                  </label>
+                </div>
+                <div class="d-flex justify-content-end">
+                    <button type="button" name="button" class="btn btn-info" style="cursor:pointer;">
+                        <i class="fa fa-users"> </i>
+                        Asignar Elementos</button>  
+                </div>
+              </div>
+                      <table class="table table-hover mt-2">
+                <thead class="">
+                  <tr>
+                    <th scope="col" class="text-center"> </th>
+                    <th scope="col" class="text-center">ID</th>
+                    <th scope="col" class="text-center">Nombre Usuario</th>
+                    <th scope="col" class="text-center">Agencia</th>
+                    <th scope="col" class="text-center">Envio de Email</th>
+                    <th scope="col" class="text-center">Envio de SMS</th>
+                    <th scope="col" class="text-center">Acciones</th>
+                  </tr>
+                </thead>
+                      </table>
+                 </article>
+                 <!--Fin de Seccion tabla 4 Asignacion de usuarios -->
+                 
+             </section>
+             
+             
         </article>
         <article id="tab3">
 
