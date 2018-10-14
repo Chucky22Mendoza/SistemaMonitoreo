@@ -37,28 +37,39 @@
       <!-- Image and text -->
       <nav class="navbar navbar-light " style="background-color:#303a4c">
         <a class="navbar-brand text-center color-light " href="#" style="color:#fff">
+            
          <div class="card-body d-flex justify-content-between align-items-center">
             <img src="${logo}" width="200px" class="">
-          Sistema de Monitoreo y Publicidad
-          
-	<button type="button" name="button" class="btn btn-warning" style="cursor:pointer"><i class="fa fa-user-circle"></i> Nombre Usuario </button>
+               Sistema de Monitoreo y Publicidad 
+      
+  <div class="dropdown">
+  <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="cursor:pointer">
+    <i class="fa fa-user-circle"></i> Usuario 
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" href="#">Nombre Completo</a>
+    <a class="dropdown-item" href="#">Agencia y Rol</a>
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item" href="#">Cerrar Sesion</a>
+  </div>
+</div>
          </div>
         </a>
       </nav>
 
-      <!-- Inico de barra de Menú-->
+      <!-- Inico de barra de Menu-->
       <ul class="mt-5">
         <ul class="tabs col-sm-10">
-          <li><a href="#tab1" id="pestaña1"><span class="fas fa-desktop "></span> <span class="tab-text">Monitoreo de Kiosco</span></a></li>
-          <li><a href="#tab2" id="pestaña2"><span class="fas fa-exclamation-circle"></span> <span class="tab-text">Alertas</span></a></li>
-          <li><a href="#tab3" id="pestaña3"><span class="fas fa-play-circle"></span> <span class="tab-text">Publicidad</span></a></li>
+          <li><a href="#tab1" id="pestaï¿½a1"><span class="fas fa-desktop "></span> <span class="tab-text">Monitoreo de Kiosco</span></a></li>
+          <li><a href="#tab2" id="pestaï¿½a2"><span class="fas fa-exclamation-circle"></span> <span class="tab-text">Alertas</span></a></li>
+          <li><a href="#tab3" id="pestaï¿½a3"><span class="fas fa-play-circle"></span> <span class="tab-text">Publicidad</span></a></li>
         </ul>
       </ul>
-      <!--Fin de barra de Menú -->
+      <!--Fin de barra de Menï¿½ -->
       <section class="container secciones">
         <article id="tab1">
              <!-- Inico de barra de MenÃº Monitoreo de Kiosko-->
-   
+                  
         </article>
           
         <article id="tab2">
@@ -108,10 +119,10 @@
                  
                  <!--Seccion tabla 2 configuracion de medios de envio -->
                  <article id="t22"> 
-                 
+                           
                  </article>
                  <!--Fin de Seccion tabla 2 configuracion de medios de envio -->
-                 
+                        
                  <!--Seccion tabla 3 Configuracion de eventos -->
                  <article id="t33"> 
                  <table class="table table-hover mt-2">
@@ -168,15 +179,15 @@
         </article>
         <article id="tab3">
 
-          <!-- Inico de barra de Menú publicidad-->
+          <!-- Inico de barra de Menï¿½ publicidad-->
           <ul class="mt-5">
             <ul class="minitab d-flex justify-content-left">
               <li><a href="#t1" id="pest1"><span class="fas fa-file-archive "></span> <span class="tab-text">Archivos multimedia</span></a></li>
-              <li><a href="#t2" id="pest2"><span class="fas fa-list-ul"></span> <span class="tab-text">Listas de reproducción</span></a></li>
-              <li><a href="#t3" id="pest3"><span class="fas fa-tasks"></span> <span class="tab-text">Programación de listas</span></a></li>
+              <li><a href="#t2" id="pest2"><span class="fas fa-list-ul"></span> <span class="tab-text">Listas de reproduccion</span></a></li>
+              <li><a href="#t3" id="pest3"><span class="fas fa-tasks"></span> <span class="tab-text">Programacion de listas</span></a></li>
             </ul>
           </ul>
-          <!--Fin de barra de Menú publicidad-->
+          <!--Fin de barra de Menï¿½ publicidad-->
 
           <section class="secciones2">
               <!--Seccion de tabla 1- Archivos Multimedia-->
@@ -202,7 +213,7 @@
                     <th scope="col" class="text-center">ID</th>
                     <th scope="col" class="text-center">Nombre archivo</th>
                     <th scope="col" class="text-center">Tipo</th>
-                    <th scope="col" class="text-center">Duración (s)</th>
+                    <th scope="col" class="text-center">Duraciï¿½n (s)</th>
                     <th scope="col" class="text-center">Acciones</th>
                   </tr>
                 </thead>
@@ -339,7 +350,7 @@
       </section>
 
 
-      <!--SECCIÓN DE MODALES-->
+      <!--SECCIï¿½N DE MODALES-->
       <!-- MODAL EDITAR ARCHIVO-->
       <div class="modal fade" id="modalEditarArchivo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -378,7 +389,7 @@
                   <div id="bodyEdit">
                        <input id="file" type="file" name="file">
                          <div class="col-sm-12 row d-flex justify-content-start align-items-center mt-3 mb-2">
-                            <label for="duracion" class="col-sm-3 form-control-label">Duración:</label>
+                            <label for="duracion" class="col-sm-3 form-control-label">Duraciï¿½n:</label>
                             <input class="form-control col-sm-4" id="duracion" placeholder="Segundos" type="number" name="duracion" required="required" value="60" min="1">
                          </div>
                    </div>
@@ -416,7 +427,7 @@
       </div>
       <!-- FIN DEL MODAL BORRAR ARCHIVO -->
 
-      <!-- MODAL EDITAR LISTA DE REPRODUCCIÓN-->
+      <!-- MODAL EDITAR LISTA DE REPRODUCCIï¿½N-->
       <div class="modal fade" id="modalEditarLista" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
@@ -437,9 +448,9 @@
           </div>
         </div>
       </div>
-      <!-- FIN DEL MODAL EDITAR LISTA DE REPRODUCCIÓN -->
+      <!-- FIN DEL MODAL EDITAR LISTA DE REPRODUCCIï¿½N -->
 
-      <!-- MODAL BORRAR LISTA DE REPRODUCCIÓN-->
+      <!-- MODAL BORRAR LISTA DE REPRODUCCIï¿½N-->
       <div class="modal fade" id="modalBorrarLista" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
@@ -460,14 +471,14 @@
           </div>
         </div>
       </div>
-      <!-- FIN DEL MODAL LISTA DE REPRODUCCIÓN -->
+      <!-- FIN DEL MODAL LISTA DE REPRODUCCIï¿½N -->
 
-      <!-- MODAL NUEVA LISTA DE REPRODUCCIÓN -->
+      <!-- MODAL NUEVA LISTA DE REPRODUCCIï¿½N -->
       <div class="modal fade" id="modalNuevaLista" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <div id="titleModal"><h5 class="modal-title" id="titleName">Nueva lista de reproducción</h5></div>
+              <div id="titleModal"><h5 class="modal-title" id="titleName">Nueva lista de reproducciï¿½n</h5></div>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -477,11 +488,11 @@
                   <div id="bodyNuevaLista">
                        <div class="col-sm-12 row d-flex justify-content-center align-items-center mt-3">
                           <label for="nombreList" class="col-sm-2 form-control-label mr-2">Nombre:</label>
-                          <input class="form-control col-sm-8" id="nombreList" placeholder="Nombre de la lista de reproducción" type="text" name="nombreList" required="required">
+                          <input class="form-control col-sm-8" id="nombreList" placeholder="Nombre de la lista de reproducciï¿½n" type="text" name="nombreList" required="required">
                        </div>
                        <div class="col-sm-12 row d-flex justify-content-center align-items-center mt-3">
-                          <label for="descripcion" class="col-sm-3 form-control-label">Descripción:</label>
-                          <input class="form-control col-sm-8" id="descripcion" placeholder="Una pequeña descripción" type="text" name="descripcion" required="required">
+                          <label for="descripcion" class="col-sm-3 form-control-label">Descripciï¿½n:</label>
+                          <input class="form-control col-sm-8" id="descripcion" placeholder="Una pequeï¿½a descripciï¿½n" type="text" name="descripcion" required="required">
                        </div>'
                    </div>
                 </div>
@@ -493,9 +504,9 @@
           </div>
         </div>
       </div>
-      <!-- FIN DEL MODAL NUEVA LISTA DE REPRODUCCIÓN -->
+      <!-- FIN DEL MODAL NUEVA LISTA DE REPRODUCCIï¿½N -->
 
-      <!-- MODAL NUEVA LISTA DE REPRODUCCIÓN -->
+      <!-- MODAL NUEVA LISTA DE REPRODUCCIï¿½N -->
       <div class="modal fade" id="modalAgregarArchivos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
           <div class="modal-content">
@@ -520,7 +531,7 @@
                         <th scope="col" class="text-center">ID</th>
                         <th scope="col" class="text-center">Nombre archivo</th>
                         <th scope="col" class="text-center">Tipo</th>
-                        <th scope="col" class="text-center">Duración (s)</th>
+                        <th scope="col" class="text-center">Duraciï¿½n (s)</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -545,7 +556,7 @@
           </div>
         </div>
       </div>
-      <!-- FIN DEL MODAL NUEVA LISTA DE REPRODUCCIÓN -->
+      <!-- FIN DEL MODAL NUEVA LISTA DE REPRODUCCIï¿½N -->
 
     <script defer src="https://use.fontawesome.com/releases/v5.0.12/js/all.js" integrity="sha384-Voup2lBiiyZYkRto2XWqbzxHXwzcm4A5RfdfG6466bu5LqjwwrjXCMBQBLMWh7qR" crossorigin="anonymous"></script>
     <script src="${jquery}"></script>
