@@ -87,14 +87,28 @@
              <section class="secciones2">
                  <!--Seccion tabla 1 Historial de alertas -->
               <article id="t11">
-              <div id="" class="">
-                <div class="form-check">
                   
-                    <button type="button" name="button" class="btn btn-info" style="cursor:pointer;">
-                        <i class="fa fa-info"> </i>
-                        Opciones Avanzadas</button>
-                </div>
-              </div>
+                  <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-controls="collapseOne" style="cursor:pointer;">
+                      <i class="fa fa-info"> </i>      
+                      Opciones Avanzadas
+                     </button>
+                 
+                        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                                  <div class="card-body">
+                                           <form class="form-inline" action="">
+                                                 <div class="form-group">
+                                                      <label for="text"> Rango de Fechas desde el dia </label>
+                                                       <input type="text" class="form-control" id="calendario">
+                                                       <i class="fa fa-calendar" aria-hidden="true"> </i>  
+                                                  </div>
+                                                  
+                                              <button type="button" class="btn btn-info">Buscar <i class="fa fa-search"> </i>  </button>
+                                               
+                                           </form>
+                                 </div>
+                         </div> 
+                  
+                
 
               <table class="table table-hover mt-2">
                 <thead class="">
