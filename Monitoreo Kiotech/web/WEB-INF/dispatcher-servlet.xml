@@ -25,6 +25,16 @@
                 <prop key="home.htm">Controller_home</prop>
                 <prop key="login.htm">Controller_login</prop>
                 <prop key="error.htm">Controller_error</prop>
+                <!--Alertas-->
+                <prop key="asignar_usuario.htm">Controller_asignar_usuario</prop>
+                <prop key="eventos.htm">Controller_eventos</prop>
+                <prop key="historial.htm">Controller_historial</prop>
+                <prop key="medio_envio.htm">Controller_medio_envio</prop>
+                <!--Publicidad -->
+                <prop key="archivos.htm">Controller_archivos</prop>
+                <prop key="listas.htm">Controller_listas</prop>
+                <prop key="programacion.htm">Controller_programacion</prop>
+                
             </props>
         </property>
     </bean>
@@ -40,6 +50,18 @@
     <bean name="Controller_login" class="Controller.Controller_login" />
     <bean name="Controller_home" class="Controller.Controller_home" />
     <bean name="Controller_error" class="Controller.Controller_error" />
+    
+    <!--Alertas -->
+    <bean name="Controller_asignar_usuario" class="Controller.alertas.Controller_asignar_usuario" />
+    <bean name="Controller_eventos" class="Controller.alertas.Controller_eventos" />
+    <bean name="Controller_historial" class="Controller.alertas.Controller_historial" />
+    <bean name="Controller_medio_envio" class="Controller.alertas.Controller_medio_envio" />
+    
+    <!--Publicidad -->
+    <bean name="Controller_archivos" class="Controller.publicidad.Controller_archivos" />
+    <bean name="Controller_listas" class="Controller.publicidad.Controller_listas" />
+    <bean name="Controller_programacion" class="Controller.publicidad.Controller_programacion" />
+    
     <bean name="indexController"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           p:viewName="index" />

@@ -3,12 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controller;
+package Controller.publicidad;
 
 import Objects.Archivo;
-import Objects.ListaReproduccion;
 import getData.GetFile;
-import getData.GetPlayList;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,46 +22,39 @@ import org.springframework.web.servlet.ModelAndView;
  * @author Jesús Mendoza
  */
 @Controller
-public class Controller_home {
-    
-    //PÁGINA PRINCIPAL
-    @RequestMapping("home.htm")
-    public ModelAndView home(HttpServletRequest request, HttpServletResponse response) throws IOException{
-        try{
+public class Controller_programacion {
+    @RequestMapping("programacion.htm")
+    public ModelAndView archivos(HttpServletRequest request, HttpServletResponse response) throws IOException{
+         try{
             //VALIDAR EL ACCESO CON VARIABLES DE SESIÓN
             HttpSession session = request.getSession();
             String user = session.getAttribute("usuario").toString();
             String correo = session.getAttribute("correo").toString();
             String agencia = session.getAttribute("agencia").toString();            
-            System.err.println("USUARIO " + user + " CORREO " + correo + " AGENCIA " + agencia);
+            //System.err.println("USUARIO " + user + " CORREO " + correo + " AGENCIA " + agencia);
             
             //OBTENEMOS LOS ARCHIVOS DE LA BASE DE DATOS Y LOS GUARDAMOS EN UN ARRAY TIPO ARCHIVO
             List<Archivo> archivo = new ArrayList<>();
-            List<ListaReproduccion> lista = new ArrayList<>();
+            
             
             //MÉTODO QUE RETORNA UNA LISTA TIPO ARCHIVO
             archivo =new GetFile().obtenerArchivo();
-            lista = new GetPlayList().obtenerPlayLists();
+            
             //NUEVA VISTA
             ModelAndView mav = new ModelAndView();
             
             //PASAMOS EL ARRAY A LA VISTA
             mav.addObject("File", archivo);
-            mav.addObject("List", lista);
             
             //ACCEDEMOS A HOME
-            mav.setViewName("home");
+            mav.setViewName("publicidad/programacion_listas");
             
             return mav;
             
         }catch(Exception e){
             System.err.println("ERROR INTENTANDO INICIAR SESIÓN");
-            return new ModelAndView("/");
+            return new ModelAndView("error");
         }
         
-    }        
+    }
 }
-
-
-
-

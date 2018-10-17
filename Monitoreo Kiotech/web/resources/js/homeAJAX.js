@@ -30,8 +30,8 @@
         setTimeout(function(){
 
           //Update tabla en lugar de refresh y cerrar modal
-          window.location.assign("home.htm");
-        }, 2000);
+          window.location.assign("archivos.htm");
+        }, 1200);
       }
     });
     return false;
@@ -76,6 +76,11 @@
         removeSpinner();
         $("#modalNuevoArchivo").modal('hide');
         alertify.success("Guardado correctamente");
+        //TIEMPO DE ESPERA DEL AVISO
+        setTimeout(function(){
+          //Update tabla en lugar de refresh y cerrar modal
+          window.location.assign("archivos.htm");
+        }, 1200);
         //console.log(data);
       },//ERROR
       error: function(data){
@@ -126,8 +131,8 @@
         //TIEMPO DE ESPERA DEL AVISO
         setTimeout(function(){
           //Update tabla en lugar de refresh y cerrar modal
-          window.location.assign("home.htm");
-        }, 2000);
+          window.location.assign("archivos.htm");
+        }, 1200);
       }
     });
     return false;
@@ -168,8 +173,8 @@
           setTimeout(function(){
 
             //Update tabla en lugar de refresh y cerrar modal
-            window.location.assign("home.htm");
-          }, 2000);
+            window.location.assign("listas.htm");
+          }, 1200);
 
         }
       });
@@ -206,8 +211,8 @@
           //TIEMPO DE ESPERA DEL AVISO
           setTimeout(function(){
             //Update tabla en lugar de refresh y cerrar modal
-            window.location.assign("home.htm");
-          }, 2000);
+            window.location.assign("listas.htm");
+          }, 1200);
         }
       });
       return false;
@@ -244,8 +249,8 @@
           //TIEMPO DE ESPERA DEL AVISO
           setTimeout(function(){
             //Update tabla en lugar de refresh y cerrar modal
-            window.location.assign("home.htm");
-          }, 2000);
+            window.location.assign("listas.htm");
+          }, 1200);
         }
       });
       return false;

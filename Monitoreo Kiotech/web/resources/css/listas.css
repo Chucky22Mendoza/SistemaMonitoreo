@@ -1,0 +1,25 @@
+/*
+Colores
+naranja: #f58003
+naranja2: #c96800
+azul: #015678
+azul2: #02445e
+fondo: #303a4c
+rojo: #ca2942
+*/
+
+.ico-edit{
+  cursor: pointer;
+  list-style: none;
+  color:#000;
+}
+.icono:hover{
+  cursor: pointer;
+  list-style: none;
+  color:#B3B3B3;
+}
+.ico-del{
+  cursor: pointer;
+  list-style: none;
+  color:#000;
+}
