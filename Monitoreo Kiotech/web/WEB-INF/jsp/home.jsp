@@ -130,7 +130,7 @@
                     <th scope="col" class="text-center"> </th>
                     <th scope="col" class="text-center">ID</th>
                     <th scope="col" class="text-center">Fecha y Hora</th>
-                    <th scope="col" class="text-center">Tipi de Alerta</th>
+                    <th scope="col" class="text-center">Tipo de Alerta</th>
                     <th scope="col" class="text-center">Mensaje</th>
                     <th scope="col" class="text-center">Kiosko</th>
                     <th scope="col" class="text-center">Acciones</th>

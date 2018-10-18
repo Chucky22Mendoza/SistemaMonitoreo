@@ -98,7 +98,7 @@
               <th scope="col" class="text-center">ID</th>
               <th scope="col" class="text-center">Nombre archivo</th>
               <th scope="col" class="text-center">Tipo</th>
-              <th scope="col" class="text-center">Duraci�n (s)</th>
+              <th scope="col" class="text-center">Duracion (s)</th>
               <th scope="col" class="text-center">Acciones</th>
             </tr>
           </thead>
