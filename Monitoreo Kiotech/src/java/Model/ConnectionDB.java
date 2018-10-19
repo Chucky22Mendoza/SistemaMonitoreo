@@ -20,7 +20,7 @@ public class ConnectionDB {
         //DS.setUrl("jdbc:postgresql://localhost:5433/Publicidad");
         DS.setUsername("postgres");
         //DS.setPassword("1522");
-        DS.setPassword("21octubre97");
+        DS.setPassword("123");
         return DS;
 
     }

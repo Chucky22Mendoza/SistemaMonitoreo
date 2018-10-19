@@ -9296,6 +9296,14 @@ a.text-gray-dark:focus, a.text-gray-dark:hover {
   display: none !important;
 }
 
+.sinpadding {
+  padding: 0;
+}
+
+.sinmargin {
+  margin: 0;
+}
+
 @media print {
   .visible-print-inline {
     display: inline !important;
