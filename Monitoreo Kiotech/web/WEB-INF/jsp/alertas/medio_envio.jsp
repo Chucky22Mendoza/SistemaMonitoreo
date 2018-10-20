@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Document   : medio_envio
     Created on : 15/10/2018, 06:24:40 PM
     Author     : Jesús Mendoza
@@ -12,7 +12,7 @@
 <html>
     <head>
         <spring:url value="/resources/js/jquery.js" var="jquery" />
-        
+
         <spring:url value="/resources/js/home.js" var="homeJS" />
         <spring:url value="/resources/js/menu.js" var="menuJS" />
         <spring:url value="/resources/css/home.css" var="homeCSS" />
@@ -42,52 +42,255 @@
     </head>
     <body>
 
-      <!-- Menú lateral -->
-      <div id="sidebar" class="sidebar collapse ">
-        <h4>Menú <span id="cerrarMenu" class=""><i class="fas fa-chevron-left"></i></span></h4>
-        <ul class="menu">
-          <li><a id="menuMonitoreo" class="" href="<c:url value='home.htm' />"><i class="icono izquierda fas fa-desktop"></i> Monitoreo de Kioscos</a></li>
-          <li><a id="menuAlertas" class="" href="#"><i class="icono izquierda fas fa-exclamation-circle"></i> Alertas <i class="icono derecha fas fa-chevron-down"></i></a>
-            <ul>
+      <header>
+        <div class="container-fluid sinmargin sinpadding">
+          <div class="row">
+            <!--Primera Columna-->
+            <div class="col-4">
+              <!-- Menú lateral -->
+              <div id="sidebar" class="sidebar collapse ">
+                <h4>Menú <span id="cerrarMenu" class=""><i class="fas fa-chevron-left"></i></span></h4>
+                <ul class="menu">
+                  <li><a id="menuMonitoreo" class="" href="<c:url value='home.htm' />"><i class="icono izquierda fas fa-desktop"></i> Monitoreo de Kioscos</a></li>
+                  <li><a id="menuAlertas" class="" href="#"><i class="icono izquierda fas fa-exclamation-circle"></i> Alertas <i class="icono derecha fas fa-chevron-down"></i></a>
+                    <ul>
 
-                <li><a id="historial" class="" href="<c:url value='historial.htm' />"><i class="icono izquierda fa fa-history"></i> Historial de alertas</a></li>
-                <li><a id="configEnvio" class="" href="<c:url value='medio_envio.htm' />"><i class="icono izquierda fas fa-truck"></i> Medio de envío</a></li>
-                <li><a id="configEvento" class="" href="<c:url value='eventos.htm' />"><i class="icono izquierda fas fa-calendar-alt"></i> Config. de eventos</a></li>
-                <li><a id="usuarios" class="" href="<c:url value='asignar_usuario.htm' />"><i class="icono izquierda fas fa-user-plus"></i> Asignación de usuarios</a></li>
+                        <li><a id="historial" class="" href="<c:url value='historial.htm' />"><i class="icono izquierda fa fa-history"></i> Historial de alertas</a></li>
+                        <li><a id="configEnvio" class="" href="<c:url value='medio_envio.htm' />"><i class="icono izquierda fas fa-truck"></i> Medio de envío</a></li>
+                        <li><a id="configEvento" class="" href="<c:url value='eventos.htm' />"><i class="icono izquierda fas fa-calendar-alt"></i> Config. de eventos</a></li>
+                        <li><a id="usuarios" class="" href="<c:url value='asignar_usuario.htm' />"><i class="icono izquierda fas fa-user-plus"></i> Asignación de usuarios</a></li>
 
-            </ul>
-          </li>
-          <li><a id="menuPublicidad" class="" href="#"><i class="icono izquierda fas fa-play-circle"></i> Publicidad <i class="icono derecha fas fa-chevron-down"></i> </a>
-            <ul>
+                    </ul>
+                  </li>
+                  <li><a id="menuPublicidad" class="" href="#"><i class="icono izquierda fas fa-play-circle"></i> Publicidad <i class="icono derecha fas fa-chevron-down"></i> </a>
+                    <ul>
 
-                <li><a id="archivosMultimedia" class="" href="<c:url value='archivos.htm' />"><i class="icono izquierda fas fa-file-archive"></i> Archivos multimedia</a></li>
-                <li><a id="listasReproduccion" class="" href="<c:url value='listas.htm' />"><i class="icono izquierda fas fa-list-ul"></i> Listas de reproduccion</a></li>
-                <li><a id="programacionListas" class="" href="<c:url value='programacion.htm' />"><i class="icono izquierda fas fa-tasks"></i> Programación de listas</a></li>
+                        <li><a id="archivosMultimedia" class="" href="<c:url value='archivos.htm' />"><i class="icono izquierda fas fa-file-archive"></i> Archivos multimedia</a></li>
+                        <li><a id="listasReproduccion" class="" href="<c:url value='listas.htm' />"><i class="icono izquierda fas fa-list-ul"></i> Listas de reproduccion</a></li>
+                        <li><a id="programacionListas" class="" href="<c:url value='programacion.htm' />"><i class="icono izquierda fas fa-tasks"></i> Programación de listas</a></li>
 
-            </ul>
-          </li>
-          <li><a id="salir" class="" href="<c:url value='archivos.htm' />"><i class=" icono izquierda fas fa-sign-out-alt "></i> Cerrar Sesión</a></li>
-        </ul>
+                    </ul>
+                  </li>
+                  <li><a id="salir" class="" href="<c:url value='archivos.htm' />"><i class=" icono izquierda fas fa-sign-out-alt "></i> Cerrar Sesión</a></li>
+                </ul>
 
-        <div class="userCar text-center mt-1">
-          <img  src="${userIMG}" height="50px" class="navb" alt="">
-          <p>Bienvenido<br>${usuario}</p>
-          <p>Agencia: ${agencia}</p>
-          <img src="${logo}" width="200" class="navb mt-1" alt="">
+                <div class="userCar text-center mt-1">
+                  <img  src="${userIMG}" height="50px" class="navb" alt="">
+                  <p>Bienvenido<br>${usuario}</p>
+                  <p>Agencia: ${agencia}</p>
+                  <img src="${logo}" width="200" class="navb mt-1" alt="">
+                </div>
+              </div>
+
+              <div class="contenido">
+                <span id="abrirMenu"><i class="fas fa-list-ul"></i></span>
+              </div>
+            </div>
+
+            <!--Segunda Columna-->
+            <div class="col-4 float-right mt-3">
+              <h2 class="text-center">Medios de Envio</h2>
+            </div>
+
+            <!--Tercera Columna-->
+            <!--Desplegable del nombre del usuario en pantalla-->
+            <div class="col-4 mt-2 sinmargin sinpadding float-right">
+              <div class="col-2">
+                <div class="userCar">
+                  <img  src="${userIMG}" height="50px" class="navb" alt="">
+                </div>
+              </div>
+              <div class="col-2">
+                <div class="btn-group">
+                  <button type="button" class="btn bg-transparent disabled">${usuario}</button>
+                  <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="sr-only"></span>
+                  </button>
+                  <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Nombre Completo</a>
+                    <a class="dropdown-item" href="#">Rol y Agencia</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Cerrar Sesión</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+      </header>
+
+      <!--Sección del formulario del servidor y SMS-->
+      <section>
+        <div class="container mt-4">
+          <div class="row">
+            <div class="col-7">
+              <h5>Servidor de Correos</h5> <hr>
+              <div class="container">
+                <h5 class="mt-3">Configuración</h5><hr>
+                <div class="conteiner">
+                  <div class="row">
+                    <div class="col-md-8">
+                      <form class="form-vertical">
+                        <div class="form-group">
+                          <div class="input-group">
+                            <label class="mr-3">Servidor SMTP:</label>
+                            <input type="text" class="form-control" placeholder="mail.dominio.com.mx">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <div class="input-group">
+                            <label class="mr-3">Usuario:</label>
+                            <input type="email" class="form-control" placeholder="correo@dominio.com.mx">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <div class="input-group">
+                            <label class="mr-3">Contraseña:</label>
+                            <input type="password" class="form-control" placeholder="Password">
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <div class="input-group">
+                          <label class="mr-3">Puerto:</label>
+                          <input type="number" class="form-control" placeholder="8080">
+                        </div>
+                      </div>
+                      <div class="input-group">
+                        <label class="mr-3">Seguridad:</label>
+                        <div class="input-group-append">
+                          <button class="btn btn-outline-black dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">TLS</button>
+                          <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#">TLS</a>
+                            <a class="dropdown-item" href="#">SSL</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+              </div>
 
 
-      </div>
-      <div class="contenido">
-        <span id="abrirMenu"><i class="fas fa-list-ul"></i></span>
-      </div>
-      <!-- Menú lateral -->
-   
-           <div class="container">
-        <h2 class="text-center pt-5">Medio de Envio</h2>
-           </div>
-      
-      
+
+              <div class="container">
+                <div class="row">
+                  <!--Aquí va el Spinner de guardando configuración-->
+                  <div class="col-md-9">
+                    <p class="text-center">Guardando Configuración</p>
+                  </div>
+                  <div class="col-md-2">
+                    <button type="button" class="btn btn-success">Guardar</button>
+                  </div>
+                </div>
+              </div>
+
+              <br>
+
+              <div class="container">
+                <h5 class="mt-2">Probar Configuración</h5><hr>
+                <div class="container">
+                  <div class="row">
+                    <div class="col-md-9">
+                      <form class="form-vertical">
+                        <div class="form-group">
+                          <div class="input-group">
+                            <label class="mr-3">Mensaje:</label>
+                            <input type="text" class="form-control" placeholder="Aquí va tu mensaje">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <div class="input-group">
+                            <label class="mr-3">Correo:</label>
+                            <input type="email" class="form-control" placeholder="correo@dominio.com.mx">
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                    <div class="col-md-3">
+                      <button class="btn btn-info mt-4" type="button">Enviar Prueba</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <hr>
+
+              <!--Aquí va el Spinner de carga-->
+              <div class="container">
+                <p class="text-center">Enviando correo</p>
+              </div>
+
+            </div>
+            <div class="col-5">
+              <h5>Tarjeta SMS</h5> <hr>
+              <div class="container">
+                <h5>Configuración</h5><hr>
+                <div class="conteiner">
+                  <div class="row">
+                    <div class="col-md-10">
+                      <div class="input-group">
+                        <label class="mr-3">Puerto:</label>
+                        <div class="input-group-append">
+                          <button class="btn btn-outline-black dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">COM1</button>
+                          <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#">COM1</a>
+                            <a class="dropdown-item" href="#">COM2</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                      <button class="btn btn-success" type="button" >Guardar</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <hr>
+
+                <!--Aquí va el Spinner-->
+              <p class="text-center">Guardando Configuración</p>
+
+              <div class="container">
+                <h5 class="mt-5">Probar Configuración</h5><hr>
+                <div class="form-group">
+                  <div class="input-group">
+                    <label class="mr-3">Mensaje:</label>
+                    <input type="text" class="form-control" placeholder="Aquí va tu mensaje">
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-9">
+                    <div class="form-group">
+                      <div class="input-group">
+                        <label class="mr-3">Celular:</label>
+                        <input type="text" class="form-control" placeholder="3122345678">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <button type="button" class="btn btn-info mt-0">Enviar Prueba</button>
+                  </div>
+                </div>
+                <hr>
+              </div>
+
+              <!--Aquí va el Spinner de carga-->
+              <div class="container">
+                <p class="text-center">Enviando correo</p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+
       <script defer src="https://use.fontawesome.com/releases/v5.0.12/js/all.js" integrity="sha384-Voup2lBiiyZYkRto2XWqbzxHXwzcm4A5RfdfG6466bu5LqjwwrjXCMBQBLMWh7qR" crossorigin="anonymous"></script>
       <script src="${jquery}"></script>
       <script src="${btJS}"></script>
