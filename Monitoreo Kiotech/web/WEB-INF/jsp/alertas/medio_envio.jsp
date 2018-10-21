@@ -160,13 +160,11 @@
                       </div>
                       <div class="input-group">
                         <label class="mr-3">Seguridad:</label>
-                        <div class="input-group-append">
-                          <button class="btn btn-outline-black dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">TLS</button>
-                          <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">TLS</a>
-                            <a class="dropdown-item" href="#">SSL</a>
-                          </div>
-                        </div>
+                        <select class="custom-select" id="inputGroupSelect01">
+                          <option selected>----</option>
+                          <option value="1">TLS</option>
+                          <option value="2">SSL</option>
+                        </select>
                       </div>
                     </div>
                   </div>
@@ -234,13 +232,11 @@
                     <div class="col-md-10">
                       <div class="input-group">
                         <label class="mr-3">Puerto:</label>
-                        <div class="input-group-append">
-                          <button class="btn btn-outline-black dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">COM1</button>
-                          <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">COM1</a>
-                            <a class="dropdown-item" href="#">COM2</a>
-                          </div>
-                        </div>
+                        <select class="custom-select" id="inputGroupSelect01">
+                          <option selected>----</option>
+                          <option value="1">COM1</option>
+                          <option value="2">COM2</option>
+                        </select>
                       </div>
                     </div>
                     <div class="col-md-2">
