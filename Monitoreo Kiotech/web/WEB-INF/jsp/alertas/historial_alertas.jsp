@@ -179,7 +179,22 @@
                 </thead>
                 <tbody>
                   <c:forEach items="${File}" var="dato">
-
+                    <tr>
+                      <td class="text-center"><input type="checkbox" class="mt-1 cbSelec" name="cbSelec" style="cursor:pointer;"></td>                  
+                      <td class="text-center">${dato.id}</td>
+                      <td class="text-center">${dato.duracion}</td>
+                      <td class="text-center">${dato.tipo}</td>
+                      <td class="text-center">${dato.nombre}</td>
+                      <td class="text-center">${dato.id}</td>
+                      <td class="text-center">
+                        <a id="${dato.id}" name="${dato.nombre}" value="${dato.nombre}-${dato.tipo}-${dato.duracion}" class="ico-edit" data-toggle="modal" data-target="#modalEditarArchivo">
+                          <i class="fas fa-edit icono"></i>
+                        </a>
+                        <a id="${dato.id}" name="${dato.nombre}"  class="ico-del">
+                          <i class="fas fa-trash-alt icono"></i>
+                        </a>
+                      </td>
+                    </tr>
                   </c:forEach>
                 </tbody>
               </table>
