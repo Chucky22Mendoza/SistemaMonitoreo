@@ -88,7 +88,7 @@
         </div>
 
         <div class="row col-12">
-          <table class="table-sm table-hover table-bordered mt-2 col-sm-5">
+          <table class="table-sm table-hover table-bordered mt-2 col-sm-4">
             <thead class="">
               <tr>
                 <th scope="col" class="text-center"> </th>
@@ -113,7 +113,7 @@
             </tbody>
           </table>
 
-          <div class="col-sm-7">
+          <div class="col-sm-8">
             <h4 id="kioscoListas"></h4>
             <div class="d-flex justify-content-end">
               <button type="button" name="button" class="btn btn-danger" style="cursor:pointer;" ><i class="fas fa-ban"></i> Eliminar</button>
@@ -132,7 +132,7 @@
               <thead class="">
                 <tr>
                   <th scope="col" class="text-center"> </th>
-                  <th scope="col" class="text-center">Listas de reproducción</th>
+                  <th scope="col" class="text-center">Lista de reproducción</th>
                   <th scope="col" class="text-center">Hora de inicio</th>
                   <th scope="col" class="text-center">D</th>
                   <th scope="col" class="text-center">L</th>
@@ -141,6 +141,7 @@
                   <th scope="col" class="text-center">J</th>
                   <th scope="col" class="text-center">V</th>
                   <th scope="col" class="text-center">S</th>
+                  <th scope="col" class="text-center">Acciones</th>
                 </tr>
               </thead>
               <tbody>
@@ -155,6 +156,11 @@
                     <td class="text-center"><input id="J" type="checkbox" class="mt-1 cbSelec" name="cbSelec" style="cursor:pointer;"></td>
                     <td class="text-center"><input id="V" type="checkbox" class="mt-1 cbSelec" name="cbSelec" style="cursor:pointer;"></td>
                     <td class="text-center"><input id="S" type="checkbox" class="mt-1 cbSelec" name="cbSelec" style="cursor:pointer;"></td>
+                    <td class="text-center">
+                      <a id="${dato.id}" name="${dato.nombre}" value="${dato.nombre}-${dato.tipo}-${dato.duracion}" class="ico-edit" data-toggle="modal" data-target="#modalEditarArchivo">
+                        <i class="fas fa-edit icono"></i>
+                      </a>
+                    </td>
                   </tr>
               </tbody>
             </table>

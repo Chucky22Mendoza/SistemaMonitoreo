@@ -6,6 +6,8 @@
 package Controller.alertas;
 
 import Objects.Archivo;
+import Objects.Historial;
+import getData.GetAlerts;
 import getData.GetFile;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -34,16 +36,17 @@ public class Controller_historial {
             //System.err.println("USUARIO " + user + " CORREO " + correo + " AGENCIA " + agencia);
 
             //OBTENEMOS LOS ARCHIVOS DE LA BASE DE DATOS Y LOS GUARDAMOS EN UN ARRAY TIPO ARCHIVO
-            List<Archivo> archivo = new ArrayList<>();
+            List<Historial> historial = new ArrayList<>();
 
             //MÉTODO QUE RETORNA UNA LISTA TIPO ARCHIVO
-            archivo =new GetFile().obtenerArchivo();
-
+            historial =new GetAlerts().obtenerAlertas();
+            
+            //System.err.println(historial.get(0));
             //NUEVA VISTA
             ModelAndView mav = new ModelAndView();
 
             //PASAMOS EL ARRAY A LA VISTA
-            mav.addObject("File", archivo);
+            mav.addObject("historial", historial);
 
             //ACCEDEMOS A HOME
             mav.setViewName("alertas/historial_alertas");

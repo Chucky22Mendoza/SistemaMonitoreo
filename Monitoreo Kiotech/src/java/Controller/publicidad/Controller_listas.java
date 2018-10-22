@@ -45,14 +45,17 @@ public class Controller_listas {
             
             //OBTENEMOS LOS ARCHIVOS DE LA BASE DE DATOS Y LOS GUARDAMOS EN UN ARRAY TIPO ARCHIVO
             List<ListaReproduccion> lista = new ArrayList<>();
+            List<Archivo> archivo = new ArrayList<>();
             
             //MÉTODO QUE RETORNA UNA LISTA TIPO ARCHIVO
             lista = new GetPlayList().obtenerPlayLists();
+            archivo =new GetFile().obtenerArchivo();
             //NUEVA VISTA
             ModelAndView mav = new ModelAndView();
             
             //PASAMOS EL ARRAY A LA VISTA
             mav.addObject("List", lista);
+            mav.addObject("File", archivo);
             
             //ACCEDEMOS A HOME
             mav.setViewName("publicidad/listas_reproduccion");

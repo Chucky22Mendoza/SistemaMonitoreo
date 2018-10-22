@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Document   : configuracion_eventos
     Created on : 15/10/2018, 06:25:02 PM
     Author     : Jesús Mendoza
@@ -11,7 +11,7 @@
 <html>
     <head>
       <spring:url value="/resources/js/jquery.js" var="jquery" />
-      
+
       <spring:url value="/resources/js/archivos.js" var="archivosJS" />
       <spring:url value="/resources/js/menu.js" var="menuJS" />
       <spring:url value="/resources/css/archivos.css" var="archivosCSS" />
@@ -81,24 +81,68 @@
         <span id="abrirMenu"><i class="fas fa-list-ul"></i></span>
       </div>
       <!-- Menú lateral -->
-        
-           <div class="container">
+
+      <div class="container">
         <h2 class="text-center pt-5">Configuracion de Eventos</h2>
         <table class="table table-hover mt-2">
-                <thead class="">
-                  <tr>
-                    <th scope="col" class="text-center"> </th>
-                    <th scope="col" class="text-center">ID</th>
-                    <th scope="col" class="text-center">Evento (Tipo de Alerta)</th>
-                    <th scope="col" class="text-center">Mensaje</th>
-                    <th scope="col" class="text-center">Activo</th>
-                    <th scope="col" class="text-center">Acciones</th>
-                  </tr>
-                </thead>
-                      </table>
-           </div>
-      
-      
+          <thead class="">
+            <tr>
+              <th scope="col" class="text-center">ID</th>
+              <th scope="col" class="text-center">Evento (Tipo de Alerta)</th>
+              <th scope="col" class="text-center">Mensaje</th>
+              <th scope="col" class="text-center">Activo</th>
+              <th scope="col" class="text-center">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <c:forEach items="${evento}" var="dato">
+              <c:set var="activo" value="${dato.activo}"></c:set>
+              <tr>
+                <td class="text-center">${dato.id}</td>
+                <td class="text-center">${dato.nombre}</td>
+                <td class="text-center">${dato.mensaje}</td>
+                <c:if test="${activo == true}">
+                  <td class="text-center"><input type="checkbox" class="mt-1 cbSelec" name="cbSelec" disabled="disabled" checked></td>
+                </c:if>
+                <c:if test="${activo == false}">
+                  <td class="text-center"><input type="checkbox" class="mt-1 cbSelec" name="cbSelec" disabled="disabled"></td>
+                </c:if>
+                <td class="text-center">
+                  <a id="${dato.id}" name="${dato.nombre}" value="${dato.nombre}-${dato.mensaje}-${dato.activo}" class="ico-conf" data-toggle="modal" data-target="#modalMinFolios">
+                    Configurar <i class="fas fa-cog icono"></i>
+                  </a>
+                </td>
+              </tr>
+            </c:forEach>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- MODAL BORRAR LISTA DE REPRODUCCI�N-->
+      <div class="modal fade" id="modalMinFolios" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <div id="titleModalMinFolios"> <h2 class="text-center">Configuración de Evento 12</h2></div>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+                <div id="modal-bodyMinFolios" class="modal-body row mt-5 mb-5 d-flex justify-content-center">
+                  <label for="folios" class="form-control-label col-sm-6">Cantidad Mínima de Folios: </label>
+                  <input id="folios" class="form-control col-sm-3" type="number" class="form-input ml-2" name="" value="10" min="5">
+                </div>
+                <div class="modal-footer">
+                  <form id="DelMinFolios">
+                    <a id="btnMinFolios" class="btn btn-warning ml-2"><i class="fas fa-trash-alt"></i> Aceptar</a>
+                  </form>
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                </div>
+          </div>
+        </div>
+      </div>
+      <!-- FIN DEL MODAL LISTA DE REPRODUCCI�N -->
+
       <script defer src="https://use.fontawesome.com/releases/v5.0.12/js/all.js" integrity="sha384-Voup2lBiiyZYkRto2XWqbzxHXwzcm4A5RfdfG6466bu5LqjwwrjXCMBQBLMWh7qR" crossorigin="anonymous"></script>
       <script src="${jquery}"></script>
       <script src="${btJS}"></script>

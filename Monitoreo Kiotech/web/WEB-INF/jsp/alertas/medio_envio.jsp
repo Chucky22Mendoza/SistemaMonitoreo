@@ -93,28 +93,7 @@
             </div>
 
             <!--Tercera Columna-->
-            <!--Desplegable del nombre del usuario en pantalla-->
-            <div class="col-4 mt-2 sinmargin sinpadding float-right">
-              <div class="col-2">
-                <div class="userCar">
-                  <img  src="${userIMG}" height="50px" class="navb" alt="">
-                </div>
-              </div>
-              <div class="col-2">
-                <div class="btn-group">
-                  <button type="button" class="btn bg-transparent disabled">${usuario}</button>
-                  <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="sr-only"></span>
-                  </button>
-                  <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">Nombre Completo</a>
-                    <a class="dropdown-item" href="#">Rol y Agencia</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Cerrar Sesión</a>
-                  </div>
-                </div>
-              </div>
-            </div>
+            
           </div>
         </div>
       </header>

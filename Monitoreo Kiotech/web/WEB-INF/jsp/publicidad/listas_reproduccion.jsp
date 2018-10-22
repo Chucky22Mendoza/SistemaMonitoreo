@@ -236,8 +236,8 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <c:forEach items="${File}" var="dato">
 
+                      <c:forEach items="${File}" var="dato">
                         <tr>
                           <td class="text-center"><input type="checkbox" class="mt-1 cbSelec" name="cbSelec" style="cursor:pointer;"></td>
                           <td class="text-center">${dato.id}</td>
@@ -245,6 +245,7 @@
                           <td class="text-center">${dato.tipo}</td>
                           <td class="text-center">${dato.duracion}</td>
                         </tr>
+                        
                       </c:forEach>
                     </tbody>
                   </table>

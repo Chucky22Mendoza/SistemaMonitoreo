@@ -12,8 +12,7 @@
 <html>
     <head>
         <spring:url value="/resources/js/jquery.js" var="jquery" />
-
-        <spring:url value="/resources/js/home.js" var="homeJS" />
+        <spring:url value="/resources/js/historial_alertas.js" var="haJS" />
         <spring:url value="/resources/js/menu.js" var="menuJS" />
         <spring:url value="/resources/css/home.css" var="homeCSS" />
         <spring:url value="/resources/images/logo.png" var="logo" />
@@ -132,20 +131,20 @@
                           <!--Segunda linea de llenado de información-->
                           <div class="form-group mt-3">
                             <label for="text" class="mr-1">Tipo de alerta:</label>
-                            <select class="custom-select mr-5" id="inputGroupSelect01">
+                            <select class="custom-select mr-4" id="inputGroupSelect01">
                               <option selected>-------------</option>
                               <option value="1">Todas</option>
                               <option value="2">Desconexión o falla en dispositivo</option>
                             </select>
                             <label for="text" class="mr-1">Usuario:</label>
-                            <select class="custom-select mr-5" id="inputGroupSelect01">
+                            <select class="custom-select mr-4" id="inputGroupSelect01">
                               <option selected>----------</option>
                               <option value="1">Todos</option>
                               <!--Aquí debe de buscar a todos los usuarios-->
                               <option value="2">${usuario}</option>
                             </select>
                             <label for="text" class="mr-1">Kiosco:</label>
-                            <select class="custom-select mr-5" id="inputGroupSelect01">
+                            <select class="custom-select mr-4" id="inputGroupSelect01">
                               <option selected>----------</option>
                               <option value="1">Todos</option>
                               <!--Aquí debe buscar todos los kioscos activos-->
@@ -155,7 +154,7 @@
                        </div>
                        <!--Columna para el botón-->
                        <div class="col-md-1">
-                         <button type="button" class="btn btn-info mt-4">Buscar <i class="fa fa-search"> </i></button>
+                         <button type="button" class="btn btn-info mt-5">Buscar <i class="fa fa-search"> </i></button>
                        </div>
                      </div>
                  </form>
@@ -178,23 +177,25 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <c:forEach items="${File}" var="dato">
+                  <c:set var="contador" value="${0}"></c:set>
+                  <c:forEach items="${historial}" var="dato">
+                      <c:set var="contador" value="${contador+1}"></c:set>
+                      <!--<c:out value="${contador}"></c:out>-->
+                    <c:if test = "${contador <=  8}">
                     <tr>
-                      <td class="text-center"><input type="checkbox" class="mt-1 cbSelec" name="cbSelec" style="cursor:pointer;"></td>                  
+                      <td class="text-center"><input type="checkbox" class="mt-1 cbSelec" name="cbSelec" style="cursor:pointer;"></td>
                       <td class="text-center">${dato.id}</td>
-                      <td class="text-center">${dato.duracion}</td>
-                      <td class="text-center">${dato.tipo}</td>
-                      <td class="text-center">${dato.nombre}</td>
-                      <td class="text-center">${dato.id}</td>
+                      <td class="text-center">${dato.fechaHora}</td>
+                      <td class="text-center">${dato.tipoAlerta}</td>
+                      <td class="text-center">${dato.mensaje}</td>
+                      <td class="text-center">${dato.kiosco}</td>
                       <td class="text-center">
-                        <a id="${dato.id}" name="${dato.nombre}" value="${dato.nombre}-${dato.tipo}-${dato.duracion}" class="ico-edit" data-toggle="modal" data-target="#modalEditarArchivo">
-                          <i class="fas fa-edit icono"></i>
-                        </a>
-                        <a id="${dato.id}" name="${dato.nombre}"  class="ico-del">
-                          <i class="fas fa-trash-alt icono"></i>
+                        <a id="${dato.id}" name="${dato.mensaje}" value="${dato.fechaHora}/${dato.tipoAlerta}/${dato.mensaje}/${dato.kiosco}" class="ico-detalles" title="Detalles">
+                          <i class="far fa-eye icono"></i>
                         </a>
                       </td>
                     </tr>
+                    </c:if>
                   </c:forEach>
                 </tbody>
               </table>
@@ -205,7 +206,7 @@
       <script src="${btJS}"></script>
       <script src="${alertifyJS}"></script>
       <script src="${spinnerJS}"></script>
-      <script src="${programacionJS}"></script>
+      <script src="${haJS}"></script>
       <script src="${menuJS}"></script>
       <script src="${AJAX}"></script>
     </body>

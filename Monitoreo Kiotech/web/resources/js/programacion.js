@@ -15,7 +15,7 @@ $(document).ready(function(){
 
 
     $('#kioscoListas').html('Listas de reproducción programadas de ' + nombre);
-    $('#nombreLista').html(name);
+    $('#nombreLista').html('Lista de reproduccion 2');
     $('#horaInicio').html('12:30:00 hrs');
     $('#D').prop('checked',true);
     $('#Ma').prop('checked',true);

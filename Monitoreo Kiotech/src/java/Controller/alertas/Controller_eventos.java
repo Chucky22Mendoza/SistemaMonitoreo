@@ -5,7 +5,13 @@
  */
 package Controller.alertas;
 
+import Objects.Evento;
+import Objects.Historial;
+import getData.GetAlerts;
+import getData.GetEvents;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -28,10 +34,19 @@ public class Controller_eventos {
             String correo = session.getAttribute("correo").toString();
             String agencia = session.getAttribute("agencia").toString();            
             //System.err.println("USUARIO " + user + " CORREO " + correo + " AGENCIA " + agencia);
+            //OBTENEMOS LOS ARCHIVOS DE LA BASE DE DATOS Y LOS GUARDAMOS EN UN ARRAY TIPO ARCHIVO
             
+            List<Evento> evento = new ArrayList<>();
+
+            //MÉTODO QUE RETORNA UNA LISTA TIPO ARCHIVO
+            evento =new GetEvents().obtenerEventos();
             
+            //System.err.println(historial.get(0));
             //NUEVA VISTA
             ModelAndView mav = new ModelAndView();
+
+            //PASAMOS EL ARRAY A LA VISTA
+            mav.addObject("evento", evento);
             
             //ACCEDEMOS A HOME
             mav.setViewName("alertas/configuracion_eventos");
