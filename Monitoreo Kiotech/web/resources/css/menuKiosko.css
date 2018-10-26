@@ -1,0 +1,102 @@
+* {
+	margin: 0;
+	padding: 0;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+a {
+	text-decoration: none;
+	color:#fff;
+}
+
+.btn-mainu {
+	display: none;
+	padding: 0px;
+	background: #0d2c44;
+	color:#fff;
+}
+
+.btn-mainu .icono {
+	float: right;
+}
+
+.contenedor-mainu {
+	width: 20%;
+	min-width: 170px;
+	margin: 0px;
+	display: inline-block;
+	line-height: 18px;
+}
+
+.contenedor-mainu .mainu {
+	width: 100%;
+}
+
+.contenedor-mainu ul {
+	list-style: none;
+}
+
+.contenedor-mainu .mainu li a {
+	color:#494949;
+	display: block;
+	padding: 5px 10px;
+	background: #e9e9e9;
+}
+
+.contenedor-mainu .mainu li a:hover {
+	background: #1a95d5;
+	color:#fff;
+}
+
+.contenedor-mainu .mainu .icono {
+	font-size: 12px;
+	line-height: 18px;
+}
+
+.contenedor-mainu .mainu .icono.izquierda {
+	float: left;
+	margin-right: 5px;
+}
+
+.contenedor-mainu .mainu .icono.derecha {
+	float: right;
+	margin-left: 5px;
+}
+
+.contenedor-mainu .mainu ul {
+	display: none;
+}
+
+.contenedor-mainu .mainu ul li a {
+	background: #424242;
+	color:#e9e9e9;
+}
+
+.contenedor-mainu .mainu .activado > a {
+	background: #1a95d5;
+	color:#fff;
+}
+
+@media screen and (max-width: 450px) {
+	body {
+		padding-top: 0px;
+	}
+
+	.contenedor-mainu {
+		margin: 0;
+		width: 100%;
+		position: fixed;
+		top:0;
+		z-index: 1000;
+	}
+
+	.btn-mainu {
+		display: block;
+	}
+
+	.contenedor-mainu .mainu {
+		display: none;
+	}
+}
