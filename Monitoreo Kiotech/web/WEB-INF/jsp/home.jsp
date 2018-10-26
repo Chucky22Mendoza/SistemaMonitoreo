@@ -14,6 +14,8 @@
         <spring:url value="/resources/images/home.png" var="homeIMG" />
         <spring:url value="/resources/images/form1.png" var="userIMG" />
         <spring:url value="/resources/css/bootstrap/bootstrap.css" var="btCSS" />
+        <spring:url value="/resources/css/menuKiosko.css" var="mainuCSS" />
+        <spring:url value="/resources/css/menuKiosko.js" var="mainuJS" />
         <spring:url value="/resources/js/bootstrap/bootstrap.js" var="btJS" />
         <spring:url value="/resources/js/homeAJAX.js" var="AJAX" />
         <spring:url value="/resources/alertifyjs/css/alertify.css" var="alertifyCSS" />
@@ -31,6 +33,7 @@
         <link rel="stylesheet" href="${spinnerJS}">
         <link rel="stylesheet" href="${animateCSS}">
         <link rel="stylesheet" href="${menuCSS}">
+        <link rel="stylesheet" href="${mainuCSS}">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>HOME</title>
 
@@ -82,6 +85,150 @@
 
       <h1 class="text-center mt-2">Monitoreo de Kioscos</h1>
 
+      <div class="container mt-4">
+        <div class="row">
+          <div class="col-md-2">
+            <hr>
+            <h5 class="bg-dark text-center">Kioskos</h5>
+            <hr>
+<!--
+              <div class="contenedor-mainu">
+            		<ul class="mainu">
+            			<li><a href="#"><i class="icono izquierda fa fa-star"></i>Productos<i class="icono derecha fa fa-chevron-down"></i></a>
+            				<ul>
+            					<li><a href="http://www.falconmasters.com">Item 1</a></li>
+            					<li><a href="https://www.google.com">Item 2</a></li>
+            					<li><a href="http://www.tutorialdephp.com">Item 3</a></li>
+            					<li><a href="http://www.falconmasters.com">Item 4</a></li>
+            				</ul>
+            			</li>
+            			<li><a href="#"><i class="icono izquierda fa fa-share-alt"></i>Redes Sociales<i class="icono derecha fa fa-chevron-down"></i></a>
+            				<ul>
+            					<li><a href="#">Item 1</a></li>
+            					<li><a href="#">Item 2</a></li>
+            					<li><a href="#">Item 3</a></li>
+            					<li><a href="#">Item 4</a></li>
+            				</ul>
+            			</li>
+            			<li><a href="#"><i class="icono izquierda fa fa-envelope"></i>Contactanos</a></li>
+            		</ul>
+            	</div>-->
+          </div>
+
+          <div id="vistaAgencia" class="col-md-10">
+            <div class="">
+              <hr>
+              <h4 class="text-center">Agencia Plaza Zentralia</h4>
+              <hr>
+            </div>
+            <div class="bg-warning rounded">
+              <div class="container mt-2">
+                <div class="row">
+                  <div class="col-md-1">
+                    <i class="icono izquierda fas fa-exclamation-triangle mt-2"></i>
+                  </div>
+                  <div class="col-md-10 my-1">
+                    <h4>2 Kioskos presentan alertas</h4>
+                  </div>
+                  <div class="col-md-1">
+                    <i class="icono izquierda fas fa-share-square mt-2"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="container mt-2">
+              <div class="row">
+                <div class="col-md-4">
+                  <!--Kioskos en Servicio-->
+                  <div class="container">
+                    <hr>
+                    <div class="row">
+                      <div class="col-md-10">
+                        <h5 class="text-success text-center">10</h5>
+                        <h5 class="text-success text-center">Kioskos en Servicio</h5>
+                      </div>
+                      <div class="col-md-2">
+                        <!--Gráfica-->
+                        AQUI VA UNA GRAFICA DE PASTEL
+                      </div>
+                    </div>
+                    <hr>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <!--Kioskos en Mantenimiento-->
+                  <div class="container">
+                    <hr>
+                    <div class="row">
+                      <div class="col-md-10">
+                        <h5 class="text-warning text-center">2</h5>
+                        <h5 class="text-warning text-center">Kioskos en Mantenimiento</h5>
+                      </div>
+                      <div class="col-md-2">
+                        <!--Gráfica-->
+                        AQUI VA UNA GRAFICA DE PASTEL
+                      </div>
+                    </div>
+                    <hr>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <!--Kiosko Desconectado-->
+                  <div class="container">
+                    <hr>
+                    <div class="row">
+                      <div class="col-md-10">
+                        <h5 class="text-danger text-center">3</h5>
+                        <h5 class="text-danger text-center">Kioskos Desconectados</h5>
+                      </div>
+                      <div class="col-md-2">
+                        <!--Gráfica-->
+                        AQUI VA UNA GRAFICA DE PASTEL
+                      </div>
+                    </div>
+                    <hr>
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-2">
+                <div class="col-md-6">
+                  <!--Alertas en el mes-->
+                  <hr>
+                  <h4 class="text-center">Alertas en el mes</h4>
+                  <!--
+
+                    AQUI VA UNA GRÁFICA
+
+
+                  -->
+                  AQUI VA UNA GRAFICA DE BARRAS
+                  <hr>
+                </div>
+                <div class="col-md-6">
+                  <!--Disponibilidad de kioskos en el mes-->
+                  <hr>
+                  <h4 class="text-center">Disponibilidad de kioskos en el mes</h4>
+                  <!--
+
+                    AQUI VA UNA GRÁFICA
+
+
+                  -->
+                  AQUI VA UNA GRAFICA LÍNEAL
+                  <hr>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="container mt-4">
+          <a><a class="font-weight-bold">Servidor central (192.168.1.1):</a><a class="font-weight-bold text-success ml-5">Conectado <i class="fas fa-desktop"></i></a></a>
+        </div>
+      </footer>
+
     <script defer src="https://use.fontawesome.com/releases/v5.0.12/js/all.js" integrity="sha384-Voup2lBiiyZYkRto2XWqbzxHXwzcm4A5RfdfG6466bu5LqjwwrjXCMBQBLMWh7qR" crossorigin="anonymous"></script>
     <script src="${jquery}"></script>
     <script src="${btJS}"></script>
@@ -90,6 +237,7 @@
     <script src="${homeJS}"></script>
     <script src="${menuJS}"></script>
     <script src="${AJAX}"></script>
+    <script src="${mainuJS}"></script>
 
     </body>
 
