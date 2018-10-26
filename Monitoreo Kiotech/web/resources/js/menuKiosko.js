@@ -12,7 +12,7 @@ $(document).ready(function(){
 			$(this).children('ul').slideDown();
 		}
 	});
-/*
+
 	$('.btn-mainu').click(function(){
 		$('.contenedor-mainu .mainu').slideToggle();
 	});
@@ -31,5 +31,5 @@ $(document).ready(function(){
 
 	$('.mainu li ul li a').click(function(){
 		window.location.href = $(this).attr("href");
-	});*/
+	});
 });
