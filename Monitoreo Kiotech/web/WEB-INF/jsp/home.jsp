@@ -16,6 +16,7 @@
         <spring:url value="/resources/css/bootstrap/bootstrap.css" var="btCSS" />
         <spring:url value="/resources/css/menuKiosko.css" var="mainuCSS" />
         <spring:url value="/resources/js/menuKiosko.js" var="mainuJS" />
+        <spring:url value="/resources/js/aparecermenu.js" var="aparecerJS" />
         <spring:url value="/resources/js/bootstrap/bootstrap.js" var="btJS" />
         <spring:url value="/resources/js/homeAJAX.js" var="AJAX" />
         <spring:url value="/resources/alertifyjs/css/alertify.css" var="alertifyCSS" />
@@ -97,15 +98,15 @@
             			<li id="agencia"><a href="#">Plaza Zentralia<i class="icono derecha fa fa-chevron-down"></i></a>
             				<ul>
             					<li id="kiosko"><a href="#"><i class="fas fa-desktop mr-1"></i>Kiosko 1</a></li>
-            					<li id="kiosko"><a href="#"><i class="fas fa-plug text-danger mr-1"></i>Kiosko 2</a></li>
-            					<li id="kiosko"><a href="#"><i class="fas fa-exclamation-triangle text-warning mr-1"></i>Kiosko 3</a></li>
+            					<li><a href="#"><i class="fas fa-plug text-danger mr-1"></i>Kiosko 2</a></li>
+            					<li><a href="#"><i class="fas fa-exclamation-triangle text-warning mr-1"></i>Kiosko 3</a></li>
             				</ul>
             			</li>
             			<li id="agencia"><a href="#">Presidencia<i class="icono derecha fa fa-chevron-down"></i></a>
             				<ul>
-            					<li id="kiosko"><a href="#"><i class="fas fa-desktop mr-1"></i>Kiosko 4</a></li>
-            					<li id="kiosko"><a href="#"><i class="fas fa-plug text-danger mr-1"></i>Kiosko 5</a></li>
-            					<li id="kiosko"><a href="#"><i class="fas fa-exclamation-triangle text-warning mr-1"></i>Kiosko 6</a></li>
+            					<li><a href="#"><i class="fas fa-desktop mr-1"></i>Kiosko 4</a></li>
+            					<li><a href="#"><i class="fas fa-plug text-danger mr-1"></i>Kiosko 5</a></li>
+            					<li><a href="#"><i class="fas fa-exclamation-triangle text-warning mr-1"></i>Kiosko 6</a></li>
             				</ul>
             			</li>
             		</ul>
@@ -113,7 +114,16 @@
           </div>
           <!--Termina código de barra lateral de kioskos-->
 
-          <div id="vistaAgencia" class="col-md-10" style="display:none;">
+          <!--Inicia código de pantalla Monitoreo sin selección-->
+          <div id="vistaSeleccion" class="col-md-10">
+            <div class="container text-center bg-info text-white">
+              <h1 class="my-5 py-5">Aún nada seleccionado</h1>
+            </div>
+          </div>
+          <!--Termina código de pantalla Monitoreo sin selección-->
+
+          <!--Inicia código de la vista de la agencia-->
+          <div id="vistaAgencia" class="col-md-10" style="display: none;">
             <div class="">
               <hr>
               <h4 class="text-center font-weight-bold">Agencia Plaza Zentralia</h4>
@@ -224,13 +234,14 @@
           <!--Termina código de la vista de Agencia-->
 
           <!--Inicia código de la vista de Kioskos-->
-          <div id="vistaKiosko" class="col-md-10">
+          <div id="vistaKiosko" class="col-md-10" style="display: none;">
             <div class="">
               <hr>
                 <h4 class="font-weight-bold ml-4">Kiosko # - Agencia</h4>
               <hr>
                 <div class="container">
                   <div class="row">
+                    <!--Inicia código de la columna de la izquierda-->
                     <div class="col-md-6">
                       <hr>
                       <div class="container">
@@ -240,7 +251,7 @@
                             <!--Aquí se encuentran las otras opciones que pueden salir, solo mandarlas a llamar-->
                             <a id="correcto" class="text-success" style="display: none;">Correcto<i class="fas fa-desktop ml-1"></i></a><br>
                             <a id="alerta" class="text-warning">En alerta<i class="fas fa-exclamation-triangle ml-1"></i></a><br>
-                            <a id="desconectadp" class="text-danger" style="display: none;">Desconectado<i class="fas fa-plug ml-0"></i></a><br>
+                            <a id="desconectado" class="text-danger" style="display: none;">Desconectado<i class="fas fa-plug ml-0"></i></a><br>
                           </div>
                           <div class="col-md-7">
                             <a><a class="font-weight-bold">Nombre:</a><a class="ml-2">Kiosko --</a></a><br>
@@ -275,13 +286,15 @@
                           </div>
                         </div>
                         <!--Termina código de alerta de la vista de Kioskos-->
-                        <h5 class="mt-4">Dispositivos vending</h5>
+
+                        <!--Inicia código de los dispositivos vending-->
+                        <h5 class="mt-4 font-weight-bold">Dispositivos vending</h5>
                         <hr>
                           <div class="row">
                             <div class="col-md-5">
-                              <h6 style="font-size: 15px;">Validador de billetes</h6>
-                              <h6 style="font-size: 15px;">Validador de monedas</h6>
-                              <h6 style="font-size: 15px;">Dispensador de billetes</h6>
+                              <h6 style="font-size: 15px;">Validador de billetes:</h6>
+                              <h6 style="font-size: 15px;">Validador de monedas:</h6>
+                              <h6 style="font-size: 15px;">Dispensador de billetes:</h6>
                             </div>
                             <div class="col-md-1">
                               <h6><i class="fas fa-check-circle text-success"></i></h6>
@@ -300,11 +313,188 @@
                             </div>
                         </div>
                       <hr>
+                      <!--Temrina codigo de dispositivos vending-->
 
-                    <div class="col-md-6">
+                      <!--Inicia codigo de folios disponibles-->
+                      <h5 class="mt-4 font-weight-bold">Folios Disponibles</h5>
+                      <hr>
+                      <div class="container">
+                        <table class="table table-sm">
+                          <thead>
+                            <tr>
+                              <th scope="col">Impresora</th>
+                              <th scope="col">Folio inicial</th>
+                              <th scope="col">Folio final</th>
+                              <th scope="col">Total</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <th scope="row">ACTAS</th>
+                              <td>10251</td>
+                              <td>10300</td>
+                              <td>50</td>
+                            </tr>
+                            <tr>
+                              <th scope="row">HOJASBLANCAS</th>
+                              <td>1</td>
+                              <td>100</td>
+                              <td>100</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <hr>
+                      <!--Termina codigo de folios disponibles-->
 
-                    </div>
+                      <!--Inicia el código de los botones-->
+                      <div class="container text-center">
+                        <div class="row">
+                          <div class="col-md-6">
+                            <button type="button" class="btn btn-warning">Poner en mantenimiento</button>
+                          </div>
+                          <div class="col-md-6">
+                            <button type="button" class="btn btn-danger">Apagar kiosko</button>
+                          </div>
+                        </div>
+                      </div>
+                      <!--Termina el código de los botones-->
+                    <!--Termina Código de la columa izquierda-->
                   </div>
+                  <!--Inicia codigo d ela columna de la derecha-->
+                  <div class="col-md-6">
+                    <h5 class="text-center font-weight-bold"><i class="far fa-money-bill-alt mr-2"></i>Flujo de efectivo</h5>
+                    <hr>
+                      <a href="#">
+                        <a class="font-weight-bold" style="font-size: 14px;">Fecha de último corte: </a><a style="font-size: 14px;">27 de septiembre de 2018 a las 13:25:10 hrs.</a>
+                      </a>
+
+                      <!--Inicia código de efectivo disponible para cambio-->
+                      <h5 class="font-weight-bold mt-4">Efectivo disponible para cambio</h5>
+                      <hr>
+                        <div class="container">
+                          <p href="#" class="text-right">
+                            <a class="">Total: $</a><a>45,254.00</a>
+                          </p>
+
+                          <h5 class="font-weight-bold text-center">Denominaciones</h5>
+                          <hr>
+                            <!--Empieza el código de denominaciones-->
+                            <div class="container">
+                              <div class="row">
+                                <div class="col-md-5 text-right">
+                                  <h6>Monedas de $1:</h6>
+                                  <h6>Monedas de $5:</h6>
+                                </div>
+                                <div class="col-md-1 text-left">
+                                  <h6>500</h6>
+                                  <h6>480</h6>
+                                </div>
+                                <div class="col-md-5 text-right">
+                                  <h6>Monedas de $10:</h6>
+                                  <h6>Billetes de $50:</h6>
+                                </div>
+                                <div class="col-md-1 text-left">
+                                  <h6>250</h6>
+                                  <h6 class="text-danger">10</h6>
+                                </div>
+                              </div>
+                            </div>
+                            <!--Temrina código de denominaciones-->
+                        </div>
+                        <hr>
+                      <!--Termina codigo de efectivo disponible para cambio-->
+
+                      <!--Inicia codigo de efectivo recibido-->
+                      <h5 class="font-weight-bold mt-4">Efectivo recibido</h5>
+                      <hr>
+                        <div class="container">
+                          <p href="#" class="text-right">
+                            <a class="">Total: $</a><a>45,254.00</a>
+                          </p>
+
+                          <!--Inicia código de denominaciones del efectivo recibido-->
+                          <h5 class="font-weight-bold text-center">Denominaciones</h5>
+                          <hr>
+                            <div class="row">
+                              <div class="col-md-6">
+                                <h6 href="#" class="text-left">
+                                  <a class="">Monedas de 50c: </a><a>500</a>
+                                </h6>
+                                <h6 href="#" class="text-left">
+                                  <a class="">Monedas de $1: </a><a>480</a>
+                                </h6>
+                                <h6 href="#" class="text-left">
+                                  <a class="">Monedas de $2: </a><a>500</a>
+                                </h6>
+                                <h6 href="#" class="text-left">
+                                  <a class="">Monedas de $5: </a><a>480</a>
+                                </h6>
+                                <h6 href="#" class="text-left">
+                                  <a class="">Monedas de $10: </a><a>500</a>
+                                </h6>
+                                <h6 href="#" class="text-left">
+                                  <a class="">Monedas de $20: </a><a>480</a>
+                                </h6>
+                              </div>
+                              <div left="col-md-6">
+                                <h6 href="#" class="text-left">
+                                  <a class="">Billetes de $20: </a><a>500</a>
+                                </h6>
+                                <h6 href="#" class="text-left">
+                                  <a class="">Billetes de $50: </a><a>480</a>
+                                </h6>
+                                <h6 href="#" class="text-left">
+                                  <a class="">Billetes de $100: </a><a>500</a>
+                                </h6>
+                                <h6 href="#" class="text-left">
+                                  <a class="">Billetes de $200: </a><a>480</a>
+                                </h6>
+                                <h6 href="#" class="text-left">
+                                  <a class="">Billetes de $500: </a><a>500</a>
+                                </h6>
+                                <h6 href="#" class="text-left">
+                                  <a class="">Billetes de $1000: </a><a>480</a>
+                                </h6>
+                              </div>
+                            </div>
+                          <!--termina código de denominaciones del efectivo recibido-->
+
+                          <!--Inicia código de nivel de contenedores del efectivo recibido-->
+                          <h5 class="text-center font-weight-bold mt-3">Nivel de contenedores</h5>
+                          <hr>
+                            <div class="row">
+                              <div class="col-md-4">
+                                <h6 href="#" class="text-center">
+                                  <a class="">Tot.monedas: </a><a>1500</a>
+                                </h6>
+                              </div>
+                              <div class="col-md-2">
+                                <!--
+
+                                AQUI VA UNA GRÁFICA DE PASTEL
+
+                                -->
+                              </div>
+                              <div class="col-md-4">
+                                <h6 href="#" class="text-center">
+                                  <a class="">Tot.billetes: </a><a>1500</a>
+                                </h6>
+                              </div>
+                              <div class="col-md-2">
+                                <!--
+
+                                AQUI VA UNA GRÁFICA DE PASTEL
+
+                                -->
+                              </div>
+                            </div>
+                          <!--Termina código de nivel de contenedores de efectivo recibido-->
+                        </div>
+                      <hr>
+                      <!--Termina codigo de efectivo recibido-->
+                  </div>
+                  <!--Termina el codigo de la columna d ela derecha-->
                 </div>
             </div>
           </div>
@@ -329,6 +519,7 @@
     <script src="${menuJS}"></script>
     <script src="${AJAX}"></script>
     <script src="${mainuJS}"></script>
+    <script src="${aparecerJS}"></script>
 
     </body>
 
