@@ -34,6 +34,7 @@
                 <prop key="archivos.htm">Controller_archivos</prop>
                 <prop key="listas.htm">Controller_listas</prop>
                 <prop key="programacion.htm">Controller_programacion</prop>
+                <prop key="ver_listas.htm">Controller_programacion</prop>
                 
             </props>
         </property>

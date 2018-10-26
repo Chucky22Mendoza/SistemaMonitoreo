@@ -6,11 +6,15 @@
 package getData;
 
 import Model.ConnectionDB;
+import Objects.Archivo;
 import Objects.Login;
+import Objects.Usuario;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -62,5 +66,37 @@ public class GetDataUser {
             //ex.printStackTrace();
         }
         return dataUser;
+    }
+    
+    public List<Usuario> obtenerUsuarios(){
+        List<Usuario> usuarios = new ArrayList<>();
+        String sql ="select * from usuario order by idusuario";
+        try (   Connection dbConnection = dbSource.conectar().getConnection();
+                 CallableStatement obtenerUsuarios = dbConnection.prepareCall(sql);       )            {
+
+          //Variables de Entrada (IN)
+          System.out.println("Preparando llamada a procedimiento almacenado.");
+          obtenerUsuarios.execute();
+          System.out.println("Procesando resultados de llamada a procedimiento almacenado.");
+          try(  ResultSet usuariosRS =(ResultSet)obtenerUsuarios.getResultSet(); ){
+              while(usuariosRS.next())
+              {                  
+                    Usuario usuario= new Usuario();
+                    usuario.setId(usuariosRS.getInt(1));
+                    usuario.setNombre(usuariosRS.getString(2));
+                    usuario.setAgencia(usuariosRS.getString(3));
+                    usuario.setCorreo(usuariosRS.getString(4));
+                    usuario.setCelular(usuariosRS.getString(5));
+                    
+                    usuarios.add(usuario);
+                }
+             System.out.println("Llamada a procedimiento almacenado finalizada correctamente.");
+          }
+        }
+        catch(SQLException ex){
+            System.out.println("Excepcion: "+ ex.getMessage());
+            //ex.printStackTrace();
+        }
+        return usuarios;
     }
 }

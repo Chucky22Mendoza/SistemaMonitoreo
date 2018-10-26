@@ -6,6 +6,8 @@
 package Controller.alertas;
 
 import Objects.Archivo;
+import Objects.Usuario;
+import getData.GetDataUser;
 import getData.GetFile;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -34,8 +36,17 @@ public class Controller_asignar_usuario {
             //System.err.println("USUARIO " + user + " CORREO " + correo + " AGENCIA " + agencia);
             
             
+            List<Usuario> usuarios = new ArrayList<>();
+            
+            
+            //MÉTODO QUE RETORNA UNA LISTA TIPO ARCHIVO
+            usuarios =new GetDataUser().obtenerUsuarios();
+            
             //NUEVA VISTA
             ModelAndView mav = new ModelAndView();
+            
+            //PASAMOS EL ARRAY A LA VISTA
+            mav.addObject("usuarios", usuarios);
             
             //ACCEDEMOS A HOME
             mav.setViewName("alertas/asig_usuario");

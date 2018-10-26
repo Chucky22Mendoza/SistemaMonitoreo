@@ -69,11 +69,10 @@
           <li><a id="salir" class="" href="<c:url value='archivos.htm' />"><i class=" icono izquierda fas fa-sign-out-alt "></i> Cerrar Sesión</a></li>
         </ul>
 
-        <div class="userCar text-center mt-1">
+        <div class="userCar text-center mt-5">
           <img  src="${userIMG}" height="50px" class="navb" alt="">
-          <p>Bienvenido<br>${usuario}</p>
+          <p class="mt-3">Bienvenido<br>${usuario}</p>
           <p>Agencia: ${agencia}</p>
-          <img src="${logo}" width="200" class="navb mt-1" alt="">
         </div>
 
 
@@ -83,7 +82,9 @@
       </div>
       <!-- Menú lateral -->
 
-      <h1 class="text-center mt-2">Monitoreo de Kioscos</h1>
+      <div class="container">
+          <h2 class="text-center pt-5">Monitoreo de kioscos</h2>
+      </div>
 
       <div class="container mt-4">
         <div class="row">
