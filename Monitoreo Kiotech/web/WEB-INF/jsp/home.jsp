@@ -16,7 +16,6 @@
         <spring:url value="/resources/css/bootstrap/bootstrap.css" var="btCSS" />
         <spring:url value="/resources/css/menuKiosko.css" var="mainuCSS" />
         <spring:url value="/resources/js/menuKiosko.js" var="mainuJS" />
-        <spring:url value="/resources/js/aparecermenu.js" var="aparecerJS" />
         <spring:url value="/resources/js/bootstrap/bootstrap.js" var="btJS" />
         <spring:url value="/resources/js/homeAJAX.js" var="AJAX" />
         <spring:url value="/resources/alertifyjs/css/alertify.css" var="alertifyCSS" />
@@ -95,18 +94,18 @@
             <hr>
               <div class="contenedor-mainu">
             		<ul class="mainu">
-            			<li id="agencia"><a href="#">Plaza Zentralia<i class="icono derecha fa fa-chevron-down"></i></a>
+            			<li class="agencia"><a href="#">Plaza Zentralia<i class="icono derecha fa fa-chevron-down"></i></a>
             				<ul>
-            					<li id="kiosko"><a href="#"><i class="fas fa-desktop mr-1"></i>Kiosko 1</a></li>
-            					<li><a href="#"><i class="fas fa-plug text-danger mr-1"></i>Kiosko 2</a></li>
-            					<li><a href="#"><i class="fas fa-exclamation-triangle text-warning mr-1"></i>Kiosko 3</a></li>
+            					<li class="kiosko"><a href="#"><i class="fas fa-desktop mr-1"></i>Kiosko 1</a></li>
+            					<li class="kiosko"><a href="#"><i class="fas fa-plug text-danger mr-1"></i>Kiosko 2</a></li>
+            					<li class="kiosko"><a href="#"><i class="fas fa-exclamation-triangle text-warning mr-1"></i>Kiosko 3</a></li>
             				</ul>
             			</li>
-            			<li id="agencia"><a href="#">Presidencia<i class="icono derecha fa fa-chevron-down"></i></a>
+            			<li class="agencia"><a href="#">Presidencia<i class="icono derecha fa fa-chevron-down"></i></a>
             				<ul>
-            					<li><a href="#"><i class="fas fa-desktop mr-1"></i>Kiosko 4</a></li>
-            					<li><a href="#"><i class="fas fa-plug text-danger mr-1"></i>Kiosko 5</a></li>
-            					<li><a href="#"><i class="fas fa-exclamation-triangle text-warning mr-1"></i>Kiosko 6</a></li>
+            					<li class="kiosko"><a href="#"><i class="fas fa-desktop mr-1"></i>Kiosko 4</a></li>
+            					<li class="kiosko"><a href="#"><i class="fas fa-plug text-danger mr-1"></i>Kiosko 5</a></li>
+            					<li class="kiosko"><a href="#"><i class="fas fa-exclamation-triangle text-warning mr-1"></i>Kiosko 6</a></li>
             				</ul>
             			</li>
             		</ul>
@@ -519,7 +518,6 @@
     <script src="${menuJS}"></script>
     <script src="${AJAX}"></script>
     <script src="${mainuJS}"></script>
-    <script src="${aparecerJS}"></script>
 
     </body>
 

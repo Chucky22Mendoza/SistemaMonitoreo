@@ -13,6 +13,19 @@ $(document).ready(function(){
 		}
 	});
 
+	$(".kiosko").click(function() {
+			$('#vistaAgencia').hide();
+			$('#vistaSeleccion').hide();
+		  $("#vistaKiosko").show();
+
+	});
+
+	$(".agencia").click(function() {
+		$("#vistaSeleccion").hide();
+		$('#vistaAgencia').show();
+		$('#vistaKiosko').hide();
+	});
+
 	$('.btn-mainu').click(function(){
 		$('.contenedor-mainu .mainu').slideToggle();
 	});
