@@ -7,6 +7,11 @@ azul: #015678
 azul2: #02445e
 fondo: #303a4c
 rojo: #ca2942
+
+contorno: #17a2b8
+letra: #909da0
+contenedor: #343a40
+titulo: #007bff
 */
 
 .navb{
@@ -22,8 +27,8 @@ rojo: #ca2942
   position:fixed;
   height: 100%;
   width: 18%;
-  background-color: #303a4c;
-  outline: 1px solid #f58003;
+  background-color: #343a40;
+  outline: 1px solid #17a2b8;
   z-index: 100;
 }
 
@@ -34,7 +39,7 @@ rojo: #ca2942
 }
 
 .sidebar li{
-  outline: 1px solid #f58003;
+  outline: 1px solid #17a2b8;
   transition: all 0.2s;
   -webkit-transition: all 0.2s;
   -moz-transition: all 0.2s;
@@ -43,14 +48,14 @@ rojo: #ca2942
 
 .sidebar li:hover{
   background-color: #F7F6E7;
-  border-left: 10px solid #f58003;
+  border-left: 10px solid #17a2b8;
 }
 
 .sidebar h4{
   text-align: right;
   padding: 12px;
   margin: 0;
-  background-color: #02445e;
+  background-color: #007bff;
   color: #fff;
 }
 
@@ -125,7 +130,7 @@ rojo: #ca2942
 
 .activado{
   background-color: #F7F6E7;
-  border-left: 10px solid #f58003;
+  border-left: 10px solid #17a2b8;
   color: #000;
 }
 

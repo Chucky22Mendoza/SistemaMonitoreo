@@ -36,45 +36,44 @@
     <body>
 
       <!-- Menú lateral -->
-      <div id="sidebar" class="sidebar collapse ">
-        <h4>Menú <span id="cerrarMenu" class=""><i class="fas fa-chevron-left"></i></span></h4>
-        <ul class="menu">
-          <li><a id="menuMonitoreo" class="" href="<c:url value='home.htm' />"><i class="icono izquierda fas fa-desktop"></i> Monitoreo de Kioscos</a></li>
-          <li><a id="menuAlertas" class="" href="#"><i class="icono izquierda fas fa-exclamation-circle"></i> Alertas <i class="icono derecha fas fa-chevron-down"></i></a>
-            <ul>
-
-                <li><a id="historial" class="" href="<c:url value='historial.htm' />"><i class="icono izquierda fa fa-history"></i> Historial de alertas</a></li>
-                <li><a id="configEnvio" class="" href="<c:url value='medio_envio.htm' />"><i class="icono izquierda fas fa-truck"></i> Medio de envío</a></li>
-                <li><a id="configEvento" class="" href="<c:url value='eventos.htm' />"><i class="icono izquierda fas fa-calendar-alt"></i> Config. de eventos</a></li>
-                <li><a id="usuarios" class="" href="<c:url value='asignar_usuario.htm' />"><i class="icono izquierda fas fa-user-plus"></i> Asignación de usuarios</a></li>
-
-            </ul>
-          </li>
-          <li><a id="menuPublicidad" class="" href="#"><i class="icono izquierda fas fa-play-circle"></i> Publicidad <i class="icono derecha fas fa-chevron-down"></i> </a>
-            <ul>
-
-                <li><a id="archivosMultimedia" class="" href="<c:url value='archivos.htm' />"><i class="icono izquierda fas fa-file-archive"></i> Archivos multimedia</a></li>
-                <li><a id="listasReproduccion" class="" href="<c:url value='listas.htm' />"><i class="icono izquierda fas fa-list-ul"></i> Listas de reproduccion</a></li>
-                <li><a id="programacionListas" class="" href="<c:url value='programacion.htm' />"><i class="icono izquierda fas fa-tasks"></i> Programación de listas</a></li>
-
-            </ul>
-          </li>
-          <li><a id="salir" class="" href="<c:url value='archivos.htm' />"><i class=" icono izquierda fas fa-sign-out-alt "></i> Cerrar Sesión</a></li>
-        </ul>
-
-        <div class="userCar text-center mt-1">
-          <img  src="${userIMG}" height="50px" class="navb" alt="">
-          <p>Bienvenido<br>${usuario}</p>
-          <p>Agencia: ${agencia}</p>
-          <img src="${logo}" width="200" class="navb mt-1" alt="">
-        </div>
-
-
-      </div>
-      <div class="contenido">
-        <span id="abrirMenu"><i class="fas fa-list-ul"></i></span>
-      </div>
-      <!-- Menú lateral -->
+      	<div id="sidebar" class="sidebar collapse ">
+      	  <h4>Menú <span id="cerrarMenu" class=""><i class="fas fa-chevron-left"></i></span></h4>
+      	  <ul class="menu">
+      	    <li><a id="menuMonitoreo" class="" href="<c:url value='home.htm' />"><i class="icono izquierda fas fa-desktop"></i> Monitoreo de Kioscos</a></li>
+      	    <li><a id="menuAlertas" class="" href="#"><i class="icono izquierda fas fa-exclamation-circle"></i> Alertas <i class="icono derecha fas fa-chevron-down"></i></a>
+      		<ul>
+      
+      		    <li><a id="historial" class="" href="<c:url value='historial.htm' />"><i class="icono izquierda fa fa-history"></i> Historial de alertas</a></li>
+      		    <li><a id="configEnvio" class="" href="<c:url value='medio_envio.htm' />"><i class="icono izquierda fas fa-truck"></i> Medio de envío</a></li>
+      		    <li><a id="configEvento" class="" href="<c:url value='eventos.htm' />"><i class="icono izquierda fas fa-calendar-alt"></i> Config. de eventos</a></li>
+      		    <li><a id="usuarios" class="" href="<c:url value='asignar_usuario.htm' />"><i class="icono izquierda fas fa-user-plus"></i> Asignación de usuarios</a></li>
+      
+      		</ul>
+      	    </li>
+      	    <li><a id="menuPublicidad" class="" href="#"><i class="icono izquierda fas fa-play-circle"></i> Publicidad <i class="icono derecha fas fa-chevron-down"></i> </a>
+      		<ul>
+      
+      		    <li><a id="archivosMultimedia" class="" href="<c:url value='archivos.htm' />"><i class="icono izquierda fas fa-file-archive"></i> Archivos multimedia</a></li>
+      		    <li><a id="listasReproduccion" class="" href="<c:url value='listas.htm' />"><i class="icono izquierda fas fa-list-ul"></i> Listas de reproduccion</a></li>
+      		    <li><a id="programacionListas" class="" href="<c:url value='programacion.htm' />"><i class="icono izquierda fas fa-tasks"></i> Programación de listas</a></li>
+      
+      		</ul>
+      	    </li>
+      	    <li><a id="salir" class="" href="<c:url value='archivos.htm' />"><i class=" icono izquierda fas fa-sign-out-alt "></i> Cerrar Sesión</a></li>
+      	  </ul>
+      
+      	  <div class="userCar text-center mt-5">
+      	    <img  src="${userIMG}" height="50px" class="navb" alt="">
+      	    <p class="mt-3">Bienvenido<br>${usuario}</p>
+      	    <p>Agencia: ${agencia}</p>
+      	  </div>
+      
+      
+      	</div>
+      	<div class="contenido">
+      	  <span id="abrirMenu"><i class="fas fa-list-ul"></i></span>
+      	</div>
+      	<!-- Menú lateral -->
 
       <div class="container">
         <h2 class="text-center pt-5">Listas de Reproducción Existentes</h2>
@@ -192,7 +191,7 @@
                           <input class="form-control col-sm-8" id="nombreList" placeholder="Nombre de la lista de reproducci�n" type="text" name="nombreList" required="required">
                        </div>
                        <div class="col-sm-12 row d-flex justify-content-center align-items-center mt-3">
-                          <label for="descripcion" class="col-sm-3 form-control-label">Descripci�n:</label>
+                          <label for="descripcion" class="col-sm-3 form-control-label">Descripción:</label>
                           <input class="form-control col-sm-8" id="descripcion" placeholder="Una peque�a descripci�n" type="text" name="descripcion" required="required">
                        </div>'
                    </div>
@@ -229,10 +228,9 @@
                     <thead class="">
                       <tr>
                         <th scope="col" class="text-center"> </th>
-                        <th scope="col" class="text-center">ID</th>
                         <th scope="col" class="text-center">Nombre archivo</th>
                         <th scope="col" class="text-center">Tipo</th>
-                        <th scope="col" class="text-center">Duraci�n (s)</th>
+                        <th scope="col" class="text-center">Duración (s)</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -240,7 +238,6 @@
                       <c:forEach items="${File}" var="dato">
                         <tr>
                           <td class="text-center"><input type="checkbox" class="mt-1 cbSelec" name="cbSelec" style="cursor:pointer;"></td>
-                          <td class="text-center">${dato.id}</td>
                           <td class="text-center">${dato.nombre}</td>
                           <td class="text-center">${dato.tipo}</td>
                           <td class="text-center">${dato.duracion}</td>
