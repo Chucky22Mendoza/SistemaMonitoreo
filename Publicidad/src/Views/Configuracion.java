@@ -322,6 +322,11 @@ public class Configuracion extends javax.swing.JFrame {
         jButton2.setText("Cancelar");
 
         jButton3.setText("Guardar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -387,6 +392,18 @@ public class Configuracion extends javax.swing.JFrame {
         
     }//GEN-LAST:event_ExaminarBtnActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        if (RadioButton2.isSelected()==true) {
+           
+             
+           PantallaServicios abrir=new PantallaServicios();
+           abrir.setVisible(true);
+        }else{
+            PantallaExclusiva a=new PantallaExclusiva();
+           a.setVisible(true);
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -425,7 +442,7 @@ public class Configuracion extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ExaminarBtn;
     private javax.swing.JLabel ImagenHLabel;
-    private javax.swing.JTextField ImagenHText;
+    public static javax.swing.JTextField ImagenHText;
     private javax.swing.JLabel PosicionLabel;
     private javax.swing.JTextField PosicionText;
     private javax.swing.JRadioButton RadioButton1;
