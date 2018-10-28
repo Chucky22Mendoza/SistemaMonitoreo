@@ -5,6 +5,18 @@
  */
 package Views;
 
+import Model.Envio;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.io.File;
+import javafx.application.Platform;
+import javafx.embed.swing.JFXPanel;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
+
 /**
  *
  * @author nipan
@@ -16,6 +28,11 @@ public class PantallaExclusiva extends javax.swing.JFrame {
      */
     public PantallaExclusiva() {
         initComponents();
+        tamañoPantalla();
+        setLocationRelativeTo(null);
+        reproducirVideo();
+        jPanel.setLayout(new BorderLayout());
+        jPanel.add(jfxPanel, BorderLayout.CENTER);
     }
 
     /**
@@ -27,22 +44,95 @@ public class PantallaExclusiva extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel = new javax.swing.JPanel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        javax.swing.GroupLayout jPanelLayout = new javax.swing.GroupLayout(jPanel);
+        jPanel.setLayout(jPanelLayout);
+        jPanelLayout.setHorizontalGroup(
+            jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 482, Short.MAX_VALUE)
+        );
+        jPanelLayout.setVerticalGroup(
+            jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 351, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 482, Short.MAX_VALUE)
+            .addComponent(jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 351, Short.MAX_VALUE)
+            .addComponent(jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    private final JFXPanel jfxPanel = new JFXPanel();
+    
+    //Método que ejecuta el video
+    public void reproducirVideo(){
+        Platform.runLater(new Runnable(){
+            @Override
+            public void run() {
+                File file = new File ("C:\\Users\\mario\\Desktop\\SistemaMonitoreo\\Publicidad\\src\\Video\\SafeTaxi_Etapa_regional_ENEIT.mp4");
+                MediaPlayer oracleVid = new MediaPlayer(
+                        new Media(file.toURI().toString())
+                );
+                jfxPanel.setScene(new Scene(new Group(new MediaView(oracleVid))));
+                oracleVid.setVolume(0.7);
+                //oracleVid.setCycleCount(MediaPlayer.INDEFINITE);
+                oracleVid.play();
+            }
+        
+        });
+        
+        
+        /*
+        //panel principal
+            JPanel panel = new JPanel();
+//            panel.setLayout(new BorderLayout());
+            
+            URL url=null;
+            try {
+                url = new URL("file:///C:\\Users\\mario\\Desktop\\SistemaMonitoreo\\Publicidad\\src\\Video\\SafeTaxi_Etapa_regional_ENEIT.mp4");
+            } catch (MalformedURLException ex) {
+//                Logger.getLogger(Ventana.class.getName()).log(Level.SEVERE, null, ex);
+                  System.out.println("ERROR 1" + ex);
+            }
+            try {
+                player = Manager.createRealizedPlayer(new MediaLocator(url));
+                video = player.getVisualComponent();
+                video.setSize(jPanel.getWidth(),jPanel.getHeight());
+                video.setVisible(true);
+                if(video != null)
+                    panel.add("Center",video);
+                
+                controles = player.getControlPanelComponent();
+                controles.setSize(800,100);
+                controles.setVisible(true);
+                if(controles != null)
+                    panel.add("South",controles);
+                
+                jPanel.add(panel);
+                player.start();
+                panel.updateUI();
+            } catch (Exception ex) {
+                //Logger.getLogger(Ventana.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("ERROR 2" + ex);
+            }*/
+    }
+    //método para fijar el tamaño de la pantalla
+    public void tamañoPantalla(){
+        Envio send = new Envio();
+        this.setSize(new Dimension(send.getAncho(), send.getAlto()));
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -79,5 +169,6 @@ public class PantallaExclusiva extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel jPanel;
     // End of variables declaration//GEN-END:variables
 }

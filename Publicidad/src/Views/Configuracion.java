@@ -5,8 +5,12 @@
  */
 package Views;
 
+import Model.Envio;
 import java.io.File;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -23,6 +27,7 @@ public class Configuracion extends javax.swing.JFrame {
         ImagenHText.setVisible(false);
         ExaminarBtn.setVisible(false);
         RadioButton1.setSelected(true);
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -266,6 +271,7 @@ public class Configuracion extends javax.swing.JFrame {
                                 .addComponent(TamañoText, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(42, 42, 42)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(RadioButton2)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -278,15 +284,15 @@ public class Configuracion extends javax.swing.JFrame {
                                         .addComponent(XText, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(pxLabel1)
+                                    .addComponent(ExaminarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(pxLabel2)
-                                    .addComponent(ExaminarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(RadioButton2)))
+                                    .addComponent(pxLabel1))
+                                .addGap(0, 25, Short.MAX_VALUE))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(ImagenHLabel)
                         .addGap(18, 18, 18)
                         .addComponent(ImagenHText, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -380,26 +386,63 @@ public class Configuracion extends javax.swing.JFrame {
 
         RadioButton1.setSelected(false);
     }//GEN-LAST:event_RadioButton2ActionPerformed
-
+        
+        File archivo;
+        ImageIcon img;
     private void ExaminarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExaminarBtnActionPerformed
         
-        JFileChooser jf= new JFileChooser();
-        jf.showOpenDialog(this);
-        File archivo= jf.getSelectedFile();
-        if (archivo != null) {
+        Seleccion Buscador = new Seleccion();
+
+        /*jf.showOpenDialog(this);
+        File archivo= jf.getSelectedFile();*/
+        
+        int resultado;
+        
+        FileNameExtensionFilter formato = new FileNameExtensionFilter("JPG, PNG Y GIF", "jpg", "png", "gif");
+        
+        Buscador.fileChooser.setFileFilter(formato);        
+
+        resultado = Buscador.fileChooser.showOpenDialog(null);
+        
+        if (JFileChooser.APPROVE_OPTION == resultado) {
+            archivo = Buscador.fileChooser.getSelectedFile();
             ImagenHText.setText(archivo.getAbsolutePath());
+            
+            try{
+                img = new ImageIcon(archivo.toString());                
+
+                //PRUEBA.setIcon(icon);
+            } catch (Exception e){
+                JOptionPane.showMessageDialog(null, "ERROR AL ABRIR: " + e.getMessage());
+            }
         }
         
+        /*if (archivo != null) {
+            ImagenHText.setText(archivo.getAbsolutePath());
+        }*/
+        
     }//GEN-LAST:event_ExaminarBtnActionPerformed
+ 
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        if (RadioButton2.isSelected()==true) {
-           
-             
-           PantallaServicios abrir=new PantallaServicios();
+        Envio send = new Envio ();
+        
+        int x = Integer.parseInt(XText.getText().toString());
+        int y = Integer.parseInt(YText.getText().toString());
+        int p = Integer.parseInt(PosicionText.getText().toString());
+        int t = Integer.parseInt(TamañoText.getText().toString());
+        
+        send.setAlto(y);
+        send.setAncho(x);
+        send.setPosicion(p);
+        send.setTamaño(t);
+        
+        if (RadioButton2.isSelected()==true) {          
+
+           PantallaServicios abrir=new PantallaServicios(img);
            abrir.setVisible(true);
         }else{
-            PantallaExclusiva a=new PantallaExclusiva();
+           PantallaExclusiva a=new PantallaExclusiva();
            a.setVisible(true);
         }
     }//GEN-LAST:event_jButton3ActionPerformed

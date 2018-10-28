@@ -10,5 +10,5 @@ package Model;
  * @author Jesús Mendoza
  */
 public class ConnectionDB {
-    
+
 }

@@ -13,14 +13,16 @@ $(document).ready(function(){
 		}
 	});
 
-	$(".kiosko").click(function() {
-			$('#vistaAgencia').hide();
-			$('#vistaSeleccion').hide();
-		  $("#vistaKiosko").show();
+	$(".kiosko").on('click', function(e) {
+		e.preventDefault();
+		$('#vistaAgencia').hide();
+		$('#vistaSeleccion').hide();
+	  $("#vistaKiosko").show();
 
 	});
 
-	$(".agencia").click(function() {
+	$(".agencia").on('click', function(e) {
+		e.preventDefault();
 		$("#vistaSeleccion").hide();
 		$('#vistaAgencia').show();
 		$('#vistaKiosko').hide();

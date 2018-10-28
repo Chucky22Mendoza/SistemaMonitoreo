@@ -335,6 +335,7 @@
                               </Group>
                               <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="RadioButton2" min="-2" max="-2" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="1" attributes="0">
                                           <Group type="102" attributes="0">
@@ -350,12 +351,12 @@
                                       </Group>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="pxLabel1" min="-2" max="-2" attributes="0"/>
-                                          <Component id="pxLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
                                           <Component id="ExaminarBtn" alignment="0" min="-2" pref="84" max="-2" attributes="0"/>
+                                          <Component id="pxLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="pxLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
                                       </Group>
+                                      <EmptySpace min="0" pref="25" max="32767" attributes="0"/>
                                   </Group>
-                                  <Component id="RadioButton2" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
@@ -364,7 +365,7 @@
                               <Component id="ImagenHText" min="-2" pref="221" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="35" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
