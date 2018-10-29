@@ -220,7 +220,7 @@ public class Configuracion extends javax.swing.JFrame {
             }
         });
 
-        RadioButton2.setText("Publicidad en Pnatalla de Servicios");
+        RadioButton2.setText("Publicidad en Pantalla de Servicios");
         RadioButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 RadioButton2ActionPerformed(evt);
@@ -286,13 +286,12 @@ public class Configuracion extends javax.swing.JFrame {
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(ExaminarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(pxLabel2)
-                                    .addComponent(pxLabel1))
-                                .addGap(0, 25, Short.MAX_VALUE))))
+                                    .addComponent(pxLabel1)))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(ImagenHLabel)
                         .addGap(18, 18, 18)
                         .addComponent(ImagenHText, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                .addContainerGap(35, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
