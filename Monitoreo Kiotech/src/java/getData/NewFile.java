@@ -24,8 +24,9 @@ public class NewFile {
     }
     
     public int nuevoArchivo(Archivo archivo){
-
-    String sql ="INSERT INTO archivo(idarchivo, nombre, tipo, duracion, ubicacion)  VALUES(default,?,?,?,?);";
+    
+    String sql ="{call fn_insert_archivos(?,?,?,?)}";
+    //String sql ="INSERT INTO archivo(idarchivo, nombre, tipo, duracion, ubicacion)  VALUES(default,?,?,?,?);";
 
     try (
            Connection dbConnection = dbSource.conectar().getConnection();
@@ -36,25 +37,27 @@ public class NewFile {
         //fechaestreno,duracion,fecha_registro,fecha_actualizacion
         dbConnection.setAutoCommit(false);
         //Variables de Entrada (IN)
-        System.err.println("Preparando llamada a PostgreSQL. ---> ");
+        //System.err.println("Preparando llamada a PostgreSQL. ---> ");
+            //System.err.println("fn_insert_archivos('"+archivo.getNombre()+"'," + archivo.getDuracion()+",'"+archivo.getUbicacion()+"','"+archivo.getTipo()+"')");
+            
         nuevoArchivo.setString(1, archivo.getNombre());
-        nuevoArchivo.setString(2, archivo.getTipo());
-        nuevoArchivo.setInt(3, archivo.getDuracion());
-        nuevoArchivo.setString(4, archivo.getUbicacion());
+        nuevoArchivo.setInt(2, archivo.getDuracion());
+        nuevoArchivo.setString(3, archivo.getUbicacion());
+        nuevoArchivo.setString(4, archivo.getTipo());
 
-        int res = nuevoArchivo.executeUpdate();
+        boolean res = nuevoArchivo.execute();
 
-        System.err.println("<------------------------------------------------ !!!!  " + res);
+        //System.err.println("<------------------------------------------------ !!!!  " + res);
 
-        if(res == 1){
+        if(res){
             //Finalizamos la transaccion
             dbConnection.commit();
-            System.err.println("Llamada a PostgreSQL finalizada.");
-            return res;
+            //System.err.println("Llamada a PostgreSQL finalizada.");
+            return 1;
         }else{
             //Si hubo un error, cancelamos la transaccion.
             dbConnection.rollback();
-            return res;
+            return 0;
         }
 
       }

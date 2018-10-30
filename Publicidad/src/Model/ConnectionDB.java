@@ -5,20 +5,35 @@
  */
 package Model;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+
 /**
  *
  * @author Jesús Mendoza
  */
 public class ConnectionDB {
-        /*public DriverManagerDataSource conectar(){
-        DriverManagerDataSource DS=new DriverManagerDataSource();
-        DS.setDriverClassName("org.postgresql.Driver");
-        DS.setUrl("jdbc:postgresql://localhost:5433/Publicidad");
-        //DS.setUrl("jdbc:postgresql://localhost:5432/Publicidad");
-        DS.setUsername("postgres");
-        DS.setPassword("1522");
-        //DS.setPassword("123");
-        //DS.setPassword("21octubre97");
-        return DS;
-    }*/
+    
+            
+     public Connection conectar(){
+         
+         Connection con = null;
+         String urlDatabase =  "jdbc:postgresql://localhost:5433/db_local";
+         //String urlDatabase =  "jdbc:postgresql://localhost:5432/Publicidad";
+         String usuario = "postgres";
+         String pass = "1522";
+         //String pass = "123";
+         //String pass = "21octubre97";
+         
+         
+         try {
+                Class.forName("org.postgresql.Driver");
+                con = DriverManager.getConnection(urlDatabase,  usuario, pass);
+            } catch (Exception e) {
+                System.out.println("Ocurrio un error : "+e.getMessage());
+            }
+         System.out.println("La conexión se realizo sin problemas! =) ");
+         
+         return con;
+    }
 }

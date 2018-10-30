@@ -86,7 +86,7 @@ public class Controller_archivos {
         //CONVERTIMOS LAS VARIABLES NECESARIAS A INTEGER
         int dur = Integer.parseInt(duracion);
         
-        System.err.println("------------------------------------>    " + upload_folder);
+        //System.err.println("------------------------------------>    " + upload_folder);
         
         //SI LA IMAGEN NO ESTÁ VACÍA GUARDAMOS EL ARCHIVO
         if(!file.isEmpty()){
@@ -121,7 +121,7 @@ public class Controller_archivos {
         //OBTENEMOS EL RESULTADO
         if(flagFile){
             int resultadoInsert = newFile.nuevoArchivo(archivo);
-            if (resultadoInsert==1){
+            if (resultadoInsert>=1){
                  //RECARGAMOS HOME
                 return new ModelAndView("redirect:/archivos.htm");
 
@@ -203,15 +203,15 @@ public class Controller_archivos {
         archivo.setId(idArchivo);
         
         //OBTENEMOS EL RESULTADO
-        int resultadoDelete = delFile.borrarArchivo(archivo);
-        //int resultadoDeleteArchivo = delFile.borrarFichero(archivo);
+        int resultadoDeleteArchivo = delFile.borrarFichero(archivo);
         
-        System.err.println("-----> "+resultadoDelete);
-        //System.err.println("-----> "+resultadoDeleteArchivo);
-        
-        if (resultadoDelete==1 /*&& resultadoDeleteArchivo ==1*/){
-             //RECARGAMOS HOME
-            return new ModelAndView("redirect:/archivos.htm");
+        if (resultadoDeleteArchivo==1 /*&& resultadoDeleteArchivo ==1*/){
+            int resultadoDelete = delFile.borrarArchivo(archivo);
+            if(resultadoDelete == 1){
+                return new ModelAndView("redirect:/archivos.htm");
+            }else{
+                return new ModelAndView("/");
+            }
         }else{
             return new ModelAndView("/");
         }

@@ -9,7 +9,7 @@ package Objects;
  *
  * @author Jesús Mendoza
  */
-public class Login {
+public class Session {
     private String nombre;
     private String correo;
     private String telefono;
@@ -17,10 +17,10 @@ public class Login {
     private String rol;
     private Boolean status;
 
-    public Login() {
+    public Session() {
     }
 
-    public Login(String nombre, String correo, String telefono, String agencia, String rol, Boolean status) {
+    public Session(String nombre, String correo, String telefono, String agencia, String rol, Boolean status) {
         this.nombre = nombre;
         this.correo = correo;
         this.telefono = telefono;

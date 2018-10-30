@@ -40,7 +40,7 @@ public class Controller_historial {
 
             //MÉTODO QUE RETORNA UNA LISTA TIPO ARCHIVO
             historial =new GetAlerts().obtenerAlertas();
-            
+            System.err.println(historial.get(0).getStatus());
             //System.err.println(historial.get(0));
             //NUEVA VISTA
             ModelAndView mav = new ModelAndView();

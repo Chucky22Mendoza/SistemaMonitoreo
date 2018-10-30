@@ -3,17 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package getData;
+package GetData;
 
 import Model.ConnectionDB;
-import Objects.Login;
-import Objects.Usuario;
+import Objects.Session;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
@@ -28,12 +25,12 @@ public class GetDataUser {
         this.dbSource = new ConnectionDB();
     }
     
-    public Login obtenerUsuario(String user, String contraseña){
-        //Variable Objeto tipo Login
-        Login dataUser = new Login();
+    public Session obtenerUsuario(String user, String contraseña){
+        //Variable Objeto tipo Session
+        Session dataUser = new Session();
         //SQL que se ejecutará
         String sql ="Select nombre,correo,telefono,agencia,rol,status from vw_usuarios where username like ? and contrasena like ? ";
-        try (            Connection dbConnection = dbSource.conectar().getConnection();
+        try (            Connection dbConnection = dbSource.conectar();
                           //Tipo CallableStatement, otra variante tambien es usar PrepareStatement
                           CallableStatement consultUser = dbConnection.prepareCall(sql);                  ){
             
@@ -68,37 +65,5 @@ public class GetDataUser {
             //ex.printStackTrace();
         }
         return dataUser;
-    }
-    
-    public List<Usuario> obtenerUsuarios(){
-        List<Usuario> usuarios = new ArrayList<>();
-        String sql ="select id_usuario,nombre,agencia,correo,telefono from vw_usuarios order by id_usuario";
-        try (   Connection dbConnection = dbSource.conectar().getConnection();
-                 CallableStatement obtenerUsuarios = dbConnection.prepareCall(sql);       )            {
-
-          //Variables de Entrada (IN)
-          //System.out.println("Preparando llamada a procedimiento almacenado.");
-          obtenerUsuarios.execute();
-          //System.out.println("Procesando resultados de llamada a procedimiento almacenado.");
-          try(  ResultSet usuariosRS =(ResultSet)obtenerUsuarios.getResultSet(); ){
-              while(usuariosRS.next())
-              {                  
-                    Usuario usuario= new Usuario();
-                    usuario.setId(usuariosRS.getInt(1));
-                    usuario.setNombre(usuariosRS.getString(2));
-                    usuario.setAgencia(usuariosRS.getString(3));
-                    usuario.setCorreo(usuariosRS.getString(4));
-                    usuario.setCelular(usuariosRS.getString(5));
-                    
-                    usuarios.add(usuario);
-                }
-             //System.out.println("Llamada a procedimiento almacenado finalizada correctamente.");
-          }
-        }
-        catch(SQLException ex){
-            System.out.println("Excepcion: "+ ex.getMessage());
-            //ex.printStackTrace();
-        }
-        return usuarios;
     }
 }

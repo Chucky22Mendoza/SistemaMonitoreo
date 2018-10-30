@@ -6,7 +6,6 @@
 package getData;
 
 import Model.ConnectionDB;
-import Objects.Archivo;
 import Objects.ListaReproduccion;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -28,19 +27,19 @@ public class GetPlayList {
     
     public List<ListaReproduccion> obtenerPlayLists(){
         List<ListaReproduccion> listasReproduccion = new ArrayList<>();
-        String sql ="select * from listareproduccion order by idlista";
+        String sql ="select * from lista_reproduccion order by id_lista_reproduccion";
         try (   Connection dbConnection = dbSource.conectar().getConnection();
                  CallableStatement obtenerListas = dbConnection.prepareCall(sql);       )            {
 
           //Variables de Entrada (IN)
-          System.out.println("Preparando llamada a procedimiento almacenado.");
+          //System.out.println("Preparando llamada a procedimiento almacenado.");
           obtenerListas.execute();
-          System.out.println("Procesando resultados de llamada a procedimiento almacenado.");
+          //System.out.println("Procesando resultados de llamada a procedimiento almacenado.");
           try(  ResultSet listasRS =(ResultSet)obtenerListas.getResultSet(); ){
               while(listasRS.next())
                 {
-                  System.out.println("--> "+listasRS.getInt(1));
-                  System.out.println("--> "+listasRS.getString(2));
+                 // System.out.println("--> "+listasRS.getInt(1));
+                  //System.out.println("--> "+listasRS.getString(2));
                   
                     ListaReproduccion listas= new ListaReproduccion();
                     listas.setId(listasRS.getInt(1));
@@ -49,7 +48,7 @@ public class GetPlayList {
                     
                     listasReproduccion.add(listas);
                 }
-             System.out.println("Llamada a procedimiento almacenado finalizada correctamente.");
+             //System.out.println("Llamada a procedimiento almacenado finalizada correctamente.");
           }
         }
         catch(SQLException ex){

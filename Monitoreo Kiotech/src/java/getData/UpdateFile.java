@@ -25,7 +25,7 @@ public class UpdateFile {
     
     public int actualizarArchivo(Archivo editFile){
 
-    String sql ="Update archivo set duracion=? where idarchivo=?;";
+    String sql ="Update archivo set duracion=? where id_archivo=?;";
 
     try (
            Connection dbConnection = dbSource.conectar().getConnection();
@@ -36,17 +36,17 @@ public class UpdateFile {
       
       dbConnection.setAutoCommit(false);
       //Variables de Entrada (IN)
-      System.err.println("Preparando llamada a PostgreSQL. ---> ");
+      //System.err.println("Preparando llamada a PostgreSQL. ---> ");
       actualizarArchivo.setInt(1, editFile.getDuracion());
       actualizarArchivo.setInt(2, editFile.getId());
       int res = actualizarArchivo.executeUpdate();
         
-      System.err.println("<------------------------------------------------ !!!!  " + res);
+      //System.err.println("<------------------------------------------------ !!!!  " + res);
       
       if(res == 1){
           //Finalizamos la transaccion
           dbConnection.commit();
-          System.err.println("Llamada a PostgreSQL finalizada.");
+          //System.err.println("Llamada a PostgreSQL finalizada.");
           return res;
       }else{
           //Si hubo un error, cancelamos la transaccion.

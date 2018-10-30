@@ -29,19 +29,19 @@ public class GetFile {
     
     public List<Archivo> obtenerArchivo(){
         List<Archivo> archivosLista = new ArrayList<>();
-        String sql ="select * from archivo order by idarchivo";
+        String sql ="select * from vw_archivos order by id_archivo";
         try (   Connection dbConnection = dbSource.conectar().getConnection();
                  CallableStatement obtenerArchivos = dbConnection.prepareCall(sql);       )            {
 
           //Variables de Entrada (IN)
-          System.out.println("Preparando llamada a procedimiento almacenado.");
+          //System.out.println("Preparando llamada a procedimiento almacenado.");
           obtenerArchivos.execute();
-          System.out.println("Procesando resultados de llamada a procedimiento almacenado.");
+          //System.out.println("Procesando resultados de llamada a procedimiento almacenado.");
           try(  ResultSet archivosRS =(ResultSet)obtenerArchivos.getResultSet(); ){
               while(archivosRS.next())
                 {
-                  System.out.println("--> "+archivosRS.getInt(1));
-                  System.out.println("--> "+archivosRS.getString(2));
+                  //System.out.println("--> "+archivosRS.getInt(1));
+                  //System.out.println("--> "+archivosRS.getString(2));
                   
                     Archivo archivos= new Archivo();
                     archivos.setId(archivosRS.getInt(1));
@@ -51,7 +51,7 @@ public class GetFile {
                     
                     archivosLista.add(archivos);
                 }
-             System.out.println("Llamada a procedimiento almacenado finalizada correctamente.");
+             //System.out.println("Llamada a procedimiento almacenado finalizada correctamente.");
           }
         }
         catch(SQLException ex){

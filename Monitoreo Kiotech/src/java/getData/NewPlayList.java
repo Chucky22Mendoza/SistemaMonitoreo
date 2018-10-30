@@ -6,7 +6,6 @@
 package getData;
 
 import Model.ConnectionDB;
-import Objects.Archivo;
 import Objects.ListaReproduccion;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -24,7 +23,7 @@ public class NewPlayList {
     
     public int nuevaLista(ListaReproduccion lista){
 
-    String sql ="INSERT INTO listareproduccion(idlista, nombre, descripcion)  VALUES(default,?,?);";
+    String sql ="INSERT INTO lista_reproduccion(id_lista_reproduccion, nombre, descripcion)  VALUES(default,?,?);";
 
     try (
            Connection dbConnection = dbSource.conectar().getConnection();
@@ -35,18 +34,18 @@ public class NewPlayList {
         //fechaestreno,duracion,fecha_registro,fecha_actualizacion
         dbConnection.setAutoCommit(false);
         //Variables de Entrada (IN)
-        System.err.println("Preparando llamada a PostgreSQL. ---> ");
+        //System.err.println("Preparando llamada a PostgreSQL. ---> ");
         nuevaLista.setString(1, lista.getNombre());
         nuevaLista.setString(2, lista.getDescripcion());
 
         int res = nuevaLista.executeUpdate();
 
-        System.err.println("<------------------------------------------------ !!!!  " + res);
+        //System.err.println("<------------------------------------------------ !!!!  " + res);
 
         if(res == 1){
             //Finalizamos la transaccion
             dbConnection.commit();
-            System.err.println("Llamada a PostgreSQL finalizada.");
+            //System.err.println("Llamada a PostgreSQL finalizada.");
             return res;
         }else{
             //Si hubo un error, cancelamos la transaccion.

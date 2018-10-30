@@ -172,6 +172,7 @@
                     <th scope="col" class="text-center">Tipo de Alerta</th>
                     <th scope="col" class="text-center">Mensaje</th>
                     <th scope="col" class="text-center">Kiosko</th>
+                    <th scope="col" class="text-center">Status</th>
                     <th scope="col" class="text-center">Acciones</th>
                   </tr>
                 </thead>
@@ -179,8 +180,9 @@
                   <c:set var="contador" value="${0}"></c:set>
                   <c:forEach items="${historial}" var="dato">
                       <c:set var="contador" value="${contador+1}"></c:set>
-                      <!--<c:out value="${contador}"></c:out>-->
-                    <c:if test = "${contador <=  8}">
+                      <c:set var="status" value="${dato.status}"></c:set>
+                      <!--<c:out value="${dato.status}"></c:out>-->
+                    <c:if test = "${contador <=  15}">
                     <tr>
                       <td class="text-center"><input type="checkbox" class="mt-1 cbSelec" name="cbSelec" style="cursor:pointer;"></td>
                       <td class="text-center">${dato.id}</td>
@@ -188,7 +190,21 @@
                       <td class="text-center">${dato.tipoAlerta}</td>
                       <td class="text-center">${dato.mensaje}</td>
                       <td class="text-center">${dato.kiosco}</td>
-                      <td class="text-center">
+                      <c:if test = "${status == true}">
+                        <td class="text-center text-success h3">
+                          <a id="" name="" class="ico-success" title="success" style="cursor: pointer">
+                            <i class="fas fa-check-circle"></i>
+                          </a>
+                        </td>
+                      </c:if>
+                      <c:if test = "${status == false}">
+                        <td class="text-center text-danger h3">
+                          <a id="" name="" class="ico-error" title="error" style="cursor: pointer">
+                            <i class="fas fa-exclamation-circle"></i>
+                          </a>
+                        </td>
+                      </c:if>
+                      <td class="text-center h3">
                         <a id="${dato.id}" name="${dato.mensaje}" value="${dato.fechaHora}/${dato.tipoAlerta}/${dato.mensaje}/${dato.kiosco}" class="ico-detalles" title="Detalles">
                           <i class="far fa-eye icono"></i>
                         </a>

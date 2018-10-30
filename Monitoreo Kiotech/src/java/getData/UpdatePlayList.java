@@ -24,7 +24,7 @@ public class UpdatePlayList {
     
     public int actualizarLista(ListaReproduccion editLista){
 
-    String sql ="Update listareproduccion set nombre=?, descripcion=? where idlista=?;";
+    String sql ="Update lista_reproduccion set nombre=?, descripcion=? where id_lista_reproduccion=?;";
     
     try (
            Connection dbConnection = dbSource.conectar().getConnection();
@@ -35,19 +35,19 @@ public class UpdatePlayList {
      
       dbConnection.setAutoCommit(false);
       //Variables de Entrada (IN)
-      System.err.println("Preparando llamada a PostgreSQL. ---> ");
+      //System.err.println("Preparando llamada a PostgreSQL. ---> ");
       actualizarLista.setString(1, editLista.getNombre());
       actualizarLista.setString(2, editLista.getDescripcion());
       actualizarLista.setInt(3,editLista.getId());
       
       int res = actualizarLista.executeUpdate();
         
-      System.err.println("<------------------------------------------------ !!!!  " + res);
+      //System.err.println("<------------------------------------------------ !!!!  " + res);
       
       if(res == 1){
           //Finalizamos la transaccion
           dbConnection.commit();
-          System.err.println("Llamada a PostgreSQL finalizada.");
+        //  System.err.println("Llamada a PostgreSQL finalizada.");
           return res;
       }else{
           //Si hubo un error, cancelamos la transaccion.

@@ -80,7 +80,8 @@ public class PantallaExclusiva extends javax.swing.JFrame {
         Platform.runLater(new Runnable(){
             @Override
             public void run() {
-                File file = new File ("C:\\Users\\mario\\Desktop\\SistemaMonitoreo\\Publicidad\\src\\Video\\SafeTaxi_Etapa_regional_ENEIT.mp4");
+                //File file = new File ("C:\\Users\\mario\\Desktop\\SistemaMonitoreo\\Publicidad\\src\\Video\\SafeTaxi_Etapa_regional_ENEIT.mp4");
+                File file = new File("C:\\Users\\Jesús Mendoza\\Documents\\GitHub\\SistemaMonitoreo\\Publicidad\\src\\Video\\SafeTaxi_Etapa_regional_ENEIT.mp4");
                 MediaPlayer oracleVid = new MediaPlayer(
                         new Media(file.toURI().toString())
                 );

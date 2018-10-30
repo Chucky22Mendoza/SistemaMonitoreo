@@ -25,6 +25,7 @@
       <spring:url value="/resources/css/spinner.css" var="spinnerCSS" />
       <spring:url value="/resources/css/animate.min.css" var="animeteCSS" />
       <spring:url value="/resources/css/menu.css" var="menuCSS" />
+      <spring:url value="/resources/css/table-scrollable.css" var="tableCSS" />
       <spring:url value="/resources/js/spinner.js" var="spinnerJS" />
       <spring:url value="/resources/alertifyjs/alertify.js" var="alertifyJS" />
 
@@ -36,6 +37,7 @@
       <link rel="stylesheet" href="${spinnerJS}">
       <link rel="stylesheet" href="${animateCSS}">
       <link rel="stylesheet" href="${menuCSS}">
+      <link rel="stylesheet" href="${tableCSS}">
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
       <title>Configuracion de Eventos</title>
     </head>
@@ -94,7 +96,9 @@
             </tr>
           </thead>
           <tbody>
+            <c:set var="contador" value="${0}"></c:set>
             <c:forEach items="${evento}" var="dato">
+              <c:set var="contador" value="${contador+1}"></c:set>
               <c:set var="activo" value="${dato.activo}"></c:set>
               <tr>
                 <td class="text-center">${dato.id}</td>
@@ -106,11 +110,34 @@
                 <c:if test="${activo == false}">
                   <td class="text-center"><input type="checkbox" class="mt-1 cbSelec" name="cbSelec" disabled="disabled"></td>
                 </c:if>
-                <td class="text-center">
-                  <a id="${dato.id}" name="${dato.nombre}" value="${dato.nombre}-${dato.mensaje}-${dato.activo}" class="ico-conf" data-toggle="modal" data-target="#modalMinFolios">
-                    Configurar <i class="fas fa-cog icono"></i>
-                  </a>
-                </td>
+                <c:if test="${contador == 12}">
+                    <td class="text-center">
+                      <a class="ico-conf" data-toggle="modal" data-target="#modalMinFolios">
+                         Configurar <i class="fas fa-cog icono"></i>
+                      </a>
+                    </td>
+                </c:if>
+                <c:if test="${contador == 13}">
+                    <td class="text-center">
+                      <a class="ico-conf" data-toggle="modal" data-target="#modalDenominaciones">
+                         Configurar <i class="fas fa-cog icono"></i>
+                      </a>
+                    </td>
+                </c:if>
+                <c:if test="${contador == 14}">
+                    <td class="text-center">
+                      <a class="ico-conf" data-toggle="modal" data-target="#modalContenedores">
+                         Configurar <i class="fas fa-cog icono"></i>
+                      </a>
+                    </td>
+                </c:if>
+                <c:if test="${contador == 15}">
+                    <td class="text-center">
+                      <a class="ico-conf" data-toggle="modal" data-target="#modalCorteCaja">
+                         Configurar <i class="fas fa-cog icono"></i>
+                      </a>
+                    </td>
+                </c:if>
               </tr>
             </c:forEach>
           </tbody>
@@ -137,6 +164,206 @@
                   </form>
                   <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                 </div>
+          </div>
+        </div>
+      </div>
+      <!-- FIN DEL MODAL LISTA DE REPRODUCCI�N -->
+      
+      <!-- MODAL BORRAR LISTA DE REPRODUCCI�N-->
+      <div class="modal fade" id="modalDenominaciones" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <div id="titleModalDenominaciones"> <h2 class="text-center">Configuración de Evento 13</h2></div>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+              <form id="Denominaciones">
+                <div id="modal-bodyDenominaciones" class="modal-body">
+                 <h3 class="text-center">Cantidad Mínima de: </h3>
+                  <hr>
+                  <div class="modal-body row d-flex justify-content-center">
+                    <label for="mon1" class="form-control-label col-sm-5">Monedas de $1: </label>
+                    <input id="mon1" type="number" class="form-control col-sm-3 ml-2" name="" value="10" min="5">
+                  </div>
+                  <div class="modal-body row mt-2 d-flex justify-content-center">
+                    <label for="mon5" class="form-control-label col-sm-5">Monedas de $5: </label>
+                    <input id="mon5" class="form-control col-sm-3 ml-2"  type="number" name="" value="10" min="5">
+                  </div>
+                  <div class="modal-body row mt-2 d-flex justify-content-center">
+                    <label for="mon10" class="form-control-label col-sm-5">Monedas de $10: </label>
+                    <input id="mon10" class="form-control col-sm-3 ml-2"  type="number" name="" value="10" min="5">
+                  </div>
+                  <div class="modal-body row mt-2 mb-5 d-flex justify-content-center">
+                    <label for="bil50" class="form-control-label col-sm-5">Billetes de $50: </label>
+                    <input id="bil50" class="form-control col-sm-3 ml-2" type="number" name="" value="10" min="5">
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <a id="btnDenominaciones" class="btn btn-warning ml-2"><i class="fas fa-trash-alt"></i> Aceptar</a>
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                </div>
+              </form>
+          </div>
+        </div>
+      </div>
+      <!-- FIN DEL MODAL LISTA DE REPRODUCCI�N -->
+      <!-- MODAL BORRAR LISTA DE REPRODUCCI�N-->
+      <div class="modal fade" id="modalContenedores" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <div id="titleModalContenedores"> <h2 class="text-center">Configuración de Evento 14</h2></div>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+              <form id="Contenedores">
+                <div id="modal-bodyContenedores" class="modal-body">
+                 <h3 class="text-center">Cantidad Máxima de: </h3>
+                  <hr>
+                  <div class="modal-body row d-flex justify-content-center">
+                    <label for="monedas" class="form-control-label col-sm-3">Monedas: </label>
+                    <input id="monedas" type="number" class="form-control col-sm-3 ml-2" value="2500" min="500">
+                  </div>
+                  <div class="modal-body row mt-2 d-flex justify-content-center">
+                    <label for="billetes" class="form-control-label col-sm-3">Billetes: </label>
+                    <input id="billetes" class="form-control col-sm-3 ml-2"  type="number" value="1250" min="250">
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <a id="btnContenedores" class="btn btn-warning ml-2"><i class="fas fa-trash-alt"></i> Aceptar</a>
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                </div>
+              </form>
+          </div>
+        </div>
+      </div>
+      <!-- FIN DEL MODAL LISTA DE REPRODUCCI�N -->
+      <!-- MODAL BORRAR LISTA DE REPRODUCCI�N-->
+      <div class="modal fade" id="modalCorteCaja" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <div id="titleModalCorteCaja"> <h2 class="text-center">Configuración de Evento 15</h2></div>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+              <form id="CorteCaja">
+                <div id="modal-bodyCorteCaja" class="modal-body">
+                 <h3 class="text-center">Horario para realizar corte de caja</h3>
+                  <hr>
+                 <div class="row">
+                  <div class="col-sm-4">
+                   <h3 class="text-center">Kioscos</h3>
+                    <table class="table table-hover mt-2">
+                        <thead class="">
+                          <tr>
+                           <th >
+                           </th>
+                            <th scope="col" class="text-center">
+                             <div class="form-check">
+                              <input class="form-check-input" type="checkbox" value="" id="cbGen" style="cursor:pointer;">
+                              <label class="form-check-label ml-1" for="cbGen">
+                               Seleccionar todos
+                              </label>
+                             </div>
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody class="">
+                           <table class="my-tbody">
+                            <tr class="tr">
+                              <td class="text-center td"><input class="form-check-input ml-4" type="checkbox" value="" style="cursor:pointer;"></td>
+                              <td class="text-center td">Kiosco 1</td>
+                            </tr>
+                            <tr class="tr">
+                              <td class="text-center td"><input class="form-check-input ml-4" type="checkbox" value="" style="cursor:pointer;"></td>
+                              <td class="text-center td">Kiosco 2</td>
+                            </tr>
+                            <tr class="tr">
+                              <td class="text-center td"><input class="form-check-input ml-4" type="checkbox" value=""  style="cursor:pointer;"></td>
+                              <td class="text-center td">Kiosco 3</td>
+                            </tr>
+                            <tr class="tr">
+                              <td class="text-center td"><input class="form-check-input ml-4" type="checkbox" value="" style="cursor:pointer;"></td>
+                              <td class="text-center td">Kiosco 4</td>
+                            </tr>
+                            <tr class="tr">
+                              <td class="text-center td"><input class="form-check-input ml-4" type="checkbox" value="" style="cursor:pointer;"></td>
+                              <td class="text-center td">Kiosco 5</td>
+                            </tr>
+                            <tr class="tr">
+                              <td class="text-center td"><input class="form-check-input ml-4" type="checkbox" value="" style="cursor:pointer;"></td>
+                              <td class="text-center td">Kiosco 6</td>
+                            </tr>
+                            <tr class="tr">
+                              <td class="text-center td"><input class="form-check-input ml-4" type="checkbox" value="" style="cursor:pointer;"></td>
+                              <td class="text-center td">Kiosco 7</td>
+                            </tr>
+                            <tr class="tr">
+                              <td class="text-center td"><input class="form-check-input ml-4" type="checkbox" value="" style="cursor:pointer;"></td>
+                              <td class="text-center td">Kiosco 8</td>
+                            </tr>
+                            <tr class="tr">
+                              <td class="text-center td"><input class="form-check-input ml-4" type="checkbox" value="" style="cursor:pointer;"></td>
+                              <td class="text-center td">Kiosco 9</td>
+                            </tr>
+                            <tr class="tr">
+                              <td class="text-center td"><input class="form-check-input ml-4" type="checkbox" value="" style="cursor:pointer;"></td>
+                              <td class="text-center td">Kiosco 10</td>
+                            </tr>
+                            <div class="cl"></div>
+                           </table>
+                        </tbody>
+                        
+                    </table>
+                  </div>
+                  <div class="col-sm-8">
+                    <div class="modal-body row d-flex justify-content-center mt-5">
+                      <label for="horaInicial" class="form-control-label col-sm-3">Hora inicio: </label>
+                      <input type="time" class="form-control mr-1 col-sm-2" id="horaInicial">
+                      
+                      <label for="horaFin" class="form-control-label col-sm-3">Hora fin: </label>
+                      <input type="time" class="form-control mr-1 col-sm-2" id="horaFin">
+                    </div>
+                    <h3 class="text-center mt-5">Días: </h3>
+                    <table class="table table-hover mt-2">
+                        <thead class="">
+                          <tr>
+                            <th scope="col" class="text-center">D</th>
+                            <th scope="col" class="text-center">L</th>
+                            <th scope="col" class="text-center">M</th>
+                            <th scope="col" class="text-center">M</th>
+                            <th scope="col" class="text-center">J</th>
+                            <th scope="col" class="text-center">V</th>
+                            <th scope="col" class="text-center">S</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                              <td class="text-center"><input class="form-check-input ml-1" type="checkbox" value="" style="cursor:pointer;"></td>
+                              <td class="text-center"><input class="form-check-input ml-1" type="checkbox" value="" style="cursor:pointer;"></td>
+                              <td class="text-center"><input class="form-check-input ml-1" type="checkbox" value="" style="cursor:pointer;"></td>
+                              <td class="text-center"><input class="form-check-input ml-1" type="checkbox" value="" style="cursor:pointer;"></td>
+                              <td class="text-center"><input class="form-check-input ml-1" type="checkbox" value="" style="cursor:pointer;"></td>
+                              <td class="text-center"><input class="form-check-input ml-1" type="checkbox" value="" style="cursor:pointer;"></td>
+                              <td class="text-center"><input class="form-check-input ml-1" type="checkbox" value="" style="cursor:pointer;"></td>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                  </div>
+                 </div>
+                  
+                </div>
+                <div class="modal-footer">
+                  <a id="btnCorteCaja" class="btn btn-warning ml-2"><i class="fas fa-trash-alt"></i> Aceptar</a>
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                </div>
+              </form>
           </div>
         </div>
       </div>

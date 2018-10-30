@@ -6,7 +6,6 @@
 package getData;
 
 import Model.ConnectionDB;
-import Objects.Archivo;
 import Objects.Kiosco;
 import Objects.Programadas;
 import java.sql.CallableStatement;
@@ -28,7 +27,7 @@ public class GetKioscos {
     
     public List<Kiosco> obtenerKioscos(){
         List<Kiosco> kiosco = new ArrayList<>();
-        String sql ="select * from kiosco order by idkiosco";
+        String sql ="select * from vw_kiosco_agencia order by id_kiosco";
         try (   Connection dbConnection = dbSource.conectar().getConnection();
                  CallableStatement obtenerKioscos = dbConnection.prepareCall(sql);       )            {
 
@@ -46,7 +45,7 @@ public class GetKioscos {
                     
                     kiosco.add(kioscos);
                 }
-             System.out.println("Llamada a procedimiento almacenado finalizada correctamente.");
+             //System.out.println("Llamada a procedimiento almacenado finalizada correctamente.");
           }
         }
         catch(SQLException ex){
@@ -58,7 +57,7 @@ public class GetKioscos {
     
     public List<Programadas> obtenerProgramadas(int id){
         List<Programadas> programada = new ArrayList<>();
-        String sql ="select * from vw_programadas where idkiosco=? order by id_lista_reproduccion";
+        String sql ="select * from vw_listas_programadas where id_kiosco=? order by id_lista_reproduccion";
         try (   Connection dbConnection = dbSource.conectar().getConnection();
                  CallableStatement obtenerProgramadas = dbConnection.prepareCall(sql);       )            {
 
@@ -89,7 +88,7 @@ public class GetKioscos {
                     
                     programada.add(programadas);
                 }
-             System.out.println("Llamada a procedimiento almacenado finalizada correctamente.");
+             //System.out.println("Llamada a procedimiento almacenado finalizada correctamente.");
           }
         }
         catch(SQLException ex){

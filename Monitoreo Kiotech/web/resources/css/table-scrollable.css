@@ -1,0 +1,23 @@
+.my-tbody {
+  height: 50% !important;
+  overflow-y: scroll;	
+}
+   
+.my-tbody {
+  height:20%;
+  display:block;
+  overflow-y:scroll;
+  width:100%;
+}
+
+tbody {
+  width: 100%;
+}
+
+.tr {
+  width: 100%;
+}
+
+.td {
+  width: 33.33%;
+}

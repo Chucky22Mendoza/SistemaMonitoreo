@@ -24,7 +24,7 @@ public class DeletePlayList {
     
     public int borrarLista(ListaReproduccion id){
 
-    String sql ="DELETE FROM listareproduccion WHERE idlista = ?;";
+    String sql ="DELETE FROM lista_reproduccion WHERE id_lista_reproduccion = ?;";
 
     try (
            Connection dbConnection = dbSource.conectar().getConnection();
@@ -35,17 +35,17 @@ public class DeletePlayList {
         //fechaestreno,duracion,fecha_registro,fecha_actualizacion
         dbConnection.setAutoCommit(false);
         //Variables de Entrada (IN)
-        System.err.println("Preparando llamada a PostgreSQL. ---> ");
+        //System.err.println("Preparando llamada a PostgreSQL. ---> ");
         borrarLista.setInt(1, id.getId());
 
         int res = borrarLista.executeUpdate();
 
-        System.err.println("<------------------------------------------------ !!!!  " + res);
+        //System.err.println("<------------------------------------------------ !!!!  " + res);
 
         if(res == 1){
             //Finalizamos la transaccion
             dbConnection.commit();
-            System.err.println("Llamada a PostgreSQL finalizada.");
+            //System.err.println("Llamada a PostgreSQL finalizada.");
             return res;
         }else{
             //Si hubo un error, cancelamos la transaccion.

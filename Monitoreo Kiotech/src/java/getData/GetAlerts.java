@@ -27,31 +27,31 @@ public class GetAlerts {
     
     public List<Historial> obtenerAlertas(){
         List<Historial> historial = new ArrayList<>();
-        String sql ="select * from historial_alerta order by idhistorial";
+        String sql ="select * from vw_historial_alerta order by id_historial_alerta";
         try (   Connection dbConnection = dbSource.conectar().getConnection();
                  CallableStatement obtenerAlertas = dbConnection.prepareCall(sql);       )            {
 
           //Variables de Entrada (IN)
-          System.out.println("Preparando llamada a procedimiento almacenado.");
+          //System.out.println("Preparando llamada a procedimiento almacenado.");
           obtenerAlertas.execute();
-          System.out.println("Procesando resultados de llamada a procedimiento almacenado.");
+          //System.out.println("Procesando resultados de llamada a procedimiento almacenado.");
           try(  ResultSet alertasRS =(ResultSet)obtenerAlertas.getResultSet(); ){
               while(alertasRS.next())
                 {
-                  System.out.println("--> "+alertasRS.getInt(1));
-                  System.out.println("--> "+alertasRS.getString(2));
+                  //System.out.println("--> "+alertasRS.getInt(1));
+                  //System.out.println("--> "+alertasRS.getString(2));
                   
                     Historial his= new Historial();
                     his.setId(alertasRS.getInt(1));
-                    System.err.println(alertasRS.getInt(1));
                     his.setFechaHora(alertasRS.getString(2));
                     his.setTipoAlerta(alertasRS.getString(3));
                     his.setMensaje(alertasRS.getString(4));
-                    his.setKiosco(alertasRS.getInt(5));
+                    his.setKiosco(alertasRS.getString(5));
+                    his.setStatus(alertasRS.getBoolean(6));
                     
                     historial.add(his);
                 }
-             System.out.println("Llamada a procedimiento almacenado finalizada correctamente.");
+            // System.out.println("Llamada a procedimiento almacenado finalizada correctamente.");
           }
         }
         catch(SQLException ex){

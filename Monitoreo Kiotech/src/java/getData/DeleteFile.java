@@ -6,7 +6,6 @@
 package getData;
 
 import Model.ConnectionDB;
-import Objects.Archivo;
 import Objects.IdArchivo;
 import java.io.File;
 import java.sql.CallableStatement;
@@ -27,9 +26,7 @@ public class DeleteFile {
     }
     
     public int borrarArchivo(IdArchivo id){
-    
-    //String delFile = "select ubicacion from archivo where idarchivo = ?;";
-    String sql ="DELETE FROM archivo WHERE idarchivo = ?;";
+    String sql ="DELETE FROM archivo WHERE id_archivo = ?;";
 
     try (
            Connection dbConnection = dbSource.conectar().getConnection();
@@ -40,17 +37,17 @@ public class DeleteFile {
         //fechaestreno,duracion,fecha_registro,fecha_actualizacion
         dbConnection.setAutoCommit(false);
         //Variables de Entrada (IN)
-        System.err.println("Preparando llamada a PostgreSQL. ---> ");
+        //System.err.println("Preparando llamada a PostgreSQL. ---> ");
         borrarArchivo.setInt(1, id.getId());
 
         int res = borrarArchivo.executeUpdate();
 
-        System.err.println("<------------------------------------------------ !!!!  " + res);
+        //System.err.println("<------------------------------------------------ !!!!  " + res);
 
         if(res == 1){
             //Finalizamos la transaccion
             dbConnection.commit();
-            System.err.println("Llamada a PostgreSQL finalizada.");
+            //System.err.println("Llamada a PostgreSQL finalizada.");
             return res;
         }else{
             //Si hubo un error, cancelamos la transaccion.
@@ -68,45 +65,48 @@ public class DeleteFile {
     }
     
     //MÉTODO PARA BORRAR FICHERO DEL SERVIDOR
+    private String ubicacion;
     public int borrarFichero(IdArchivo id){
     
-    String sql = "select ubicacion from archivo where idarchivo = ?;";
-    String ubicacion;
+    String sql = "select ubicacion from archivo where id_archivo = ?;";
+    
     try (
            Connection dbConnection = dbSource.conectar().getConnection();
             //Tipo CallableStatement, otra variante tambien es usar PrepareStatement
             CallableStatement borrarArchivo= dbConnection.prepareCall(sql);
            )            
         {
-        //fechaestreno,duracion,fecha_registro,fecha_actualizacion
+        
         dbConnection.setAutoCommit(false);
         //Variables de Entrada (IN)
-        System.out.println("Preparando llamada a PostgreSQL. ---> ");
+        //System.out.println("Preparando llamada a PostgreSQL. ---> ");
         borrarArchivo.setInt(1, id.getId());
 
         borrarArchivo.execute();
-            System.err.println("Resultset");
+        //System.err.println("Resultset");
         try(  ResultSet archivosRS =(ResultSet)borrarArchivo.getResultSet(); ){
-             System.err.println("Resultset2");
+             //System.err.println("Resultset2");
              
-             if (!archivosRS.next())
+             if (!archivosRS.next()){
                 System.out.println("no hay registros");
-            else do {
-                System.out.println("Ubicación -------> " + archivosRS.getString("ubicacion"));
+             }else do {
+                //System.out.println("Ubicación -------> " + archivosRS.getString("ubicacion"));
+                ubicacion = archivosRS.getString("ubicacion");
             } while (archivosRS.next());
              
-             System.out.println("Llamada a procedimiento almacenado finalizada correctamente.");
+             //System.out.println("Llamada a procedimiento almacenado finalizada correctamente.");
              
-             /*File fichero = new File(ubicacion);
+             File fichero = new File(ubicacion);
 
             if (fichero.delete()){
                 System.err.println("El fichero ha sido borrado satisfactoriamente");
-                dbConnection.rollback();
+                return 1;
+                //dbConnection.rollback();
             }else{
                 System.err.println("El fichero no pudó ser borrado");
-                dbConnection.rollback();
-            }*/
-             return 1;
+                return 0;
+                //dbConnection.rollback();
+            }
           }
 
       }

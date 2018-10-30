@@ -28,29 +28,29 @@ public class GetEvents {
     
     public List<Evento> obtenerEventos(){
         List<Evento> evento = new ArrayList<>();
-        String sql ="select * from evento order by idevento";
+        String sql ="select * from cat_evento order by id_evento";
         try (   Connection dbConnection = dbSource.conectar().getConnection();
                  CallableStatement obtenerEventos = dbConnection.prepareCall(sql);       )            {
 
           //Variables de Entrada (IN)
-          System.out.println("Preparando llamada a procedimiento almacenado.");
+          //System.out.println("Preparando llamada a procedimiento almacenado.");
           obtenerEventos.execute();
-          System.out.println("Procesando resultados de llamada a procedimiento almacenado.");
+          //System.out.println("Procesando resultados de llamada a procedimiento almacenado.");
           try(  ResultSet eventosRS =(ResultSet)obtenerEventos.getResultSet(); ){
               while(eventosRS.next())
                 {
-                  System.out.println("--> "+eventosRS.getInt(1));
-                  System.out.println("--> "+eventosRS.getString(2));
+                  //System.out.println("--> "+eventosRS.getInt(1));
+                  //System.out.println("--> "+eventosRS.getString(2));
                   
                     Evento event= new Evento();
                     event.setId(eventosRS.getInt(1));
                     event.setNombre(eventosRS.getString(2));
                     event.setMensaje(eventosRS.getString(3));
-                    event.setActivo(eventosRS.getBoolean(4));
+                    event.setActivo(true);
                     
                     evento.add(event);
                 }
-             System.out.println("Llamada a procedimiento almacenado finalizada correctamente.");
+             //System.out.println("Llamada a procedimiento almacenado finalizada correctamente.");
           }
         }
         catch(SQLException ex){

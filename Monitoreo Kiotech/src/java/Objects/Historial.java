@@ -14,17 +14,19 @@ public class Historial {
     private String fechaHora;
     private String tipoAlerta;
     private String mensaje;
-    private int kiosco;
+    private String kiosco;
+    private Boolean status;
 
     public Historial() {
     }
 
-    public Historial(int id, String fechaHora, String tipoAlerta, String mensaje, int kiosco) {
+    public Historial(int id, String fechaHora, String tipoAlerta, String mensaje, String kiosco, Boolean status) {
         this.id = id;
         this.fechaHora = fechaHora;
         this.tipoAlerta = tipoAlerta;
         this.mensaje = mensaje;
         this.kiosco = kiosco;
+        this.status = status;
     }
 
     public int getId() {
@@ -59,12 +61,22 @@ public class Historial {
         this.mensaje = mensaje;
     }
 
-    public int getKiosco() {
+    public String getKiosco() {
         return kiosco;
     }
 
-    public void setKiosco(int kiosco) {
+    public void setKiosco(String kiosco) {
         this.kiosco = kiosco;
     }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
+
+    
     
 }
