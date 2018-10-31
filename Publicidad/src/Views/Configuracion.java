@@ -6,11 +6,14 @@
 package Views;
 
 import Model.Envio;
+import java.awt.SystemTray;
+import java.awt.TrayIcon;
 import java.io.File;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
 
 /**
  *
@@ -18,6 +21,12 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class Configuracion extends javax.swing.JFrame {
 
+    //COMPONENTES DEL SEGUNDO PLANO
+    private ImageIcon imgIcon;
+    private TrayIcon trayIcon;
+    private SystemTray sysTray;
+    
+    
     /**
      * Creates new form Configuracion
      */
@@ -28,8 +37,64 @@ public class Configuracion extends javax.swing.JFrame {
         ExaminarBtn.setVisible(false);
         RadioButton1.setSelected(true);
         setLocationRelativeTo(null);
-    }
+        
+        imgIcon = new ImageIcon(getClass().getResource("../Images/app.png")); //IMAGEN QUE SERÁ USADA COMO ICONO
+        try {
+            setIconImage(imgIcon.getImage());         //MANDAR IMAGEN AL FRAME
+        } catch (Exception e) {
+        }
+        this.setTitle("SEGUNDO PLANO"); //TÍTULO DE LA APP
+        instanciarTray(); //LLAMADO DEL MÉTODO AL INICIAR LA APP (DESDE ENTONCES LA APP YA SE ENCUENTRA EN SEGUNDO PLANO (VER A DETALLE ESTE MÉTODO)
 
+        
+        
+    }
+    
+     private void instanciarTray(){
+        //ANTES DE ESTA LINEA DE CODIGO DEBERÁ CREARSE UN POPUP MENÚ EN AWT DE JAVA
+        //SE INGRESA LA IMAGEN DE ICONO, UN TOOLTIP Y EL POPUP ANTES MENCIONADO QUE SERÁN LAS OPCIONES DEL USUARIO EN SEGUNDO PLANO
+        trayIcon = new TrayIcon(imgIcon.getImage(), "tooltip del icono", popup);
+        //ACOPLAR ICONO
+        trayIcon.setImageAutoSize(true);
+        //INSTANCIAR SYSTEM TRAY
+        sysTray = SystemTray.getSystemTray();
+        initSysTray(); //MANDAR A SEGUNDO PLANO LA APP DESDE QUE SE INICIA
+    }
+    
+    private void initSysTray(){
+        try {
+            //SOLO SE INICIALIZA SI EL SISTEMA SOPORTA SYSTEM TRAY
+            if(SystemTray.isSupported()){
+                //SE AGREGA LA VARIABLE QUE CONTIENE EL ÍCONO, TOOLTIP Y POPUP
+                sysTray.add(trayIcon);
+                //OCULTAR LA VENTANA
+                this.setVisible(false);
+            }
+        } catch (Exception e) {
+            //EN CASO DE ERROR, MOSTRARLO
+            JOptionPane.showMessageDialog(this,e.getMessage());
+        }
+    }
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {                                  
+        initSysTray(); //MANDAR A SEGUNDO PLANO LA APP CUANDO SE PULSE SALIR EN LA VENTANA
+    }    
+ //OPCIÓN UNO DE POPUP MENU
+    private void configActionPerformed(java.awt.event.ActionEvent evt) {                                       
+        //SI SE REQUIERE, SE PUEDE OCULTAR EL ICONO DE SEGUNDO PLANO
+        //sysTray.remove(trayIcon);
+        //MOSTRAR VENTANA
+        this.setVisible(true);
+    }                                      
+
+    //OPCIÓN DOS DE POPUP MENU (SOLO SALIR)
+    private void exitActionPerformed(java.awt.event.ActionEvent evt) {                                     
+        System.exit(0);
+    }   
+    
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {                                   
+        
+    }  
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -527,4 +592,9 @@ public class Configuracion extends javax.swing.JFrame {
     private javax.swing.JLabel pxLabel1;
     private javax.swing.JLabel pxLabel2;
     // End of variables declaration//GEN-END:variables
+     private java.awt.PopupMenu popup;
+     private java.awt.MenuItem config;
+    private java.awt.MenuItem exit;
+   
+
 }

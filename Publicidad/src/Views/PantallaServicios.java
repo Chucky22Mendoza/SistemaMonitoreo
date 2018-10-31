@@ -27,6 +27,10 @@ public class PantallaServicios extends javax.swing.JFrame {
         tamañoPantalla();
         setLocationRelativeTo(null);
     }
+
+    public PantallaServicios() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.
