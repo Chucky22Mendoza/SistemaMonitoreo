@@ -1,0 +1,34 @@
+
+/*
+Colores
+naranja: #f58003
+naranja2: #c96800
+azul: #015678
+azul2: #02445e
+fondo: #303a4c
+rojo: #ca2942
+*/
+
+.circle{
+	font-size: 40px;
+	border: 2px solid rgba(0,0,0, 0);
+    -webkit-border: 2px solid rgba(0,0,0, 0);
+    -moz-border: 2px solid rgba(0,0,0,0);
+    -o-border: 2px solid rgba(0,0,0, 0);
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -o-border-radius: 10px;
+	background-color: #fff;
+	color: #000;
+	cursor: pointer;
+}
+
+.circle:hover{
+	background-color: #000;
+	color: #fff;
+}
+
+.activado{
+	background-color: #c96800;
+}

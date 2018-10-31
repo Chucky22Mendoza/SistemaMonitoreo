@@ -7,6 +7,7 @@ package getData;
 
 import Model.ConnectionDB;
 import Objects.Archivo;
+import Objects.EditarArchivos;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -59,5 +60,45 @@ public class GetFile {
             //ex.printStackTrace();
         }
         return archivosLista;
+    }
+    
+     public List<EditarArchivos> EditarArchivos(int id){
+        List<EditarArchivos> editArch = new ArrayList<>();
+        String sql ="select * from vw_posicion_archivos where id_lista_reproduccion = ?";
+        try (   Connection dbConnection = dbSource.conectar().getConnection();
+                 CallableStatement obtenerArchivos = dbConnection.prepareCall(sql);       )            {
+          
+          
+          obtenerArchivos.setInt(1, id);
+          //Variables de Entrada (IN)
+          //System.out.println("Preparando llamada a procedimiento almacenado.");
+          obtenerArchivos.execute();
+          
+            
+          //System.out.println("Procesando resultados de llamada a procedimiento almacenado.");
+          try(  ResultSet archivosRS =(ResultSet)obtenerArchivos.getResultSet(); ){
+              while(archivosRS.next())
+                {
+                  //System.out.println("--> "+archivosRS.getInt(1));
+                  //System.out.println("--> "+archivosRS.getString(2));
+                  
+                    EditarArchivos archivos= new EditarArchivos();
+                    archivos.setIdArchivo(archivosRS.getInt(2));
+                    archivos.setOrden(archivosRS.getInt(3));
+                    archivos.setNombre(archivosRS.getString(4));
+                    archivos.setTipo(archivosRS.getString(5));
+                    archivos.setDuracion(archivosRS.getInt(6));
+                    
+                    editArch.add(archivos);
+                }
+             //System.out.println("Llamada a procedimiento almacenado finalizada correctamente.");
+          }
+          //System.out.println("Llamada a procedimiento almacenado finalizada correctamente.");
+        }
+        catch(SQLException ex){
+            System.out.println("Excepcion: "+ ex.getMessage());
+            //ex.printStackTrace();
+        }
+        return editArch;
     }
 }

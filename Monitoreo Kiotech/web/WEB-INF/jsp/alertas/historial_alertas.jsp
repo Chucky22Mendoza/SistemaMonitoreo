@@ -13,8 +13,10 @@
     <head>
         <spring:url value="/resources/js/jquery.js" var="jquery" />
         <spring:url value="/resources/js/historial_alertas.js" var="haJS" />
+        <spring:url value="/resources/DataTables/datatables.js" var="DTJS" />
         <spring:url value="/resources/js/menu.js" var="menuJS" />
         <spring:url value="/resources/css/home.css" var="homeCSS" />
+        <spring:url value="/resources/DataTables/datatables.css" var="DTCSS" />
         <spring:url value="/resources/images/logo.png" var="logo" />
         <spring:url value="/resources/images/home.png" var="homeIMG" />
         <spring:url value="/resources/images/form1.png" var="userIMG" />
@@ -36,6 +38,7 @@
         <link rel="stylesheet" href="${spinnerJS}">
         <link rel="stylesheet" href="${animateCSS}">
         <link rel="stylesheet" href="${menuCSS}">
+        <link rel="stylesheet" href="${DTCSS}">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Historial de Alertas</title>
     </head>
@@ -163,7 +166,7 @@
            </div>
 
 
-              <table class="table table-hover mt-2">
+              <table id="tableHA" class="table table-hover mt-2">
                 <thead class="">
                   <tr>
                     <th scope="col" class="text-center"> </th>
@@ -219,10 +222,12 @@
       <script defer src="https://use.fontawesome.com/releases/v5.0.12/js/all.js" integrity="sha384-Voup2lBiiyZYkRto2XWqbzxHXwzcm4A5RfdfG6466bu5LqjwwrjXCMBQBLMWh7qR" crossorigin="anonymous"></script>
       <script src="${jquery}"></script>
       <script src="${btJS}"></script>
+      <script src="${DTJS}"></script>
       <script src="${alertifyJS}"></script>
       <script src="${spinnerJS}"></script>
       <script src="${haJS}"></script>
       <script src="${menuJS}"></script>
       <script src="${AJAX}"></script>
+      
     </body>
 </html>

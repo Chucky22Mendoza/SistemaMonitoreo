@@ -6,11 +6,14 @@
 package Controller.publicidad;
 
 import Objects.Archivo;
+import Objects.EditarArchivos;
 import Objects.ListaReproduccion;
+import Objects.ListasArchivos;
 import getData.DeletePlayList;
 import getData.GetFile;
 import getData.GetPlayList;
 import getData.NewPlayList;
+import getData.PlayListsFiles;
 import getData.UpdatePlayList;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -166,5 +169,74 @@ public class Controller_listas {
             
         }
         
+    }
+    @RequestMapping("/NewsFiles.htm")
+    protected ModelAndView NewsFiles(HttpServletRequest request, HttpServletResponse response/*2*/ ) throws ServletException, IOException{
+        
+        //LLAMAMOS LAS VARIABLES MANDADAS POR EL AJAX
+        String listaSTR = request.getParameter("idLista");
+        String archivoSTR = request.getParameter("idArchivo");
+        String ordenSTR = request.getParameter("orden");
+        
+        int idLista = Integer.parseInt(listaSTR);
+        int idArchivo = Integer.parseInt(archivoSTR);
+        int orden = Integer.parseInt(ordenSTR);
+        
+        //OBJETOS NECESARIOS PARA REALIZAR EL ACCESO A LA DB
+        ListasArchivos la = new ListasArchivos();
+        PlayListsFiles plf = new PlayListsFiles();
+        
+        //UTILIZAMOS LA CLASE ARCHIVO PARA MANDAR LOS PARAMETROS
+        la.setIdLista(idLista);
+        la.setIdArchivo(idArchivo);
+        la.setOrden(orden);
+        
+        //OBTENEMOS EL RESULTADO
+        int resultadoInsert = plf.ListasArchivos(la);
+        
+        if (resultadoInsert==1){
+             //RECARGAMOS HOME
+            return new ModelAndView("redirect:/home.htm");
+            
+        }else{
+            return new ModelAndView("/");
+            
+        }
+        
+    }
+    
+    @RequestMapping("/edit_files.htm")
+    protected ModelAndView edit_files(HttpServletRequest request, HttpServletResponse response/*2*/ ) throws ServletException, IOException{
+        
+        //LLAMAMOS LAS VARIABLES MANDADAS POR EL AJAX
+        String listaSTR = request.getParameter("idLista");
+        int idLista = Integer.parseInt(listaSTR);
+        
+        //OBTENEMOS LOS ARCHIVOS DE LA BASE DE DATOS Y LOS GUARDAMOS EN UN ARRAY TIPO ARCHIVO
+        List<EditarArchivos> lista = new ArrayList<>();
+            
+        //MÉTODO QUE RETORNA UNA LISTA TIPO ARCHIVO
+        lista = new GetFile().EditarArchivos(idLista);
+        System.err.println(lista.isEmpty());
+         if(lista.isEmpty()){
+             //NUEVA VISTA
+            ModelAndView mav = new ModelAndView();
+        
+            mav.setViewName("templates/noresultado");
+        
+            return mav;
+         }else{
+              //NUEVA VISTA
+            ModelAndView mav = new ModelAndView();
+            
+            //PASAMOS EL ARRAY A LA VISTA
+            mav.addObject("lista", lista);
+        
+            mav.setViewName("templates/tablaArchivos");
+        
+            return mav;
+            
+         }
+            
     }
 }

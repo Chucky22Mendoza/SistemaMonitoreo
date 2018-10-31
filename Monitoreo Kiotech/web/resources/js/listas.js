@@ -1,4 +1,6 @@
 $(document).ready(function(){
+  //$('#modalEditarArchivos').modal('show');
+  //$('#modalAgregarArchivos').modal('show');
   //SELECCIONAR TODOS LOS ROWS
   $('#cbGen').on('change', function() {
     var cb = $(this).is(':checked');
@@ -76,14 +78,236 @@ $('.ico-delList').on('click', function(){
 //EVENTO DEL ICONO DE BORRAR EN EL ARCHIVO
 $('.ico-program').on('click', function(){
   //PRIMERO SE BORRAN LOS DIVS POR SI HAY RECIDUOS DE OTRO MODAL
-  $('#titleNameNewsFiles').remove();
+  $('#titleNameEditFiles').remove();
 
   //OBTENEMOS LAS VARIABLES DEL ROW
   var name = $(this).attr('name');
 
   //ABRIMOS EL MODAL
-  $('#modalAgregarArchivos').modal('show');
+  //$('#modalEditarArchivos').modal('show');
   //SE ESCRIBE EL CONTENIDO DEL MODAL
-  $('#titleModalNewsFiles').append('<h5 class="modal-title" id="titleNameNewsFiles">Editar archivos de '+ name +'</h5> ');
+  $('#titleModalEditFiles').append('<h5 class="modal-title" id="titleNameEditFiles">Editar archivos de '+ name +'</h5> ');
 
 });
+
+//AJAX PARA PROCESAR AL EDITAR UN ARCHIVO
+  $('#updateList').click(function(){
+    //VARIABLE DEL FORMULARIO
+    var datos = $('#EditList').serialize();
+
+    //PARAMETROS DENTRO DEL FORMULARIO
+    var idList = $('#idList').val();
+    var nombreList = $('#nombreList').val();
+    var descripcion = $('#descripcion').val();
+
+    //console.log(datos);
+    //ABRIMOS AJAX
+    $.ajax({
+      type:"POST",
+      url:"Edit_List.htm",
+      data:datos,
+      //MOSTRAMOS SPINNER SI ES TARDADO EL PROCESO
+      beforeSend: function(){
+        //showSpinner();
+      },
+      error: function(error){
+        //ERROR
+        removeSpinner();
+        alertify.alert("Error en la transacción");
+      },
+      success:function(r){
+        //SE HA COMPLETADO
+        //showSpinner();
+        $('#modalEditarLista').modal('hide');
+        alertify.success("Guardado correctamente");
+        //TIEMPO DE ESPERA DEL AVISO
+        setTimeout(function(){
+
+          //Update tabla en lugar de refresh y cerrar modal
+          window.location.assign("listas.htm");
+        }, 1200);
+
+      }
+    });
+    return false;
+  });
+
+//AJAX PARA PROCESAR AL GUARDAR UN NUEVO ARCHIVO
+  $('#nuevaLista').click(function(){
+    //VARIABLE DEL FORMULARIO
+    var datos = $('#NewList').serialize();
+
+    //PARAMETROS DENTRO DEL FORMULARIO
+    var nombreList = $('#nombreList').val();
+    var duracion = $('#descripcion').val();
+
+    //ABRIMOS AJAX
+    $.ajax({
+      type:"POST",
+      url:"New_List.htm",
+      data:datos,
+      //MOSTRAMOS SPINNER SI ES TARDADO EL PROCESO
+      beforeSend: function(){
+        showSpinner();
+      },
+      //ERROR
+      error: function(error){
+        removeSpinner();
+        alertify.alert("Error en la transacción");
+      },
+      //SE HA COMPLETADO
+      success:function(r){
+        showSpinner();
+        alertify.success("Guardado correctamente");
+        //TIEMPO DE ESPERA DEL AVISO
+        setTimeout(function(){
+          //Update tabla en lugar de refresh y cerrar modal
+          //window.location.assign("listas.htm");
+          var nombrelista = $('#nombreList').val();
+          $('#titleModalNewsFiles').html('Agregar archivos a ' + nombrelista);
+          $('#modalAgregarArchivos').modal('show');
+        }, 1200);
+      }
+    });
+    return false;
+  });
+
+  $('#nuevosArchivos').on('click',function(){
+    var countSel = $('.cbAr:checked').get().length;
+    var idLista = $('#ultimoID').val();
+    var archivos = $('.cbAr:checked').get();
+    //console.log("ID Lista: "+ idLista);
+    //console.log("Celdas: "+ countSel);
+
+    if(countSel > 0){
+
+      for (var i = 0; i < countSel; i++) {
+        var arch = archivos[i].value;
+        var orden = i+1;
+        //console.log(arch);
+        var datos = {
+          idLista : idLista,
+          idArchivo : arch,
+          orden : orden
+        };
+
+        $.ajax({
+          type:"POST",
+          url:"NewsFiles.htm",
+          data:datos,
+          //MOSTRAMOS SPINNER SI ES TARDADO EL PROCESO
+          beforeSend: function(){
+            showSpinner();
+          },
+          //ERROR
+          error: function(error){
+            removeSpinner();
+            alertify.alert("Error en la transacción");
+          },
+          //SE HA COMPLETADO
+          success:function(r){
+            showSpinner();
+
+          }
+        });
+        //return false;
+      }
+      alertify.success("Guardado correctamente");
+      //TIEMPO DE ESPERA DEL AVISO
+      setTimeout(function(){
+        window.location.assign("listas.htm");
+      }, 1200);
+    }else{
+      alertify.error("Favor de seleccionar al menos un archivo");
+    }
+    //ABRIMOS AJAX
+    /*$.ajax({
+      type:"POST",
+      url:"New_List.htm",
+      data:datos,
+      //MOSTRAMOS SPINNER SI ES TARDADO EL PROCESO
+      beforeSend: function(){
+        showSpinner();
+      },
+      //ERROR
+      error: function(error){
+        removeSpinner();
+        alertify.alert("Error en la transacción");
+      },
+      //SE HA COMPLETADO
+      success:function(r){
+        showSpinner();
+        alertify.success("Guardado correctamente");
+        //TIEMPO DE ESPERA DEL AVISO
+        setTimeout(function(){
+          //Update tabla en lugar de refresh y cerrar modal
+          //window.location.assign("listas.htm");
+          var nombrelista = $('#nombreList').val();
+          $('#titleModalNewsFiles').html('Agregar archivos a ' + nombrelista);
+          $('#modalAgregarArchivos').modal('show');
+        }, 1200);
+      }
+    });
+    return false;*/
+  });
+
+//AJAX PARA PROCESAR EL BORRADO DE UN ARCHIVO
+  $('#borrarLista').click(function(){
+
+    //VARIABLE DEL FORMULARIO
+    var datos = $('#DelList').serialize();
+
+    //PARAMETROS DENTRO DEL FORMULARIO
+    var idList = $('#idList').val();
+    idList = parseInt(idList);
+
+    //ABRIMOS AJAX
+    $.ajax({
+      type:"POST",
+      url:"Delete_List.htm",
+      data:datos,
+      //MOSTRAMOS SPINNER SI ES TARDADO EL PROCESO
+      beforeSend: function(){
+        showSpinner();
+      },
+      //ERROR
+      error: function(error){
+        removeSpinner();
+        alertify.alert("Error en la transacción");
+      },
+      //SE HA COMPLETADO
+      success:function(r){
+        showSpinner();
+        alertify.success("Borrado correctamente");
+        //TIEMPO DE ESPERA DEL AVISO
+        setTimeout(function(){
+          //Update tabla en lugar de refresh y cerrar modal
+          window.location.assign("listas.htm");
+        }, 1200);
+      }
+    });
+    return false;
+  });
+
+
+  $('.ico-program').on('click',function(){
+    var id = $(this).attr('id');
+
+		var datos = {idLista : id};
+
+		$.ajax({
+        url:"edit_files.htm",
+        type: 'POST',
+        data: datos,
+        beforeSend: function(data){
+          //alert('antes');
+        },
+        success: function(data){
+          console.log(data);
+		    		$('#rows').replaceWith(data);
+        },//ERROR
+        error: function(data){
+          console.log(data);
+        }
+    });
+  });

@@ -7,8 +7,10 @@
     <head>
       <spring:url value="/resources/js/jquery.js" var="jquery" />
       <spring:url value="/resources/js/listas.js" var="listasJS" />
+      <spring:url value="/resources/js/moveOrden.js" var="moveJS" />
       <spring:url value="/resources/js/menu.js" var="menuJS" />
       <spring:url value="/resources/css/listas.css" var="listasCSS" />
+      <spring:url value="/resources/css/moveOrden.css" var="moveCSS" />
       <spring:url value="/resources/images/logo.png" var="logo" />
       <spring:url value="/resources/images/home.png" var="homeIMG" />
       <spring:url value="/resources/images/form1.png" var="userIMG" />
@@ -23,6 +25,7 @@
       <spring:url value="/resources/alertifyjs/alertify.js" var="alertifyJS" />
 
       <link rel="stylesheet" href="${listasCSS}">
+      <link rel="stylesheet" href="${moveCSS}">
       <link rel="shortcut icon" href="${logo}">
       <link rel="shortcut icon" href="${homeIMG}">
       <link rel="stylesheet" href="${btCSS}">
@@ -42,33 +45,33 @@
       	    <li><a id="menuMonitoreo" class="" href="<c:url value='home.htm' />"><i class="icono izquierda fas fa-desktop"></i> Monitoreo de Kioscos</a></li>
       	    <li><a id="menuAlertas" class="" href="#"><i class="icono izquierda fas fa-exclamation-circle"></i> Alertas <i class="icono derecha fas fa-chevron-down"></i></a>
       		<ul>
-      
+
       		    <li><a id="historial" class="" href="<c:url value='historial.htm' />"><i class="icono izquierda fa fa-history"></i> Historial de alertas</a></li>
       		    <li><a id="configEnvio" class="" href="<c:url value='medio_envio.htm' />"><i class="icono izquierda fas fa-truck"></i> Medio de envío</a></li>
       		    <li><a id="configEvento" class="" href="<c:url value='eventos.htm' />"><i class="icono izquierda fas fa-calendar-alt"></i> Config. de eventos</a></li>
       		    <li><a id="usuarios" class="" href="<c:url value='asignar_usuario.htm' />"><i class="icono izquierda fas fa-user-plus"></i> Asignación de usuarios</a></li>
-      
+
       		</ul>
       	    </li>
       	    <li><a id="menuPublicidad" class="" href="#"><i class="icono izquierda fas fa-play-circle"></i> Publicidad <i class="icono derecha fas fa-chevron-down"></i> </a>
       		<ul>
-      
+
       		    <li><a id="archivosMultimedia" class="" href="<c:url value='archivos.htm' />"><i class="icono izquierda fas fa-file-archive"></i> Archivos multimedia</a></li>
       		    <li><a id="listasReproduccion" class="" href="<c:url value='listas.htm' />"><i class="icono izquierda fas fa-list-ul"></i> Listas de reproduccion</a></li>
       		    <li><a id="programacionListas" class="" href="<c:url value='programacion.htm' />"><i class="icono izquierda fas fa-tasks"></i> Programación de listas</a></li>
-      
+
       		</ul>
       	    </li>
       	    <li><a id="salir" class="" href="<c:url value='archivos.htm' />"><i class=" icono izquierda fas fa-sign-out-alt "></i> Cerrar Sesión</a></li>
       	  </ul>
-      
+
       	  <div class="userCar text-center mt-5">
       	    <img  src="${userIMG}" height="50px" class="navb" alt="">
       	    <p class="mt-3">Bienvenido<br>${usuario}</p>
       	    <p>Agencia: ${agencia}</p>
       	  </div>
-      
-      
+
+
       	</div>
       	<div class="contenido">
       	  <span id="abrirMenu"><i class="fas fa-list-ul"></i></span>
@@ -102,14 +105,14 @@
           </thead>
           <tbody>
             <c:forEach items="${List}" var="dato">
-
+              <c:set var="ultimoID" value="${dato.id}"></c:set>
               <tr>
                 <td class="text-center"><input type="checkbox" class="mt-1 cbSelec" name="cbSelec" style="cursor:pointer;"></td>
                 <td class="text-center">${dato.id}</td>
                 <td class="text-center">${dato.nombre}</td>
                 <td class="text-center">${dato.descripcion}</td>
                 <td class="text-center">
-                  <a id="${dato.id}" name="${dato.nombre}"  class="ico-program mr-1" data-toggle="modal" data-target="#modalAgregarArchivos">
+                  <a id="${dato.id}" name="${dato.nombre}"  class="ico-program mr-1" data-toggle="modal" data-target="#modalEditarArchivos">
                     <i class="fas fa-list-ul icono"></i>
                   </a>
                   <a id="${dato.id}" name="${dato.nombre}" value="${dato.nombre}-${dato.descripcion}" class="ico-editList" data-toggle="modal" data-target="#modalEditarLista">
@@ -216,7 +219,7 @@
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-              <form id="NewsFiles">
+              <!--<form id="NewsFiles">-->
                 <div id="modal-bodyNewsFiles" class="modal-body">
                   <div class="form-check">
                     <input class="form-check-input ml-4" type="checkbox" value="" id="cbGen" style="cursor:pointer;">
@@ -237,21 +240,79 @@
 
                       <c:forEach items="${File}" var="dato">
                         <tr>
-                          <td class="text-center"><input type="checkbox" class="mt-1 cbSelec" name="cbSelec" style="cursor:pointer;"></td>
+                          <td class="text-center"><input type="checkbox" class="mt-1 cbAr" name="cbAr" value="${dato.id}" style="cursor:pointer;"></td>
                           <td class="text-center">${dato.nombre}</td>
                           <td class="text-center">${dato.tipo}</td>
                           <td class="text-center">${dato.duracion}</td>
                         </tr>
-                        
                       </c:forEach>
                     </tbody>
                   </table>
+                  <input id="ultimoID" type="hidden" name="" value="${ultimoID+1}">
                 </div>
                 <div class="modal-footer">
                   <button id="nuevosArchivos" type"button" class="btn btn-info ml-2"><i class="fas fa-upload"></i> Aceptar</button>
                   <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                 </div>
-              </form>
+              <!--</form>-->
+          </div>
+        </div>
+      </div>
+      <!-- FIN DEL MODAL NUEVA LISTA DE REPRODUCCI�N -->
+
+      <!-- MODAL NUEVA LISTA DE REPRODUCCI�N -->
+      <div class="modal fade" id="modalEditarArchivos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <div id="titleModalEditFiles"></div>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+              <!--<form id="NewsFiles">-->
+                <div id="modal-bodyNewsFiles" class="modal-body">
+                  <div class="d-flex justify-content-end mt-2">
+                        <button id="btnEliminar" type="button" name="button" class="btn btn-danger" style="cursor:pointer;" ><i class="fas fa-ban"></i> Eliminar</button>
+                        <button type="button" name="button" class="btn btn-info ml-2" style="cursor:pointer;" href="#" data-toggle="modal" data-target="#modalNuevaLista"><i class="fas fa-plus"></i> Agregar</button>
+                    </div>
+
+                    <div id="" class="row">
+                        <div class="form-check">
+                            <input class="form-check-input ml-4" type="checkbox" value="" id="cbGenListas" style="cursor:pointer;">
+                            <label class="form-check-label ml-4" for="cbGen">
+                            Seleccionar todos
+                            </label>
+                        </div>
+                        <div class="ml-5 mb-2 row">
+                            <div id="up" class=""><span class="fas fa-chevron-up circle"></span></div>
+                            <div id="down" class=""><span class="fas fa-chevron-down circle ml-2"></span></div>
+                        </div>
+                    </div>
+
+            	  	<table class="table table-hover table-bordered mt-2" id="tableFiles">
+                        <thead class="">
+
+                            <tr>
+                                <th scope="col" class="text-center"> </th>
+                                <th scope="col" class="text-center">Posición</th>
+                                <th scope="col" class="text-center">Nombre de Archivo</th>
+                                <th scope="col" class="text-center">Tipo</th>
+                                <th scope="col" class="text-center">Duración</th>
+                                <th scope="col" class="text-center">Acciones</th>
+                            </tr>
+
+                        </thead>
+                        <tbody id="rows">
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                  <button id="btnEditFiles" type"button" class="btn btn-info ml-2"><i class="fas fa-upload"></i> Aceptar</button>
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                </div>
+              <!--</form>-->
           </div>
         </div>
       </div>
@@ -264,6 +325,7 @@
       <script src="${spinnerJS}"></script>
       <script src="${listasJS}"></script>
       <script src="${menuJS}"></script>
+      <script src="${moveJS}"></script>
       <script src="${AJAX}"></script>
     </body>
 </html>
