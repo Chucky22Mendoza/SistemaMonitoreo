@@ -17,7 +17,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
- * @author Jesús Mendoza
+ * @author 
  */
 public class Configuracion extends javax.swing.JFrame {
 
@@ -31,6 +31,7 @@ public class Configuracion extends javax.swing.JFrame {
      * Creates new form Configuracion
      */
     public Configuracion() {
+        imgIcon = new ImageIcon(getClass().getResource("../Images/app.png")); //IMAGEN QUE SERÁ USADA COMO ICONO
         initComponents();  
         ImagenHLabel.setVisible(false);
         ImagenHText.setVisible(false);
@@ -38,22 +39,19 @@ public class Configuracion extends javax.swing.JFrame {
         RadioButton1.setSelected(true);
         setLocationRelativeTo(null);
         
-        imgIcon = new ImageIcon(getClass().getResource("../Images/app.png")); //IMAGEN QUE SERÁ USADA COMO ICONO
+        
         try {
             setIconImage(imgIcon.getImage());         //MANDAR IMAGEN AL FRAME
-        } catch (Exception e) {
-        }
+        } catch (Exception e) {}
         this.setTitle("SEGUNDO PLANO"); //TÍTULO DE LA APP
         instanciarTray(); //LLAMADO DEL MÉTODO AL INICIAR LA APP (DESDE ENTONCES LA APP YA SE ENCUENTRA EN SEGUNDO PLANO (VER A DETALLE ESTE MÉTODO)
-
-        
-        
     }
     
      private void instanciarTray(){
         //ANTES DE ESTA LINEA DE CODIGO DEBERÁ CREARSE UN POPUP MENÚ EN AWT DE JAVA
+        
         //SE INGRESA LA IMAGEN DE ICONO, UN TOOLTIP Y EL POPUP ANTES MENCIONADO QUE SERÁN LAS OPCIONES DEL USUARIO EN SEGUNDO PLANO
-        trayIcon = new TrayIcon(imgIcon.getImage(), "tooltip del icono", popup);
+        trayIcon = new TrayIcon(imgIcon.getImage(), "tooltip del icono", popupMenu1);
         //ACOPLAR ICONO
         trayIcon.setImageAutoSize(true);
         //INSTANCIAR SYSTEM TRAY
@@ -75,26 +73,6 @@ public class Configuracion extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this,e.getMessage());
         }
     }
-    private void formWindowClosed(java.awt.event.WindowEvent evt) {                                  
-        initSysTray(); //MANDAR A SEGUNDO PLANO LA APP CUANDO SE PULSE SALIR EN LA VENTANA
-    }    
- //OPCIÓN UNO DE POPUP MENU
-    private void configActionPerformed(java.awt.event.ActionEvent evt) {                                       
-        //SI SE REQUIERE, SE PUEDE OCULTAR EL ICONO DE SEGUNDO PLANO
-        //sysTray.remove(trayIcon);
-        //MOSTRAR VENTANA
-        this.setVisible(true);
-    }                                      
-
-    //OPCIÓN DOS DE POPUP MENU (SOLO SALIR)
-    private void exitActionPerformed(java.awt.event.ActionEvent evt) {                                     
-        System.exit(0);
-    }   
-    
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {                                   
-        
-    }  
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -115,6 +93,12 @@ public class Configuracion extends javax.swing.JFrame {
         buttonGroup1 = new javax.swing.ButtonGroup();
         buttonGroup2 = new javax.swing.ButtonGroup();
         jFileChooser1 = new javax.swing.JFileChooser();
+        menuBar3 = new java.awt.MenuBar();
+        menu5 = new java.awt.Menu();
+        menu6 = new java.awt.Menu();
+        popupMenu1 = new java.awt.PopupMenu();
+        Salir = new java.awt.MenuItem();
+        Abrir = new java.awt.MenuItem();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
@@ -172,8 +156,46 @@ public class Configuracion extends javax.swing.JFrame {
             .addGap(0, 300, Short.MAX_VALUE)
         );
 
+        menu5.setLabel("File");
+        menuBar3.add(menu5);
+
+        menu6.setLabel("Edit");
+        menuBar3.add(menu6);
+
+        popupMenu1.setLabel("popupMenu1");
+        popupMenu1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                popupMenu1ActionPerformed(evt);
+            }
+        });
+
+        Salir.setLabel("Salir");
+        Salir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SalirActionPerformed(evt);
+            }
+        });
+        popupMenu1.add(Salir);
+
+        Abrir.setLabel("Abrir");
+        Abrir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AbrirActionPerformed(evt);
+            }
+        });
+        popupMenu1.add(Abrir);
+        Abrir.getAccessibleContext().setAccessibleName("Abrir");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Reproductor Publicidad -  Configuraciones");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jTabbedPane1.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
         jTabbedPane1.setToolTipText("");
@@ -511,6 +533,31 @@ public class Configuracion extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void popupMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_popupMenu1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_popupMenu1ActionPerformed
+
+    
+    
+    private void AbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AbrirActionPerformed
+        // Cuando le da click en abrir en el popout
+        this.setVisible(true);
+    }//GEN-LAST:event_AbrirActionPerformed
+
+    private void SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirActionPerformed
+        // Cuando le da click en el cerrar en el popout
+        System.exit(0);
+    }//GEN-LAST:event_SalirActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        //Cuando se cierra la aplicacion se debe de mandar a segundo plano
+         initSysTray();
+    }//GEN-LAST:event_formWindowClosed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+       
+    }//GEN-LAST:event_formWindowClosing
+
     /**
      * @param args the command line arguments
      */
@@ -547,6 +594,7 @@ public class Configuracion extends javax.swing.JFrame {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private java.awt.MenuItem Abrir;
     private javax.swing.JButton ExaminarBtn;
     private javax.swing.JLabel ImagenHLabel;
     public static javax.swing.JTextField ImagenHText;
@@ -554,6 +602,7 @@ public class Configuracion extends javax.swing.JFrame {
     private javax.swing.JTextField PosicionText;
     private javax.swing.JRadioButton RadioButton1;
     private javax.swing.JRadioButton RadioButton2;
+    private java.awt.MenuItem Salir;
     private javax.swing.JLabel TamañoLabel;
     private javax.swing.JTextField TamañoText;
     private javax.swing.JLabel XLabel;
@@ -587,14 +636,16 @@ public class Configuracion extends javax.swing.JFrame {
     private java.awt.Menu menu2;
     private java.awt.Menu menu3;
     private java.awt.Menu menu4;
+    private java.awt.Menu menu5;
+    private java.awt.Menu menu6;
     private java.awt.MenuBar menuBar1;
     private java.awt.MenuBar menuBar2;
+    private java.awt.MenuBar menuBar3;
+    private java.awt.PopupMenu popupMenu1;
     private javax.swing.JLabel pxLabel1;
     private javax.swing.JLabel pxLabel2;
     // End of variables declaration//GEN-END:variables
-     private java.awt.PopupMenu popup;
-     private java.awt.MenuItem config;
-    private java.awt.MenuItem exit;
+  
    
 
 }
