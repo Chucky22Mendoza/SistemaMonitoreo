@@ -221,6 +221,8 @@ public class Controller_listas {
          if(lista.isEmpty()){
              //NUEVA VISTA
             ModelAndView mav = new ModelAndView();
+            
+            mav.addObject("exTitle", 1);
         
             mav.setViewName("templates/noresultado");
         
@@ -238,5 +240,70 @@ public class Controller_listas {
             
          }
             
+    }
+    
+    @RequestMapping("/ver_dif.htm")
+    protected ModelAndView ver_dif(HttpServletRequest request, HttpServletResponse response/*2*/ ) throws ServletException, IOException{
+        
+        //LLAMAMOS LAS VARIABLES MANDADAS POR EL AJAX
+        String listaSTR = request.getParameter("idLista");
+        int idLista = Integer.parseInt(listaSTR);
+        
+        System.err.println(idLista);
+        //OBTENEMOS LOS ARCHIVOS DE LA BASE DE DATOS Y LOS GUARDAMOS EN UN ARRAY TIPO ARCHIVO
+        List<Archivo> lista = new ArrayList<>();
+            
+        //MÉTODO QUE RETORNA UNA LISTA TIPO ARCHIVO
+        lista = new GetFile().NuevosArchivos(idLista);
+        //System.err.println(lista.isEmpty());
+         
+              //NUEVA VISTA
+            ModelAndView mav = new ModelAndView();
+            
+            //PASAMOS EL ARRAY A LA VISTA
+            mav.addObject("lista", lista);
+        
+            mav.setViewName("templates/tablaArchivosAgregar");
+
+            return mav;
+    }
+    
+    @RequestMapping("/all_files.htm")
+    protected ModelAndView all_files(HttpServletRequest request, HttpServletResponse response/*2*/ ) throws ServletException, IOException{
+        
+        //OBTENEMOS LOS ARCHIVOS DE LA BASE DE DATOS Y LOS GUARDAMOS EN UN ARRAY TIPO ARCHIVO
+        List<Archivo> lista = new ArrayList<>();
+            
+        //MÉTODO QUE RETORNA UNA LISTA TIPO ARCHIVO
+        lista = new GetFile().obtenerArchivo();
+        //System.err.println(lista.isEmpty());
+         
+              //NUEVA VISTA
+            ModelAndView mav = new ModelAndView();
+            
+            //PASAMOS EL ARRAY A LA VISTA
+            mav.addObject("lista", lista);
+        
+            mav.setViewName("templates/tablaArchivosAgregar");
+
+            return mav;
+    }
+    
+    @RequestMapping("/new_files.htm")
+    protected ModelAndView new_files(HttpServletRequest request, HttpServletResponse response/*2*/ ) throws ServletException, IOException{
+        
+        String id1STR = request.getParameter("idLista");
+        String id2STR = request.getParameter("idArchivo");
+        int idLista = Integer.parseInt(id1STR);
+        int idArchivo = Integer.parseInt(id2STR);
+        
+        int res = new GetFile().InsertarArchivos(idLista, idArchivo);
+        System.err.println(res);
+        //NUEVA VISTA
+        ModelAndView mav = new ModelAndView();
+        
+        mav.setViewName("publicidad/listas_reproduccion");
+
+        return mav;
     }
 }

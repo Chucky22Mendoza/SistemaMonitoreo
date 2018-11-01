@@ -101,4 +101,70 @@ public class GetFile {
         }
         return editArch;
     }
+     
+     public List<Archivo> NuevosArchivos(int id){
+        List<Archivo> listado = new ArrayList<>();
+        String sql ="{call fn_lista_dif_archivos(?)}";
+        try (   Connection dbConnection = dbSource.conectar().getConnection();
+                 CallableStatement obtenerArchivos = dbConnection.prepareCall(sql);       )            {
+          
+          
+          obtenerArchivos.setInt(1, id);
+          //Variables de Entrada (IN)
+          //System.out.println("Preparando llamada a procedimiento almacenado.");
+          obtenerArchivos.execute();
+          
+            
+          //System.out.println("Procesando resultados de llamada a procedimiento almacenado.");
+          try(  ResultSet archivosRS =(ResultSet)obtenerArchivos.getResultSet(); ){
+              while(archivosRS.next())
+                {
+                  //System.out.println("--> "+archivosRS.getInt(1));
+                  //System.out.println("--> "+archivosRS.getString(2));
+                  
+                    Archivo archivos= new Archivo();
+                    archivos.setId(archivosRS.getInt(1));
+                    archivos.setNombre(archivosRS.getString(2));
+                    archivos.setTipo(archivosRS.getString(3));
+                    archivos.setDuracion(archivosRS.getInt(4));
+                    
+                    listado.add(archivos);
+                }
+             //System.out.println("Llamada a procedimiento almacenado finalizada correctamente.");
+          }
+        }
+        catch(SQLException ex){
+            System.out.println("Excepcion: "+ ex.getMessage());
+            //ex.printStackTrace();
+        }
+        return listado;
+    }
+     
+     public int InsertarArchivos(int lista, int archivo){
+        
+        String sql ="{call fn_lista_insert_archivos(?,?)}";
+        try (   Connection dbConnection = dbSource.conectar().getConnection();
+                 CallableStatement insertarArchivos = dbConnection.prepareCall(sql);       )            {
+          
+          
+          insertarArchivos.setInt(1, lista);
+          insertarArchivos.setInt(2, archivo);
+          //Variables de Entrada (IN)
+          //System.out.println("Preparando llamada a procedimiento almacenado.");
+          boolean res = insertarArchivos.execute();
+          
+          if(res){
+              dbConnection.commit();
+              return 1;
+          }else{
+              dbConnection.rollback();
+              return 0;
+          }
+            
+        }
+        catch(SQLException ex){
+            System.out.println("Excepcion: "+ ex.getMessage());
+            return 0;
+        }
+    }
 }

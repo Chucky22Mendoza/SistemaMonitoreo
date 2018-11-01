@@ -292,7 +292,7 @@ $('.ico-program').on('click', function(){
 
   $('.ico-program').on('click',function(){
     var id = $(this).attr('id');
-
+    $('#idLista_archivo').val(id);
 		var datos = {idLista : id};
 
 		$.ajax({
@@ -303,11 +303,115 @@ $('.ico-program').on('click', function(){
           //alert('antes');
         },
         success: function(data){
-          console.log(data);
-		    		$('#rows').replaceWith(data);
+            //var val = document.getElementById('exTitle').value;
+            //console.log(data);
+            if(data == 1){
+              $('#modalNoResultados').modal('show');
+              //$('#modalEditarArchivos').modal('hide');
+            }else{
+              $('#rows').replaceWith(data);
+              $('#modalEditarArchivos').modal('show');
+            }
         },//ERROR
         error: function(data){
           console.log(data);
         }
     });
+  });
+
+  $('#btnAddFiles').on('click',function(){
+    $('#modalEditarArchivos').modal('hide');
+    var id = $('#idLista_archivo').val();
+    //console.log(id);
+		var datos = {idLista : id};
+
+		$.ajax({
+        url:"ver_dif.htm",
+        type: 'POST',
+        data: datos,
+        beforeSend: function(data){
+          //alert('antes');
+        },
+        success: function(data){
+
+            $('#rows2').replaceWith(data);
+            //$('#modalEditarArchivos').modal('show');
+
+        },//ERROR
+        error: function(data){
+          console.log(data);
+        }
+    });
+  });
+
+  $('#btnAddFiles2').on('click',function(){
+    $('#modalNoResultados').modal('hide');
+    var id = $('#idLista_archivo').val();
+    //console.log(id);
+		var datos = {idLista : id};
+
+		$.ajax({
+        url:"all_files.htm",
+        type: 'POST',
+        data: datos,
+        beforeSend: function(data){
+          //alert('antes');
+        },
+        success: function(data){
+
+            $('#rows2').replaceWith(data);
+            //$('#modalEditarArchivos').modal('show');
+
+        },//ERROR
+        error: function(data){
+          console.log(data);
+        }
+    });
+  });
+
+  $('#btnNewFiles').on('click',function(){
+    var countSel = $('.cbAr2:checked').get().length;
+    var idLista = $('#idLista_archivo').val();
+    var archivos = $('.cbAr2:checked').get();
+    //console.log("ID Lista: "+ idLista);
+    //console.log("Celdas: "+ countSel);
+
+    if(countSel > 0){
+      for (var i = 0; i < countSel; i++) {
+        var arch = archivos[i].value;
+        //console.log(arch);
+        var datos = {
+          idLista : idLista,
+          idArchivo : arch
+        };
+
+        $.ajax({
+          type:"POST",
+          url:"new_files.htm",
+          data:datos,
+          //MOSTRAMOS SPINNER SI ES TARDADO EL PROCESO
+          beforeSend: function(){
+            showSpinner();
+          },
+          //ERROR
+          error: function(error){
+            removeSpinner();
+            alertify.alert("Error en la transacción");
+          },
+          //SE HA COMPLETADO
+          success:function(r){
+            showSpinner();
+
+          }
+        });
+        //return false;
+      }
+      alertify.success("Guardado correctamente");
+      //TIEMPO DE ESPERA DEL AVISO
+      setTimeout(function(){
+        window.location.assign("listas.htm");
+      }, 1200);
+    }else{
+      alertify.error("Favor de seleccionar al menos un archivo");
+    }
   });

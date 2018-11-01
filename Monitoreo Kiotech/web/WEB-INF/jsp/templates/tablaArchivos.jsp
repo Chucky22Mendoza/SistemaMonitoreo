@@ -3,9 +3,9 @@
 <%@taglib  prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <tbody id="rows">
-  <c:set var="contador" value="${0}"></c:set>
+
   <c:forEach items="${lista}" var="dato">
-    
+
     <tr style="cursor: pointer" class="takeRow" id="${dato.idArchivo}">
         <td class="text-center"><input type="checkbox" class="mt-1 cbSelec" name="cbSelec" style="cursor:pointer;"></td>
         <td class="text-center orden" name="${dato.orden}">${dato.orden}</td>
@@ -19,4 +19,5 @@
         </td>
     </tr>
   </c:forEach>
+  
 </tbody>
