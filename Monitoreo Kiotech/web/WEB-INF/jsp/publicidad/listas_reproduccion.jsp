@@ -112,7 +112,7 @@
                 <td class="text-center">${dato.nombre}</td>
                 <td class="text-center">${dato.descripcion}</td>
                 <td class="text-center">
-                  <a id="${dato.id}" name="${dato.nombre}"  class="ico-program mr-1" data-toggle="modal" data-target="#modalEditarArchivos">
+                  <a id="${dato.id}" name="${dato.nombre}"  class="ico-program mr-1">
                     <i class="fas fa-list-ul icono"></i>
                   </a>
                   <a id="${dato.id}" name="${dato.nombre}" value="${dato.nombre}-${dato.descripcion}" class="ico-editList" data-toggle="modal" data-target="#modalEditarLista">
@@ -274,7 +274,7 @@
                 <div id="modal-bodyNewsFiles" class="modal-body">
                   <div class="d-flex justify-content-end mt-2">
                         <button id="btnEliminar" type="button" name="button" class="btn btn-danger" style="cursor:pointer;" ><i class="fas fa-ban"></i> Eliminar</button>
-                        <button type="button" name="button" class="btn btn-info ml-2" style="cursor:pointer;" href="#" data-toggle="modal" data-target="#modalNuevaLista"><i class="fas fa-plus"></i> Agregar</button>
+                        <button id="btnAddFiles" type="button" name="button" class="btn btn-info ml-2" style="cursor:pointer;" href="#" data-toggle="modal" data-target="#modalAgregarArchivoLista"><i class="fas fa-plus"></i> Agregar</button>
                     </div>
 
                     <div id="" class="row">
@@ -310,6 +310,77 @@
                 </div>
                 <div class="modal-footer">
                   <button id="btnEditFiles" type"button" class="btn btn-info ml-2"><i class="fas fa-upload"></i> Aceptar</button>
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                </div>
+              <!--</form>-->
+          </div>
+        </div>
+      </div>
+      <!-- FIN DEL MODAL NUEVA LISTA DE REPRODUCCI�N -->
+
+      <!-- MODAL NUEVA LISTA DE REPRODUCCI�N -->
+      <div class="modal fade" id="modalNoResultados" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <div id="titleModalEditFiles"></div>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+              <!--<form id="NewsFiles">-->
+                <div id="modal-bodyNewsFiles" class="modal-body">
+                  <div id="exTitle" class="text-center">
+                    <h1>Aún no se han agregado archivos a la lista</h1>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button id="btnAddFiles2" type="button" name="button" class="btn btn-info ml-2" style="cursor:pointer;" href="#" data-toggle="modal" data-target="#modalAgregarArchivoLista"><i class="fas fa-plus"></i> Agregar</button>
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                </div>
+              <!--</form>-->
+          </div>
+        </div>
+      </div>
+
+      <!-- MODAL NUEVA LISTA DE REPRODUCCI�N -->
+      <div class="modal fade" id="modalAgregarArchivoLista" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <div id="titleModalEditFiles">Selecciona los nuevos archivos para la lista</div>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+              <!--<form id="NewsFiles">-->
+                <div id="modal-bodyNewsFiles" class="modal-body">
+                  <div id="modal-bodyNewsFiles" class="modal-body">
+                    <div class="form-check">
+                      <input class="form-check-input ml-4" type="checkbox" value="" id="cbGen" style="cursor:pointer;">
+                      <label class="form-check-label ml-4" for="cbGen">
+                        Seleccionar todos
+                      </label>
+                    </div>
+                    <table class="table table-hover mt-2">
+                      <thead class="">
+                        <tr>
+                          <th scope="col" class="text-center"> </th>
+                          <th scope="col" class="text-center">Nombre archivo</th>
+                          <th scope="col" class="text-center">Tipo</th>
+                          <th scope="col" class="text-center">Duración (s)</th>
+                        </tr>
+                      </thead>
+                      <tbody id="rows2">
+
+
+                      </tbody>
+                    </table>
+                    <input id="idLista_archivo" type="hidden" name="" value="">
+
+                </div>
+                <div class="modal-footer">
+                  <button id="btnNewFiles" type"button" class="btn btn-info ml-2"><i class="fas fa-upload"></i> Aceptar</button>
                   <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                 </div>
               <!--</form>-->
