@@ -133,10 +133,9 @@ public class Login extends javax.swing.JFrame {
         
             if(dataUser.getStatus()){
                 Configuracion conf = new Configuracion();
-                Login lg = new Login();
-                lg.setVisible(false);
-                conf.setVisible(true);        
-            }else{
+                this.setVisible(false);
+                conf.setVisible(true);    
+             }else{
                 JOptionPane.showMessageDialog(null, "Error al iniciar sesión");
             }
         }catch(Exception e){
