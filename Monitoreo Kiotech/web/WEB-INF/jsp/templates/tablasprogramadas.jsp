@@ -12,7 +12,7 @@
                     <c:set var="vie" value="${dato.v}"></c:set>
                     <c:set var="sab" value="${dato.s}"></c:set>
                   <tr>
-                    <td class="text-center"><input type="checkbox" class="mt-1 cbSelec" name="cbSelec" style="cursor:pointer;"></td>
+
                     <td id="nombreLista" class="text-center">${dato.nombreLista}</td>
                     <td id="horaInicio" class="text-center">${dato.hora_inicio}</td>
 
@@ -77,7 +77,62 @@
 
               <script>
               $('.ico-edit').on('click', function(){
-                $('#selectList').attr('disabled','disabled');
+                var id = $(this).attr('id');
+                var valor = $(this).attr('value');
+
+                valor = valor.toString();
+                var str = valor.split("-");//SEPARAMOS POR "-" PARA OBTENER CADA VALOR
+                var nombre = str[0];//NOMBRE
+                var horaInicio = str[1];//horaInicio
+                var domingo = str[2];//domingo
+                var lunes = str[3];//lunes
+                var martes = str[4];//martes
+                var miercoles = str[5];//miercoles
+                var jueves = str[6];//jueves
+                var viernes = str[7];//viernes
+                var sabado = str[8];//sabado
+
+                $('#selectList').val(id);
+                $('#selectList').prop('disabled','disabled');
                 $('#modalProgramarLista').modal('show');
+                $('#selTipo').val(1);
+                $('#horaInicial').val(horaInicio);
+
+                if(domingo == 'true'){
+                  $('#domingo1').prop('checked',true);
+                }else{
+                  $('#domingo1').prop('checked',false);
+                }
+                if(lunes == 'true'){
+                  $('#lunes1').prop('checked',true);
+                }else{
+                  $('#lunes1').prop('checked',false);
+                }
+                if(martes == 'true'){
+                  $('#martes1').prop('checked',true);
+                }else{
+                  $('#martes1').prop('checked',false);
+                }
+                if(miercoles == 'true'){
+                  $('#miercoles1').prop('checked',true);
+                }else{
+                  $('#miercoles1').prop('checked',false);
+                }
+                if(jueves == 'true'){
+                  $('#jueves1').prop('checked',true);
+                }else{
+                  $('#jueves1').prop('checked',false);
+                }
+                if(viernes == 'true'){
+                  $('#viernes1').prop('checked',true);
+                }else{
+                  $('#viernes1').prop('checked',false);
+                }
+                if(sabado == 'true'){
+                  $('#sabado1').prop('checked',true);
+                }else{
+                  $('#sabado1').prop('checked',false);
+                }
+
               });
               </script>

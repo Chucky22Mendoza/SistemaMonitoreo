@@ -31,7 +31,7 @@
       <link rel="stylesheet" href="${animateCSS}">
       <link rel="stylesheet" href="${menuCSS}">
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-      <title>Proramación de listas</title>
+      <title>Programación de listas</title>
     </head>
     <body>
 
@@ -103,8 +103,8 @@
                       <!--<c:out value="${contador}"></c:out>-->
                     <c:if test = "${contador ==  1}">
                         <form>
-                          <tr id="${dato.id}" name="${dato.nombre}" class="select primero" val="${dato.nombre}-${dato.agencia}">
-                            <td class="text-center"><input type="checkbox" class="mt-1 cbKio" name="cbKio" val="${dato.id}-${dato.nombre}" style="cursor:pointer;"></td>
+                          <tr id="${dato.id}" name="${dato.nombre}" class="select primero" value="${dato.nombre}-${dato.agencia}">
+                            <td class="text-center"><input type="checkbox" class="mt-1 cbKio" name="cbKio" value="${dato.id}-${dato.nombre}" style="cursor:pointer;"></td>
                             <td class="text-center">${dato.id}</td>
                             <td class="text-center">${dato.nombre}</td>
                             <td class="text-center">${dato.agencia}</td>
@@ -113,8 +113,8 @@
 				    </c:if>
                     <c:if test = "${contador !=  1}">
                         <form>
-                          <tr id="${dato.id}" name="${dato.nombre}" class="select" val="${dato.nombre}-${dato.agencia}">
-                            <td class="text-center"><input type="checkbox" class="mt-1 cbKio" name="cbKio" val="${dato.id}-${dato.nombre}" style="cursor:pointer;"></td>
+                          <tr id="${dato.id}" name="${dato.nombre}" class="select" value="${dato.nombre}-${dato.agencia}">
+                            <td class="text-center"><input type="checkbox" class="mt-1 cbKio" name="cbKio" value="${dato.id}-${dato.nombre}" style="cursor:pointer;"></td>
                             <td class="text-center">${dato.id}</td>
                             <td class="text-center">${dato.nombre}</td>
                             <td class="text-center">${dato.agencia}</td>
@@ -127,27 +127,19 @@
 
       <div class="collapse" id="MultSection" style="margin-left:50%">
         <h1 class="text-center" id="textMultKio"></h1>
-        <a id="btnMultList" class="btn btn-success text-center ml-5"><i class="icono izquierda fas fa-add"></i> Agregar lista de reproducción a todos</a>
+        <a id="btnMultList" class="btn btn-info text-center ml-5"><i class="icono izquierda fas fa-plus-circle"></i> Agregar lista de reproducción a todos</a>
       </div>
-          <div class="col-sm-8" id="rightSection">
+          <div class="col-sm-8 collapse" id="rightSection">
             <h4 id="kioscoListas"></h4>
             <div class="d-flex justify-content-end">
               <button type="button" name="button" class="btn btn-danger" style="cursor:pointer;" ><i class="fas fa-ban"></i> Eliminar</button>
-              <button type="button" name="button" class="btn btn-info ml-2" style="cursor:pointer;" href="#" data-toggle="modal" data-target="#modalProgramarLista"><i class="fas fa-plus"></i> Agregar</button>
+              <button id="addPL" type="button" name="button" class="btn btn-info ml-2" style="cursor:pointer;" href="#" data-toggle="modal" data-target="#modalProgramarLista"><i class="fas fa-plus"></i> Agregar</button>
             </div>
-            <div id="" class="">
-              <div class="form-check">
-                <input class="form-check-input ml-4" type="checkbox" value="" id="cbGenListas" style="cursor:pointer;">
-                <label class="form-check-label ml-4" for="cbGen">
-                  Seleccionar todos
-                </label>
-              </div>
-            </div>
+
 
             <table class="table table-hover table-bordered mt-2">
               <thead class="">
                 <tr>
-                  <th scope="col" class="text-center"> </th>
                   <th scope="col" class="text-center">Lista de reproducción</th>
                   <th scope="col" class="text-center">Hora de inicio</th>
                   <th scope="col" class="text-center">D</th>
@@ -162,65 +154,6 @@
               </thead>
               <tbody  id="rows">
 
-<<<<<<< HEAD
-=======
-                    <c:if test="${dom == true}">
-                        <td class="text-center"><input id="D" type="checkbox" class="mt-1 cbSelec" name="cbSelec" disabled="disabled" style="cursor:pointer;" checked></td>
-                    </c:if>
-                    <c:if test="${dom == false}">
-                        <td class="text-center"><input id="D" type="checkbox" class="mt-1 cbSelec" name="cbSelec" disabled="disabled" style="cursor:pointer;"></td>
-                    </c:if>
-
-                    <c:if test="${lun == true}">
-                        <td class="text-center"><input id="L" type="checkbox" class="mt-1 cbSelec" name="cbSelec" disabled="disabled" style="cursor:pointer;" checked></td>
-                    </c:if>
-                    <c:if test="${lun == false}">
-                        <td class="text-center"><input id="L" type="checkbox" class="mt-1 cbSelec" name="cbSelec" disabled="disabled" style="cursor:pointer;"></td>
-                    </c:if>
-
-                    <c:if test="${mar == true}">
-                        <td class="text-center"><input id="Ma" type="checkbox" class="mt-1 cbSelec" name="cbSelec" disabled="disabled" style="cursor:pointer;" checked></td>
-                    </c:if>
-                    <c:if test="${mar == false}">
-                        <td class="text-center"><input id="Ma" type="checkbox" class="mt-1 cbSelec" name="cbSelec" disabled="disabled" style="cursor:pointer;"></td>
-                    </c:if>
-
-                    <c:if test="${mier == true}">
-                        <td class="text-center"><input id="Mi" type="checkbox" class="mt-1 cbSelec" name="cbSelec" disabled="disabled" style="cursor:pointer;" checked></td>
-                    </c:if>
-                    <c:if test="${mier == false}">
-                        <td class="text-center"><input id="Mi" type="checkbox" class="mt-1 cbSelec" name="cbSelec" disabled="disabled" style="cursor:pointer;"></td>
-                    </c:if>
-
-                    <c:if test="${jue == true}">
-                        <td class="text-center"><input id="J" type="checkbox" class="mt-1 cbSelec" name="cbSelec" disabled="disabled" style="cursor:pointer;" checked></td>
-                    </c:if>
-                    <c:if test="${jue == false}">
-                        <td class="text-center"><input id="J" type="checkbox" class="mt-1 cbSelec" name="cbSelec" disabled="disabled" style="cursor:pointer;"></td>
-                    </c:if>
-
-                    <c:if test="${vie == true}">
-                        <td class="text-center"><input id="V" type="checkbox" class="mt-1 cbSelec" name="cbSelec" disabled="disabled" style="cursor:pointer;" checked></td>
-                    </c:if>
-                    <c:if test="${vie == false}">
-                        <td class="text-center"><input id="V" type="checkbox" class="mt-1 cbSelec" name="cbSelec" disabled="disabled" style="cursor:pointer;"></td>
-                    </c:if>
-
-                    <c:if test="${sab == true}">
-                        <td class="text-center"><input id="S" type="checkbox" class="mt-1 cbSelec" name="cbSelec" disabled="disabled" style="cursor:pointer;" checked></td>
-                    </c:if>
-                    <c:if test="${sab == false}">
-                        <td class="text-center"><input id="S" type="checkbox" class="mt-1 cbSelec" name="cbSelec" disabled="disabled" style="cursor:pointer;"></td>
-                    </c:if>
-                    
-                    <td class="text-center">
-                      <a id="${dato.id_lista_reproduccion}" name="${dato.nombreLista}" value="${dato.nombreLista}-${dato.hora_inicio}-${dato.d}-${dato.l}-${dato.ma}-${dato.mi}-${dato.j}-${dato.v}-${dato.s}" class="ico-edit" data-toggle="modal" data-target="#modalEditarArchivo">
-                        <i class="fas fa-edit icono"></i>
-                      </a>
-                    </td>
-                  </tr>
-                 </c:forEach>
->>>>>>> parent of e0c8911... NAN
               </tbody>
             </table>
 
@@ -241,14 +174,14 @@
             </div>
 
                 <div id="modal-bodyNewsFiles" class="modal-body">
-                  <h4 class="text-center pt-2">Asignar lista de reproducción a Kiosco 1</h4>
+                  <h4 class="text-center pt-2">Asignar o editar lista de reproducción</h4>
                     <div class="container row text-center d-flex justify-content-center mt-5">
                       <div class="">
                         <label for="lista" class="form-control-label">Lista de reproducción:</label>
-                        <select id="select-List" class="form-control" name="">
-                          <option value="0">Seleccione una lista</option>
-                          <option value="1">Lista de reproducción 1</option>
-                          <option value="2">Lista de reproducción 2</option>
+                        <select id="selectList" class="form-control" name="">
+                          <c:forEach items="${lista}" var="dato">
+                              <option value="${dato.id}">${dato.nombre}</option>
+                          </c:forEach>
                         </select>
                       </div>
                       <div class="ml-5">
@@ -272,22 +205,24 @@
                           </thead>
                           <tbody>
                               <tr>
-                                <td class="text-center"><input class="form-check-input ml-1" type="checkbox" value="" style="cursor:pointer;"></td>
-                                <td class="text-center"><input class="form-check-input ml-1" type="checkbox" value="" style="cursor:pointer;"></td>
-                                <td class="text-center"><input class="form-check-input ml-1" type="checkbox" value="" style="cursor:pointer;"></td>
-                                <td class="text-center"><input class="form-check-input ml-1" type="checkbox" value="" style="cursor:pointer;"></td>
-                                <td class="text-center"><input class="form-check-input ml-1" type="checkbox" value="" style="cursor:pointer;"></td>
-                                <td class="text-center"><input class="form-check-input ml-1" type="checkbox" value="" style="cursor:pointer;"></td>
-                                <td class="text-center"><input class="form-check-input ml-1" type="checkbox" value="" style="cursor:pointer;"></td>
+                                <td class="text-center"><input id="domingo1" class="form-check-input ml-1" type="checkbox" value="true" style="cursor:pointer;"></td>
+                                <td class="text-center"><input id="lunes1" class="form-check-input ml-1" type="checkbox" value="true" style="cursor:pointer;"></td>
+                                <td class="text-center"><input id="martes1" class="form-check-input ml-1" type="checkbox" value="true" style="cursor:pointer;"></td>
+                                <td class="text-center"><input id="miercoles1" class="form-check-input ml-1" type="checkbox" value="true" style="cursor:pointer;"></td>
+                                <td class="text-center"><input id="jueves1" class="form-check-input ml-1" type="checkbox" value="true" style="cursor:pointer;"></td>
+                                <td class="text-center"><input id="viernes1" class="form-check-input ml-1" type="checkbox" value="true" style="cursor:pointer;"></td>
+                                <td class="text-center"><input id="sabado1" class="form-check-input ml-1" type="checkbox" value="true" style="cursor:pointer;"></td>
                               </tr>
 
                           </tbody>
                       </table>
+                      <input id="idKioH" type="hidden" name="button">
+                      <input id="selTipo" type="hidden" name="button">
                     </div>
                 </div>
 
                 <div class="modal-footer">
-                  <button id="btnNewFiles" type"button" class="btn btn-info ml-2"><i class="fas fa-upload"></i> Aceptar</button>
+                  <button id="btnProgramarLista" type"button" class="btn btn-info ml-2"><i class="fas fa-upload"></i> Aceptar</button>
                   <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                 </div>
 
@@ -317,48 +252,9 @@
 
                         </thead>
                         <tbody class="text-center">
-                           <table id="kioscos" class="my-tbody">
-                            <tr class="tr">
-                              <td class="text-center td">Kiosco 1</td>
-                            </tr>
-                            <tr class="tr">
+                           <tbody id="kioscos" class="my-tbody">
 
-                              <td class="text-center td">Kiosco 2</td>
-                            </tr>
-                            <tr class="tr">
-
-                              <td class="text-center td">Kiosco 3</td>
-                            </tr>
-                            <tr class="tr">
-
-                              <td class="text-center td">Kiosco 4</td>
-                            </tr>
-                            <tr class="tr">
-
-                              <td class="text-center td">Kiosco 5</td>
-                            </tr>
-                            <tr class="tr">
-
-                              <td class="text-center td">Kiosco 6</td>
-                            </tr>
-                            <tr class="tr">
-
-                              <td class="text-center td">Kiosco 7</td>
-                            </tr>
-                            <tr class="tr">
-
-                              <td class="text-center td">Kiosco 8</td>
-                            </tr>
-                            <tr class="tr">
-
-                              <td class="text-center td">Kiosco 9</td>
-                            </tr>
-                            <tr class="tr">
-
-                              <td class="text-center td">Kiosco 10</td>
-                            </tr>
-                            
-                           </table>
+                           </tbody>
                         </tbody>
 
                     </table>
@@ -367,15 +263,15 @@
                     <div class="container row text-center d-flex justify-content-center mt-5">
                       <div class="">
                         <label for="lista" class="form-control-label">Lista de reproducción:</label>
-                        <select class="form-control" name="">
-                          <option value="0">Seleccione una lista</option>
-                          <option value="1">Lista de reproducción 1</option>
-                          <option value="2">Lista de reproducción 2</option>
+                        <select id="selectMultList" class="form-control" name="">
+                          <c:forEach items="${lista}" var="dato">
+                              <option value="${dato.id}">${dato.nombre}</option>
+                          </c:forEach>
                         </select>
                       </div>
                       <div class="ml-5">
                         <label for="horaInicial" class="form-control-label">Hora inicio:</label>
-                        <input type="time" class="form-control mr-1" id="horaInicial">
+                        <input type="time" class="form-control mr-1" id="horaInicial1">
                       </div>
                     </div>
                     <h3 class="text-center mt-5">Días: </h3>
@@ -393,13 +289,13 @@
                         </thead>
                         <tbody>
                             <tr>
-                              <td class="text-center"><input class="form-check-input ml-1" type="checkbox" value="" style="cursor:pointer;"></td>
-                              <td class="text-center"><input class="form-check-input ml-1" type="checkbox" value="" style="cursor:pointer;"></td>
-                              <td class="text-center"><input class="form-check-input ml-1" type="checkbox" value="" style="cursor:pointer;"></td>
-                              <td class="text-center"><input class="form-check-input ml-1" type="checkbox" value="" style="cursor:pointer;"></td>
-                              <td class="text-center"><input class="form-check-input ml-1" type="checkbox" value="" style="cursor:pointer;"></td>
-                              <td class="text-center"><input class="form-check-input ml-1" type="checkbox" value="" style="cursor:pointer;"></td>
-                              <td class="text-center"><input class="form-check-input ml-1" type="checkbox" value="" style="cursor:pointer;"></td>
+                              <td class="text-center"><input id="domingo" class="form-check-input ml-1" type="checkbox" value="" style="cursor:pointer;"></td>
+                              <td class="text-center"><input id="lunes"class="form-check-input ml-1" type="checkbox" value="" style="cursor:pointer;"></td>
+                              <td class="text-center"><input id="martes" class="form-check-input ml-1" type="checkbox" value="" style="cursor:pointer;"></td>
+                              <td class="text-center"><input id="miercoles" class="form-check-input ml-1" type="checkbox" value="" style="cursor:pointer;"></td>
+                              <td class="text-center"><input id="jueves" class="form-check-input ml-1" type="checkbox" value="" style="cursor:pointer;"></td>
+                              <td class="text-center"><input id="viernes" class="form-check-input ml-1" type="checkbox" value="" style="cursor:pointer;"></td>
+                              <td class="text-center"><input id="sabado" class="form-check-input ml-1" type="checkbox" value="" style="cursor:pointer;"></td>
                             </tr>
 
                         </tbody>
@@ -409,7 +305,7 @@
 
                 </div>
                 <div class="modal-footer">
-                  <a id="btnCorteCaja" class="btn btn-warning ml-2"><i class="fas fa-trash-alt"></i> Aceptar</a>
+                  <a id="btnMultListKio" class="btn btn-info ml-2"><i class="fas fa-upload"></i> Aceptar</a>
                   <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                 </div>
               </form>
