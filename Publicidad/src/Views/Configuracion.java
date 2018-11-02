@@ -11,8 +11,12 @@ import java.awt.TrayIcon;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -29,16 +33,14 @@ public class Configuracion extends javax.swing.JFrame {
     private ImageIcon imgIcon;
     private TrayIcon trayIcon;
     private SystemTray sysTray;
-    
+    static  Properties prop = new Properties();
     public Configuracion() {
         initComponents();  
         ///////////////////////
         //parte para cargar el archivo de propiedades en cuanto inicia el programa
-        Properties prop = new Properties();
+       
 		
                 try {
-                       
-                     
                         prop.load(new FileInputStream("C:\\Users\\nipan\\OneDrive\\Documentos\\GitHub\\SistemaMonitoreo\\Publicidad\\src\\Views\\configuracion.properties"));
                 } catch(IOException e) {
 			JOptionPane.showMessageDialog(this,e.toString());
@@ -441,6 +443,11 @@ public class Configuracion extends javax.swing.JFrame {
         jTabbedPane1.addTab("Pantalla", jPanel2);
 
         jButton2.setText("Cancelar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Guardar");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -540,10 +547,31 @@ public class Configuracion extends javax.swing.JFrame {
  
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        //parte para guardar los datos si son o no modificados en el archivo de propiedades
+        ////////////modificacion o no la configuracion sera guardada 
+        prop.setProperty("conexiones.Host",jTextField2.getText());
+                prop.setProperty("conexiones.usuario",jTextField4.getText());
+               prop.setProperty("conexiones.Puerto", jTextField3.getText());
+                prop.setProperty("conexiones.contraseña",jTextField5.getText());
+                
+                prop.setProperty("conexiones.WSM",jTextField1.getText());
+                prop.setProperty("conexiones.Archivos",jTextField6.getText());
+                
+                prop.setProperty("pantalla.posicion",PosicionText.getText());
+                prop.setProperty("pantalla.tamaño",TamañoText.getText());
+                prop.setProperty("pantalla.x", XText.getText());
+                prop.setProperty("pantalla.y",YText.getText());
+                
+                prop.setProperty("pantalla.servicios.imagenHeader",ImagenHText.getText()); 
         
-        
-        
+            //Cuando se cierra la aplicacion se debe de mandar a segundo plano
+            //parte para guardar los datos si son o no modificados en el archivo de propiedades
+            
+         try {
+            prop.store(new FileOutputStream("C:\\Users\\nipan\\OneDrive\\Documentos\\GitHub\\SistemaMonitoreo\\Publicidad\\src\\Views\\configuracion.properties"),"Modificado en:");
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this,ex.toString());
+        }
+        ///////////////////////////
         //parte de enviar a las pantallas de exclusiva y servicios
         
         Envio send = new Envio ();
@@ -585,13 +613,18 @@ public class Configuracion extends javax.swing.JFrame {
     }//GEN-LAST:event_SalirActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        //Cuando se cierra la aplicacion se debe de mandar a segundo plano
+
+         
          initSysTray();
     }//GEN-LAST:event_formWindowClosed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
        
     }//GEN-LAST:event_formWindowClosing
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
