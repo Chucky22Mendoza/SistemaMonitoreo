@@ -6,25 +6,35 @@
 package Views;
 
 import Model.Envio;
+import com.sun.jna.Native;
+import com.sun.jna.NativeLibrary;
 import java.awt.Dimension;
 import java.awt.Image;
+import java.io.File;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import uk.co.caprica.vlcj.binding.LibVlc;
+import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
+import uk.co.caprica.vlcj.runtime.RuntimeUtil;
+import uk.co.caprica.vlcj.runtime.x.LibXUtil;
 
 /**
  *
  * @author nipan
  */
-public class PantallaServicios extends javax.swing.JFrame {
+public final class PantallaServicios extends javax.swing.JFrame {
            
     /**
      * Creates new form PantallaServicios
+     * @param img
      */
     public PantallaServicios(ImageIcon img) {
         initComponents();
         imagen(img);
         tamañoPantalla();
+        cambiarLibrerias();
+        reproducirVideo(); 
         setLocationRelativeTo(null);
     }
 
@@ -140,10 +150,64 @@ public class PantallaServicios extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private EmbeddedMediaPlayerComponent player;
+    private File file;
+    
+    //Método para reproducir el video en la pantalla
+    public void reproducirVideo(){
+            /*JFrame frame = new JFrame("PantallaExclusiva");
+            frame.setLocation(100, 100);
+            frame.setSize(Envio.getAncho(), Envio.getAlto());
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setVisible(true);
+            
+            //Crear una instancia de Canvas
+            Canvas c = new Canvas();
+            //Se establece el color del fondo
+            c.setBackground(Color.lightGray);
+            JPanel p = new JPanel();
+            p.setLayout(new BorderLayout());
+            //El video toma toda la superficie del Layout
+            p.add(c, BorderLayout.CENTER);
+            frame.add(p, BorderLayout.CENTER);
+
+            //Crear Instancias pertinentes
+            MediaPlayerFactory mediaPlayerFactory = new MediaPlayerFactory();
+            //Crear la instancia de tipo Media Player Embebido
+            EmbeddedMediaPlayer mediaPlayer = mediaPlayerFactory.newEmbeddedMediaPlayer(new               Win32FullScreenStrategy(frame));
+            mediaPlayer.setVideoSurface(mediaPlayerFactory.newVideoSurface(c));
+            //Pantalla Completa
+            //mediaPlayer.toggleFullScreen();
+            //Oculta el cursos cuando el mouese se ingresa a la pantalla
+            mediaPlayer.setEnableMouseInputHandling(false);
+            //Desahibilta el teclado dentro del jFrame
+            mediaPlayer.setEnableKeyInputHandling(true);
+           
+            //Prepara el video a reproducir
+            mediaPlayer.prepareMedia("C:\\Users\\mario\\Desktop\\SistemaMonitoreo\\Publicidad\\src\\Video\\Prueba.mp4");
+            //Reproduce el video
+            mediaPlayer.play();   */
+            
+            player = new EmbeddedMediaPlayerComponent();
+            //se añade reproductor 
+            video.add(player);        
+            player.setSize(video.getSize());                
+            player.setVisible(true); 
+            //player.getMediaPlayer().playMedia(file.getAbsolutePath());
+            player.getMediaPlayer().playMedia("C:\\Users\\mario\\Desktop\\SistemaMonitoreo\\Publicidad\\src\\Video\\Prueba.mp4");
+    }
+    
+        //Método para leer librerias directas del VLC de 64 bits
+    static void cambiarLibrerias(){
+             NativeLibrary.addSearchPath(
+                    RuntimeUtil.getLibVlcLibraryName(), "C:\\Program Files\\VideoLAN\\VLC");
+            Native.loadLibrary(RuntimeUtil.getLibVlcLibraryName(), LibVlc.class);
+            LibXUtil.initialise();
+        }
+    
     //método para fijar el tamaño de la pantalla
-    public void tamañoPantalla(){
-        Envio send = new Envio();
-        this.setSize(new Dimension(send.getAncho(), send.getAlto()));
+    public void tamañoPantalla(){        
+        this.setSize(new Dimension(Envio.getAncho(), Envio.getAlto()));
     }
     
     //Método para fijar la imagen 
@@ -175,15 +239,11 @@ public class PantallaServicios extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PantallaServicios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PantallaServicios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PantallaServicios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(PantallaServicios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        
         //</editor-fold>
 
         /* Create and display the form */

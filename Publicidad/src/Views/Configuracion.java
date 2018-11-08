@@ -592,7 +592,7 @@ public class Configuracion extends javax.swing.JFrame {
            abrir.setVisible(true);
         }else{
            PantallaExclusiva a=new PantallaExclusiva();
-           a.setVisible(true);
+           a.setVisible(false);
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
