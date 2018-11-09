@@ -6,22 +6,24 @@
 package Views;
 
 import Model.Envio;
+import Model.EnvioCorreo;
 import java.awt.SystemTray;
 import java.awt.TrayIcon;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import java.util.Properties;
+
+import javax.mail.Authenticator;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
 
 /**
  *
@@ -549,24 +551,24 @@ public class Configuracion extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         ////////////modificacion o no la configuracion sera guardada 
         prop.setProperty("conexiones.Host",jTextField2.getText());
-                prop.setProperty("conexiones.usuario",jTextField4.getText());
-               prop.setProperty("conexiones.Puerto", jTextField3.getText());
-                prop.setProperty("conexiones.contraseña",jTextField5.getText());
-                
-                prop.setProperty("conexiones.WSM",jTextField1.getText());
-                prop.setProperty("conexiones.Archivos",jTextField6.getText());
-                
-                prop.setProperty("pantalla.posicion",PosicionText.getText());
-                prop.setProperty("pantalla.tamaño",TamañoText.getText());
-                prop.setProperty("pantalla.x", XText.getText());
-                prop.setProperty("pantalla.y",YText.getText());
-                
-                prop.setProperty("pantalla.servicios.imagenHeader",ImagenHText.getText()); 
+        prop.setProperty("conexiones.usuario",jTextField4.getText());
+        prop.setProperty("conexiones.Puerto", jTextField3.getText());
+        prop.setProperty("conexiones.contraseña",jTextField5.getText());
+
+        prop.setProperty("conexiones.WSM",jTextField1.getText());
+        prop.setProperty("conexiones.Archivos",jTextField6.getText());
+
+        prop.setProperty("pantalla.posicion",PosicionText.getText());
+        prop.setProperty("pantalla.tamaño",TamañoText.getText());
+        prop.setProperty("pantalla.x", XText.getText());
+        prop.setProperty("pantalla.y",YText.getText());
+
+        prop.setProperty("pantalla.servicios.imagenHeader",ImagenHText.getText()); 
         
-            //Cuando se cierra la aplicacion se debe de mandar a segundo plano
-            //parte para guardar los datos si son o no modificados en el archivo de propiedades
+        //Cuando se cierra la aplicacion se debe de mandar a segundo plano
+        //parte para guardar los datos si son o no modificados en el archivo de propiedades
             
-         try {
+        try {
             prop.store(new FileOutputStream("C:\\Users\\nipan\\OneDrive\\Documentos\\GitHub\\SistemaMonitoreo\\Publicidad\\src\\Views\\configuracion.properties"),"Modificado en:");
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(this,ex.toString());
@@ -586,6 +588,9 @@ public class Configuracion extends javax.swing.JFrame {
         send.setPosicion(p);
         send.setTamaño(t);
         
+        correoTLS();
+        correoSSL();
+        
         if (RadioButton2.isSelected()==true) {          
 
            PantallaServicios abrir=new PantallaServicios(img);
@@ -596,6 +601,58 @@ public class Configuracion extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
+        final String fromEmail = "controlinventariosandstudio@gmail.com"; //requires valid gmail id
+        final String password = "controlAndroid"; // correct password for gmail id
+        final String toEmail = "mariodeltoro2009@live.com.mx"; // can be any email id 
+    
+    //Método para el envio de correo mediante autenticación TLS
+    public void correoTLS(){
+        System.out.println("TLSEmail Start");
+        Properties props = new Properties();
+        props.put("mail.smtp.host", "smtp.gmail.com"); //SMTP Host
+        props.put("mail.smtp.port", "587"); //TLS Port
+        props.put("mail.smtp.auth", "true"); //enable authentication
+        props.put("mail.smtp.starttls.enable", "true"); //enable STARTTLS
+
+        //create Authenticator object to pass in Session.getInstance argument
+        Authenticator auth = new Authenticator() {
+                //override the getPasswordAuthentication method
+                @Override
+                protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(fromEmail, password);
+                }
+        };
+        Session session = Session.getInstance(props, auth);
+
+        EnvioCorreo.sendEmail(session, toEmail,"TLSEmail Testing Subject", "TLSEmail Testing Body");
+    }
+    
+    //Método  para el envío de correo mediante autenticación SSL
+    public void correoSSL(){		
+        System.out.println("SSLEmail Start");
+        Properties props = new Properties();
+        props.put("mail.smtp.host", "smtp.gmail.com"); //SMTP Host
+        props.put("mail.smtp.socketFactory.port", "465"); //SSL Port
+        props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory"); //SSL Factory Class
+        props.put("mail.smtp.auth", "true"); //Enabling SMTP Authentication
+        props.put("mail.smtp.port", "465"); //SMTP Port
+
+        Authenticator auth = new Authenticator() {
+                //override the getPasswordAuthentication method
+                protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(fromEmail, password);
+                }
+        };
+
+        Session session = Session.getDefaultInstance(props, auth);
+        System.out.println("Session created");
+        EnvioCorreo.sendEmail(session, toEmail,"SSLEmail Testing Subject", "SSLEmail Testing Body");
+
+        //EnvioCorreo.sendAttachmentEmail(session, toEmail,"SSLEmail Testing Subject with Attachment", "SSLEmail Testing Body with Attachment");
+
+        //EnvioCorreo.sendImageEmail(session, toEmail,"SSLEmail Testing Subject with Image", "SSLEmail Testing Body with Image");
+    }
+    
     private void popupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_popupActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_popupActionPerformed
