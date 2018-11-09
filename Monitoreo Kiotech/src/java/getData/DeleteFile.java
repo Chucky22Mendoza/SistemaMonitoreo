@@ -103,7 +103,7 @@ public class DeleteFile {
                 return 1;
                 //dbConnection.rollback();
             }else{
-                System.err.println("El fichero no pudó ser borrado");
+                System.err.println("El fichero no pudo ser borrado");
                 return 0;
                 //dbConnection.rollback();
             }

@@ -39,7 +39,7 @@ public class NewFile {
         //Variables de Entrada (IN)
         //System.err.println("Preparando llamada a PostgreSQL. ---> ");
             //System.err.println("fn_insert_archivos('"+archivo.getNombre()+"'," + archivo.getDuracion()+",'"+archivo.getUbicacion()+"','"+archivo.getTipo()+"')");
-            
+        //System.err.println("--------------" + archivo.getTipo());
         nuevoArchivo.setString(1, archivo.getNombre());
         nuevoArchivo.setInt(2, archivo.getDuracion());
         nuevoArchivo.setString(3, archivo.getUbicacion());
