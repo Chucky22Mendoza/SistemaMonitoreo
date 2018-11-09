@@ -23,8 +23,8 @@ public class ConnectionDB {
          //String urlDatabase =  "jdbc:postgresql://localhost:5432/Publicidad";
          String usuario = "postgres";
          //String pass = "1522";
-         String pass = "123";
-         //String pass = "21octubre97";
+         //String pass = "123";
+         String pass = "21octubre97";
          
          
          try {
