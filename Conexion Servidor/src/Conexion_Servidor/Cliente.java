@@ -15,7 +15,7 @@ public class Cliente{
     
     public static void run() {
         //Host del servidor
-        final String HOST = "127.0.0.1";
+        final String HOST = "192.168.1.139";
         //Puerto del servidor
         final int PUERTO = 5000;
         DataInputStream in;
@@ -46,7 +46,7 @@ public class Cliente{
     }
     public static void EnviarStatus(){
         //Host del servidor
-        final String HOST = "127.0.0.1";
+        final String HOST = "192.168.1.139";
         //Puerto del servidor
         final int PUERTO = 5000;
         DataInputStream in;

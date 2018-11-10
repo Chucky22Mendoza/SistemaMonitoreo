@@ -42,7 +42,7 @@ public final class PantallaExclusiva extends javax.swing.JFrame {
         initComponents();
         //tamañoPantalla();
         setLocationRelativeTo(null);
-        this.setVisible(false);
+        this.setVisible(false);        
         cambiarLibrerias();
         //jPanel.setLayout(new BorderLayout());
         reproducirVideo();        
@@ -61,6 +61,7 @@ public final class PantallaExclusiva extends javax.swing.JFrame {
         jPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         javax.swing.GroupLayout jPanelLayout = new javax.swing.GroupLayout(jPanel);
         jPanel.setLayout(jPanelLayout);
@@ -109,10 +110,11 @@ public final class PantallaExclusiva extends javax.swing.JFrame {
         });*/              
             
             JFrame frame = new JFrame("PantallaExclusiva");
-            frame.setLocation(100, 100);
+            frame.setLocation(Envio.getPosicion(), Envio.getTamaño());
+            frame.setUndecorated(true);
             frame.setSize(Envio.getAncho(), Envio.getAlto());
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setVisible(true);
+            frame.setVisible(true);                     
             
             //Crear una instancia de Canvas
             Canvas c = new Canvas();
@@ -137,7 +139,8 @@ public final class PantallaExclusiva extends javax.swing.JFrame {
             mediaPlayer.setEnableKeyInputHandling(true);
            
             //Prepara el video a reproducir
-            mediaPlayer.prepareMedia("C:\\Users\\mario\\Desktop\\SistemaMonitoreo\\Publicidad\\src\\Video\\Prueba.mp4");
+            //mediaPlayer.prepareMedia("C:\\Users\\mario\\Desktop\\SistemaMonitoreo\\Publicidad\\src\\Video\\Prueba.mp4");
+            mediaPlayer.prepareMedia("http://192.168.1.139:1080/smp/Publicidad/src/Video/Prueba.mp4");
             //Reproduce el video
             mediaPlayer.play();        
         

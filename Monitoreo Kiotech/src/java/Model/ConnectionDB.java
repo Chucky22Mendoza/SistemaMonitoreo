@@ -17,12 +17,14 @@ public class ConnectionDB {
         DriverManagerDataSource DS=new DriverManagerDataSource();
         DS.setDriverClassName("org.postgresql.Driver");
         //DS.setUrl("jdbc:postgresql://localhost:5433/db_local");
-        DS.setUrl("jdbc:postgresql://localhost:5432/db_local");
+        DS.setUrl("jdbc:postgresql://192.168.1.139:5433/db_local"); //Servidor Prueba
+        //DS.setUrl("jdbc:postgresql://localhost:5432/db_local");
         //DS.setUrl("jdbc:postgresql://localhost:5433/Publicidad");
         //DS.setUrl("jdbc:postgresql://localhost:5432/Publicidad");
         DS.setUsername("postgres");
         //DS.setPassword("1522");
-        DS.setPassword("123");
+        DS.setPassword("12345"); //Servidor Prueba
+        //DS.setPassword("123");
         //DS.setPassword("21octubre97");
         return DS;
     }

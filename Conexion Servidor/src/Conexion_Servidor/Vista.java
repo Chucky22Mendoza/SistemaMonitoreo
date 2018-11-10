@@ -72,6 +72,7 @@ public class Vista extends javax.swing.JFrame {
         jScrollPane2.setViewportView(TextServidor);
 
         BtnServidor.setText("Activar Servidor");
+        BtnServidor.setEnabled(false);
         BtnServidor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnServidorActionPerformed(evt);
@@ -79,7 +80,6 @@ public class Vista extends javax.swing.JFrame {
         });
 
         jButton1.setText("Activar Cliente");
-        jButton1.setEnabled(false);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -163,6 +163,7 @@ public class Vista extends javax.swing.JFrame {
         //BtnDesactivarServidor.setEnabled(true);
         jButton1.setEnabled(true);
                 Servidor.llamar();
+        BtnServidor.setEnabled(false);
          
                 
     }//GEN-LAST:event_BtnServidorActionPerformed
