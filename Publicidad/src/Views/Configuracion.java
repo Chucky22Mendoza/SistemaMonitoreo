@@ -7,6 +7,7 @@ package Views;
 
 import Model.Envio;
 import Model.EnvioCorreo;
+import java.awt.AWTException;
 import java.awt.SystemTray;
 import java.awt.TrayIcon;
 
@@ -102,7 +103,7 @@ public class Configuracion extends javax.swing.JFrame {
                 //OCULTAR LA VENTANA
                 this.setVisible(false);
             }
-        } catch (Exception e) {
+        } catch (AWTException e) {
             //EN CASO DE ERROR, MOSTRARLO
             JOptionPane.showMessageDialog(this,e.getMessage());
         }
@@ -576,20 +577,18 @@ public class Configuracion extends javax.swing.JFrame {
         ///////////////////////////
         //parte de enviar a las pantallas de exclusiva y servicios
         
-        Envio send = new Envio ();
+        int x = Integer.parseInt(XText.getText());
+        int y = Integer.parseInt(YText.getText());
+        int p = Integer.parseInt(PosicionText.getText());
+        int t = Integer.parseInt(TamañoText.getText());
         
-        int x = Integer.parseInt(XText.getText().toString());
-        int y = Integer.parseInt(YText.getText().toString());
-        int p = Integer.parseInt(PosicionText.getText().toString());
-        int t = Integer.parseInt(TamañoText.getText().toString());
+        Envio.setAlto(y);
+        Envio.setAncho(x);
+        Envio.setPosicion(p);
+        Envio.setTamaño(t);
         
-        send.setAlto(y);
-        send.setAncho(x);
-        send.setPosicion(p);
-        send.setTamaño(t);
-        
-        correoTLS();
-        correoSSL();
+        //correoTLS();
+        //correoSSL();
         
         if (RadioButton2.isSelected()==true) {          
 
@@ -597,12 +596,12 @@ public class Configuracion extends javax.swing.JFrame {
            abrir.setVisible(true);
         }else{
            PantallaExclusiva a=new PantallaExclusiva();
-           a.setVisible(false);
+           a.setVisible(true);
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
-        final String fromEmail = "controlinventariosandstudio@gmail.com"; //requires valid gmail id
-        final String password = "controlAndroid"; // correct password for gmail id
+        final String fromEmail = Envio.getCorreo(); //requires valid gmail id
+        final String password = Envio.getContrasena(); // correct password for gmail id
         final String toEmail = "mariodeltoro2009@live.com.mx"; // can be any email id 
     
     //Método para el envio de correo mediante autenticación TLS
@@ -623,8 +622,9 @@ public class Configuracion extends javax.swing.JFrame {
                 }
         };
         Session session = Session.getInstance(props, auth);
-
-        EnvioCorreo.sendEmail(session, toEmail,"TLSEmail Testing Subject", "TLSEmail Testing Body");
+        
+        EnvioCorreo correo = new EnvioCorreo(session, toEmail,"TLSEmail Testing Subject", "TLSEmail Testing Body");
+        correo.start();
     }
     
     //Método  para el envío de correo mediante autenticación SSL
@@ -639,6 +639,7 @@ public class Configuracion extends javax.swing.JFrame {
 
         Authenticator auth = new Authenticator() {
                 //override the getPasswordAuthentication method
+                @Override
                 protected PasswordAuthentication getPasswordAuthentication() {
                         return new PasswordAuthentication(fromEmail, password);
                 }
@@ -646,7 +647,11 @@ public class Configuracion extends javax.swing.JFrame {
 
         Session session = Session.getDefaultInstance(props, auth);
         System.out.println("Session created");
-        EnvioCorreo.sendEmail(session, toEmail,"SSLEmail Testing Subject", "SSLEmail Testing Body");
+        
+        EnvioCorreo correo = new EnvioCorreo(session, toEmail,"SSLEmail Testing Subject", "SSLEmail Testing Body");
+        correo.start();
+        
+        //EnvioCorreo.sendEmail(session, toEmail,"SSLEmail Testing Subject", "SSLEmail Testing Body");
 
         //EnvioCorreo.sendAttachmentEmail(session, toEmail,"SSLEmail Testing Subject with Attachment", "SSLEmail Testing Body with Attachment");
 
@@ -711,10 +716,8 @@ public class Configuracion extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Configuracion().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new Configuracion().setVisible(true);
         });
     }
     

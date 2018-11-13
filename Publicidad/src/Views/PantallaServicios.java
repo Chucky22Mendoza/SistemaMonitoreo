@@ -11,11 +11,18 @@ import com.sun.jna.NativeLibrary;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.io.File;
+import java.util.Timer;
+import java.util.TimerTask;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import uk.co.caprica.vlcj.binding.LibVlc;
 import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
+import uk.co.caprica.vlcj.player.MediaPlayer;
+import uk.co.caprica.vlcj.player.MediaPlayerEventAdapter;
+import uk.co.caprica.vlcj.player.MediaPlayerFactory;
+import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
+import uk.co.caprica.vlcj.player.embedded.windows.Win32FullScreenStrategy;
 import uk.co.caprica.vlcj.runtime.RuntimeUtil;
 import uk.co.caprica.vlcj.runtime.x.LibXUtil;
 
@@ -24,9 +31,10 @@ import uk.co.caprica.vlcj.runtime.x.LibXUtil;
  * @author nipan
  */
 public final class PantallaServicios extends javax.swing.JFrame {
-           
+
     /**
      * Creates new form PantallaServicios
+     *
      * @param img
      */
     public PantallaServicios(ImageIcon img) {
@@ -34,14 +42,14 @@ public final class PantallaServicios extends javax.swing.JFrame {
         imagen(img);
         tamañoPantalla();
         cambiarLibrerias();
-        reproducirVideo(); 
+        reproducirVideo();
         setLocationRelativeTo(null);
     }
 
     public PantallaServicios() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -151,82 +159,112 @@ public final class PantallaServicios extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private EmbeddedMediaPlayerComponent player;
-    private File file;
-    
-    //Método para reproducir el video en la pantalla
-    public void reproducirVideo(){
-            /*JFrame frame = new JFrame("PantallaExclusiva");
-            frame.setLocation(100, 100);
-            frame.setSize(Envio.getAncho(), Envio.getAlto());
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setVisible(true);
-            
-            //Crear una instancia de Canvas
-            Canvas c = new Canvas();
-            //Se establece el color del fondo
-            c.setBackground(Color.lightGray);
-            JPanel p = new JPanel();
-            p.setLayout(new BorderLayout());
-            //El video toma toda la superficie del Layout
-            p.add(c, BorderLayout.CENTER);
-            frame.add(p, BorderLayout.CENTER);
 
-            //Crear Instancias pertinentes
-            MediaPlayerFactory mediaPlayerFactory = new MediaPlayerFactory();
-            //Crear la instancia de tipo Media Player Embebido
-            EmbeddedMediaPlayer mediaPlayer = mediaPlayerFactory.newEmbeddedMediaPlayer(new               Win32FullScreenStrategy(frame));
-            mediaPlayer.setVideoSurface(mediaPlayerFactory.newVideoSurface(c));
-            //Pantalla Completa
-            //mediaPlayer.toggleFullScreen();
-            //Oculta el cursos cuando el mouese se ingresa a la pantalla
-            mediaPlayer.setEnableMouseInputHandling(false);
-            //Desahibilta el teclado dentro del jFrame
-            mediaPlayer.setEnableKeyInputHandling(true);
-           
+    //Método para reproducir el video en la pantalla
+    public void reproducirVideo() {
+        MediaPlayerFactory mediaPlayerFactory = new MediaPlayerFactory();
+        EmbeddedMediaPlayer mediaPlayer = mediaPlayerFactory.newEmbeddedMediaPlayer(new Win32FullScreenStrategy(this));
+        player = new EmbeddedMediaPlayerComponent();
+        //se añade reproductor 
+        video.add(player);
+        player.setSize(video.getSize());
+        player.setVisible(true);
+        //player.getMediaPlayer().playMedia(file.getAbsolutePath());
+        //player.getMediaPlayer().playMedia("C:\\Users\\mario\\Desktop\\SistemaMonitoreo\\Publicidad\\src\\Video\\Prueba.mp4");
+
+        try {
             //Prepara el video a reproducir
-            mediaPlayer.prepareMedia("C:\\Users\\mario\\Desktop\\SistemaMonitoreo\\Publicidad\\src\\Video\\Prueba.mp4");
-            //Reproduce el video
-            mediaPlayer.play();   */
-            
-            player = new EmbeddedMediaPlayerComponent();
-            //se añade reproductor 
-            video.add(player);        
-            player.setSize(video.getSize());                
-            player.setVisible(true); 
-            //player.getMediaPlayer().playMedia(file.getAbsolutePath());
-            player.getMediaPlayer().playMedia("C:\\Users\\mario\\Desktop\\SistemaMonitoreo\\Publicidad\\src\\Video\\Prueba.mp4");
-    }
-    
-        //Método para leer librerias directas del VLC de 64 bits
-    static void cambiarLibrerias(){
-             NativeLibrary.addSearchPath(
-                    RuntimeUtil.getLibVlcLibraryName(), "C:\\Program Files\\VideoLAN\\VLC");
-            Native.loadLibrary(RuntimeUtil.getLibVlcLibraryName(), LibVlc.class);
-            LibXUtil.initialise();
+            //File folder = new File("C:\\\\Users\\\\mario\\\\Desktop\\\\SistemaMonitoreo\\\\Publicidad\\\\src\\\\Video");
+            File folder = new File("http://192.168.1.139:1080/smp/Publicidad/src/Video/Kiosco_2/");// + Envio.getKiosko());
+            File[] listOfFiles = folder.listFiles();
+
+            //Despliega el orden de la lista de Reproducción
+            for (File listOfFile : listOfFiles) {
+                System.out.println(listOfFile.getName());
+            }
+
+            cargarVideo(listOfFiles, mediaPlayer, Envio.getKiosko());
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error en " + e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
         }
-    
+
+    }
+
+    int archivo = -1;
+
+    public void cargarVideo(File[] listOfFiles, EmbeddedMediaPlayer mediaPlayer, int kiosko) {
+        archivo++;
+
+        //player.getMediaPlayer().playMedia("C:\\Users\\mario\\Desktop\\SistemaMonitoreo\\Publicidad\\src\\Video\\" + listOfFiles[archivo].getName());
+        //mediaPlayer.prepareMedia("http://192.168.1.139:1080/smp/Publicidad/src/Video/Kiosco_" + kiosko + "/" + listOfFiles[archivo].getName()); //Servidor
+        player.getMediaPlayer().addMediaPlayerEventListener(new MediaPlayerEventAdapter() {
+            @Override
+            public void playing(MediaPlayer prueba) {
+                Timer timer = new Timer();
+                TimerTask task = new TimerTask() {
+                    @Override
+                    public void run() {
+                        if (!prueba.isPlaying()) {
+                            timer.cancel();                            
+                        }
+                    }
+                };
+                timer.schedule(task, 10, 1000);
+            }
+
+            @Override
+            public void finished(MediaPlayer prueba) {
+                if (archivo == (listOfFiles.length - 1)) {
+                    archivo = -1;
+                    cargarVideo(listOfFiles, mediaPlayer, kiosko);
+                    prueba.removeMediaPlayerEventListener(this);
+                } else {
+                    cargarVideo(listOfFiles, mediaPlayer, kiosko);
+                    System.out.println(archivo);
+                    prueba.removeMediaPlayerEventListener(this);
+                }
+
+            }
+            
+            @Override
+            public void error(MediaPlayer prueba) {
+                cargarVideo(listOfFiles, mediaPlayer, kiosko);
+                prueba.removeMediaPlayerEventListener(this);
+            }
+        });
+    }
+
+    //Método para leer librerias directas del VLC de 64 bits
+    static void cambiarLibrerias() {
+        NativeLibrary.addSearchPath(
+                RuntimeUtil.getLibVlcLibraryName(), "C:\\Program Files\\VideoLAN\\VLC");
+        Native.loadLibrary(RuntimeUtil.getLibVlcLibraryName(), LibVlc.class);
+        LibXUtil.initialise();
+    }
+
     //método para fijar el tamaño de la pantalla
-    public void tamañoPantalla(){        
+    public void tamañoPantalla() {
         this.setSize(new Dimension(Envio.getAncho(), Envio.getAlto()));
     }
-    
+
     //Método para fijar la imagen 
-    public void imagen(ImageIcon img){
+    public void imagen(ImageIcon img) {
         try {
 
             Icon icon = new ImageIcon(img.getImage().getScaledInstance(imagen.getWidth(), imagen.getHeight(), Image.SCALE_DEFAULT));
             imagen.setIcon(icon);
-            
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "ERROR AL ABRIR: " + e.getMessage());
         }
     }
-    
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        
+
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -243,13 +281,13 @@ public final class PantallaServicios extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(PantallaServicios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        
+
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
-            
-            public void run( ImageIcon img) {
+
+            public void run(ImageIcon img) {
                 new PantallaServicios(img).setVisible(true);
             }
 

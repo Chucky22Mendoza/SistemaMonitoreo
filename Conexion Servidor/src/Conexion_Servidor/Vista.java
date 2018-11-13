@@ -72,7 +72,6 @@ public class Vista extends javax.swing.JFrame {
         jScrollPane2.setViewportView(TextServidor);
 
         BtnServidor.setText("Activar Servidor");
-        BtnServidor.setEnabled(false);
         BtnServidor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnServidorActionPerformed(evt);
