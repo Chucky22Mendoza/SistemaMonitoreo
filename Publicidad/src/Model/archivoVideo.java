@@ -24,10 +24,23 @@ public class archivoVideo {
     
     private int duracion;
     private String ubicacion;
+    private String listaReproduccion;
+    private String tipo;
 
-    public archivoVideo(int duracion, String ubicacion) {
-        this.duracion = duracion;
-        this.ubicacion = ubicacion;
+    public String getListaReproduccion() {
+        return listaReproduccion;
+    }
+
+    public void setListaReproduccion(String listaReproduccion) {
+        this.listaReproduccion = listaReproduccion;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
     
     public archivoVideo(){        

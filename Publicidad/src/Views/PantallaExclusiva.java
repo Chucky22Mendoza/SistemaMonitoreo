@@ -8,19 +8,21 @@ package Views;
 import GetData.GetFile;
 import Model.Envio;
 import Model.archivoVideo;
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import com.sun.jna.Native;
 import com.sun.jna.NativeLibrary;
-import java.awt.Canvas;
-import java.awt.Color;
+import java.awt.Image;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import org.apache.commons.io.FilenameUtils;
 import uk.co.caprica.vlcj.binding.LibVlc;
 import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
@@ -46,8 +48,10 @@ public final class PantallaExclusiva extends javax.swing.JFrame {
         tamañoPantalla();
         setLocationRelativeTo(null);
         this.setVisible(true);
-        cambiarLibrerias();        
+        this.setLocation(Envio.getPosicion(), Envio.getTamaño());
+        cambiarLibrerias();
         reproducirVideo();
+        imagen.setVisible(false);
         //jPanel.add(jfxPanel, BorderLayout.CENTER);
     }
 
@@ -61,6 +65,7 @@ public final class PantallaExclusiva extends javax.swing.JFrame {
     private void initComponents() {
 
         video = new javax.swing.JPanel();
+        imagen = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -83,10 +88,20 @@ public final class PantallaExclusiva extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(video, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(imagen, javax.swing.GroupLayout.PREFERRED_SIZE, 496, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(video, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(imagen, javax.swing.GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
 
         pack();
@@ -96,31 +111,16 @@ public final class PantallaExclusiva extends javax.swing.JFrame {
     int duracion;
     int archivo = -1;
     private EmbeddedMediaPlayerComponent player;
-    
+
     //Método que ejecuta el video
     public void reproducirVideo() {
-        /*Platform.runLater(new Runnable(){
-            @Override
-            public void run() {
-                File file = new File ("C:\\Users\\mario\\Desktop\\SistemaMonitoreo\\Publicidad\\src\\Video\\SafeTaxi_Etapa_regional_ENEIT.mp4");
-                //File file = new File("C:\\Users\\Jesús Mendoza\\Documents\\GitHub\\SistemaMonitoreo\\Publicidad\\src\\Video\\SafeTaxi_Etapa_regional_ENEIT.mp4");
-                MediaPlayer oracleVid = new MediaPlayer(
-                        new Media(file.toURI().toString())
-                );
-                jfxPanel.setScene(new Scene(new Group(new MediaView(oracleVid))));
-                oracleVid.setVolume(0.7);
-                //oracleVid.setCycleCount(MediaPlayer.INDEFINITE);
-                oracleVid.play();
-            }        
-        });*/
-
         MediaPlayerFactory mediaPlayerFactory = new MediaPlayerFactory();
         EmbeddedMediaPlayer mediaPlayer = mediaPlayerFactory.newEmbeddedMediaPlayer(new Win32FullScreenStrategy(this));
         player = new EmbeddedMediaPlayerComponent();
         //se añade reproductor 
         video.add(player);
         player.setSize(video.getSize());
-        player.setVisible(true);       
+        player.setVisible(false);
 
         try {
             //Prepara el video a reproducir
@@ -129,17 +129,15 @@ public final class PantallaExclusiva extends javax.swing.JFrame {
             //File[] listOfFiles = folder.listFiles();           
 
             Envio envio = new Envio();
-            
             file = new GetFile().obtenerArchivo(envio);
 
             for (int i = 0; i < file.size(); i++) {
                 System.out.println(file.get(i).getUbicacion());
             }
-            
-            //cargarMedia(mediaPlayer);
-
+            cargarMedia(mediaPlayer);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error en " + e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            reproducirVideo();
         }
 
         //mediaPlayer.prepareMedia("http://192.168.1.139:1080/smp/Publicidad/src/Video/Prueba.mp4"); //Servidor
@@ -151,10 +149,12 @@ public final class PantallaExclusiva extends javax.swing.JFrame {
 
     //Método para obtener la ruta del archivo
     public String rutaArchivo() {
-        String ruta = file.get(archivo).getUbicacion();
+        return file.get(archivo).getUbicacion();
+    }
 
-        Envio.setDuracion(file.get(archivo).getDuracion());
-        return ruta;
+    //Método para obtener la duracion del medio
+    public int duracionMedio() {
+        return file.get(archivo).getDuracion();
     }
 
     //Método para saber la extensión del archivo
@@ -162,59 +162,128 @@ public final class PantallaExclusiva extends javax.swing.JFrame {
         //Obtiene la extensión del archivo        
         return FilenameUtils.getExtension(ruta);
     }
+    
+    //Método para recargar
+    public void recargaLista(){
+        Envio envio = new Envio();
+        file = new GetFile().obtenerArchivo(envio);
+    }
+
+    ImageIcon img;
 
     //Método para cargar el video
-    public void cargarMedia(EmbeddedMediaPlayer mediaPlayer) {
+    public void cargarMedia(EmbeddedMediaPlayer mediaPlayer) throws FileNotFoundException, IOException {
         archivo++;
+        player.setVisible(false);
+        imagen.setVisible(false);
         //mediaPlayer.prepareMedia("C:\\Users\\mario\\Desktop\\SistemaMonitoreo\\Publicidad\\src\\Video\\" + listOfFiles[archivo].getName());
         String ruta = rutaArchivo();
         String extension = extensionArchivo(ruta);
+        int duracion = duracionMedio();
 
-        //mediaPlayer.prepareMedia(ruta);
-        player.getMediaPlayer().playMedia(ruta);
-        //mediaPlayer.play();
-
-        if (extension.equalsIgnoreCase("PNG") || extension.equalsIgnoreCase("ICO") || extension.equalsIgnoreCase("JPG") || extension.equalsIgnoreCase("BMP") || extension.equalsIgnoreCase("TIF")) {
-            //Método que se ejecuta si es imagen el archivo
-            
-            
-        } else {
-            //Método que se ejecuta si el archivo es video
-            player.getMediaPlayer().addMediaPlayerEventListener(new MediaPlayerEventAdapter() {
-                @Override
-                public void playing(MediaPlayer prueba) {
-                    Timer timer = new Timer();
-                    TimerTask task = new TimerTask() {
-                        @Override
-                        public void run() {
-                            if (!prueba.isPlaying()) {
-                                timer.cancel();                                
-                            }
-                        }
-                    };
-                    timer.schedule(task, 10, 1000);
+        /*if (!"".equals(ruta) || duracion != 0) {
+            if (extension.equalsIgnoreCase("PNG") || extension.equalsIgnoreCase("ICO") || extension.equalsIgnoreCase("JPG") || extension.equalsIgnoreCase("BMP") || extension.equalsIgnoreCase("TIF") || extension.equalsIgnoreCase("JPGE")) {
+                //Método que se ejecuta si es imagen el archivo            
+                imagen.setVisible(true);
+                
+                if (archivo == (file.size() - 1)) {
+                    archivo = -1;
                 }
 
-                @Override
-                public void finished(MediaPlayer prueba) {
-                    if (archivo == (file.size() - 1)) {
-                        archivo = -1;
+                img = new ImageIcon(ruta);
+                imagen(img);
+                
+                Timer timer = new Timer();
+                TimerTask task = new TimerTask() {
+                    @Override
+                    public void run() {
+                        try {
+                            cargarMedia(mediaPlayer);
+                            timer.cancel();
+                        } catch (IOException ex) {
+                            Logger.getLogger(PantallaExclusiva.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                };
+                timer.schedule(task, 0, (duracion * 1000 - 800));
+                System.out.println(archivo);
+
+            } else {*/
+        //Método que se ejecuta si el archivo es video
+        player.setVisible(true);
+        player.getMediaPlayer().playMedia(ruta);
+        System.out.println(ruta);
+        player.getMediaPlayer().addMediaPlayerEventListener(new MediaPlayerEventAdapter() {
+            @Override
+            public void playing(MediaPlayer prueba) {
+                Timer timer = new Timer();
+                TimerTask task = new TimerTask() {
+                    @Override
+                    public void run() {
+                        if (!prueba.isPlaying()) {
+                            timer.cancel();
+                        }
+                    }
+                };
+                timer.schedule(task, 10, (duracion * 1000 - 800));
+            }
+
+            @Override
+            public void finished(MediaPlayer prueba) {
+                if (archivo == (file.size() - 1)) {
+                    archivo = -1;
+
+                    recargaLista();
+                    try {
                         cargarMedia(mediaPlayer);
-                        prueba.removeMediaPlayerEventListener(this);
-                    } else {
-                        cargarMedia(mediaPlayer);
-                        System.out.println(archivo);
-                        prueba.removeMediaPlayerEventListener(this);
+                    } catch (IOException ex) {
+                        Logger.getLogger(PantallaExclusiva.class.getName()).log(Level.SEVERE, null, ex);
                     }
 
-                }
-
-                @Override
-                public void error(MediaPlayer prueba) {
-                    cargarMedia(mediaPlayer);
+                    prueba.removeMediaPlayerEventListener(this);
+                } else {
+                    try {
+                        cargarMedia(mediaPlayer);
+                    } catch (IOException ex) {
+                        Logger.getLogger(PantallaExclusiva.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    System.out.println(archivo);
                     prueba.removeMediaPlayerEventListener(this);
                 }
-            });
+
+            }
+
+            @Override
+            public void error(MediaPlayer prueba) {
+                try {
+                    cargarMedia(mediaPlayer);
+                } catch (IOException ex) {
+                    Logger.getLogger(PantallaExclusiva.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                prueba.removeMediaPlayerEventListener(this);
+            }
+        });
+        /*    }
+
+        } else {
+            try {
+                cargarMedia(mediaPlayer);
+            } catch (IOException ex) {
+                Logger.getLogger(PantallaExclusiva.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }*/
+
+    }
+
+    //Método para fijar la imagen 
+    public void imagen(ImageIcon img) {
+        try {
+
+            Icon icon = new ImageIcon(img.getImage().getScaledInstance(imagen.getWidth(), imagen.getHeight(), Image.SCALE_DEFAULT));
+            imagen.setIcon(icon);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "ERROR AL ABRIR: " + e.getMessage());
         }
     }
 
@@ -253,7 +322,6 @@ public final class PantallaExclusiva extends javax.swing.JFrame {
         //</editor-fold>
 
         //</editor-fold>
-
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
             new PantallaExclusiva().setVisible(true);
@@ -261,6 +329,7 @@ public final class PantallaExclusiva extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel imagen;
     private javax.swing.JPanel video;
     // End of variables declaration//GEN-END:variables
 

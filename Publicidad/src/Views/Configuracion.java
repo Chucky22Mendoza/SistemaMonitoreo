@@ -593,8 +593,10 @@ public class Configuracion extends javax.swing.JFrame {
         if (RadioButton2.isSelected()==true) {          
 
            PantallaServicios abrir=new PantallaServicios(img);
+           this.setVisible(false);
            abrir.setVisible(true);
         }else{
+            this.setVisible(false);
            PantallaExclusiva a=new PantallaExclusiva();
            a.setVisible(true);
         }

@@ -13,6 +13,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -30,7 +31,7 @@ public class GetFile {
 
     public List<archivoVideo> obtenerArchivo(Envio parms) {
         List<archivoVideo> archivosLista = new ArrayList<>();
-        String sql = "select * from vw_ubicacion_archivos where id_kiosko = ? order by orden";
+        String sql = "select * from vw_ubicacion_archivos where id_kiosco = ? order by orden";
         try (Connection dbConnection = dbSource.conectar();
                 CallableStatement obtenerArchivos = dbConnection.prepareCall(sql);) {
 
@@ -45,9 +46,11 @@ public class GetFile {
                     //System.out.println("--> "+archivosRS.getString(2));
 
                     archivoVideo archivos = new archivoVideo();
-
-                    archivos.setDuracion(archivosRS.getInt(2));
-                    archivos.setUbicacion(archivosRS.getString(3));
+                    archivos.setListaReproduccion(archivosRS.getString(8));
+                    archivos.setTipo(archivosRS.getString(5));
+                    
+                    archivos.setDuracion(archivosRS.getInt(3));
+                    archivos.setUbicacion(archivosRS.getString(4));
 
                     archivosLista.add(archivos);
                 }
