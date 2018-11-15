@@ -11,7 +11,6 @@ import Model.archivoVideo;
 import java.awt.Dimension;
 import com.sun.jna.Native;
 import com.sun.jna.NativeLibrary;
-import java.awt.Image;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,7 +20,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import org.apache.commons.io.FilenameUtils;
 import uk.co.caprica.vlcj.binding.LibVlc;
@@ -50,6 +48,9 @@ public final class PantallaExclusiva extends javax.swing.JFrame {
         this.setVisible(true);
         this.setLocation(Envio.getPosicion(), Envio.getTamaño());
         cambiarLibrerias();
+        //Lista lista = new Lista();
+        //lista.setVisible(true);
+        System.out.println("HOLA");
         reproducirVideo();
         //jPanel.add(jfxPanel, BorderLayout.CENTER);
     }
@@ -102,22 +103,28 @@ public final class PantallaExclusiva extends javax.swing.JFrame {
 
     //Método que ejecuta el video
     public void reproducirVideo() {
-        MediaPlayerFactory mediaPlayerFactory = new MediaPlayerFactory();
-        EmbeddedMediaPlayer mediaPlayer = mediaPlayerFactory.newEmbeddedMediaPlayer(new Win32FullScreenStrategy(this));
-        player = new EmbeddedMediaPlayerComponent();
-        //se añade reproductor 
-        video.add(player);
-        player.setSize(video.getSize());
-        player.setVisible(true);
+        List<archivoVideo> hora = new ArrayList<archivoVideo>();
+        Envio envio = new Envio();
+        String hour;
+        hora = new GetFile().obtenerHora();
 
-        try {
-            Envio envio = new Envio();
-            file = new GetFile().obtenerArchivo(envio);
+        if (!hora.isEmpty()) {
+            MediaPlayerFactory mediaPlayerFactory = new MediaPlayerFactory();
+            EmbeddedMediaPlayer mediaPlayer = mediaPlayerFactory.newEmbeddedMediaPlayer(new Win32FullScreenStrategy(this));
+            player = new EmbeddedMediaPlayerComponent();
+            //se añade reproductor 
+            video.add(player);
+            player.setSize(video.getSize());
+            player.setVisible(true);
 
-            cargarMedia(mediaPlayer);
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Error en " + e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-            reproducirVideo();
+            try {                
+                file = new GetFile().obtenerArchivo(envio);
+
+                cargarMedia(mediaPlayer);
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(null, "Error en " + e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+                reproducirVideo();
+            }
         }
 
         //mediaPlayer.prepareMedia("http://192.168.1.139:1080/smp/Publicidad/src/Video/Prueba.mp4"); //Servidor
@@ -151,7 +158,7 @@ public final class PantallaExclusiva extends javax.swing.JFrame {
 
     ImageIcon img;
     Lista list = new Lista();
-    
+
     //Método para cargar el video
     public void cargarMedia(EmbeddedMediaPlayer mediaPlayer) throws FileNotFoundException, IOException {
         archivo++;
@@ -213,7 +220,7 @@ public final class PantallaExclusiva extends javax.swing.JFrame {
                 if (archivo == (file.size() - 1)) {
                     archivo = -1;
 
-                    recargaLista();                    
+                    recargaLista();
                     list.recargaLista();
                     try {
                         cargarMedia(mediaPlayer);
