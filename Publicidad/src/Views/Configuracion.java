@@ -590,6 +590,9 @@ public class Configuracion extends javax.swing.JFrame {
         //correoTLS();
         //correoSSL();
         
+        Lista lista = new Lista();
+        lista.setVisible(true);
+        
         if (RadioButton2.isSelected()==true) {          
 
            PantallaServicios abrir=new PantallaServicios(img);

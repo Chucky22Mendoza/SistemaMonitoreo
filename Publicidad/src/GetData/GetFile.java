@@ -13,7 +13,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -46,11 +45,12 @@ public class GetFile {
                     //System.out.println("--> "+archivosRS.getString(2));
 
                     archivoVideo archivos = new archivoVideo();
-                    archivos.setListaReproduccion(archivosRS.getString(8));
-                    archivos.setTipo(archivosRS.getString(5));
-                    
+                    archivos.setNombre(archivosRS.getString(2));
                     archivos.setDuracion(archivosRS.getInt(3));
                     archivos.setUbicacion(archivosRS.getString(4));
+                    archivos.setTipo(archivosRS.getString(5));
+                    archivos.setListaReproduccion(archivosRS.getString(8));
+                    archivos.setHora(archivosRS.getTimestamp(10));
 
                     archivosLista.add(archivos);
                 }

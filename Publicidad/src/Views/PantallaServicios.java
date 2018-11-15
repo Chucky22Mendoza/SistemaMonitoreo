@@ -5,17 +5,26 @@
  */
 package Views;
 
+import GetData.GetFile;
 import Model.Envio;
+import Model.archivoVideo;
 import com.sun.jna.Native;
 import com.sun.jna.NativeLibrary;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import org.apache.commons.io.FilenameUtils;
 import uk.co.caprica.vlcj.binding.LibVlc;
 import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
 import uk.co.caprica.vlcj.player.MediaPlayer;
@@ -159,7 +168,8 @@ public final class PantallaServicios extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private EmbeddedMediaPlayerComponent player;
-
+    List<archivoVideo> file = new ArrayList<archivoVideo>();
+    
     //Método para reproducir el video en la pantalla
     public void reproducirVideo() {
         MediaPlayerFactory mediaPlayerFactory = new MediaPlayerFactory();
@@ -175,15 +185,11 @@ public final class PantallaServicios extends javax.swing.JFrame {
         try {
             //Prepara el video a reproducir
             //File folder = new File("C:\\\\Users\\\\mario\\\\Desktop\\\\SistemaMonitoreo\\\\Publicidad\\\\src\\\\Video");
-            File folder = new File("http://192.168.1.139:1080/smp/Publicidad/src/Video/Kiosco_2/");// + Envio.getKiosko());
-            File[] listOfFiles = folder.listFiles();
+            //File folder = new File("http://192.168.1.139:1080/smp/Publicidad/src/Video/Kiosco_2/");// + Envio.getKiosko());
+            //File[] listOfFiles = folder.listFiles();
 
-            //Despliega el orden de la lista de Reproducción
-            for (File listOfFile : listOfFiles) {
-                System.out.println(listOfFile.getName());
-            }
-
-            cargarVideo(listOfFiles, mediaPlayer, Envio.getKiosko());
+            recargaLista();
+            cargarMedia(mediaPlayer);            
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error en " + e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -192,10 +198,15 @@ public final class PantallaServicios extends javax.swing.JFrame {
     }
 
     int archivo = -1;
+    Lista list = new Lista();
 
-    public void cargarVideo(File[] listOfFiles, EmbeddedMediaPlayer mediaPlayer, int kiosko) {
+    public void cargarMedia(EmbeddedMediaPlayer mediaPlayer) throws FileNotFoundException, IOException {
         archivo++;
-
+        String ruta = rutaArchivo();
+        String extension = extensionArchivo(ruta);
+        int duracion = duracionMedio();
+        player.getMediaPlayer().playMedia(ruta);
+        System.out.println(ruta);
         //player.getMediaPlayer().playMedia("C:\\Users\\mario\\Desktop\\SistemaMonitoreo\\Publicidad\\src\\Video\\" + listOfFiles[archivo].getName());
         //mediaPlayer.prepareMedia("http://192.168.1.139:1080/smp/Publicidad/src/Video/Kiosco_" + kiosko + "/" + listOfFiles[archivo].getName()); //Servidor
         player.getMediaPlayer().addMediaPlayerEventListener(new MediaPlayerEventAdapter() {
@@ -210,35 +221,70 @@ public final class PantallaServicios extends javax.swing.JFrame {
                         }
                     }
                 };
-                timer.schedule(task, 10, 1000);
+                timer.schedule(task, 10, (duracion * 1000 - 800));
             }
 
             @Override
             public void finished(MediaPlayer prueba) {
-                if (archivo == (listOfFiles.length - 1)) {
+                if (archivo == (file.size() - 1)) {
+                    recargaLista();                    
+                    list.recargaLista();
                     archivo = -1;
-                    cargarVideo(listOfFiles, mediaPlayer, kiosko);
+                    try {
+                        cargarMedia(mediaPlayer);
+                    } catch (IOException ex) {
+                        Logger.getLogger(PantallaServicios.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     prueba.removeMediaPlayerEventListener(this);
                 } else {
-                    cargarVideo(listOfFiles, mediaPlayer, kiosko);
+                    try {
+                        cargarMedia(mediaPlayer);
+                    } catch (IOException ex) {
+                        Logger.getLogger(PantallaServicios.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     System.out.println(archivo);
                     prueba.removeMediaPlayerEventListener(this);
                 }
-
             }
             
             @Override
             public void error(MediaPlayer prueba) {
-                cargarVideo(listOfFiles, mediaPlayer, kiosko);
+                try {
+                    cargarMedia(mediaPlayer);
+                } catch (IOException ex) {
+                    Logger.getLogger(PantallaServicios.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 prueba.removeMediaPlayerEventListener(this);
             }
         });
+    }
+    
+    //Método para obtener la ruta del archivo
+    public String rutaArchivo() {
+        return file.get(archivo).getUbicacion();
+    }
+
+    //Método para obtener la duracion del medio
+    public int duracionMedio() {
+        return file.get(archivo).getDuracion();
+    }
+
+    //Método para saber la extensión del archivo
+    public String extensionArchivo(String ruta) {
+        //Obtiene la extensión del archivo        
+        return FilenameUtils.getExtension(ruta);
+    }
+    
+    //Método para recargar
+    public void recargaLista(){
+        Envio envio = new Envio();
+        file = new GetFile().obtenerArchivo(envio);
     }
 
     //Método para leer librerias directas del VLC de 64 bits
     static void cambiarLibrerias() {
         NativeLibrary.addSearchPath(
-                RuntimeUtil.getLibVlcLibraryName(), "C:\\Program Files\\VideoLAN\\VLC");
+        RuntimeUtil.getLibVlcLibraryName(), "C:\\Program Files\\VideoLAN\\VLC");
         Native.loadLibrary(RuntimeUtil.getLibVlcLibraryName(), LibVlc.class);
         LibXUtil.initialise();
     }

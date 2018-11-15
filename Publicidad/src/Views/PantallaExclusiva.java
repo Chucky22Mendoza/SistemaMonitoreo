@@ -51,7 +51,6 @@ public final class PantallaExclusiva extends javax.swing.JFrame {
         this.setLocation(Envio.getPosicion(), Envio.getTamaño());
         cambiarLibrerias();
         reproducirVideo();
-        imagen.setVisible(false);
         //jPanel.add(jfxPanel, BorderLayout.CENTER);
     }
 
@@ -65,7 +64,6 @@ public final class PantallaExclusiva extends javax.swing.JFrame {
     private void initComponents() {
 
         video = new javax.swing.JPanel();
-        imagen = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -86,22 +84,12 @@ public final class PantallaExclusiva extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(0, 20, Short.MAX_VALUE)
                 .addComponent(video, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(imagen, javax.swing.GroupLayout.PREFERRED_SIZE, 496, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(video, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(imagen, javax.swing.GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE)
-                    .addContainerGap()))
         );
 
         pack();
@@ -120,22 +108,14 @@ public final class PantallaExclusiva extends javax.swing.JFrame {
         //se añade reproductor 
         video.add(player);
         player.setSize(video.getSize());
-        player.setVisible(false);
+        player.setVisible(true);
 
         try {
-            //Prepara el video a reproducir
-            //File folder = new File("C:\\\\Users\\\\mario\\\\Desktop\\\\SistemaMonitoreo\\\\Publicidad\\\\src\\\\Video");
-            //File folder = new File("http://192.168.1.139:1080/smp/Publicidad/src/Video/Kiosco_1");// + Envio.getKiosko());
-            //File[] listOfFiles = folder.listFiles();           
-
             Envio envio = new Envio();
             file = new GetFile().obtenerArchivo(envio);
 
-            for (int i = 0; i < file.size(); i++) {
-                System.out.println(file.get(i).getUbicacion());
-            }
             cargarMedia(mediaPlayer);
-        } catch (Exception e) {
+        } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Error en " + e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
             reproducirVideo();
         }
@@ -162,20 +142,19 @@ public final class PantallaExclusiva extends javax.swing.JFrame {
         //Obtiene la extensión del archivo        
         return FilenameUtils.getExtension(ruta);
     }
-    
-    //Método para recargar
-    public void recargaLista(){
+
+    //Método para recargar lista de reproducción
+    public void recargaLista() {
         Envio envio = new Envio();
         file = new GetFile().obtenerArchivo(envio);
     }
 
     ImageIcon img;
-
+    Lista list = new Lista();
+    
     //Método para cargar el video
     public void cargarMedia(EmbeddedMediaPlayer mediaPlayer) throws FileNotFoundException, IOException {
         archivo++;
-        player.setVisible(false);
-        imagen.setVisible(false);
         //mediaPlayer.prepareMedia("C:\\Users\\mario\\Desktop\\SistemaMonitoreo\\Publicidad\\src\\Video\\" + listOfFiles[archivo].getName());
         String ruta = rutaArchivo();
         String extension = extensionArchivo(ruta);
@@ -220,6 +199,7 @@ public final class PantallaExclusiva extends javax.swing.JFrame {
                 TimerTask task = new TimerTask() {
                     @Override
                     public void run() {
+                        prueba.stop();
                         if (!prueba.isPlaying()) {
                             timer.cancel();
                         }
@@ -233,7 +213,8 @@ public final class PantallaExclusiva extends javax.swing.JFrame {
                 if (archivo == (file.size() - 1)) {
                     archivo = -1;
 
-                    recargaLista();
+                    recargaLista();                    
+                    list.recargaLista();
                     try {
                         cargarMedia(mediaPlayer);
                     } catch (IOException ex) {
@@ -272,25 +253,11 @@ public final class PantallaExclusiva extends javax.swing.JFrame {
                 Logger.getLogger(PantallaExclusiva.class.getName()).log(Level.SEVERE, null, ex);
             }
         }*/
-
-    }
-
-    //Método para fijar la imagen 
-    public void imagen(ImageIcon img) {
-        try {
-
-            Icon icon = new ImageIcon(img.getImage().getScaledInstance(imagen.getWidth(), imagen.getHeight(), Image.SCALE_DEFAULT));
-            imagen.setIcon(icon);
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "ERROR AL ABRIR: " + e.getMessage());
-        }
     }
 
     //Método para leer librerias directas del VLC de 64 bits
     static void cambiarLibrerias() {
-        NativeLibrary.addSearchPath(
-                RuntimeUtil.getLibVlcLibraryName(), "C:\\Program Files\\VideoLAN\\VLC");
+        NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "C:\\Program Files\\VideoLAN\\VLC");
         Native.loadLibrary(RuntimeUtil.getLibVlcLibraryName(), LibVlc.class);
         LibXUtil.initialise();
     }
@@ -329,7 +296,6 @@ public final class PantallaExclusiva extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel imagen;
     private javax.swing.JPanel video;
     // End of variables declaration//GEN-END:variables
 

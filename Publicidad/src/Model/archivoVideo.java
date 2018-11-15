@@ -1,5 +1,7 @@
 package Model;
 
+import java.sql.Timestamp;
+
 /**
  *
  * @author mario
@@ -26,6 +28,24 @@ public class archivoVideo {
     private String ubicacion;
     private String listaReproduccion;
     private String tipo;
+    private String nombre;
+    private Timestamp hora;
+
+    public Timestamp getHora() {
+        return hora;
+    }
+
+    public void setHora(Timestamp hora) {
+        this.hora = hora;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
     public String getListaReproduccion() {
         return listaReproduccion;
