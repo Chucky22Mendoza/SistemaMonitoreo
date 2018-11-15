@@ -23,3 +23,6 @@ rojo: #ca2942
   list-style: none;
   color:#000;
 }
+.activado{
+  background-color: #B3B3B3;
+}

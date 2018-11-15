@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * @version: 1.0 
+ * @author: Jesús Mendoza Verduzco 11/2018.
+ * @email contact: loginlock22@gmail.com
  */
 package com.service.monitoreo.database;
 
@@ -47,7 +47,8 @@ public class ConnectionDB {
             
             // Realizar conexi'on con servidor
             try {
-                connection = DriverManager.getConnection("jdbc:postgresql://localhost:5433/db_local", "postgres","1522");
+                //connection = DriverManager.getConnection("jdbc:postgresql://localhost:5433/db_local", "postgres","1522");
+                connection = DriverManager.getConnection("jdbc:postgresql://192.168.1.139:5433/db_local", "postgres","12345");
             } catch (SQLException e) {
                 
                 /*** LOG DE ARCHIVO ***/

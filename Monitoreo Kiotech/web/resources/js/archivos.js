@@ -1,4 +1,7 @@
 $(document).ready(function(){
+  //$('#eliminarArchivos').hide();
+  $('.cbSelec').prop('checked',false);
+  $('#cbGen').prop('checked',false);
   //SELECCIONAR TODOS LOS ROWS
   $('#cbGen').on('change', function() {
     var cb = $(this).is(':checked');
@@ -6,9 +9,20 @@ $(document).ready(function(){
     if(cb) {
         // Hacer algo si el checkbox ha sido seleccionado
         $('.cbSelec').prop('checked',true);
+        $('#eliminarArchivos').show();
     } else {
         // Hacer algo si el checkbox no ha sido deseleccionado
     }
+  });
+
+  $('.cbSelec').on('change', function(){
+    var countSel = $('.cbSelec:checked').get().length;
+    if(countSel > 1){
+      $('#eliminarArchivos').show();
+    }else{
+      $('#eliminarArchivos').hide();
+    }
+
   });
 
 });
@@ -70,3 +84,55 @@ $('.ico-del').on('click', function(){
   //var url = '<c:url value="Delete_File.htm?id='+id+'" />'
   //$('#borrarArchivo').attr("href",url);
 });
+
+$('#eliminarArchivos').on('click', function(){
+  var countSel = $('.cbSelec:checked').get().length;
+  var archivos = $('.cbSelec:checked').get();
+
+  alertify.confirm("¿Desea eliminar el archivo seleccionado?",
+  function(){
+    eliminar_archivos(countSel,archivos);
+  },
+  function(){
+    alertify.error('Cancel');
+  });
+
+
+});
+
+
+function eliminar_archivos(num_selects,archivos){
+
+  for (var i = 0; i < num_selects; i++) {
+    var id = archivos[i].id;
+    console.log(id);
+    var datos = {
+      id : id
+    };
+    //console.log(datos);
+    $.ajax({
+      type:"POST",
+      url:"Delete_File.htm",
+      data:datos,
+      //MOSTRAMOS SPINNER SI ES TARDADO EL PROCESO
+      beforeSend: function(){
+        showSpinner();
+      },
+      //ERROR
+      error: function(error){
+        removeSpinner();
+        alertify.alert("Error en la transacción");
+        return false;
+      },
+      //SE HA COMPLETADO
+      success:function(r){
+        showSpinner();
+        alertify.success("Guardado correctamente");
+        //TIEMPO DE ESPERA DEL AVISO
+        setTimeout(function(){
+          window.location.assign("archivos.htm");
+        }, 1200);
+      }
+    });
+  }
+}

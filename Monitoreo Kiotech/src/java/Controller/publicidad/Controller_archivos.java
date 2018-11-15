@@ -71,8 +71,8 @@ public class Controller_archivos {
      //***************************************************ARCHIVOS MULTIMEDIA****************************************************************
     
     //ESTE ES EL PATH ABSOLUTO DONDE SE GUARDA EL ARCHIVO, AÚN FALTA HACERLO RELATIVO
-    private final String upload_folder = "C:\\Users\\Jesús Mendoza\\Documents\\GitHub\\SistemaMonitoreo\\Monitoreo Kiotech\\web\\resources\\files\\";
-    //private final String upload_folder = "http://localhost:8080/Monitoreo_Kiotech/web/resources/files/";
+    private final String upload_folder = "http://192.168.1.139:1080/smp/Multimedia/";
+    //private final String upload_folder = "C:\\Users\\Jesús Mendoza\\Desktop\\files\\";
     private boolean flagFile = true;
     //AGREGAR UN NUEVO ARCHIVO
     @RequestMapping("/New_File.htm")
@@ -135,25 +135,6 @@ public class Controller_archivos {
             return new ModelAndView("/");
         }
     }
-    
-   /* @RequestMapping("/research.htm")
-    protected ModelAndView research(){
-        
-        //OBTENEMOS LOS ARCHIVOS DE LA BASE DE DATOS Y LOS GUARDAMOS EN UN ARRAY TIPO ARCHIVO
-        List<Archivo> lista = new ArrayList<>();
-
-        //MÉTODO QUE RETORNA UNA LISTA TIPO ARCHIVO
-        lista =new GetFile().obtenerArchivo();
-
-        //NUEVA VISTA
-        ModelAndView mav = new ModelAndView();
-        
-        mav.getModel();
-        //PASAMOS EL ARRAY A LA VISTA
-        mav.addObject("File", lista);
-
-        return mav;
-    }*/
     
     //EDITAR UN ARCHIVO
     @RequestMapping("/Edit_File.htm")

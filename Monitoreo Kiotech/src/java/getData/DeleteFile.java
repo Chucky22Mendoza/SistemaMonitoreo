@@ -39,7 +39,7 @@ public class DeleteFile {
         //Variables de Entrada (IN)
         //System.err.println("Preparando llamada a PostgreSQL. ---> ");
         borrarArchivo.setInt(1, id.getId());
-
+            System.err.println("-----------"+id.getId());
         int res = borrarArchivo.executeUpdate();
 
         //System.err.println("<------------------------------------------------ !!!!  " + res);

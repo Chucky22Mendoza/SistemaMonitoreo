@@ -228,11 +228,14 @@ public class Controller_listas {
         
             return mav;
          }else{
+             
+            int rows = new GetFile().contarArchivos(idLista);
               //NUEVA VISTA
             ModelAndView mav = new ModelAndView();
             
             //PASAMOS EL ARRAY A LA VISTA
             mav.addObject("lista", lista);
+            mav.addObject("rows", rows);
         
             mav.setViewName("templates/tablaArchivos");
         
@@ -298,7 +301,46 @@ public class Controller_listas {
         int idArchivo = Integer.parseInt(id2STR);
         
         int res = new GetFile().InsertarArchivos(idLista, idArchivo);
-        System.err.println(res);
+        //System.err.println(res);
+        //NUEVA VISTA
+        ModelAndView mav = new ModelAndView();
+        
+        mav.setViewName("publicidad/listas_reproduccion");
+
+        return mav;
+    }
+    
+    @RequestMapping("/order_files.htm")
+    protected ModelAndView order_files(HttpServletRequest request, HttpServletResponse response/*2*/ ) throws ServletException, IOException{
+        
+        String id1STR = request.getParameter("idLista");
+        String id2STR = request.getParameter("idArchivo");
+        String ordenSTR = request.getParameter("orden");
+        int idLista = Integer.parseInt(id1STR);
+        int idArchivo = Integer.parseInt(id2STR);
+        int orden = Integer.parseInt(ordenSTR);
+        
+        int res = new GetFile().ordenarArchivos(idLista, idArchivo,orden);
+        //System.err.println(res);
+        //NUEVA VISTA
+        ModelAndView mav = new ModelAndView();
+        
+        mav.setViewName("publicidad/listas_reproduccion");
+
+        return mav;
+    }
+    
+    @RequestMapping("/delete_files.htm")
+    protected ModelAndView delete_files(HttpServletRequest request, HttpServletResponse response/*2*/ ) throws ServletException, IOException{
+        
+        String id1STR = request.getParameter("idLista");
+        String id2STR = request.getParameter("idArchivo");
+        int idLista = Integer.parseInt(id1STR);
+        int idArchivo = Integer.parseInt(id2STR);
+        
+        
+        new GetFile().borrarArchivos(idLista, idArchivo);
+        //System.err.println(res);
         //NUEVA VISTA
         ModelAndView mav = new ModelAndView();
         
