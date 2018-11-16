@@ -57,4 +57,35 @@ public class Envio {
     public static int posicion;
     public static int tamaño;
     
+    //Datos del Correo
+    public static String getCorreo() {
+        return "controlinventariosandstudio@gmail.com";
+    }
+
+    public static String getContrasena() {
+        return "controlAndroid";
+    }
+    
+    public static String Correo;
+    public static String Contrasena;
+    
+    
+    //Datos para video    
+    public static int duracion;
+
+    public static int getDuracion() {
+        return duracion;
+    }
+
+    public static void setDuracion(int duracion) {
+        Envio.duracion = duracion;
+    }
+    
+    //Id del Kiosko
+    public static int kiosko = 1;
+
+    public static int getKiosko() {
+        return kiosko;
+    }
+    
 }

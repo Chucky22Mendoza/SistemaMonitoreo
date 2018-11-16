@@ -5,29 +5,34 @@
  */
 package Views;
 
+import GetData.GetFile;
 import Model.Envio;
-import java.awt.BorderLayout;
+import Model.archivoVideo;
 import java.awt.Dimension;
 import com.sun.jna.Native;
 import com.sun.jna.NativeLibrary;
-import java.awt.Canvas;
-import java.awt.Color;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import java.awt.Image;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import org.apache.commons.io.FilenameUtils;
 import uk.co.caprica.vlcj.binding.LibVlc;
+import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
+import uk.co.caprica.vlcj.player.MediaPlayer;
+import uk.co.caprica.vlcj.player.MediaPlayerEventAdapter;
 import uk.co.caprica.vlcj.player.MediaPlayerFactory;
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
 import uk.co.caprica.vlcj.player.embedded.windows.Win32FullScreenStrategy;
 import uk.co.caprica.vlcj.runtime.RuntimeUtil;
 import uk.co.caprica.vlcj.runtime.x.LibXUtil;
-/*import java.io.File;
-import javafx.application.Platform;
-import javafx.embed.swing.JFXPanel;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaView;*/
 
 /**
  *
@@ -40,12 +45,12 @@ public final class PantallaExclusiva extends javax.swing.JFrame {
      */
     public PantallaExclusiva() {
         initComponents();
-        //tamañoPantalla();
+        tamañoPantalla();
         setLocationRelativeTo(null);
-        this.setVisible(false);        
+        this.setVisible(true);
+        this.setLocation(Envio.getPosicion(), Envio.getTamaño());
         cambiarLibrerias();
-        //jPanel.setLayout(new BorderLayout());
-        reproducirVideo();        
+        reproducirVideo();
         //jPanel.add(jfxPanel, BorderLayout.CENTER);
     }
 
@@ -58,19 +63,19 @@ public final class PantallaExclusiva extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel = new javax.swing.JPanel();
+        video = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
 
-        javax.swing.GroupLayout jPanelLayout = new javax.swing.GroupLayout(jPanel);
-        jPanel.setLayout(jPanelLayout);
-        jPanelLayout.setHorizontalGroup(
-            jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout videoLayout = new javax.swing.GroupLayout(video);
+        video.setLayout(videoLayout);
+        videoLayout.setHorizontalGroup(
+            videoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 496, Short.MAX_VALUE)
         );
-        jPanelLayout.setVerticalGroup(
-            jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        videoLayout.setVerticalGroup(
+            videoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 351, Short.MAX_VALUE)
         );
 
@@ -79,86 +84,189 @@ public final class PantallaExclusiva extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 20, Short.MAX_VALUE)
+                .addComponent(video, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(video, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
-    //private final JFXPanel jfxPanel = new JFXPanel();    
-    
-    //Método que ejecuta el video
-    public void reproducirVideo(){
-        /*Platform.runLater(new Runnable(){
-            @Override
-            public void run() {
-                File file = new File ("C:\\Users\\mario\\Desktop\\SistemaMonitoreo\\Publicidad\\src\\Video\\SafeTaxi_Etapa_regional_ENEIT.mp4");
-                //File file = new File("C:\\Users\\Jesús Mendoza\\Documents\\GitHub\\SistemaMonitoreo\\Publicidad\\src\\Video\\SafeTaxi_Etapa_regional_ENEIT.mp4");
-                MediaPlayer oracleVid = new MediaPlayer(
-                        new Media(file.toURI().toString())
-                );
-                jfxPanel.setScene(new Scene(new Group(new MediaView(oracleVid))));
-                oracleVid.setVolume(0.7);
-                //oracleVid.setCycleCount(MediaPlayer.INDEFINITE);
-                oracleVid.play();
-            }        
-        });*/              
-            
-            JFrame frame = new JFrame("PantallaExclusiva");
-            frame.setLocation(Envio.getPosicion(), Envio.getTamaño());
-            frame.setUndecorated(true);
-            frame.setSize(Envio.getAncho(), Envio.getAlto());
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setVisible(true);                     
-            
-            //Crear una instancia de Canvas
-            Canvas c = new Canvas();
-            //Se establece el color del fondo
-            c.setBackground(Color.lightGray);
-            JPanel p = new JPanel();
-            p.setLayout(new BorderLayout());
-            //El video toma toda la superficie del Layout
-            p.add(c, BorderLayout.CENTER);
-            frame.add(p, BorderLayout.CENTER);
 
-            //Crear Instancias pertinentes
-            MediaPlayerFactory mediaPlayerFactory = new MediaPlayerFactory();
-            //Crear la instancia de tipo Media Player Embebido
-            EmbeddedMediaPlayer mediaPlayer = mediaPlayerFactory.newEmbeddedMediaPlayer(new               Win32FullScreenStrategy(frame));
-            mediaPlayer.setVideoSurface(mediaPlayerFactory.newVideoSurface(c));
-            //Pantalla Completa
-            //mediaPlayer.toggleFullScreen();
-            //Oculta el cursos cuando el mouese se ingresa a la pantalla
-            mediaPlayer.setEnableMouseInputHandling(false);
-            //Desahibilta el teclado dentro del jFrame
-            mediaPlayer.setEnableKeyInputHandling(true);
-           
-            //Prepara el video a reproducir
-            //mediaPlayer.prepareMedia("C:\\Users\\mario\\Desktop\\SistemaMonitoreo\\Publicidad\\src\\Video\\Prueba.mp4");
-            mediaPlayer.prepareMedia("http://192.168.1.139:1080/smp/Publicidad/src/Video/Kiosco_1/8.mp4");
-            //Reproduce el video
-            mediaPlayer.play();        
-        
-    }
-    
-    //Método para leer librerias directas del VLC de 64 bits
-    static void cambiarLibrerias(){
-             NativeLibrary.addSearchPath(
-                    RuntimeUtil.getLibVlcLibraryName(), "C:\\Program Files\\VideoLAN\\VLC");
-            Native.loadLibrary(RuntimeUtil.getLibVlcLibraryName(), LibVlc.class);
-            LibXUtil.initialise();
+    //private final JFXPanel jfxPanel = new JFXPanel();    
+    int duracion;
+    int archivo = -1;
+    private EmbeddedMediaPlayerComponent player;
+
+    //Método que ejecuta el video
+    public void reproducirVideo() {
+        MediaPlayerFactory mediaPlayerFactory = new MediaPlayerFactory();
+        EmbeddedMediaPlayer mediaPlayer = mediaPlayerFactory.newEmbeddedMediaPlayer(new Win32FullScreenStrategy(this));
+        player = new EmbeddedMediaPlayerComponent();
+        //se añade reproductor 
+        video.add(player);
+        player.setSize(video.getSize());
+        player.setVisible(true);
+
+        try {
+            Envio envio = new Envio();
+            file = new GetFile().obtenerArchivo(envio);
+
+            cargarMedia(mediaPlayer);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error en " + e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            reproducirVideo();
         }
+
+        //mediaPlayer.prepareMedia("http://192.168.1.139:1080/smp/Publicidad/src/Video/Prueba.mp4"); //Servidor
+        //Reproduce el video
+        //mediaPlayer.play();        
+    }
+
+    List<archivoVideo> file = new ArrayList<archivoVideo>();
+
+    //Método para obtener la ruta del archivo
+    public String rutaArchivo() {
+        return file.get(archivo).getUbicacion();
+    }
+
+    //Método para obtener la duracion del medio
+    public int duracionMedio() {
+        return file.get(archivo).getDuracion();
+    }
+
+    //Método para saber la extensión del archivo
+    public String extensionArchivo(String ruta) {
+        //Obtiene la extensión del archivo        
+        return FilenameUtils.getExtension(ruta);
+    }
+
+    //Método para recargar lista de reproducción
+    public void recargaLista() {
+        Envio envio = new Envio();
+        file = new GetFile().obtenerArchivo(envio);
+    }
+
+    ImageIcon img;
+    Lista list = new Lista();
     
+    //Método para cargar el video
+    public void cargarMedia(EmbeddedMediaPlayer mediaPlayer) throws FileNotFoundException, IOException {
+        archivo++;
+        //mediaPlayer.prepareMedia("C:\\Users\\mario\\Desktop\\SistemaMonitoreo\\Publicidad\\src\\Video\\" + listOfFiles[archivo].getName());
+        String ruta = rutaArchivo();
+        String extension = extensionArchivo(ruta);
+        int duracion = duracionMedio();
+
+        /*if (!"".equals(ruta) || duracion != 0) {
+            if (extension.equalsIgnoreCase("PNG") || extension.equalsIgnoreCase("ICO") || extension.equalsIgnoreCase("JPG") || extension.equalsIgnoreCase("BMP") || extension.equalsIgnoreCase("TIF") || extension.equalsIgnoreCase("JPGE")) {
+                //Método que se ejecuta si es imagen el archivo            
+                imagen.setVisible(true);
+                
+                if (archivo == (file.size() - 1)) {
+                    archivo = -1;
+                }
+
+                img = new ImageIcon(ruta);
+                imagen(img);
+                
+                Timer timer = new Timer();
+                TimerTask task = new TimerTask() {
+                    @Override
+                    public void run() {
+                        try {
+                            cargarMedia(mediaPlayer);
+                            timer.cancel();
+                        } catch (IOException ex) {
+                            Logger.getLogger(PantallaExclusiva.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                };
+                timer.schedule(task, 0, (duracion * 1000 - 800));
+                System.out.println(archivo);
+
+            } else {*/
+        //Método que se ejecuta si el archivo es video
+        player.setVisible(true);
+        player.getMediaPlayer().playMedia(ruta);
+        System.out.println(ruta);
+        player.getMediaPlayer().addMediaPlayerEventListener(new MediaPlayerEventAdapter() {
+            @Override
+            public void playing(MediaPlayer prueba) {
+                Timer timer = new Timer();
+                TimerTask task = new TimerTask() {
+                    @Override
+                    public void run() {
+                        prueba.stop();
+                        if (!prueba.isPlaying()) {
+                            timer.cancel();
+                        }
+                    }
+                };
+                timer.schedule(task, 10, (duracion * 1000 - 800));
+            }
+
+            @Override
+            public void finished(MediaPlayer prueba) {
+                if (archivo == (file.size() - 1)) {
+                    archivo = -1;
+
+                    recargaLista();                    
+                    list.recargaLista();
+                    try {
+                        cargarMedia(mediaPlayer);
+                    } catch (IOException ex) {
+                        Logger.getLogger(PantallaExclusiva.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                    prueba.removeMediaPlayerEventListener(this);
+                } else {
+                    try {
+                        cargarMedia(mediaPlayer);
+                    } catch (IOException ex) {
+                        Logger.getLogger(PantallaExclusiva.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    System.out.println(archivo);
+                    prueba.removeMediaPlayerEventListener(this);
+                }
+
+            }
+
+            @Override
+            public void error(MediaPlayer prueba) {
+                try {
+                    cargarMedia(mediaPlayer);
+                } catch (IOException ex) {
+                    Logger.getLogger(PantallaExclusiva.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                prueba.removeMediaPlayerEventListener(this);
+            }
+        });
+        /*    }
+
+        } else {
+            try {
+                cargarMedia(mediaPlayer);
+            } catch (IOException ex) {
+                Logger.getLogger(PantallaExclusiva.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }*/
+    }
+
+    //Método para leer librerias directas del VLC de 64 bits
+    static void cambiarLibrerias() {
+        NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "C:\\Program Files\\VideoLAN\\VLC");
+        Native.loadLibrary(RuntimeUtil.getLibVlcLibraryName(), LibVlc.class);
+        LibXUtil.initialise();
+    }
+
     //método para fijar el tamaño de la pantalla
-    public void tamañoPantalla(){        
+    public void tamañoPantalla() {
         this.setSize(new Dimension(Envio.getAncho(), Envio.getAlto()));
     }
-    
+
     /**
      * @param args the command line arguments
      */
@@ -179,16 +287,16 @@ public final class PantallaExclusiva extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(PantallaExclusiva.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        
-        //</editor-fold>
 
+        //</editor-fold>
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new PantallaExclusiva().setVisible(false);
+            new PantallaExclusiva().setVisible(true);
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jPanel;
+    private javax.swing.JPanel video;
     // End of variables declaration//GEN-END:variables
+
 }

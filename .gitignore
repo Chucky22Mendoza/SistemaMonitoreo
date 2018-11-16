@@ -9,6 +9,10 @@
 /Publicidad/build/
 /RestFulServiceMonitoreo/nbproject/private/
 /RestFulServiceMonitoreo/build/
+<<<<<<< HEAD
 /Conexion Servidor/nbproject/private/
 /Conexion Servidor/build/
 /RestFulServiceMonitoreo/dist/
+=======
+/Publicidad/dist/
+>>>>>>> fc9931a4b853731801b68effec0e79a72af178e2
