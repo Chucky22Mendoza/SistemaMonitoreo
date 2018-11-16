@@ -1,4 +1,8 @@
-
+/*
+ * @version: 1.0 
+ * @author: Jesús Mendoza Verduzco 11/2018.
+ * @email contact: loginlock22@gmail.com
+ */
 package org.netbeans.rest.application.config;
 
 import java.util.Set;

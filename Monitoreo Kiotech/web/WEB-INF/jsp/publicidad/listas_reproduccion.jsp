@@ -7,7 +7,6 @@
     <head>
       <spring:url value="/resources/js/jquery.js" var="jquery" />
       <spring:url value="/resources/js/listas.js" var="listasJS" />
-      <spring:url value="/resources/js/moveOrden.js" var="moveJS" />
       <spring:url value="/resources/js/menu.js" var="menuJS" />
       <spring:url value="/resources/css/listas.css" var="listasCSS" />
       <spring:url value="/resources/css/moveOrden.css" var="moveCSS" />
@@ -279,8 +278,8 @@
 
                     <div id="" class="row">
                         <div class="form-check">
-                            <input class="form-check-input ml-4" type="checkbox" value="" id="cbGenListas" style="cursor:pointer;">
-                            <label class="form-check-label ml-4" for="cbGen">
+                            <input class="form-check-input ml-4" type="checkbox" value="" id="cbGenOrden" style="cursor:pointer;">
+                            <label class="form-check-label ml-4" for="cbGenOrden">
                             Seleccionar todos
                             </label>
                         </div>
@@ -294,7 +293,7 @@
                         <thead class="">
 
                             <tr>
-                                <th scope="col" class="text-center"> </th>
+                                <th scope="col" class="text-center "> </th>
                                 <th scope="col" class="text-center">Posición</th>
                                 <th scope="col" class="text-center">Nombre de Archivo</th>
                                 <th scope="col" class="text-center">Tipo</th>
@@ -389,6 +388,30 @@
       </div>
       <!-- FIN DEL MODAL NUEVA LISTA DE REPRODUCCI�N -->
 
+      <!-- MODAL NUEVA LISTA DE REPRODUCCI�N -->
+      <div class="modal fade" id="modalBorrarArchivoLista" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <div id="titleModalEditFiles">¿Está seguro que desea borrar los archivos seleccionados?</div>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
+                <div id="modal-bodyNewsFiles" class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                  <button id="btnDeleteAllFiles" type"button" class="btn btn-info ml-2"><i class="fas fa-upload"></i> Aceptar</button>
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                </div>
+
+          </div>
+        </div>
+      </div>
+      <!-- FIN DEL MODAL NUEVA LISTA DE REPRODUCCI�N -->
+
       <script defer src="https://use.fontawesome.com/releases/v5.0.12/js/all.js" integrity="sha384-Voup2lBiiyZYkRto2XWqbzxHXwzcm4A5RfdfG6466bu5LqjwwrjXCMBQBLMWh7qR" crossorigin="anonymous"></script>
       <script src="${jquery}"></script>
       <script src="${btJS}"></script>
@@ -396,7 +419,6 @@
       <script src="${spinnerJS}"></script>
       <script src="${listasJS}"></script>
       <script src="${menuJS}"></script>
-      <script src="${moveJS}"></script>
       <script src="${AJAX}"></script>
     </body>
 </html>

@@ -102,6 +102,36 @@ public class GetFile {
         return editArch;
     }
      
+     private int rows;
+     public int contarArchivos(int id){
+        
+        String sql ="select count(posicion) from vw_posicion_archivos where id_lista_reproduccion = ?";
+        try (   Connection dbConnection = dbSource.conectar().getConnection();
+                 CallableStatement obtenerArchivos = dbConnection.prepareCall(sql);       )            {
+          
+          
+          obtenerArchivos.setInt(1, id);
+          //Variables de Entrada (IN)
+          //System.out.println("Preparando llamada a procedimiento almacenado.");
+          obtenerArchivos.execute();
+          
+            
+          //System.out.println("Procesando resultados de llamada a procedimiento almacenado.");
+          try(  ResultSet archivosRS =(ResultSet)obtenerArchivos.getResultSet(); ){
+              while(archivosRS.next()){
+                    rows = archivosRS.getInt(1);   
+                }
+             //System.out.println("Llamada a procedimiento almacenado finalizada correctamente.");
+          }
+          //System.out.println("Llamada a procedimiento almacenado finalizada correctamente.");
+        }
+        catch(SQLException ex){
+            System.out.println("Excepcion: "+ ex.getMessage());
+            //ex.printStackTrace();
+        }
+        return rows;
+    }
+     
      public List<Archivo> NuevosArchivos(int id){
         List<Archivo> listado = new ArrayList<>();
         String sql ="{call fn_lista_dif_archivos(?)}";
@@ -153,6 +183,64 @@ public class GetFile {
           //System.out.println("Preparando llamada a procedimiento almacenado.");
           boolean res = insertarArchivos.execute();
           
+          if(res){
+              dbConnection.commit();
+              return 1;
+          }else{
+              dbConnection.rollback();
+              return 0;
+          }
+            
+        }
+        catch(SQLException ex){
+            System.out.println("Excepcion: "+ ex.getMessage());
+            return 0;
+        }
+    }
+     
+     public int ordenarArchivos(int lista, int archivo,int orden){
+        
+        String sql ="update det_lista_reproduccion_archivo set orden = ? where id_lista_reproduccion = ? and id_archivo = ?";
+        try (   Connection dbConnection = dbSource.conectar().getConnection();
+                 CallableStatement ordenarArchivos = dbConnection.prepareCall(sql);       )            {
+          
+          
+          ordenarArchivos.setInt(1, orden);
+          ordenarArchivos.setInt(2, lista);
+          ordenarArchivos.setInt(3, archivo);
+          
+          //Variables de Entrada (IN)
+          //System.out.println("Preparando llamada a procedimiento almacenado.");
+          boolean res = ordenarArchivos.execute();
+            //System.err.println("-------------------------------------"+res);
+          if(res){
+              dbConnection.commit();
+              return 1;
+          }else{
+              dbConnection.rollback();
+              return 0;
+          }
+            
+        }
+        catch(SQLException ex){
+            System.out.println("Excepcion: "+ ex.getMessage());
+            return 0;
+        }
+    }
+     
+     public int borrarArchivos(int lista, int archivo){
+        
+        String sql ="delete from det_lista_reproduccion_archivo where id_lista_reproduccion = ? and id_archivo = ?";
+        try (   Connection dbConnection = dbSource.conectar().getConnection();
+                 CallableStatement borrarArchivos = dbConnection.prepareCall(sql);       )            {
+          
+          borrarArchivos.setInt(1, lista);
+          borrarArchivos.setInt(2, archivo);
+          
+          //Variables de Entrada (IN)
+          //System.out.println("Preparando llamada a procedimiento almacenado.");
+          boolean res = borrarArchivos.execute();
+            //System.err.println("-------------------------------------"+res);
           if(res){
               dbConnection.commit();
               return 1;

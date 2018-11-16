@@ -140,7 +140,7 @@ public final class PantallaExclusiva extends javax.swing.JFrame {
            
             //Prepara el video a reproducir
             //mediaPlayer.prepareMedia("C:\\Users\\mario\\Desktop\\SistemaMonitoreo\\Publicidad\\src\\Video\\Prueba.mp4");
-            mediaPlayer.prepareMedia("http://192.168.1.139:1080/smp/Publicidad/src/Video/Prueba.mp4");
+            mediaPlayer.prepareMedia("http://192.168.1.139:1080/smp/Publicidad/src/Video/Kiosco_1/8.mp4");
             //Reproduce el video
             mediaPlayer.play();        
         

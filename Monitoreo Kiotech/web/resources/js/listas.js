@@ -220,35 +220,7 @@ $('.ico-program').on('click', function(){
     }else{
       alertify.error("Favor de seleccionar al menos un archivo");
     }
-    //ABRIMOS AJAX
-    /*$.ajax({
-      type:"POST",
-      url:"New_List.htm",
-      data:datos,
-      //MOSTRAMOS SPINNER SI ES TARDADO EL PROCESO
-      beforeSend: function(){
-        showSpinner();
-      },
-      //ERROR
-      error: function(error){
-        removeSpinner();
-        alertify.alert("Error en la transacción");
-      },
-      //SE HA COMPLETADO
-      success:function(r){
-        showSpinner();
-        alertify.success("Guardado correctamente");
-        //TIEMPO DE ESPERA DEL AVISO
-        setTimeout(function(){
-          //Update tabla en lugar de refresh y cerrar modal
-          //window.location.assign("listas.htm");
-          var nombrelista = $('#nombreList').val();
-          $('#titleModalNewsFiles').html('Agregar archivos a ' + nombrelista);
-          $('#modalAgregarArchivos').modal('show');
-        }, 1200);
-      }
-    });
-    return false;*/
+
   });
 
 //AJAX PARA PROCESAR EL BORRADO DE UN ARCHIVO
@@ -413,5 +385,110 @@ $('.ico-program').on('click', function(){
       }, 1200);
     }else{
       alertify.error("Favor de seleccionar al menos un archivo");
+    }
+  });
+
+
+  $('#btnEditFiles').on('click',function(){
+    var countSel = $('.orden').get().length;
+    var idLista = $('#idLista_archivo').val();
+    var orden = $('.orden').get();
+    //console.log("ID Lista: "+ idLista);
+    //console.log("Celdas: "+ countSel);
+    //console.log(idLista);
+    if(countSel > 0){
+      for (var i = 0; i < countSel; i++) {
+        var pos = orden[i].innerHTML;
+        var idArchivo = orden[i].id;
+        //console.log(pos);
+        //console.log(idArchivo);
+        var datos = {
+          idLista : idLista,
+          idArchivo : idArchivo,
+          orden : pos
+        };
+        //console.log(datos);
+        $.ajax({
+          type:"POST",
+          url:"order_files.htm",
+          data:datos,
+          //MOSTRAMOS SPINNER SI ES TARDADO EL PROCESO
+          beforeSend: function(){
+            showSpinner();
+          },
+          //ERROR
+          error: function(error){
+            removeSpinner();
+            alertify.alert("Error en la transacción");
+            return false;
+          },
+          //SE HA COMPLETADO
+          success:function(r){
+            showSpinner();
+
+          }
+        });
+        //return false;
+      }
+      alertify.success("Guardado correctamente");
+      //TIEMPO DE ESPERA DEL AVISO
+      setTimeout(function(){
+        window.location.assign("listas.htm");
+      }, 1200);
+    }else{
+      alertify.error("Favor de agregar al menos un archivo");
+    }
+  });
+
+  $('#btnEliminar').on('click',function() {
+    $('#modalBorrarArchivoLista').modal('show');
+  });
+
+  $('#btnDeleteAllFiles').on('click',function(){
+    var countSel = $('.cbSelectOrden:checked').get().length;
+    var idLista = $('#idLista_archivo').val();
+    var archivos = $('.cbSelectOrden:checked').get();
+    //console.log("ID Lista: "+ idLista);
+    //console.log("Celdas: "+ countSel);
+    //console.log(idLista);
+    if(countSel > 0){
+      for (var i = 0; i < countSel; i++) {
+        var idArchivo = archivos[i].value;
+        //console.log(pos);
+        //console.log(idArchivo);
+        var datos = {
+          idLista : idLista,
+          idArchivo : idArchivo
+        };
+        //console.log(datos);
+        $.ajax({
+          type:"POST",
+          url:"delete_files.htm",
+          data:datos,
+          //MOSTRAMOS SPINNER SI ES TARDADO EL PROCESO
+          beforeSend: function(){
+            showSpinner();
+          },
+          //ERROR
+          error: function(error){
+            removeSpinner();
+            alertify.alert("Error en la transacción");
+            return false;
+          },
+          //SE HA COMPLETADO
+          success:function(r){
+            showSpinner();
+
+          }
+        });
+        //return false;
+      }
+      alertify.success("Guardado correctamente");
+      //TIEMPO DE ESPERA DEL AVISO
+      setTimeout(function(){
+        window.location.assign("listas.htm");
+      }, 1200);
+    }else{
+      alertify.error("Favor de agregar al menos un archivo");
     }
   });
