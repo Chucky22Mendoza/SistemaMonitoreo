@@ -101,7 +101,7 @@ public class ModeloServidor extends Thread {
     public Kiosco ConsultarStatusKiosco(int idUsuario){
         GetDataUser data=new GetDataUser();
         Kiosco k=new Kiosco();  
-        k = data.ConsultarStatusKiosco(idUsuario);
+        k = data.GetConsultarStatusKiosco(idUsuario);
         return k;
     }
     
@@ -133,14 +133,14 @@ public class ModeloServidor extends Thread {
             //System.out.println(Usuario2.getStatus());
             //System.out.println(Usuario2.getId());
             
-              if (Usuario2.getStatus()==true){
-                controlador.agnadirMensajeATrasiego("ACCESO PERMITIDO");
-                bandera=true;
-                 IVista vista = null;
-                  vista.deshabilitarEnviar();
-              }else{
-                controlador.agnadirMensajeATrasiego("ACCESO DENEGADO --DATOS NO ENCONTRADOS-- ");
+              if (Usuario2.getStatus()==null){
+                  
+                  enviarMensaje("ACCESO DENEGADO --DATOS NO ENCONTRADOS-- ");
                 bandera=false;
+              }else{
+                  controlador.agnadirMensajeATrasiego( NombreUsuario +" Se conecto");
+                enviarMensaje("ACCESO PERMITIDO");
+                bandera=true;
               }
          }
           
@@ -151,10 +151,10 @@ public class ModeloServidor extends Thread {
                 
                 resultado = ConsultarStatusKiosco(Usuario2.getId());
                 
-                  if (resultado.getStatus()==true) {
-                     controlador.agnadirMensajeATrasiego("Tu Status esta ACTIVO"); 
+                  if (resultado.isStatus()==true) {
+                     enviarMensaje("Tu Status esta ACTIVO"); 
                   }else {
-                     controlador.agnadirMensajeATrasiego("Tu Sstatus esta en MANTENIMEINTO"); 
+                     enviarMensaje("Tu Sstatus esta en MANTENIMEINTO"); 
                   }
                 }
             }

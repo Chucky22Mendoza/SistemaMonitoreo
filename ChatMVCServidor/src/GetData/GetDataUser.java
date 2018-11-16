@@ -29,7 +29,7 @@ public class GetDataUser {
 
     public Session GetVerificarKiosco(String usuario, String contraseña) {
         
-        System.err.println(usuario + " - " + contraseña);
+        //System.err.println(usuario + " - " + contraseña);
         
          dbSource = new ConnectionDB();
          Session s=new Session();
@@ -63,8 +63,8 @@ public class GetDataUser {
          return s; 
     }
     
-    public Kiosco ConsultarStatusKiosco(int idUsuario){
-        dbSource = new ConnectionDB();
+    public Kiosco GetConsultarStatusKiosco(int idUsuario){
+   
         Kiosco k=new Kiosco();
         
         String sql ="select ki.id_kiosco,ki.nombre,ki.status_mantenimiento from permiso_alerta_kiosco as pak inner"
