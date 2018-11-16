@@ -29,9 +29,11 @@ public class GetDataUser {
 
     public Session GetVerificarKiosco(String usuario, String contraseña) {
         
+        System.err.println(usuario + " - " + contraseña);
+        
          dbSource = new ConnectionDB();
          Session s=new Session();
-              String sql ="Select status,id_usuario from Usuario where username=? and password=? ";
+              String sql ="Select status,id_usuario from Usuario where username like ? and contrasena like ? ";
         try (Connection dbConnection = dbSource.conectar();CallableStatement consultUser = dbConnection.prepareCall(sql);)
         {
               consultUser.setString(1, usuario);
@@ -42,11 +44,11 @@ public class GetDataUser {
           try(  ResultSet userRS =(ResultSet)consultUser.getResultSet(); ){
               while(userRS.next())
                 {
-                    System.out.println(userRS.getInt(2));
                     System.out.println(userRS.getBoolean(1));
-                    
-                   s.setId(userRS.getInt(2));
+                    System.out.println(userRS.getInt(2));
+
                    s.setStatus(userRS.getBoolean(1));
+                   s.setId(userRS.getInt(2));
                    }
           }catch(SQLException ex){
                   dbConnection.rollback();
