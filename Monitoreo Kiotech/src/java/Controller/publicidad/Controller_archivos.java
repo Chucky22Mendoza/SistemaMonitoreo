@@ -5,14 +5,14 @@
  */
 package Controller.publicidad;
 
-import Objects.Archivo;
-import Objects.IdArchivo;
-import Objects.ListaReproduccion;
-import getData.DeleteFile;
-import getData.GetFile;
-import getData.GetPlayList;
-import getData.NewFile;
-import getData.UpdateFile;
+import com.objects.controller.Archivo;
+import com.objects.controller.IdArchivo;
+import com.objects.controller.ListaReproduccion;
+import com.getdata.controller.DeleteFile;
+import com.getdata.controller.GetFile;
+import com.getdata.controller.GetPlayList;
+import com.getdata.controller.NewFile;
+import com.getdata.controller.UpdateFile;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;

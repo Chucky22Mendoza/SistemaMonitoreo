@@ -5,10 +5,10 @@
  */
 package Controller;
 
-import Objects.Archivo;
-import Objects.ListaReproduccion;
-import getData.GetFile;
-import getData.GetPlayList;
+import com.objects.controller.Archivo;
+import com.objects.controller.ListaReproduccion;
+import com.getdata.controller.GetFile;
+import com.getdata.controller.GetPlayList;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;

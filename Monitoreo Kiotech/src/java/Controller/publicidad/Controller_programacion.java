@@ -5,15 +5,15 @@
  */
 package Controller.publicidad;
 
-import Objects.Archivo;
-import Objects.Kiosco;
-import Objects.ListaProgramada;
-import Objects.ListaReproduccion;
-import Objects.Programadas;
-import getData.GetFile;
-import getData.GetKioscos;
-import getData.GetPlayList;
-import getData.NewSchedulePlayList;
+import com.objects.controller.Archivo;
+import com.objects.controller.Kiosco;
+import com.objects.controller.ListaProgramada;
+import com.objects.controller.ListaReproduccion;
+import com.objects.controller.Programadas;
+import com.getdata.controller.GetFile;
+import com.getdata.controller.GetKioscos;
+import com.getdata.controller.GetPlayList;
+import com.getdata.controller.NewSchedulePlayList;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;

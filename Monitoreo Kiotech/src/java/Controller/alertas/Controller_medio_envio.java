@@ -5,14 +5,15 @@
  */
 package Controller.alertas;
 
-import Model.CorreoSSL;
-import Model.CorreoTLS;
-import Model.EnvioCorreo;
-import Model.Puertos;
-import Objects.Archivo;
-import Objects.Correo;
-import Objects.Servidor_smtp;
-import getData.NewConfig;
+import com.model.controller.CorreoSSL;
+import com.model.controller.CorreoTLS;
+import com.model.controller.EnvioCorreo;
+import com.model.controller.Puertos;
+import com.objects.controller.Archivo;
+import com.objects.controller.Correo;
+import com.objects.controller.Mensaje_SMS;
+import com.objects.controller.Servidor_smtp;
+import com.getdata.controller.NewConfig;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,12 +40,12 @@ public class Controller_medio_envio {
             String correo = session.getAttribute("correo").toString();
             String agencia = session.getAttribute("agencia").toString();          
             //System.err.println("USUARIO " + user + " CORREO " + correo + " AGENCIA " + agencia);
-             //List<String> lista = new ArrayList<>();
+            List<String> lista = new ArrayList<>();
             
-            //lista = new Puertos().puertos();
+            lista = new Puertos().puertos();
             //NUEVA VISTA
             ModelAndView mav = new ModelAndView();
-            //mav.addObject("puertos",lista);
+            mav.addObject("puertos",lista);
             //ACCEDEMOS A HOME
             mav.setViewName("alertas/medio_envio");
             
@@ -102,38 +103,38 @@ public class Controller_medio_envio {
         if(seguridad.equals("TLS")){
             new CorreoTLS().CorreoTLS(config, mail);
             //System.err.println(EnvioCorreo.correoEnviado);
-            if(EnvioCorreo.correoEnviado){
+            //if(EnvioCorreo.correoEnviado){
                 ModelAndView mav = new ModelAndView();
         
                 mav.addObject("exTitle", 1);
                 mav.setViewName("templates/noresultado");
             
                 return mav;
-            }else{
+            /*}else{
                 ModelAndView mav = new ModelAndView();
         
                 mav.addObject("exTitle", 0);
                 mav.setViewName("templates/noresultado");
             
                 return mav;
-            }        
+            } */       
         }else if(seguridad.equals("SSL")){
             new CorreoSSL().CorreoSSL(config, mail);
-            if(EnvioCorreo.correoEnviado){
+            //if(EnvioCorreo.correoEnviado){
                 ModelAndView mav = new ModelAndView();
         
                 mav.addObject("exTitle", 1);
                 mav.setViewName("templates/noresultado");
             
                 return mav;
-            }else{
+            /*}else{
                 ModelAndView mav = new ModelAndView();
         
                 mav.addObject("exTitle", 0);
                 mav.setViewName("templates/noresultado");
             
                 return mav;
-            }        
+            } */       
 
         }else{
             ModelAndView mav = new ModelAndView();
@@ -143,5 +144,42 @@ public class Controller_medio_envio {
             return mav;
         }
         
+    }
+    
+    @RequestMapping("puerto_tarjeta_sms.htm")
+    public ModelAndView puerto_tarjeta_sms(HttpServletRequest request, HttpServletResponse response) throws IOException{
+            
+        String puerto = request.getParameter("puerto");
+        
+        int result = new NewConfig().nuevaConfiguracionSMS(puerto);
+        
+        if(result == 1){
+            ModelAndView mav = new ModelAndView();
+            mav.addObject("exTitle", 1);
+            mav.setViewName("templates/noresultado");
+            
+            return mav;
+        }else{
+            ModelAndView mav = new ModelAndView();
+            mav.addObject("exTitle", 0);
+            mav.setViewName("templates/noresultado");
+            
+            return mav;
+        }
+    }
+    //Enviar un mensaje sms
+    @RequestMapping("enviar_sms.htm")
+    public ModelAndView enviar_sms(HttpServletRequest request, HttpServletResponse response) throws IOException{
+            
+        String msg = request.getParameter("mensaje");
+        String celular = request.getParameter("celular");
+        
+        Mensaje_SMS msg_sms = new Mensaje_SMS(msg,celular);
+        
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("exTitle", 1);
+        mav.setViewName("templates/noresultado");
+           
+        return mav;
     }
 }

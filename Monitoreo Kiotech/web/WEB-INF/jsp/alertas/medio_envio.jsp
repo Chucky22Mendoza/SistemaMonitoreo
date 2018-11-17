@@ -173,20 +173,22 @@
                 <div class="container">
                   <div class="row">
                     <div class="col-md-9">
+
                       <form class="form-vertical">
                         <div class="form-group">
                           <div class="input-group">
                             <label class="mr-3">Mensaje:</label>
-                            <input id="mensaje" type="text" class="form-control" placeholder="Aquí va tu mensaje">
+                            <input id="mensaje" type="text" class="form-control" placeholder="Aquí va tu mensaje" required>
                           </div>
                         </div>
                         <div class="form-group">
                           <div class="input-group">
                             <label class="mr-3">Correo:</label>
-                            <input id="correo" type="email" class="form-control" placeholder="correo@dominio.com.mx">
+                            <input id="correo" type="email" class="form-control" placeholder="correo@dominio.com.mx" required>
                           </div>
                         </div>
                       </form>
+
                     </div>
                     <div class="col-md-3">
                       <button id="btnProbarCorreo" class="btn btn-info mt-4" type="button">Enviar Prueba</button>
@@ -212,15 +214,17 @@
                     <div class="col-md-10">
                       <div class="input-group">
                         <label class="mr-3">Puerto:</label>
-                        <select class="custom-select" id="inputGroupSelect01">
-                          <option selected>----</option>
-                          <option value="1">COM1</option>
-                          <option value="2">COM2</option>
+                        <select class="custom-select" id="puertos">
+                          <c:forEach items="${puertos}" var="dato">
+                            <option value="${dato}">${dato}</option>
+                          </c:forEach>
+                        <!--  <option value="COM1">COM1</option>
+                          <option value="COM2">COM2</option>-->
                         </select>
                       </div>
                     </div>
                     <div class="col-md-2">
-                      <button class="btn btn-success" type="button" >Guardar</button>
+                      <button id="btnGuardarPuerto" class="btn btn-success" type="button" >Guardar</button>
                     </div>
                   </div>
                 </div>
@@ -228,14 +232,14 @@
               <hr>
 
                 <!--Aquí va el Spinner-->
-              <p class="text-center">Guardando Configuración</p>
+              <p id="spinnerConfPorts" class="text-center collapse">Guardando Configuración</p>
 
               <div class="container">
                 <h5 class="mt-5">Probar Configuración</h5><hr>
                 <div class="form-group">
                   <div class="input-group">
                     <label class="mr-3">Mensaje:</label>
-                    <input type="text" class="form-control" placeholder="Aquí va tu mensaje">
+                    <input id="mensaje" type="text" class="form-control" placeholder="Aquí va tu mensaje">
                   </div>
                 </div>
 
@@ -244,12 +248,12 @@
                     <div class="form-group">
                       <div class="input-group">
                         <label class="mr-3">Celular:</label>
-                        <input type="text" class="form-control" placeholder="3122345678">
+                        <input id="celular" type="text" class="form-control" placeholder="3122345678">
                       </div>
                     </div>
                   </div>
                   <div class="col-md-3">
-                    <button type="button" class="btn btn-info mt-0">Enviar Prueba</button>
+                    <button id="btnEnviarSMS" type="button" class="btn btn-info mt-0">Enviar Prueba</button>
                   </div>
                 </div>
                 <hr>
@@ -257,7 +261,7 @@
 
               <!--Aquí va el Spinner de carga-->
               <div class="container">
-                <p class="text-center">Enviando correo</p>
+                <p id="spinnerEnviarSMS" class="text-center collapse">Enviando mensaje</p>
               </div>
 
             </div>

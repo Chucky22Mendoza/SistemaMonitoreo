@@ -5,10 +5,10 @@
  */
 package Controller.alertas;
 
-import Objects.Evento;
-import Objects.Historial;
-import getData.GetAlerts;
-import getData.GetEvents;
+import com.objects.controller.Evento;
+import com.objects.controller.Historial;
+import com.getdata.controller.GetAlerts;
+import com.getdata.controller.GetEvents;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;

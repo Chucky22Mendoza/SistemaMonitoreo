@@ -5,10 +5,10 @@
  */
 package Controller.alertas;
 
-import Objects.Archivo;
-import Objects.Usuario;
-import getData.GetDataUser;
-import getData.GetFile;
+import com.objects.controller.Archivo;
+import com.objects.controller.Usuario;
+import com.getdata.controller.GetDataUser;
+import com.getdata.controller.GetFile;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;

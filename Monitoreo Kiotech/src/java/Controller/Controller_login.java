@@ -5,8 +5,8 @@
  */
 package Controller;
 
-import Objects.Login;
-import getData.GetDataUser;
+import com.objects.controller.Login;
+import com.getdata.controller.GetDataUser;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
