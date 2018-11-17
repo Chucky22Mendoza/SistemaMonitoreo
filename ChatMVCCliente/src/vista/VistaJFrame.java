@@ -117,7 +117,7 @@ public class VistaJFrame extends javax.swing.JFrame implements IVista {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEnviarActionPerformed
-        // TODO add your handling code here:
+ 
     }//GEN-LAST:event_jButtonEnviarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -126,15 +126,15 @@ public class VistaJFrame extends javax.swing.JFrame implements IVista {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButtonEnviar;
+    public static javax.swing.JButton jButton1;
+    public static javax.swing.JButton jButtonEnviar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabelTextoAEnviar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextAreaTrasiego;
-    private javax.swing.JTextField jTextFieldTextoAEnviar;
-    private javax.swing.JTextField jTextFieldTextoPassword;
+    public static javax.swing.JTextField jTextFieldTextoAEnviar;
+    public static javax.swing.JTextField jTextFieldTextoPassword;
     // End of variables declaration//GEN-END:variables
 
     @Override
@@ -164,6 +164,7 @@ public class VistaJFrame extends javax.swing.JFrame implements IVista {
     @Override
     public void borrarTextoAEnviar() {
         jTextFieldTextoAEnviar.setText("");
+        jTextFieldTextoPassword.setText("");
     }
 
     @Override

@@ -6,10 +6,11 @@ package Objects;
  * @author nipan
  */
 public class Kiosco {
-    public int id_kisoco;
-    public String nombre;
-    public boolean status;
 
+  
+    private int id_kisoco;
+    private String nombre;
+    private boolean status;
 
     public Kiosco(int id_kisoco, String nombre, boolean status) {
         this.id_kisoco = id_kisoco;
@@ -18,7 +19,7 @@ public class Kiosco {
     }
 
     public Kiosco() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+     
     }
 
     public int getId_kisoco() {
@@ -37,12 +38,14 @@ public class Kiosco {
         this.nombre = nombre;
     }
 
-    public boolean getStatus() {
+    public boolean isStatus() {
         return status;
     }
 
     public void setStatus(boolean status) {
         this.status = status;
     }
-    
+
+
+   
 }

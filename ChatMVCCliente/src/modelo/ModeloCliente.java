@@ -17,6 +17,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import vista.VistaJFrame;
 
 /**
 
@@ -86,9 +87,7 @@ public class ModeloCliente extends Thread {
             Logger.getLogger(ModeloCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-  
-   
-    
+
     public String recibirMensaje(){
         try {
             String mensaje = br.readLine();
@@ -104,6 +103,12 @@ public class ModeloCliente extends Thread {
         while(true){
             String mensaje = recibirMensaje();
             controlador.agnadirMensajeATrasiego("El Servidor dice: " + mensaje);
+            if(mensaje.equals("ACCESO PERMITIDO")){
+            VistaJFrame.jButtonEnviar.setEnabled(false);
+            VistaJFrame.jButton1.setEnabled(true);
+            VistaJFrame.jTextFieldTextoAEnviar.setEnabled(false);
+            VistaJFrame.jTextFieldTextoPassword.setEnabled(false);
+            }
         }
     }
 }

@@ -22,7 +22,6 @@ public interface IVista {
     public void hacerVisible();
     public void inicializar();
     public void habilitarBtnStatus();
-  
     public String getMensajeAEnviar();
     public String getMensajeAEnviarPassword();
 }

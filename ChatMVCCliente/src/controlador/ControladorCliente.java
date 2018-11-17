@@ -17,6 +17,10 @@ import vista.IVista;
 public class ControladorCliente implements ActionListener {
     IVista vista;
     ModeloCliente modelo;
+    
+    public ControladorCliente(IVista vista){
+        this.vista = vista;
+    }
 
     public ControladorCliente(IVista vista, ModeloCliente modelo) {
         this.vista = vista;
@@ -44,8 +48,9 @@ public class ControladorCliente implements ActionListener {
 
                 vista.agnadirMensajeATrasiego("Nombre & Password enviado, Esperando Confirmacion......");
                 vista.agnadirMensajeATrasiego("..........");
-                
+
                 vista.borrarTextoAEnviar();
+                
                 break;
 
             case IVista.STATUSMantenimiento:

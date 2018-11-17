@@ -18,14 +18,14 @@ public class ConnectionDB {
      public Connection conectar(){
          
          Connection con = null;
-         String urlDatabase =  "jdbc:postgresql://localhost:5433/db_local"; //Chucky
-         //String urlDatabase =  "jdbc:postgresql://localhost:5432/db_local"; //Nivaldo y Chomy 
+         //String urlDatabase =  "jdbc:postgresql://localhost:5433/db_local"; //Chucky
+         String urlDatabase =  "jdbc:postgresql://localhost:5432/db_local"; //Nivaldo y Chomy 
          //String urlDatabase = "jdbc:postgresql://192.168.1.139:5433/db_local"; //Servidor Prueb
          String usuario = "postgres";
-         String pass = "1522"; //CHUCKY
+         //String pass = "1522"; //CHUCKY
          //String pass = "123"; //MARIO
          //String pass = "12345"; //Servidor Prueba
-         //String pass = "21octubre97"; //NIVALDO
+         String pass = "21octubre97"; //NIVALDO
          
          
          try {
