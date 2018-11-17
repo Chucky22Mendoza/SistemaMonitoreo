@@ -14,6 +14,7 @@
         <spring:url value="/resources/js/jquery.js" var="jquery" />
 
         <spring:url value="/resources/js/home.js" var="homeJS" />
+        <spring:url value="/resources/js/medio_envio.js" var="medioJS" />
         <spring:url value="/resources/js/menu.js" var="menuJS" />
         <spring:url value="/resources/css/home.css" var="homeCSS" />
         <spring:url value="/resources/images/logo.png" var="logo" />
@@ -54,33 +55,33 @@
               	    <li><a id="menuMonitoreo" class="" href="<c:url value='home.htm' />"><i class="icono izquierda fas fa-desktop"></i> Monitoreo de Kioscos</a></li>
               	    <li><a id="menuAlertas" class="" href="#"><i class="icono izquierda fas fa-exclamation-circle"></i> Alertas <i class="icono derecha fas fa-chevron-down"></i></a>
               		<ul>
-              
+
               		    <li><a id="historial" class="" href="<c:url value='historial.htm' />"><i class="icono izquierda fa fa-history"></i> Historial de alertas</a></li>
               		    <li><a id="configEnvio" class="" href="<c:url value='medio_envio.htm' />"><i class="icono izquierda fas fa-truck"></i> Medio de envío</a></li>
               		    <li><a id="configEvento" class="" href="<c:url value='eventos.htm' />"><i class="icono izquierda fas fa-calendar-alt"></i> Config. de eventos</a></li>
               		    <li><a id="usuarios" class="" href="<c:url value='asignar_usuario.htm' />"><i class="icono izquierda fas fa-user-plus"></i> Asignación de usuarios</a></li>
-              
+
               		</ul>
               	    </li>
               	    <li><a id="menuPublicidad" class="" href="#"><i class="icono izquierda fas fa-play-circle"></i> Publicidad <i class="icono derecha fas fa-chevron-down"></i> </a>
               		<ul>
-              
+
               		    <li><a id="archivosMultimedia" class="" href="<c:url value='archivos.htm' />"><i class="icono izquierda fas fa-file-archive"></i> Archivos multimedia</a></li>
               		    <li><a id="listasReproduccion" class="" href="<c:url value='listas.htm' />"><i class="icono izquierda fas fa-list-ul"></i> Listas de reproduccion</a></li>
               		    <li><a id="programacionListas" class="" href="<c:url value='programacion.htm' />"><i class="icono izquierda fas fa-tasks"></i> Programación de listas</a></li>
-              
+
               		</ul>
               	    </li>
               	    <li><a id="salir" class="" href="<c:url value='archivos.htm' />"><i class=" icono izquierda fas fa-sign-out-alt "></i> Cerrar Sesión</a></li>
               	  </ul>
-              
+
               	  <div class="userCar text-center mt-5">
               	    <img  src="${userIMG}" height="50px" class="navb" alt="">
               	    <p class="mt-3">Bienvenido<br>${usuario}</p>
               	    <p>Agencia: ${agencia}</p>
               	  </div>
-              
-              
+
+
               	</div>
               	<div class="contenido">
               	  <span id="abrirMenu"><i class="fas fa-list-ul"></i></span>
@@ -94,7 +95,7 @@
             </div>
 
             <!--Tercera Columna-->
-            
+
           </div>
         </div>
       </header>
@@ -114,19 +115,19 @@
                         <div class="form-group">
                           <div class="input-group">
                             <label class="mr-3">Servidor SMTP:</label>
-                            <input type="text" class="form-control" placeholder="mail.dominio.com.mx">
+                            <input id="servidor_smtp" type="text" class="form-control" placeholder="mail.dominio.com.mx" required>
                           </div>
                         </div>
                         <div class="form-group">
                           <div class="input-group">
                             <label class="mr-3">Usuario:</label>
-                            <input type="email" class="form-control" placeholder="correo@dominio.com.mx">
+                            <input id="usuario" type="email" class="form-control" placeholder="correo@dominio.com.mx" required>
                           </div>
                         </div>
                         <div class="form-group">
                           <div class="input-group">
                             <label class="mr-3">Contraseña:</label>
-                            <input type="password" class="form-control" placeholder="Password">
+                            <input id="password" type="password" class="form-control" placeholder="Password" required>
                           </div>
                         </div>
                       </form>
@@ -135,15 +136,14 @@
                       <div class="form-group">
                         <div class="input-group">
                           <label class="mr-3">Puerto:</label>
-                          <input type="number" class="form-control" placeholder="8080">
+                          <input id="puerto" type="number" class="form-control" placeholder="8080" required>
                         </div>
                       </div>
                       <div class="input-group">
                         <label class="mr-3">Seguridad:</label>
-                        <select class="custom-select" id="inputGroupSelect01">
-                          <option selected>----</option>
-                          <option value="1">TLS</option>
-                          <option value="2">SSL</option>
+                        <select class="custom-select" id="seguridad">
+                          <option value="TLS">TLS</option>
+                          <option value="SSL">SSL</option>
                         </select>
                       </div>
                     </div>
@@ -158,10 +158,10 @@
                 <div class="row">
                   <!--Aquí va el Spinner de guardando configuración-->
                   <div class="col-md-9">
-                    <p class="text-center">Guardando Configuración</p>
+                    <p id="spinnerConfServer" class="text-center collapse">Guardando Configuración</p>
                   </div>
                   <div class="col-md-2">
-                    <button type="button" class="btn btn-success">Guardar</button>
+                    <button id="btnGuardarConfigSMTP" type="button" class="btn btn-success">Guardar</button>
                   </div>
                 </div>
               </div>
@@ -177,19 +177,19 @@
                         <div class="form-group">
                           <div class="input-group">
                             <label class="mr-3">Mensaje:</label>
-                            <input type="text" class="form-control" placeholder="Aquí va tu mensaje">
+                            <input id="mensaje" type="text" class="form-control" placeholder="Aquí va tu mensaje">
                           </div>
                         </div>
                         <div class="form-group">
                           <div class="input-group">
                             <label class="mr-3">Correo:</label>
-                            <input type="email" class="form-control" placeholder="correo@dominio.com.mx">
+                            <input id="correo" type="email" class="form-control" placeholder="correo@dominio.com.mx">
                           </div>
                         </div>
                       </form>
                     </div>
                     <div class="col-md-3">
-                      <button class="btn btn-info mt-4" type="button">Enviar Prueba</button>
+                      <button id="btnProbarCorreo" class="btn btn-info mt-4" type="button">Enviar Prueba</button>
                     </div>
                   </div>
                 </div>
@@ -199,7 +199,7 @@
 
               <!--Aquí va el Spinner de carga-->
               <div class="container">
-                <p class="text-center">Enviando correo</p>
+                <p id="spinnerEnviandoCorreo" class="text-center collapse">Enviando correo</p>
               </div>
 
             </div>
@@ -269,6 +269,7 @@
 
       <script defer src="https://use.fontawesome.com/releases/v5.0.12/js/all.js" integrity="sha384-Voup2lBiiyZYkRto2XWqbzxHXwzcm4A5RfdfG6466bu5LqjwwrjXCMBQBLMWh7qR" crossorigin="anonymous"></script>
       <script src="${jquery}"></script>
+      <script src="${medioJS}"></script>
       <script src="${btJS}"></script>
       <script src="${alertifyJS}"></script>
       <script src="${spinnerJS}"></script>

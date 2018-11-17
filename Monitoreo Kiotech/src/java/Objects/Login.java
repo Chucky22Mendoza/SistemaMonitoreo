@@ -10,6 +10,7 @@ package Objects;
  * @author Jesús Mendoza
  */
 public class Login {
+    private int id_usuario;
     private String nombre;
     private String correo;
     private String telefono;
@@ -20,13 +21,22 @@ public class Login {
     public Login() {
     }
 
-    public Login(String nombre, String correo, String telefono, String agencia, String rol, Boolean status) {
+    public Login(int id_usuario, String nombre, String correo, String telefono, String agencia, String rol, Boolean status) {
+        this.id_usuario = id_usuario;
         this.nombre = nombre;
         this.correo = correo;
         this.telefono = telefono;
         this.agencia = agencia;
         this.rol = rol;
         this.status = status;
+    }
+
+    public int getId_usuario() {
+        return id_usuario;
+    }
+
+    public void setId_usuario(int id_usuario) {
+        this.id_usuario = id_usuario;
     }
 
     public String getNombre() {
@@ -76,5 +86,6 @@ public class Login {
     public void setStatus(Boolean status) {
         this.status = status;
     }
+
     
 }

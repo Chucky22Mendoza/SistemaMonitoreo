@@ -5,7 +5,17 @@
  */
 package Controller.alertas;
 
+import Model.CorreoSSL;
+import Model.CorreoTLS;
+import Model.EnvioCorreo;
+import Model.Puertos;
+import Objects.Archivo;
+import Objects.Correo;
+import Objects.Servidor_smtp;
+import getData.NewConfig;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -24,18 +34,114 @@ public class Controller_medio_envio {
          
             //VALIDAR EL ACCESO CON VARIABLES DE SESIÓN
             HttpSession session = request.getSession();
+            String id = session.getAttribute("id_usuario").toString();
             String user = session.getAttribute("usuario").toString();
             String correo = session.getAttribute("correo").toString();
-            String agencia = session.getAttribute("agencia").toString();            
+            String agencia = session.getAttribute("agencia").toString();          
             //System.err.println("USUARIO " + user + " CORREO " + correo + " AGENCIA " + agencia);
+             //List<String> lista = new ArrayList<>();
             
-            
+            //lista = new Puertos().puertos();
             //NUEVA VISTA
             ModelAndView mav = new ModelAndView();
-            
+            //mav.addObject("puertos",lista);
             //ACCEDEMOS A HOME
             mav.setViewName("alertas/medio_envio");
             
             return mav;
+    }
+    
+    
+    @RequestMapping("servidor_smtp.htm")
+    public ModelAndView servidor_smtp(HttpServletRequest request, HttpServletResponse response) throws IOException{
+            
+        String servidor_smtp = request.getParameter("servidor_smtp");
+        String usuario = request.getParameter("usuario");
+        String contrasena = request.getParameter("contrasena");
+        String port = request.getParameter("puerto");
+        String seguridad = request.getParameter("seguridad");
+        int puerto = Integer.parseInt(port);
+        
+        Servidor_smtp server = new Servidor_smtp(servidor_smtp,usuario,contrasena,puerto,seguridad);
+        
+        int result = new NewConfig().nuevaConfiguracion(server);
+        System.err.println(result);
+        if(result == 1){
+            ModelAndView mav = new ModelAndView();
+        
+            mav.addObject("exTitle", 1);
+            mav.setViewName("templates/noresultado");
+            
+            return mav;
+        }else{
+            ModelAndView mav = new ModelAndView();
+        
+            mav.addObject("exTitle", 0);
+            mav.setViewName("templates/noresultado");
+            
+            return mav;
+        }
+         
+         
+    }
+    
+    @RequestMapping("enviar_correo.htm")
+    public ModelAndView enviar_correo(HttpServletRequest request, HttpServletResponse response) throws IOException{
+        HttpSession session = request.getSession();
+        String id = session.getAttribute("id_usuario").toString();
+        int id_usuario = Integer.parseInt(id);
+        
+        String mensaje = request.getParameter("mensaje");
+        String correo = request.getParameter("correo");
+        
+        Correo mail = new Correo(correo,mensaje);
+        Servidor_smtp config = new NewConfig().obtenerConfiguracion(id_usuario);
+        String seguridad = config.getSeguridad();
+        
+        
+        if(seguridad.equals("TLS")){
+            new CorreoTLS().CorreoTLS(config, mail);
+            //System.err.println(EnvioCorreo.correoEnviado);
+            if(EnvioCorreo.correoEnviado){
+                ModelAndView mav = new ModelAndView();
+        
+                mav.addObject("exTitle", 1);
+                mav.setViewName("templates/noresultado");
+            
+                return mav;
+            }else{
+                ModelAndView mav = new ModelAndView();
+        
+                mav.addObject("exTitle", 0);
+                mav.setViewName("templates/noresultado");
+            
+                return mav;
+            }        
+        }else if(seguridad.equals("SSL")){
+            new CorreoSSL().CorreoSSL(config, mail);
+            if(EnvioCorreo.correoEnviado){
+                ModelAndView mav = new ModelAndView();
+        
+                mav.addObject("exTitle", 1);
+                mav.setViewName("templates/noresultado");
+            
+                return mav;
+            }else{
+                ModelAndView mav = new ModelAndView();
+        
+                mav.addObject("exTitle", 0);
+                mav.setViewName("templates/noresultado");
+            
+                return mav;
+            }        
+
+        }else{
+            ModelAndView mav = new ModelAndView();
+        
+            mav.addObject("exTitle", 0);
+            mav.setViewName("templates/noresultado");
+            return mav;
+        }
+        
     }
 }

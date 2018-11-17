@@ -30,6 +30,7 @@ public class Controller_eventos {
          
             //VALIDAR EL ACCESO CON VARIABLES DE SESIÓN
             HttpSession session = request.getSession();
+            String id = session.getAttribute("id_usuario").toString();
             String user = session.getAttribute("usuario").toString();
             String correo = session.getAttribute("correo").toString();
             String agencia = session.getAttribute("agencia").toString();            
