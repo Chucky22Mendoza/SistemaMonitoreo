@@ -8,6 +8,7 @@ package Views;
 import GetData.GetFile;
 import Model.Envio;
 import Model.archivoVideo;
+import Model.checarNuevasListas;
 import java.awt.Dimension;
 import com.sun.jna.Native;
 import com.sun.jna.NativeLibrary;
@@ -115,7 +116,10 @@ public final class PantallaExclusiva extends javax.swing.JFrame {
 
             try {
                 file = new GetFile().obtenerArchivo();
-
+                
+                checarNuevasListas checar = new checarNuevasListas();
+                checar.start();
+                
                 cargarMedia(mediaPlayer);
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Error en " + e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -140,6 +144,11 @@ public final class PantallaExclusiva extends javax.swing.JFrame {
     //Método para obtener la duracion del medio
     public int duracionMedio() {
         return file.get(archivo).getDuracion();
+    }
+    
+    //Método para reinicializar variable archivo
+    public void reinicializarArchivo(){
+        archivo = -1;
     }
 
     //Método para saber la extensión del archivo

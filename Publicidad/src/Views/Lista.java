@@ -47,6 +47,11 @@ public final class Lista extends javax.swing.JFrame {
         llenadoTabla();
     }
     
+    //Método para regresar la lista de horas
+    public List mandarHoras(){
+        return hora;
+    }
+    
     public void recargaHora(){
         hora = new GetFile().obtenerHora();  
         horaInicio = new int [hora.size()];
