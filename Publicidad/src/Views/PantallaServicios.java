@@ -8,6 +8,7 @@ package Views;
 import GetData.GetFile;
 import Model.Envio;
 import Model.archivoVideo;
+import Model.checarNuevasListas;
 import com.sun.jna.Native;
 import com.sun.jna.NativeLibrary;
 import java.awt.Dimension;
@@ -40,6 +41,8 @@ import uk.co.caprica.vlcj.runtime.x.LibXUtil;
  */
 public final class PantallaServicios extends javax.swing.JFrame {
 
+    
+    Lista lista = new Lista();
     /**
      * Creates new form PantallaServicios
      *
@@ -50,8 +53,8 @@ public final class PantallaServicios extends javax.swing.JFrame {
         imagen(img);
         tamañoPantalla();
         cambiarLibrerias();
-        //Lista lista = new Lista();
-        //lista.setVisible(true);
+        
+        lista.setVisible(true);
         reproducirVideo();
         setLocationRelativeTo(null);
     }
@@ -196,6 +199,8 @@ public final class PantallaServicios extends javax.swing.JFrame {
                 //File[] listOfFiles = folder.listFiles();
 
                 recargaLista();
+                checarNuevasListas checar = new checarNuevasListas();
+                checar.start();
                 cargarMedia(mediaPlayer);
 
             } catch (Exception e) {
@@ -207,7 +212,7 @@ public final class PantallaServicios extends javax.swing.JFrame {
     int archivo = -1;
     Lista list = new Lista();
 
-    public void cargarMedia(EmbeddedMediaPlayer mediaPlayer) throws FileNotFoundException, IOException {
+    public void cargarMedia(EmbeddedMediaPlayer mediaPlayer) {
         archivo++;
         String ruta = rutaArchivo();
         String extension = extensionArchivo(ruta);
@@ -223,6 +228,7 @@ public final class PantallaServicios extends javax.swing.JFrame {
                 TimerTask task = new TimerTask() {
                     @Override
                     public void run() {
+                        prueba.stop();
                         if (!prueba.isPlaying()) {
                             timer.cancel();
                         }
@@ -237,18 +243,14 @@ public final class PantallaServicios extends javax.swing.JFrame {
                     recargaLista();
                     list.recargaLista();
                     archivo = -1;
-                    try {
-                        cargarMedia(mediaPlayer);
-                    } catch (IOException ex) {
-                        Logger.getLogger(PantallaServicios.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+
+                    cargarMedia(mediaPlayer);
+
                     prueba.removeMediaPlayerEventListener(this);
                 } else {
-                    try {
-                        cargarMedia(mediaPlayer);
-                    } catch (IOException ex) {
-                        Logger.getLogger(PantallaServicios.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+
+                    cargarMedia(mediaPlayer);
+
                     System.out.println(archivo);
                     prueba.removeMediaPlayerEventListener(this);
                 }
@@ -256,11 +258,9 @@ public final class PantallaServicios extends javax.swing.JFrame {
 
             @Override
             public void error(MediaPlayer prueba) {
-                try {
-                    cargarMedia(mediaPlayer);
-                } catch (IOException ex) {
-                    Logger.getLogger(PantallaServicios.class.getName()).log(Level.SEVERE, null, ex);
-                }
+
+                cargarMedia(mediaPlayer);
+
                 prueba.removeMediaPlayerEventListener(this);
             }
         });
@@ -269,6 +269,11 @@ public final class PantallaServicios extends javax.swing.JFrame {
     //Método para obtener la ruta del archivo
     public String rutaArchivo() {
         return file.get(archivo).getUbicacion();
+    }
+    
+    //Método para reinicializar variable archivo
+    public void reinicializarArchivo(){
+        archivo = -1;
     }
 
     //Método para obtener la duracion del medio
@@ -284,8 +289,7 @@ public final class PantallaServicios extends javax.swing.JFrame {
 
     //Método para recargar
     public void recargaLista() {
-        Envio envio = new Envio();
-        file = new GetFile().obtenerArchivo(envio);
+        file = new GetFile().obtenerArchivo();
     }
 
     //Método para leer librerias directas del VLC de 64 bits
