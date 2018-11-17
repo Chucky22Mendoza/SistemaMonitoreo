@@ -32,7 +32,7 @@ public class GetDataUser {
         //Variable Objeto tipo Login
         Login dataUser = new Login();
         //SQL que se ejecutará
-        String sql ="Select nombre,correo,telefono,agencia,rol,status from vw_usuarios where username like ? and contrasena like ? ";
+        String sql ="Select id_usuario,nombre,correo,telefono,agencia,rol,status from vw_usuarios where username like ? and contrasena like ? ";
         try (            Connection dbConnection = dbSource.conectar().getConnection();
                           //Tipo CallableStatement, otra variante tambien es usar PrepareStatement
                           CallableStatement consultUser = dbConnection.prepareCall(sql);                  ){
@@ -48,12 +48,13 @@ public class GetDataUser {
           try(  ResultSet userRS =(ResultSet)consultUser.getResultSet(); ){
               while(userRS.next())
                 {
-                    dataUser.setNombre(userRS.getString(1));
-                    dataUser.setCorreo(userRS.getString(2));
-                    dataUser.setTelefono(userRS.getString(3));
-                    dataUser.setAgencia(userRS.getString(4));
-                    dataUser.setRol(userRS.getString(5));
-                    dataUser.setStatus(userRS.getBoolean(6));
+                    dataUser.setId_usuario(userRS.getInt(1));
+                    dataUser.setNombre(userRS.getString(2));
+                    dataUser.setCorreo(userRS.getString(3));
+                    dataUser.setTelefono(userRS.getString(4));
+                    dataUser.setAgencia(userRS.getString(5));
+                    dataUser.setRol(userRS.getString(6));
+                    dataUser.setStatus(userRS.getBoolean(7));
                 }
              //System.out.println("Llamada a PostgreSQL finalizada.");
           }

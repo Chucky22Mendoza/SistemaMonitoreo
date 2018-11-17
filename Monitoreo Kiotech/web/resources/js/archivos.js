@@ -94,7 +94,7 @@ $('#eliminarArchivos').on('click', function(){
     eliminar_archivos(countSel,archivos);
   },
   function(){
-    alertify.error('Cancel');
+    alertify.error('Cancelado');
   });
 
 
@@ -105,7 +105,7 @@ function eliminar_archivos(num_selects,archivos){
 
   for (var i = 0; i < num_selects; i++) {
     var id = archivos[i].id;
-    console.log(id);
+    //console.log(id);
     var datos = {
       id : id
     };
@@ -121,7 +121,7 @@ function eliminar_archivos(num_selects,archivos){
       //ERROR
       error: function(error){
         removeSpinner();
-        alertify.alert("Error en la transacción");
+        alertify.alert("Error en la transacción, asegurarse de que ya no pertenezcan a una lista de reproducción");
         return false;
       },
       //SE HA COMPLETADO

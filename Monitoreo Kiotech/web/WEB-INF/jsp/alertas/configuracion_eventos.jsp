@@ -50,33 +50,33 @@
       	    <li><a id="menuMonitoreo" class="" href="<c:url value='home.htm' />"><i class="icono izquierda fas fa-desktop"></i> Monitoreo de Kioscos</a></li>
       	    <li><a id="menuAlertas" class="" href="#"><i class="icono izquierda fas fa-exclamation-circle"></i> Alertas <i class="icono derecha fas fa-chevron-down"></i></a>
       		<ul>
-      
+
       		    <li><a id="historial" class="" href="<c:url value='historial.htm' />"><i class="icono izquierda fa fa-history"></i> Historial de alertas</a></li>
       		    <li><a id="configEnvio" class="" href="<c:url value='medio_envio.htm' />"><i class="icono izquierda fas fa-truck"></i> Medio de envío</a></li>
       		    <li><a id="configEvento" class="" href="<c:url value='eventos.htm' />"><i class="icono izquierda fas fa-calendar-alt"></i> Config. de eventos</a></li>
       		    <li><a id="usuarios" class="" href="<c:url value='asignar_usuario.htm' />"><i class="icono izquierda fas fa-user-plus"></i> Asignación de usuarios</a></li>
-      
+
       		</ul>
       	    </li>
       	    <li><a id="menuPublicidad" class="" href="#"><i class="icono izquierda fas fa-play-circle"></i> Publicidad <i class="icono derecha fas fa-chevron-down"></i> </a>
       		<ul>
-      
+
       		    <li><a id="archivosMultimedia" class="" href="<c:url value='archivos.htm' />"><i class="icono izquierda fas fa-file-archive"></i> Archivos multimedia</a></li>
       		    <li><a id="listasReproduccion" class="" href="<c:url value='listas.htm' />"><i class="icono izquierda fas fa-list-ul"></i> Listas de reproduccion</a></li>
       		    <li><a id="programacionListas" class="" href="<c:url value='programacion.htm' />"><i class="icono izquierda fas fa-tasks"></i> Programación de listas</a></li>
-      
+
       		</ul>
       	    </li>
       	    <li><a id="salir" class="" href="<c:url value='archivos.htm' />"><i class=" icono izquierda fas fa-sign-out-alt "></i> Cerrar Sesión</a></li>
       	  </ul>
-      
+
       	  <div class="userCar text-center mt-5">
       	    <img  src="${userIMG}" height="50px" class="navb" alt="">
       	    <p class="mt-3">Bienvenido<br>${usuario}</p>
       	    <p>Agencia: ${agencia}</p>
       	  </div>
-      
-      
+
+
       	</div>
       	<div class="contenido">
       	  <span id="abrirMenu"><i class="fas fa-list-ul"></i></span>
@@ -110,28 +110,28 @@
                 <c:if test="${activo == false}">
                   <td class="text-center"><input type="checkbox" class="mt-1 cbSelec" name="cbSelec" disabled="disabled"></td>
                 </c:if>
-                <c:if test="${contador == 12}">
+                <c:if test="${contador == 13}">
                     <td class="text-center">
                       <a class="ico-conf" data-toggle="modal" data-target="#modalMinFolios">
                          Configurar <i class="fas fa-cog icono"></i>
                       </a>
                     </td>
                 </c:if>
-                <c:if test="${contador == 13}">
+                <c:if test="${contador == 14}">
                     <td class="text-center">
                       <a class="ico-conf" data-toggle="modal" data-target="#modalDenominaciones">
                          Configurar <i class="fas fa-cog icono"></i>
                       </a>
                     </td>
                 </c:if>
-                <c:if test="${contador == 14}">
+                <c:if test="${contador == 15}">
                     <td class="text-center">
                       <a class="ico-conf" data-toggle="modal" data-target="#modalContenedores">
                          Configurar <i class="fas fa-cog icono"></i>
                       </a>
                     </td>
                 </c:if>
-                <c:if test="${contador == 15}">
+                <c:if test="${contador == 16}">
                     <td class="text-center">
                       <a class="ico-conf" data-toggle="modal" data-target="#modalCorteCaja">
                          Configurar <i class="fas fa-cog icono"></i>
@@ -168,7 +168,7 @@
         </div>
       </div>
       <!-- FIN DEL MODAL LISTA DE REPRODUCCI�N -->
-      
+
       <!-- MODAL BORRAR LISTA DE REPRODUCCI�N-->
       <div class="modal fade" id="modalDenominaciones" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -318,14 +318,14 @@
                             <div class="cl"></div>
                            </table>
                         </tbody>
-                        
+
                     </table>
                   </div>
                   <div class="col-sm-8">
                     <div class="modal-body row d-flex justify-content-center mt-5">
                       <label for="horaInicial" class="form-control-label col-sm-3">Hora inicio: </label>
                       <input type="time" class="form-control mr-1 col-sm-2" id="horaInicial">
-                      
+
                       <label for="horaFin" class="form-control-label col-sm-3">Hora fin: </label>
                       <input type="time" class="form-control mr-1 col-sm-2" id="horaFin">
                     </div>
@@ -352,12 +352,12 @@
                               <td class="text-center"><input class="form-check-input ml-1" type="checkbox" value="" style="cursor:pointer;"></td>
                               <td class="text-center"><input class="form-check-input ml-1" type="checkbox" value="" style="cursor:pointer;"></td>
                             </tr>
-                            
+
                         </tbody>
                     </table>
                   </div>
                  </div>
-                  
+
                 </div>
                 <div class="modal-footer">
                   <a id="btnCorteCaja" class="btn btn-warning ml-2"><i class="fas fa-trash-alt"></i> Aceptar</a>

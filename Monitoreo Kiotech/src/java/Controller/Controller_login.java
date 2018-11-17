@@ -41,6 +41,7 @@ public class Controller_login extends HttpServlet {
              //Request for session
              HttpSession sesion= request.getSession(true);
              //Here you set your values to the session
+             sesion.setAttribute("id_usuario", dataUser.getId_usuario());
              sesion.setAttribute("usuario", dataUser.getNombre());
              sesion.setAttribute("correo", dataUser.getCorreo());
              sesion.setAttribute("agencia", dataUser.getAgencia());

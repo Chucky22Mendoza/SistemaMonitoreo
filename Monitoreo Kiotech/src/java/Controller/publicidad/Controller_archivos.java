@@ -38,9 +38,10 @@ public class Controller_archivos {
          try{
             //VALIDAR EL ACCESO CON VARIABLES DE SESIÓN
             HttpSession session = request.getSession();
+            String id = session.getAttribute("id_usuario").toString();
             String user = session.getAttribute("usuario").toString();
             String correo = session.getAttribute("correo").toString();
-            String agencia = session.getAttribute("agencia").toString();            
+            String agencia = session.getAttribute("agencia").toString();          
             //System.err.println("USUARIO " + user + " CORREO " + correo + " AGENCIA " + agencia);
             
             //OBTENEMOS LOS ARCHIVOS DE LA BASE DE DATOS Y LOS GUARDAMOS EN UN ARRAY TIPO ARCHIVO

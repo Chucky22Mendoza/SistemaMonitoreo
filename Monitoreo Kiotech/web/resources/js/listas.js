@@ -1,6 +1,11 @@
+
+
 $(document).ready(function(){
   //$('#modalEditarArchivos').modal('show');
   //$('#modalAgregarArchivos').modal('show');
+  //SELECCIONAR TODOS LOS ROWS
+  $('.cbSelec').prop('checked',false);
+  $('#cbGen').prop('checked',false);
   //SELECCIONAR TODOS LOS ROWS
   $('#cbGen').on('change', function() {
     var cb = $(this).is(':checked');
@@ -8,9 +13,20 @@ $(document).ready(function(){
     if(cb) {
         // Hacer algo si el checkbox ha sido seleccionado
         $('.cbSelec').prop('checked',true);
+        $('#eliminarListas').show();
     } else {
         // Hacer algo si el checkbox no ha sido deseleccionado
     }
+  });
+
+  $('.cbSelec').on('change', function(){
+    var countSel = $('.cbSelec:checked').get().length;
+    if(countSel > 1){
+      $('#eliminarListas').show();
+    }else{
+      $('#eliminarListas').hide();
+    }
+
   });
 
 });
@@ -492,3 +508,83 @@ $('.ico-program').on('click', function(){
       alertify.error("Favor de agregar al menos un archivo");
     }
   });
+
+  $('#eliminarListas').on('click', function(){
+    var countSel = $('.cbSelec:checked').get().length;
+    var listas = $('.cbSelec:checked').get();
+
+    alertify.confirm("¿Desea eliminar el archivo seleccionado?",
+    function(){
+      eliminar_listas(countSel,listas,false,0);
+    },
+    function(){
+      alertify.error('Cancelado');
+    });
+
+
+  });
+
+//var flag_del = false;
+//var contador_del = 0;
+  function eliminar_listas(num_selects,listas){
+
+    for (var i = 0; i < num_selects; i++) {
+      var idList = listas[i].id;
+      //console.log(idList);
+      var datos = {
+        idList : idList
+      };
+      //console.log(datos);
+      $.ajax({
+        type:"POST",
+        url:"Delete_List.htm",
+        data:datos,
+        //MOSTRAMOS SPINNER SI ES TARDADO EL PROCESO
+        beforeSend: function(){
+          showSpinner();
+        },
+        //ERROR
+        error: function(error){
+          removeSpinner();
+          alertify.error("La transacción contiene errores, asegurarse de que ya no esté programada o contenga aún archivos");
+          setTimeout(function(){
+            window.location.assign("listas.htm");
+          }, 7000);
+          return false;
+          //if(flag){
+
+          //}
+        },
+        //SE HA COMPLETADO
+        success:function(r){
+          showSpinner();
+          //TIEMPO DE ESPERA DEL AVISO
+          //flag_del = true;
+          //contador_del++;
+        }
+      });
+    }
+
+    alertify.success("Transacción terminada");
+    setTimeout(function(){
+      window.location.assign("listas.htm");
+    }, 7000);
+
+    /*console.log(flag_del + " - " + contador_del);
+    if(contador_del == num_selects){
+      alertify.success("Guardado correctamente");
+      setTimeout(function(){
+        window.location.assign("listas.htm");
+      }, 1200);
+    }else{
+      if(flag_del){
+        alertify.alert("La transacción se completó con errores, asegurarse de que ya no esté programada o contenga aún archivos");
+        setTimeout(function(){
+          window.location.assign("listas.htm");
+        }, 2000);
+      }else{
+        alertify.alert("La transacción contiene errores, asegurarse de que ya no esté programada o contenga aún archivos");
+      }
+    }*/
+
+  }
