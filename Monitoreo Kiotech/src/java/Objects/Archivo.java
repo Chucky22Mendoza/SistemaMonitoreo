@@ -66,7 +66,4 @@ public class Archivo {
     public void setUbicacion(String ubicacion) {
         this.ubicacion = ubicacion;
     }
-    
-    
-    
 }

@@ -12,7 +12,6 @@ import com.sun.jna.Native;
 import com.sun.jna.NativeLibrary;
 import java.awt.Dimension;
 import java.awt.Image;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -51,6 +50,8 @@ public final class PantallaServicios extends javax.swing.JFrame {
         imagen(img);
         tamañoPantalla();
         cambiarLibrerias();
+        //Lista lista = new Lista();
+        //lista.setVisible(true);
         reproducirVideo();
         setLocationRelativeTo(null);
     }
@@ -169,32 +170,38 @@ public final class PantallaServicios extends javax.swing.JFrame {
 
     private EmbeddedMediaPlayerComponent player;
     List<archivoVideo> file = new ArrayList<archivoVideo>();
-    
+
     //Método para reproducir el video en la pantalla
     public void reproducirVideo() {
-        MediaPlayerFactory mediaPlayerFactory = new MediaPlayerFactory();
-        EmbeddedMediaPlayer mediaPlayer = mediaPlayerFactory.newEmbeddedMediaPlayer(new Win32FullScreenStrategy(this));
-        player = new EmbeddedMediaPlayerComponent();
-        //se añade reproductor 
-        video.add(player);
-        player.setSize(video.getSize());
-        player.setVisible(true);
-        //player.getMediaPlayer().playMedia(file.getAbsolutePath());
-        //player.getMediaPlayer().playMedia("C:\\Users\\mario\\Desktop\\SistemaMonitoreo\\Publicidad\\src\\Video\\Prueba.mp4");
+        List<archivoVideo> hora = new ArrayList<archivoVideo>();
+        Envio envio = new Envio();
+        String hour;
+        hora = new GetFile().obtenerHora();
 
-        try {
-            //Prepara el video a reproducir
-            //File folder = new File("C:\\\\Users\\\\mario\\\\Desktop\\\\SistemaMonitoreo\\\\Publicidad\\\\src\\\\Video");
-            //File folder = new File("http://192.168.1.139:1080/smp/Publicidad/src/Video/Kiosco_2/");// + Envio.getKiosko());
-            //File[] listOfFiles = folder.listFiles();
+        if (!hora.isEmpty()) {
+            MediaPlayerFactory mediaPlayerFactory = new MediaPlayerFactory();
+            EmbeddedMediaPlayer mediaPlayer = mediaPlayerFactory.newEmbeddedMediaPlayer(new Win32FullScreenStrategy(this));
+            player = new EmbeddedMediaPlayerComponent();
+            //se añade reproductor 
+            video.add(player);
+            player.setSize(video.getSize());
+            player.setVisible(true);
+            //player.getMediaPlayer().playMedia(file.getAbsolutePath());
+            //player.getMediaPlayer().playMedia("C:\\Users\\mario\\Desktop\\SistemaMonitoreo\\Publicidad\\src\\Video\\Prueba.mp4");
 
-            recargaLista();
-            cargarMedia(mediaPlayer);            
+            try {
+                //Prepara el video a reproducir
+                //File folder = new File("C:\\\\Users\\\\mario\\\\Desktop\\\\SistemaMonitoreo\\\\Publicidad\\\\src\\\\Video");
+                //File folder = new File("http://192.168.1.139:1080/smp/Publicidad/src/Video/Kiosco_2/");// + Envio.getKiosko());
+                //File[] listOfFiles = folder.listFiles();
 
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error en " + e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+                recargaLista();
+                cargarMedia(mediaPlayer);
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Error en " + e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
         }
-
     }
 
     int archivo = -1;
@@ -217,7 +224,7 @@ public final class PantallaServicios extends javax.swing.JFrame {
                     @Override
                     public void run() {
                         if (!prueba.isPlaying()) {
-                            timer.cancel();                            
+                            timer.cancel();
                         }
                     }
                 };
@@ -227,7 +234,7 @@ public final class PantallaServicios extends javax.swing.JFrame {
             @Override
             public void finished(MediaPlayer prueba) {
                 if (archivo == (file.size() - 1)) {
-                    recargaLista();                    
+                    recargaLista();
                     list.recargaLista();
                     archivo = -1;
                     try {
@@ -246,7 +253,7 @@ public final class PantallaServicios extends javax.swing.JFrame {
                     prueba.removeMediaPlayerEventListener(this);
                 }
             }
-            
+
             @Override
             public void error(MediaPlayer prueba) {
                 try {
@@ -258,7 +265,7 @@ public final class PantallaServicios extends javax.swing.JFrame {
             }
         });
     }
-    
+
     //Método para obtener la ruta del archivo
     public String rutaArchivo() {
         return file.get(archivo).getUbicacion();
@@ -274,9 +281,9 @@ public final class PantallaServicios extends javax.swing.JFrame {
         //Obtiene la extensión del archivo        
         return FilenameUtils.getExtension(ruta);
     }
-    
+
     //Método para recargar
-    public void recargaLista(){
+    public void recargaLista() {
         Envio envio = new Envio();
         file = new GetFile().obtenerArchivo(envio);
     }
@@ -284,7 +291,7 @@ public final class PantallaServicios extends javax.swing.JFrame {
     //Método para leer librerias directas del VLC de 64 bits
     static void cambiarLibrerias() {
         NativeLibrary.addSearchPath(
-        RuntimeUtil.getLibVlcLibraryName(), "C:\\Program Files\\VideoLAN\\VLC");
+                RuntimeUtil.getLibVlcLibraryName(), "C:\\Program Files\\VideoLAN\\VLC");
         Native.loadLibrary(RuntimeUtil.getLibVlcLibraryName(), LibVlc.class);
         LibXUtil.initialise();
     }
