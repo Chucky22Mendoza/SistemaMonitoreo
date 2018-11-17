@@ -199,8 +199,8 @@ public final class PantallaServicios extends javax.swing.JFrame {
                 //File[] listOfFiles = folder.listFiles();
 
                 recargaLista();
-                checarNuevasListas checar = new checarNuevasListas();
-                checar.start();
+                /*checarNuevasListas checar = new checarNuevasListas();
+                checar.start();*/
                 cargarMedia(mediaPlayer);
 
             } catch (Exception e) {

@@ -117,8 +117,8 @@ public final class PantallaExclusiva extends javax.swing.JFrame {
             try {
                 file = new GetFile().obtenerArchivo();
                 
-                checarNuevasListas checar = new checarNuevasListas();
-                checar.start();
+                /*checarNuevasListas checar = new checarNuevasListas();
+                checar.start();*/
                 
                 cargarMedia(mediaPlayer);
             } catch (Exception e) {
@@ -170,8 +170,7 @@ public final class PantallaExclusiva extends javax.swing.JFrame {
         //mediaPlayer.prepareMedia("C:\\Users\\mario\\Desktop\\SistemaMonitoreo\\Publicidad\\src\\Video\\" + listOfFiles[archivo].getName());
         String ruta = rutaArchivo();
         String extension = extensionArchivo(ruta);
-        int duracion = duracionMedio();
-        System.out.println("DURACIÓN: " + (duracion * 1000 - 800));
+        int duracion = duracionMedio();        
 
         /*if (!"".equals(ruta) || duracion != 0) {
             if (extension.equalsIgnoreCase("PNG") || extension.equalsIgnoreCase("ICO") || extension.equalsIgnoreCase("JPG") || extension.equalsIgnoreCase("BMP") || extension.equalsIgnoreCase("TIF") || extension.equalsIgnoreCase("JPGE")) {

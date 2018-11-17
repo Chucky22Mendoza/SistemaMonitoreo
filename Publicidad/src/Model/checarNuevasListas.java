@@ -17,9 +17,6 @@ public class checarNuevasListas extends Thread {
     
     List<archivoVideo> hora = new ArrayList<archivoVideo>();
     List<archivoVideo> horaComp = new ArrayList<archivoVideo>();
-    Lista list = new Lista();
-    PantallaExclusiva pantE = new PantallaExclusiva();
-    PantallaServicios pantS = new PantallaServicios();
     
     public void run(){
         try {
@@ -27,6 +24,9 @@ public class checarNuevasListas extends Thread {
                 TimerTask task = new TimerTask() {
                     @Override
                     public void run() {
+                        Lista list = new Lista();
+                        PantallaExclusiva pantE = new PantallaExclusiva();
+                        PantallaServicios pantS = new PantallaServicios();
                         hora = list.mandarHoras();
                         horaComp = new GetFile().obtenerHora();  
                         

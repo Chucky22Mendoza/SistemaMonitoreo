@@ -173,7 +173,7 @@ public final class Lista extends javax.swing.JFrame {
 
     //Método para obtener el día del sistema
     public void obtencionDia() {
-        String dia = "";  
+        String dia = "";          
         switch (c.get(Calendar.DAY_OF_WEEK)) {
             case 1:
                 dia = "DOMINGO";
