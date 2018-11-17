@@ -283,9 +283,8 @@ public final class PantallaServicios extends javax.swing.JFrame {
     }
 
     //Método para recargar
-    public void recargaLista() {
-        Envio envio = new Envio();
-        file = new GetFile().obtenerArchivo(envio);
+    public void recargaLista() {        
+        file = new GetFile().obtenerArchivo();
     }
 
     //Método para leer librerias directas del VLC de 64 bits

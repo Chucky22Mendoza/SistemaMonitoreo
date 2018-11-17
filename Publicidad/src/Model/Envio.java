@@ -88,14 +88,23 @@ public class Envio {
     }
 
     //Hora inicial de la lista de reproducción del kiosko correspondiente y el día que es
-    public static String horaInicio;
+    public static int horaInicio;
+    public static int minutoInicio;
 
-    public static String getHoraInicio() {
+    public static int getHoraInicio() {
         return horaInicio;
     }
 
-    public static void setHoraInicio(String horaInicio) {
+    public static void setHoraInicio(int horaInicio) {
         Envio.horaInicio = horaInicio;
+    }
+
+    public static int getMinutoInicio() {
+        return minutoInicio;
+    }
+
+    public static void setMinutoInicio(int minutoInicio) {
+        Envio.minutoInicio = minutoInicio;
     }
     
     public static String dia;

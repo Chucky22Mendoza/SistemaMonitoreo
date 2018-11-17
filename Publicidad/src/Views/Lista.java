@@ -8,12 +8,8 @@ package Views;
 import GetData.GetFile;
 import Model.Envio;
 import Model.archivoVideo;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.sql.Date;
-import java.sql.Timestamp;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -29,7 +25,7 @@ public final class Lista extends javax.swing.JFrame {
      */
     public Lista() {
         initComponents();
-        obtencionDia();
+        obtencionDia();        
         llenadoHoras();
         recargaLista();
         setLocationRelativeTo(null);
@@ -45,27 +41,30 @@ public final class Lista extends javax.swing.JFrame {
 
     //Método para recargar lista de reproducción
     public void recargaLista() {
-        Envio envio = new Envio();
-        file = new GetFile().obtenerArchivo(envio);
+        obtencionDia();        
+        llenadoHoras();
+        file = new GetFile().obtenerArchivo();
         llenadoTabla();
     }
-
-    int horaInicio[] = new int[hora.size()];
+    
+    public void recargaHora(){
+        hora = new GetFile().obtenerHora();  
+        horaInicio = new int [hora.size()];
+    }
+    
+    int horaInicio[];
 
     //Método para el llenado del vextor de la hora de inicio
     public void llenadoHoras() {
-        Envio envio = new Envio();
         String hour;
-        hora = new GetFile().obtenerHora();
+        recargaHora();        
 
         if (hora.isEmpty()) {
             JOptionPane.showMessageDialog(null, "No hay listas cargadas en el servidor para este kiosko", "SIN LISTAS DE REPRODUCCION", JOptionPane.WARNING_MESSAGE);
         } else {
-            System.out.println("ENTRO");            
-
             for (int i = 0; i < hora.size(); i++) {
-                hour = hora.get(i).getHoraInicio().toString() + hora.get(i).getMinutosInicio();
-                horaInicio[i] = Integer.parseInt(hour);
+                hour = "" + hora.get(i).getHoraInicio() + hora.get(i).getMinutosInicio();
+                horaInicio[i] = Integer.parseInt(hour);                
             }
             obtencionLista();
         }
@@ -75,31 +74,31 @@ public final class Lista extends javax.swing.JFrame {
     public void obtencionLista() {
         String hor = obtencionHora();
         String min = obtencionMinutos();
-        String prueba = hor + min;
-        System.out.println("ENTRADA: " + prueba);
+        String prueba = hor + min;        
         int hour = Integer.parseInt(prueba);
-        Integer horaLista = 0, guardar = 0;
+        Integer lista = 0, guardar = 0;
 
-        for (int i = 0; i < horaInicio.length; i++) {
+        for (int i = 0; i < horaInicio.length; i++) {            
             if (hour == horaInicio[i]) {
-                horaLista = horaInicio[i];
+                lista = i;                
                 break;
             } else {
                 if (hour < horaInicio[i]) {
-                    guardar = horaInicio[i];
+                    guardar = i;                    
                 } else {
                     if (hour > horaInicio[i]) {
-                        horaLista = guardar;
+                        if (guardar == 0) {
+                            lista = i;                            
+                        } else {
+                            lista = guardar;                            
+                        }
                         break;
                     }
                 }
             }
         }
-
-        prueba = hor + ":" + min;
-        System.out.println("SALIDA: " + prueba);
-
-        Envio.setHoraInicio(prueba);
+        Envio.setHoraInicio(hora.get(lista).getHoraInicio());
+        Envio.setMinutoInicio(hora.get(lista).getMinutosInicio());
     }
 
     //Método para llenado de la tabla 
@@ -169,34 +168,33 @@ public final class Lista extends javax.swing.JFrame {
 
     //Método para obtener el día del sistema
     public void obtencionDia() {
-        String dia = "";
-        System.out.println("DIA" + c.get(Calendar.DAY_OF_WEEK));
+        String dia = "";  
         switch (c.get(Calendar.DAY_OF_WEEK)) {
-            case 0:
+            case 1:
                 dia = "DOMINGO";
                 break;
 
-            case 1:
+            case 2:
                 dia = "LUNES";
                 break;
 
-            case 2:
+            case 3:
                 dia = "MARTES";
                 break;
 
-            case 3:
+            case 4:
                 dia = "MIERCOLES";
                 break;
 
-            case 4:
+            case 5:
                 dia = "JUEVES";
                 break;
 
-            case 5:
+            case 6:
                 dia = "VIERNES";
                 break;
 
-            case 6:
+            case 7:
                 dia = "SABADO";
                 break;
         }
