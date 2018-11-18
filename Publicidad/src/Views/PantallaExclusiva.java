@@ -12,15 +12,11 @@ import Model.checarNuevasListas;
 import java.awt.Dimension;
 import com.sun.jna.Native;
 import com.sun.jna.NativeLibrary;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import org.apache.commons.io.FilenameUtils;
 import uk.co.caprica.vlcj.binding.LibVlc;
@@ -42,8 +38,6 @@ public final class PantallaExclusiva extends javax.swing.JFrame {
     /**
      * Creates new form PantallaExclusiva
      */
-    Lista list = new Lista();
-
     public PantallaExclusiva() {
         initComponents();
         tamañoPantalla();
@@ -51,6 +45,7 @@ public final class PantallaExclusiva extends javax.swing.JFrame {
         this.setVisible(true);
         this.setLocation(Envio.getPosicion(), Envio.getTamaño());
         cambiarLibrerias();
+        Lista list = new Lista();
         list.setVisible(true);
         reproducirVideo();
     }
@@ -97,7 +92,7 @@ public final class PantallaExclusiva extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     int duracion;
-    int archivo = -1;
+    static int archivo = -1;
     private EmbeddedMediaPlayerComponent player;
 
     //Método que ejecuta el video
@@ -116,10 +111,9 @@ public final class PantallaExclusiva extends javax.swing.JFrame {
 
             try {
                 file = new GetFile().obtenerArchivo();
-                
-                /*checarNuevasListas checar = new checarNuevasListas();
-                checar.start();*/
-                
+
+                checarNuevasListas checar = new checarNuevasListas();
+                checar.start();
                 cargarMedia(mediaPlayer);
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Error en " + e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -138,16 +132,20 @@ public final class PantallaExclusiva extends javax.swing.JFrame {
 
     //Método para obtener la ruta del archivo
     public String rutaArchivo() {
-        return file.get(archivo).getUbicacion();
+        if (file.isEmpty()) {
+            return "";
+        } else {
+            return file.get(archivo).getUbicacion();
+        }
     }
 
     //Método para obtener la duracion del medio
     public int duracionMedio() {
         return file.get(archivo).getDuracion();
     }
-    
+
     //Método para reinicializar variable archivo
-    public void reinicializarArchivo(){
+    public static void reinicializarArchivo() {
         archivo = -1;
     }
 
@@ -169,10 +167,11 @@ public final class PantallaExclusiva extends javax.swing.JFrame {
         archivo++;
         //mediaPlayer.prepareMedia("C:\\Users\\mario\\Desktop\\SistemaMonitoreo\\Publicidad\\src\\Video\\" + listOfFiles[archivo].getName());
         String ruta = rutaArchivo();
-        String extension = extensionArchivo(ruta);
-        int duracion = duracionMedio();        
+        if (!ruta.equalsIgnoreCase("")) {
+            //String extension = extensionArchivo(ruta);
+            int duracion = duracionMedio();
 
-        /*if (!"".equals(ruta) || duracion != 0) {
+            /*if (!"".equals(ruta) || duracion != 0) {
             if (extension.equalsIgnoreCase("PNG") || extension.equalsIgnoreCase("ICO") || extension.equalsIgnoreCase("JPG") || extension.equalsIgnoreCase("BMP") || extension.equalsIgnoreCase("TIF") || extension.equalsIgnoreCase("JPGE")) {
                 //Método que se ejecuta si es imagen el archivo            
                 imagen.setVisible(true);
@@ -200,64 +199,63 @@ public final class PantallaExclusiva extends javax.swing.JFrame {
                 System.out.println(archivo);
 
             } else {*/
-        //Método que se ejecuta si el archivo es video
-        player.setVisible(true);
-        player.getMediaPlayer().playMedia(ruta);
-        System.out.println(ruta);
-        player.getMediaPlayer().addMediaPlayerEventListener(new MediaPlayerEventAdapter() {
-            @Override
-            public void playing(MediaPlayer prueba) {
-                Timer timer = new Timer();
-                TimerTask task = new TimerTask() {
-                    @Override
-                    public void run() {
-                        prueba.stop();
-                        if (!prueba.isPlaying()) {
-                            timer.cancel();
+            //Método que se ejecuta si el archivo es video
+            player.setVisible(true);
+            player.getMediaPlayer().playMedia(ruta);
+            System.out.println(ruta);
+            player.getMediaPlayer().addMediaPlayerEventListener(new MediaPlayerEventAdapter() {
+                @Override
+                public void playing(MediaPlayer prueba) {
+                    Timer timer = new Timer();
+                    TimerTask task = new TimerTask() {
+                        @Override
+                        public void run() {
+                            prueba.stop();
+                            if (!prueba.isPlaying()) {
+                                timer.cancel();
+                            }
                         }
+                    };
+                    timer.schedule(task, 10, (duracion * 1000 - 800));
+                }
+
+                @Override
+                public void finished(MediaPlayer prueba) {
+                    if (archivo == (file.size() - 1)) {
+                        archivo = -1;
+
+                        recargaLista();
+                        Lista.recargaLista();
+
+                        cargarMedia(mediaPlayer);
+
+                        prueba.removeMediaPlayerEventListener(this);
+                    } else {
+                        cargarMedia(mediaPlayer);
+                        System.out.println(archivo);
+                        prueba.removeMediaPlayerEventListener(this);
                     }
-                };
-                timer.schedule(task, 10, (duracion * 1000 - 800));
-            }
 
-            @Override
-            public void finished(MediaPlayer prueba) {
-                if (archivo == (file.size() - 1)) {
-                    archivo = -1;
-
-                    recargaLista();
-                    list.recargaLista();
-
-                    cargarMedia(mediaPlayer);
-
-                    prueba.removeMediaPlayerEventListener(this);
-                } else {
-
-                    cargarMedia(mediaPlayer);
-                    System.out.println(archivo);
-                    prueba.removeMediaPlayerEventListener(this);
                 }
 
-            }
+                @Override
+                public void error(MediaPlayer prueba) {
+                    if (archivo == (file.size() - 1)) {
+                        archivo = -1;
 
-            @Override
-            public void error(MediaPlayer prueba) {
-                if (archivo == (file.size() - 1)) {
-                    archivo = -1;
+                        recargaLista();
+                        Lista.recargaLista();
 
-                    recargaLista();
-                    list.recargaLista();
+                        cargarMedia(mediaPlayer);
 
-                    cargarMedia(mediaPlayer);
-
-                    prueba.removeMediaPlayerEventListener(this);
-                } else {
-                    cargarMedia(mediaPlayer);
-                    prueba.removeMediaPlayerEventListener(this);
+                        prueba.removeMediaPlayerEventListener(this);
+                    } else {
+                        cargarMedia(mediaPlayer);
+                        prueba.removeMediaPlayerEventListener(this);
+                    }
                 }
-            }
-        });
-        /*    }
+            });
+            /*    }
 
         } else {
             try {
@@ -266,6 +264,7 @@ public final class PantallaExclusiva extends javax.swing.JFrame {
                 Logger.getLogger(PantallaExclusiva.class.getName()).log(Level.SEVERE, null, ex);
             }
         }*/
+        }
     }
 
     //Método para leer librerias directas del VLC de 64 bits

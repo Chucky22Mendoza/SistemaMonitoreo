@@ -13,14 +13,10 @@ import com.sun.jna.Native;
 import com.sun.jna.NativeLibrary;
 import java.awt.Dimension;
 import java.awt.Image;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -41,8 +37,6 @@ import uk.co.caprica.vlcj.runtime.x.LibXUtil;
  */
 public final class PantallaServicios extends javax.swing.JFrame {
 
-    
-    Lista lista = new Lista();
     /**
      * Creates new form PantallaServicios
      *
@@ -53,8 +47,8 @@ public final class PantallaServicios extends javax.swing.JFrame {
         imagen(img);
         tamañoPantalla();
         cambiarLibrerias();
-        
-        lista.setVisible(true);
+
+        list.setVisible(true);
         reproducirVideo();
         setLocationRelativeTo(null);
     }
@@ -189,18 +183,12 @@ public final class PantallaServicios extends javax.swing.JFrame {
             video.add(player);
             player.setSize(video.getSize());
             player.setVisible(true);
-            //player.getMediaPlayer().playMedia(file.getAbsolutePath());
-            //player.getMediaPlayer().playMedia("C:\\Users\\mario\\Desktop\\SistemaMonitoreo\\Publicidad\\src\\Video\\Prueba.mp4");
 
             try {
                 //Prepara el video a reproducir
-                //File folder = new File("C:\\\\Users\\\\mario\\\\Desktop\\\\SistemaMonitoreo\\\\Publicidad\\\\src\\\\Video");
-                //File folder = new File("http://192.168.1.139:1080/smp/Publicidad/src/Video/Kiosco_2/");// + Envio.getKiosko());
-                //File[] listOfFiles = folder.listFiles();
-
                 recargaLista();
-                /*checarNuevasListas checar = new checarNuevasListas();
-                checar.start();*/
+                checarNuevasListas checar = new checarNuevasListas();
+                checar.start();
                 cargarMedia(mediaPlayer);
 
             } catch (Exception e) {
@@ -209,70 +197,84 @@ public final class PantallaServicios extends javax.swing.JFrame {
         }
     }
 
-    int archivo = -1;
+    static int archivo = -1;
     Lista list = new Lista();
 
     public void cargarMedia(EmbeddedMediaPlayer mediaPlayer) {
         archivo++;
         String ruta = rutaArchivo();
-        String extension = extensionArchivo(ruta);
-        int duracion = duracionMedio();
-        player.getMediaPlayer().playMedia(ruta);
-        System.out.println(ruta);
-        //player.getMediaPlayer().playMedia("C:\\Users\\mario\\Desktop\\SistemaMonitoreo\\Publicidad\\src\\Video\\" + listOfFiles[archivo].getName());
-        //mediaPlayer.prepareMedia("http://192.168.1.139:1080/smp/Publicidad/src/Video/Kiosco_" + kiosko + "/" + listOfFiles[archivo].getName()); //Servidor
-        player.getMediaPlayer().addMediaPlayerEventListener(new MediaPlayerEventAdapter() {
-            @Override
-            public void playing(MediaPlayer prueba) {
-                Timer timer = new Timer();
-                TimerTask task = new TimerTask() {
-                    @Override
-                    public void run() {
-                        prueba.stop();
-                        if (!prueba.isPlaying()) {
-                            timer.cancel();
+        if (!ruta.equalsIgnoreCase("")) {
+            int duracion = duracionMedio();
+            player.getMediaPlayer().playMedia(ruta);
+            System.out.println(ruta);
+            //player.getMediaPlayer().playMedia("C:\\Users\\mario\\Desktop\\SistemaMonitoreo\\Publicidad\\src\\Video\\" + listOfFiles[archivo].getName());
+            //mediaPlayer.prepareMedia("http://192.168.1.139:1080/smp/Publicidad/src/Video/Kiosco_" + kiosko + "/" + listOfFiles[archivo].getName()); //Servidor
+            player.getMediaPlayer().addMediaPlayerEventListener(new MediaPlayerEventAdapter() {
+                @Override
+                public void playing(MediaPlayer prueba) {
+                    Timer timer = new Timer();
+                    TimerTask task = new TimerTask() {
+                        @Override
+                        public void run() {
+                            prueba.stop();
+                            if (!prueba.isPlaying()) {
+                                timer.cancel();
+                            }
                         }
-                    }
-                };
-                timer.schedule(task, 10, (duracion * 1000 - 800));
-            }
-
-            @Override
-            public void finished(MediaPlayer prueba) {
-                if (archivo == (file.size() - 1)) {
-                    recargaLista();
-                    list.recargaLista();
-                    archivo = -1;
-
-                    cargarMedia(mediaPlayer);
-
-                    prueba.removeMediaPlayerEventListener(this);
-                } else {
-
-                    cargarMedia(mediaPlayer);
-
-                    System.out.println(archivo);
-                    prueba.removeMediaPlayerEventListener(this);
+                    };
+                    timer.schedule(task, 10, (duracion * 1000 - 800));
                 }
-            }
 
-            @Override
-            public void error(MediaPlayer prueba) {
+                @Override
+                public void finished(MediaPlayer prueba) {
+                    if (archivo == (file.size() - 1)) {
+                        recargaLista();
+                        Lista.recargaLista();
+                        archivo = -1;
 
-                cargarMedia(mediaPlayer);
+                        cargarMedia(mediaPlayer);
 
-                prueba.removeMediaPlayerEventListener(this);
-            }
-        });
+                        prueba.removeMediaPlayerEventListener(this);
+                    } else {
+
+                        cargarMedia(mediaPlayer);
+
+                        System.out.println(archivo);
+                        prueba.removeMediaPlayerEventListener(this);
+                    }
+                }
+
+                @Override
+                public void error(MediaPlayer prueba) {
+                    if (archivo == (file.size() - 1)) {
+                        archivo = -1;
+
+                        recargaLista();
+                        Lista.recargaLista();
+
+                        cargarMedia(mediaPlayer);
+
+                        prueba.removeMediaPlayerEventListener(this);
+                    } else {
+                        cargarMedia(mediaPlayer);
+                        prueba.removeMediaPlayerEventListener(this);
+                    }
+                }
+            });
+        }
     }
 
     //Método para obtener la ruta del archivo
     public String rutaArchivo() {
-        return file.get(archivo).getUbicacion();
+        if (file.isEmpty()) {
+            return "";
+        } else {
+            return file.get(archivo).getUbicacion();
+        }
     }
-    
+
     //Método para reinicializar variable archivo
-    public void reinicializarArchivo(){
+    public static void reinicializarArchivo() {
         archivo = -1;
     }
 

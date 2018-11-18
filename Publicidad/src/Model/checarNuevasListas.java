@@ -23,17 +23,14 @@ public class checarNuevasListas extends Thread {
             Timer timer = new Timer();
                 TimerTask task = new TimerTask() {
                     @Override
-                    public void run() {
-                        Lista list = new Lista();
-                        PantallaExclusiva pantE = new PantallaExclusiva();
-                        PantallaServicios pantS = new PantallaServicios();
-                        hora = list.mandarHoras();
+                    public void run() {                        
+                        hora = Lista.mandarHoras();
                         horaComp = new GetFile().obtenerHora();  
                         
                         if (hora.size() != horaComp.size()) {
-                            pantE.reinicializarArchivo();
-                            pantS.reinicializarArchivo();
-                            list.recargaLista();
+                            PantallaExclusiva.reinicializarArchivo();
+                            PantallaServicios.reinicializarArchivo();
+                            Lista.recargaLista();
                         }
                     }
                 };
