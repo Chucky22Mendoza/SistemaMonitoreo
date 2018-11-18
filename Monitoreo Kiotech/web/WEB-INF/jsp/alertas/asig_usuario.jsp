@@ -94,7 +94,7 @@
                 </label>
             </div>
             <div class="d-flex justify-content-end">
-                <button type="button" name="button" class="btn btn-info" style="cursor:pointer;">
+                <button type="button" name="button" class="btn btn-info" style="cursor:pointer;" data-toggle="modal" data-target="#asignarAlertaUsuario">
                 <i class="fa fa-users"> </i>
                  Asignar Elementos</button>
             </div>
@@ -122,10 +122,10 @@
                 <td class="text-center">${dato.celular}</td>
 
                 <td class="text-center">
-                  <a id="${dato.id}" name="${dato.nombre}" value="" class="ico-conf" data-toggle="modal" data-target="#kioskoUsuario">
+                  <a id="${dato.id}" name="${dato.nombre}" value="" class="ico-conf" data-toggle="modal" data-target="#alertasUsuario">
                     <i class="fas fa-desktop icono"></i>
                   </a>
-                  <a id="${dato.id}" name="${dato.nombre}" value="" class="ico-conf" data-toggle="modal" data-target="#">
+                  <a id="${dato.id}" name="${dato.nombre}" value="" class="ico-conf" data-toggle="modal" data-target="#kioskoUsuario">
                     <i class="fas fa-exclamation-triangle icono"></i>
                   </a>
                 </td>
@@ -135,19 +135,57 @@
         </table>
     </div>
 
-    <!-- MODAL EDITAR ARCHIVO-->
+    <!-- MODAL KIOSCOS ASIGNADOS AL USUARIO-->
     <div class="modal fade" id="kioskoUsuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <div id="titleModal">Kioscos asignados a </div>
+            <div id="tituloModal">Alertas asignadas a </div>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+            <form id="EditarFile">
+              <div id="modal-body" class="modal-body">
+                <div class="form-check right float-right">
+                    <input class="form-check-input ml-4" type="checkbox" value="" id="cbGen" style="cursor:pointer;">
+                    <label class="form-check-label ml-4" for="cbGen">
+                     Seleccionar todos
+                    </label>
+                </div>
+                <table class="table table-hover mt-2">
+                  <thead class="">
+                    <tr>
+                      <th scope="col" class="text-center">ID</th>
+                      <th scope="col" class="text-center">Evento (tipo de alerta)</th>
+                      <th scope="col" class="text-center">Activo</th>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button id="saveArchivo" class="btn btn-success ml-2">Guardar</button>
+              </div>
+            </form>
+        </div>
+      </div>
+    </div>
+    <!-- FIN DEL MODAL KISCOS ASIGNADOS AL USUARIO -->
+
+    <!-- MODAL ALERTAS ASIGNADAS AL USUARIO-->
+    <div class="modal fade" id="alertasUsuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div id="tituModal">Kioscos asignados a </div>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
             <form id="EditFile">
-              <div id="modal-body" class="modal-body">
-                <div class="form-check right">
+              <div id="modal-cuerpo" class="modal-body">
+                <div class="form-check right float-right">
                     <input class="form-check-input ml-4" type="checkbox" value="" id="cbGen" style="cursor:pointer;">
                     <label class="form-check-label ml-4" for="cbGen">
                      Seleccionar todos
@@ -165,13 +203,78 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                <button id="updateArchivo" class="btn btn-success ml-2">Guardar</button>
+                <button id="guardarArchivo" class="btn btn-success ml-2">Guardar</button>
               </div>
             </form>
         </div>
       </div>
     </div>
-    <!-- FIN DEL MODAL EDITAR ARCHIVO -->
+    <!-- FIN DEL MODAL ALERTAS ASIGNADAS AL USUARIO -->
+
+    <!-- MODAL KIOSCOS ASIGNAR ALERTAS AL USUARIO-->
+    <div class="modal fade bd-example-modal-lg" id="asignarAlertaUsuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div id="tiModal">Asignar alertas a usuarios</div>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+            <form id="EditarFile">
+              <div id="modal-body" class="modal-body">
+                <div class="row">
+                  <div class="col-md-4">
+                    <p>Usuarios seleccionados (..)</p>
+                    <hr>
+                    <div class="mt-2">
+                      AQUI VAN LOS USUARIOS
+                    </div>
+                    <hr>
+                      <p class="mt-5">Enviar alertas a través de</p>
+                      <hr>
+                        <div class="form-check right float-center mt-2">
+                            <input class="form-check-input ml-4" type="checkbox" value="" id="cbGen" style="cursor:pointer;">
+                            <label class="form-check-label ml-4" for="cbGen">
+                             Correo electrónico
+                            </label>
+                        </div>
+                        <div class="form-check right float-center mt-2">
+                            <input class="form-check-input ml-4" type="checkbox" value="" id="cbGen" style="cursor:pointer;">
+                            <label class="form-check-label ml-4" for="cbGen">
+                             Mensajes de texto
+                            </label>
+                        </div>
+                      <hr>
+                  </div>
+                  <div class="col-md-8">
+                    <div class="form-check right float-right">
+                        <input class="form-check-input ml-4" type="checkbox" value="" id="cbGen" style="cursor:pointer;">
+                        <label class="form-check-label ml-4" for="cbGen">
+                         Seleccionar todos
+                        </label>
+                    </div>
+                    <table class="table table-hover mt-2">
+                      <thead class="">
+                        <tr>
+                          <th scope="col" class="text-center">ID</th>
+                          <th scope="col" class="text-center">Evento (tipo de alerta)</th>
+                          <th scope="col" class="text-center">Activo</th>
+                        </tr>
+                      </thead>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button id="saveArchivo" class="btn btn-success ml-2">Guardar</button>
+              </div>
+            </form>
+        </div>
+      </div>
+    </div>
+    <!-- FIN DEL MODAL ASIGNAR ALERTAS AL USUARIO -->
 
         <script defer src="https://use.fontawesome.com/releases/v5.0.12/js/all.js" integrity="sha384-Voup2lBiiyZYkRto2XWqbzxHXwzcm4A5RfdfG6466bu5LqjwwrjXCMBQBLMWh7qR" crossorigin="anonymous"></script>
       <script src="${jquery}"></script>
