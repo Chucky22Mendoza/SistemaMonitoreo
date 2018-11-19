@@ -1,6 +1,7 @@
 package modelo;
 
 import GetData.GetDataUser;
+
 import Objects.Kiosco;
 import Objects.Session;
 import controlador.ControladorServidor;
@@ -13,14 +14,8 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
-import vista.IVista;
 
 
 public class ModeloServidor extends Thread {
@@ -35,7 +30,7 @@ public class ModeloServidor extends Thread {
     public void setControlador(ControladorServidor controlador){
         this.controlador = controlador;
     }
-    
+     
     public void abrirPuerto(){
         try {
             sk = new ServerSocket(PUERTO);
@@ -43,9 +38,9 @@ public class ModeloServidor extends Thread {
             Logger.getLogger(ModeloServidor.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
     public void esperarAlCliente(){
         try {
+            
             socket = sk.accept();
         } catch (IOException ex) {
             Logger.getLogger(ModeloServidor.class.getName()).log(Level.SEVERE, null, ex);
@@ -114,13 +109,23 @@ public class ModeloServidor extends Thread {
          return s;
     }
     
+     public int UpdateStatusKiosco(int id_kiosco,int señal_bandera) {
+         GetDataUser data=new GetDataUser();
+         int result=data.GetUpdateKiosco(id_kiosco,señal_bandera);
+         return result;
+     }
+    
    boolean bandera=false;
    Session Usuario2;
    String NombreUsuario;
    Kiosco resultado;
+   int señal_bandera;
     public void run(){
        
         while(true){
+            
+            
+            
         if (bandera==false){
             NombreUsuario = recibirMensaje();
             String password = recibirPassword();
@@ -146,19 +151,42 @@ public class ModeloServidor extends Thread {
           
             if (bandera==true) {
                 String mensaje=recibirMensaje();
+                
+                
                 if(mensaje.equals("Solicito Status")){
-                controlador.agnadirMensajeATrasiego("El cliente solicito SU STATUS");
+                controlador.agnadirMensajeATrasiego("El cliente"+ NombreUsuario +"solicito SU STATUS");
                 
                 resultado = ConsultarStatusKiosco(Usuario2.getId());
                 
                   if (resultado.isStatus()==true) {
-                     enviarMensaje("Tu Status esta ACTIVO"); 
-                  }else {
-                     enviarMensaje("Tu Sstatus esta en MANTENIMEINTO"); 
+                     enviarMensaje("Tu Status esta en MANTENIMIENTO"); 
+                  }if(resultado.isStatus()==false){
+                     enviarMensaje("Tu Sstatus esta ACTIVO"); 
                   }
+                  
+                }
+                if(mensaje.equals("Modifico Status")){
+                    resultado = ConsultarStatusKiosco(Usuario2.getId()); //consulta el status nuevamente, por si da click en modificar status antes de consultarlo
+                    System.out.println(resultado.isStatus());
+                    
+                    if (resultado.isStatus()==true) {
+                         señal_bandera=1;//se modificara a falso el status del kiosco a Activo
+                    } if (resultado.isStatus()==false){
+                         señal_bandera=0; //se modificara a true el status del kiosco A mantenimiento
+                    }
+                       int respuesta=UpdateStatusKiosco(resultado.getId_kisoco(),señal_bandera);
+                        
+                       if (respuesta==1) {
+                         enviarMensaje("Se Modifico con exito"); 
+                       }else {
+                         enviarMensaje("Hubo un error.... intente denuevo"); 
+                       }  
+                        
                 }
             }
      
         }
     }
+
+   
 }

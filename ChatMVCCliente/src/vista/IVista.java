@@ -13,6 +13,7 @@ import controlador.ControladorCliente;
 public interface IVista {
     final String ENVIAR = "ENVIAR";
     final String STATUSMantenimiento = "STATUSMantenimiento";
+    final String ModificarSTATUS = "ModificarSTATUS";
     
     public void habilitarEnviar();
     public void deshabilitarEnviar();

@@ -59,6 +59,13 @@ public class ControladorCliente implements ActionListener {
                 vista.agnadirMensajeATrasiego("......");
                 
                 break;
+                
+              case IVista.ModificarSTATUS:
+                vista.agnadirMensajeATrasiego("Modificando Status");
+                modelo.ModificarStatus();
+                vista.agnadirMensajeATrasiego("......");
+                
+                break;
         }
     }
     

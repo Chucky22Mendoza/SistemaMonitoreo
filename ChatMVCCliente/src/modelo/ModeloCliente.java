@@ -15,6 +15,7 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import vista.VistaJFrame;
@@ -32,6 +33,7 @@ public class ModeloCliente extends Thread {
     BufferedWriter bw;
     String NombreCliente="Default";
     
+
     public void setControlador(ControladorCliente controlador){
         this.controlador = controlador;
     }
@@ -87,6 +89,16 @@ public class ModeloCliente extends Thread {
             Logger.getLogger(ModeloCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public void ModificarStatus(){
+        try {
+            bw.write("Modifico Status");
+            bw.newLine();
+            bw.flush();
+        } catch (IOException ex) {
+            Logger.getLogger(ModeloCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     public String recibirMensaje(){
         try {
@@ -98,6 +110,7 @@ public class ModeloCliente extends Thread {
         return "";
     }
     
+    
     @Override
     public void run(){
         while(true){
@@ -108,6 +121,7 @@ public class ModeloCliente extends Thread {
             VistaJFrame.jButton1.setEnabled(true);
             VistaJFrame.jTextFieldTextoAEnviar.setEnabled(false);
             VistaJFrame.jTextFieldTextoPassword.setEnabled(false);
+            VistaJFrame.jButton2.setEnabled(true);
             }
         }
     }

@@ -98,5 +98,62 @@ public class GetDataUser {
     }
     
     
+    public int GetUpdateKiosco(int id_kiosco, int señal_bandera){
+      boolean nuevoStatus;
+      
+        if (señal_bandera==1) {
+            
+            nuevoStatus=false;
+            //se mandara el status a falso A activo
+            String sql ="Update kiosco set status_mantenimiento = ? where id_kiosco = ?";
+
+            try (Connection dbConnection = dbSource.conectar();CallableStatement consultUser = dbConnection.prepareCall(sql);)
+                {
+              consultUser.setBoolean(1, nuevoStatus);
+              consultUser.setInt(2, id_kiosco);
+              int aux =consultUser.executeUpdate();
+                    if (aux==1) { 
+                        
+                        return 1;
+                    }else{
+                        
+                        return 0;
+                    }
+                }catch(Exception ex){
+                    
+                        System.out.println("Excepcion: "+ ex.getMessage());
+                        return 0;
+                } 
+  
+        }
+        if (señal_bandera==0) {
+             
+           nuevoStatus=true;
+           //se mandara el status a true A ACTIVO
+           String sql ="Update kiosco set status_mantenimiento = ? where id_kiosco = ?";
+
+            try (Connection dbConnection = dbSource.conectar();CallableStatement consultUser = dbConnection.prepareCall(sql);)
+                {
+              consultUser.setBoolean(1, nuevoStatus);
+              consultUser.setInt(2, id_kiosco);
+              int aux =consultUser.executeUpdate();
+                    if (aux==1) {
+                        
+                        return 1;
+                    }else{
+                       
+                        return 0;
+                    }
+                }catch(Exception ex){
+                    
+                        System.out.println("Excepcion: "+ ex.getMessage());
+                        return 0;
+                } 
+        } 
+       return 0;
+    }
+
+    
+    
     
 }
