@@ -123,7 +123,7 @@
           <!--Termina código de pantalla Monitoreo sin selección-->
 
           <!--Inicia código de la vista de la agencia-->
-          <div id="vistaAgencia" class="col-md-10" style="display: none;">
+          <div id="vistaAgencia" class="col-md-10 collapse" >
             <div class="">
               <hr>
               <h4 class="text-center font-weight-bold">Agencia Plaza Zentralia</h4>
@@ -234,7 +234,7 @@
           <!--Termina código de la vista de Agencia-->
 
           <!--Inicia código de la vista de Kioskos-->
-          <div id="vistaKiosko" class="col-md-10" style="display: none;">
+          <div id="vistaKiosko" class="col-md-10 collapse">
             <div class="">
               <hr>
                 <h4 class="font-weight-bold ml-4">Kiosko # - Agencia</h4>

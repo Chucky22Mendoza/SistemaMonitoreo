@@ -35,8 +35,13 @@ public class Controller_home {
             String id = session.getAttribute("id_usuario").toString();
             String user = session.getAttribute("usuario").toString();
             String correo = session.getAttribute("correo").toString();
-            String agencia = session.getAttribute("agencia").toString();            
-            System.err.println("ID "+id +" USUARIO " + user + " CORREO " + correo + " AGENCIA " + agencia);
+            String agencia = session.getAttribute("agencia").toString();   
+            //Lista de id_kioscos a los que pertenece la agencia del usuario
+            List<Integer> listKioscoAgencia = (List<Integer>) session.getAttribute("kioscos_usuario_agencia");
+            List<Integer> listKioscoPermiso = (List<Integer>) session.getAttribute("kioscos_usuario_permiso");
+            
+            System.err.println(listKioscoAgencia);
+            System.err.println(listKioscoPermiso);
             
             //OBTENEMOS LOS ARCHIVOS DE LA BASE DE DATOS Y LOS GUARDAMOS EN UN ARRAY TIPO ARCHIVO
             List<Archivo> archivo = new ArrayList<>();

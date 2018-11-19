@@ -221,7 +221,7 @@
               <!--<form id="NewsFiles">-->
                 <div id="modal-bodyNewsFiles" class="modal-body">
                   <div class="form-check">
-                    <input class="form-check-input ml-4" type="checkbox" value="" id="cbGen" style="cursor:pointer;">
+                    <input class="form-check-input ml-4" type="checkbox" value="" id="cbGenNewFiles" style="cursor:pointer;">
                     <label class="form-check-label ml-4" for="cbGen">
                       Seleccionar todos
                     </label>
@@ -239,7 +239,7 @@
 
                       <c:forEach items="${File}" var="dato">
                         <tr>
-                          <td class="text-center"><input type="checkbox" class="mt-1 cbAr" name="cbAr" value="${dato.id}" style="cursor:pointer;"></td>
+                          <td class="text-center"><input type="checkbox" class="mt-1 cbNewArc" name="cbNewArc" value="${dato.id}" style="cursor:pointer;"></td>
                           <td class="text-center">${dato.nombre}</td>
                           <td class="text-center">${dato.tipo}</td>
                           <td class="text-center">${dato.duracion}</td>

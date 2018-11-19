@@ -40,6 +40,7 @@ public class Controller_programacion {
             String user = session.getAttribute("usuario").toString();
             String correo = session.getAttribute("correo").toString();
             String agencia = session.getAttribute("agencia").toString(); 
+            int id_usuario = Integer.parseInt(id);
             //int id = 1;
             //System.err.println("USUARIO " + user + " CORREO " + correo + " AGENCIA " + agencia);
             
@@ -49,7 +50,7 @@ public class Controller_programacion {
             List<ListaReproduccion> lista = new ArrayList<>();
             
             //MÉTODO QUE RETORNA UNA LISTA TIPO ARCHIVO
-            kiosco =new GetKioscos().obtenerKioscos();
+            kiosco =new GetKioscos().obtenerKioscos(id_usuario);
             lista = new GetPlayList().obtenerPlayLists();
             //pro =new GetKioscos().obtenerProgramadas(id);
             

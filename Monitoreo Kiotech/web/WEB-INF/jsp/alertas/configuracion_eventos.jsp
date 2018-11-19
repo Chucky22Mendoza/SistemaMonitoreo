@@ -12,7 +12,7 @@
     <head>
       <spring:url value="/resources/js/jquery.js" var="jquery" />
 
-      <spring:url value="/resources/js/archivos.js" var="archivosJS" />
+      <spring:url value="/resources/js/eventos.js" var="eventosJS" />
       <spring:url value="/resources/js/menu.js" var="menuJS" />
       <spring:url value="/resources/css/archivos.css" var="archivosCSS" />
       <spring:url value="/resources/images/logo.png" var="logo" />
@@ -156,7 +156,7 @@
             </div>
                 <div id="modal-bodyMinFolios" class="modal-body row mt-5 mb-5 d-flex justify-content-center">
                   <label for="folios" class="form-control-label col-sm-6">Cantidad Mínima de Folios: </label>
-                  <input id="folios" class="form-control col-sm-3" type="number" class="form-input ml-2" name="" value="10" min="5">
+                  <input id="folios" class="form-control col-sm-3" type="number" class="form-input ml-2" name="" value="${minFolio}" min="0">
                 </div>
                 <div class="modal-footer">
                   <form id="DelMinFolios">
@@ -371,6 +371,7 @@
 
       <script defer src="https://use.fontawesome.com/releases/v5.0.12/js/all.js" integrity="sha384-Voup2lBiiyZYkRto2XWqbzxHXwzcm4A5RfdfG6466bu5LqjwwrjXCMBQBLMWh7qR" crossorigin="anonymous"></script>
       <script src="${jquery}"></script>
+      <script src="${eventosJS}"></script>
       <script src="${btJS}"></script>
       <script src="${alertifyJS}"></script>
       <script src="${spinnerJS}"></script>

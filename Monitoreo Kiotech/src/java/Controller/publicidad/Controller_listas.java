@@ -154,13 +154,13 @@ public class Controller_listas {
         ListaReproduccion lista = new ListaReproduccion();
         
         //UTILIZAMOS LA CLASE ARCHIVO PARA MANDAR LOS PARAMETROS
-        lista.setId(0);
+        //lista.setId(0);
         lista.setNombre(nombre);
         lista.setDescripcion(descripcion);
         
         //OBTENEMOS EL RESULTADO
         int resultadoInsert = newList.nuevaLista(lista);
-        
+        System.err.println(resultadoInsert);
         if (resultadoInsert==1){
              //RECARGAMOS HOME
             return new ModelAndView("redirect:/home.htm");

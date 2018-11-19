@@ -15,16 +15,16 @@
       data:datos,
       //MOSTRAMOS SPINNER SI ES TARDADO EL PROCESO
       beforeSend: function(){
-        showSpinner();
+        alertify.success('Cargando...');
       },
       error: function(error){
         //ERROR
-        removeSpinner();
+
         alertify.alert("Error en la transacción");
       },
       success:function(r){
         //SE HA COMPLETADO
-        showSpinner();
+
         alertify.success("Guardado correctamente");
         //TIEMPO DE ESPERA DEL AVISO
         setTimeout(function(){
@@ -48,7 +48,7 @@
 
     var name = file.name;
     var type = file.type;
-    console.log(name);
+    //console.log(name);
     var duration = $('#duracion').val();
 
     var datos = new FormData;
@@ -70,10 +70,10 @@
       contentType: false,
       processData: false,
       beforeSend: function(data){
-        showSpinner();
+        alertify.success('Cargando...');
       },
       success: function(data){
-        removeSpinner();
+
         $("#modalNuevoArchivo").modal('hide');
         alertify.success("Guardado correctamente");
         //TIEMPO DE ESPERA DEL AVISO
@@ -84,7 +84,6 @@
         //console.log(data);
       },//ERROR
       error: function(data){
-        removeSpinner();
         alertify.alert("Error en la transacción: Asegurarse de que el archivo no esté registrado con anterioridad ");
       }
 
@@ -117,16 +116,16 @@
       data:datos,
       //MOSTRAMOS SPINNER SI ES TARDADO EL PROCESO
       beforeSend: function(){
-        showSpinner();
+        alertify.success('Cargando...');
       },
       //ERROR
       error: function(error){
-        removeSpinner();
+
         alertify.alert("Error en la transacción");
       },
       //SE HA COMPLETADO
       success:function(r){
-        showSpinner();
+
         alertify.success("Borrado correctamente");
         //TIEMPO DE ESPERA DEL AVISO
         setTimeout(function(){
@@ -137,6 +136,3 @@
     });
     return false;
   });
-
-
-  

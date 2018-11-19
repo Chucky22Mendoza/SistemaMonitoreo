@@ -24,7 +24,7 @@ $(document).ready(function(){
 				$('#rows').replaceWith(data);
             },//ERROR
             error: function(data){
-              console.log('error');
+              //console.log('error');
            }
 
         });
@@ -95,7 +95,7 @@ $('#btnMultListKio').on('click', function(){
 
 		var idLista = $('#selectMultList').val();
 		//var idKiosco = $('#idKioH').val();
-		console.log(idKiosco);
+		//console.log(idKiosco);
 		if(countCk > 0){
 			if(intHI > 0){
 				var datos = {
@@ -110,24 +110,24 @@ $('#btnMultListKio').on('click', function(){
 					idKiosco : idKiosco,
 					idLista : idLista
 				};
-				console.log(datos);
+				//console.log(datos);
         $.ajax({
 					type:"POST",
 		      url:"programar_lista.htm",
 		      data:datos,
 		      //MOSTRAMOS SPINNER SI ES TARDADO EL PROCESO
 		      beforeSend: function(){
-						console.log('enviando...');
+						alertify.success('Cargando...');
 		        //showSpinner();
 		      },
 		      //ERROR
 		      error: function(error){
-		        removeSpinner();
+
 		        alertify.alert("Error en la transacción");
 		      },
 			    success: function(data){
 					 if(data == 1){
-						  console.log(data);
+
 					  	alertify.error("Ha ocurrido un error");
 					 }
 		     }
@@ -209,17 +209,17 @@ $('#btnProgramarLista').on('click', function(){
 		      data:datos,
 		      //MOSTRAMOS SPINNER SI ES TARDADO EL PROCESO
 		      beforeSend: function(){
-						console.log('enviando...');
-		        //showSpinner();
+						alertify.success('Cargando...');
+
 		      },
 		      //ERROR
 		      error: function(error){
-		        removeSpinner();
+
 		        alertify.alert("Error en la transacción");
 		      },
 			    success: function(data){
 					 if(data == 1){
-						  console.log(data);
+
 					  	alertify.error("Ha ocurrido un error");
 					 }else{
 							alertify.success("Guardado correctamente");
@@ -292,16 +292,15 @@ $('#btnProgramarLista').on('click', function(){
 		      //MOSTRAMOS SPINNER SI ES TARDADO EL PROCESO
 		      beforeSend: function(){
 						//console.log('enviando...');
-		        //showSpinner();
+		        alertify.success('Cargando...');
 		      },
 		      //ERROR
 		      error: function(error){
-		        removeSpinner();
+
 		        alertify.alert("Error en la transacción");
 		      },
 			    success: function(data){
 					 if(data == 1){
-						  console.log(data);
 					  	alertify.error("Ha ocurrido un error");
 					 }else{
 							alertify.success("Guardado correctamente");
@@ -342,7 +341,7 @@ function primero(){
 			$('#rows').replaceWith(data);
         },//ERROR
         error: function(data){
-          console.log('error');
+          //console.log('error');
        }
 	});
 }

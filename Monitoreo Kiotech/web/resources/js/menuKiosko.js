@@ -32,7 +32,7 @@ $(document).ready(function(){
 		$('.contenedor-mainu .mainu').slideToggle();
 	});
 
-	$(window).resize(function(){
+/*	$(window).resize(function(){
 		if ($(document).width() > 450){
 			$('.contenedor-mainu .mainu').css({'display' : 'block'});
 		}
@@ -43,7 +43,7 @@ $(document).ready(function(){
 			$('.mainu li').removeClass('activado');
 		}
 	});
-
+*/
 	$('.mainu li ul li a').click(function(){
 		window.location.href = $(this).attr("href");
 	});

@@ -7,6 +7,18 @@ $(document).ready(function(){
   $('.cbSelec').prop('checked',false);
   $('#cbGen').prop('checked',false);
   //SELECCIONAR TODOS LOS ROWS
+  $('#cbGenNewFiles').on('change', function() {
+    var cb = $(this).is(':checked');
+
+    if(cb) {
+        // Hacer algo si el checkbox ha sido seleccionado
+        $('.cbNewArc').prop('checked',true);
+        //$('#eliminarListas').show();
+    } else {
+        // Hacer algo si el checkbox no ha sido deseleccionado
+    }
+  });
+
   $('#cbGen').on('change', function() {
     var cb = $(this).is(':checked');
 
@@ -124,16 +136,16 @@ $('.ico-program').on('click', function(){
       data:datos,
       //MOSTRAMOS SPINNER SI ES TARDADO EL PROCESO
       beforeSend: function(){
-        //showSpinner();
+        alertify.success('Cargando...');
       },
       error: function(error){
         //ERROR
-        removeSpinner();
+
         alertify.alert("Error en la transacción");
       },
       success:function(r){
         //SE HA COMPLETADO
-        //showSpinner();
+
         $('#modalEditarLista').modal('hide');
         alertify.success("Guardado correctamente");
         //TIEMPO DE ESPERA DEL AVISO
@@ -164,16 +176,16 @@ $('.ico-program').on('click', function(){
       data:datos,
       //MOSTRAMOS SPINNER SI ES TARDADO EL PROCESO
       beforeSend: function(){
-        showSpinner();
+        alertify.success('Cargando...');
       },
       //ERROR
       error: function(error){
-        removeSpinner();
+
         alertify.alert("Error en la transacción");
       },
       //SE HA COMPLETADO
       success:function(r){
-        showSpinner();
+
         alertify.success("Guardado correctamente");
         //TIEMPO DE ESPERA DEL AVISO
         setTimeout(function(){
@@ -189,9 +201,9 @@ $('.ico-program').on('click', function(){
   });
 
   $('#nuevosArchivos').on('click',function(){
-    var countSel = $('.cbAr:checked').get().length;
+    var countSel = $('.cbNewArc:checked').get().length;
     var idLista = $('#ultimoID').val();
-    var archivos = $('.cbAr:checked').get();
+    var archivos = $('.cbNewArc:checked').get();
     //console.log("ID Lista: "+ idLista);
     //console.log("Celdas: "+ countSel);
 
@@ -213,16 +225,16 @@ $('.ico-program').on('click', function(){
           data:datos,
           //MOSTRAMOS SPINNER SI ES TARDADO EL PROCESO
           beforeSend: function(){
-            showSpinner();
+            alertify.success('Cargando...');
           },
           //ERROR
           error: function(error){
-            removeSpinner();
+
             alertify.alert("Error en la transacción");
           },
           //SE HA COMPLETADO
           success:function(r){
-            showSpinner();
+
 
           }
         });
@@ -256,16 +268,16 @@ $('.ico-program').on('click', function(){
       data:datos,
       //MOSTRAMOS SPINNER SI ES TARDADO EL PROCESO
       beforeSend: function(){
-        showSpinner();
+        alertify.success('Cargando...');;
       },
       //ERROR
       error: function(error){
-        removeSpinner();
+
         alertify.alert("Error en la transacción");
       },
       //SE HA COMPLETADO
       success:function(r){
-        showSpinner();
+
         alertify.success("Borrado correctamente");
         //TIEMPO DE ESPERA DEL AVISO
         setTimeout(function(){
@@ -302,7 +314,7 @@ $('.ico-program').on('click', function(){
             }
         },//ERROR
         error: function(data){
-          console.log(data);
+          //console.log(data);
         }
     });
   });
@@ -327,7 +339,7 @@ $('.ico-program').on('click', function(){
 
         },//ERROR
         error: function(data){
-          console.log(data);
+          //console.log(data);
         }
     });
   });
@@ -352,7 +364,7 @@ $('.ico-program').on('click', function(){
 
         },//ERROR
         error: function(data){
-          console.log(data);
+          //console.log(data);
         }
     });
   });
@@ -379,16 +391,16 @@ $('.ico-program').on('click', function(){
           data:datos,
           //MOSTRAMOS SPINNER SI ES TARDADO EL PROCESO
           beforeSend: function(){
-            showSpinner();
+            alertify.success('Cargando...');
           },
           //ERROR
           error: function(error){
-            removeSpinner();
+
             alertify.alert("Error en la transacción");
           },
           //SE HA COMPLETADO
           success:function(r){
-            showSpinner();
+
 
           }
         });
@@ -430,17 +442,17 @@ $('.ico-program').on('click', function(){
           data:datos,
           //MOSTRAMOS SPINNER SI ES TARDADO EL PROCESO
           beforeSend: function(){
-            showSpinner();
+            alertify.success('Cargando...');
           },
           //ERROR
           error: function(error){
-            removeSpinner();
+
             alertify.alert("Error en la transacción");
             return false;
           },
           //SE HA COMPLETADO
           success:function(r){
-            showSpinner();
+
 
           }
         });
@@ -483,17 +495,17 @@ $('.ico-program').on('click', function(){
           data:datos,
           //MOSTRAMOS SPINNER SI ES TARDADO EL PROCESO
           beforeSend: function(){
-            showSpinner();
+            alertify.success('Cargando...');
           },
           //ERROR
           error: function(error){
-            removeSpinner();
+
             alertify.alert("Error en la transacción");
             return false;
           },
           //SE HA COMPLETADO
           success:function(r){
-            showSpinner();
+            alertify.success('Cargando...');
 
           }
         });
@@ -541,11 +553,11 @@ $('.ico-program').on('click', function(){
         data:datos,
         //MOSTRAMOS SPINNER SI ES TARDADO EL PROCESO
         beforeSend: function(){
-          showSpinner();
+          alertify.success('Cargando...');
         },
         //ERROR
         error: function(error){
-          removeSpinner();
+
           alertify.error("La transacción contiene errores, asegurarse de que ya no esté programada o contenga aún archivos");
           setTimeout(function(){
             window.location.assign("listas.htm");
@@ -557,7 +569,7 @@ $('.ico-program').on('click', function(){
         },
         //SE HA COMPLETADO
         success:function(r){
-          showSpinner();
+
           //TIEMPO DE ESPERA DEL AVISO
           //flag_del = true;
           //contador_del++;

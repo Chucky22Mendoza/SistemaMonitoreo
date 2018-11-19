@@ -15,17 +15,18 @@ $(document).ready(function(){
       data:datos,
       //MOSTRAMOS SPINNER SI ES TARDADO EL PROCESO
       beforeSend: function(){
-				showSpinner();
+				alertify.success('Cargando...');
 			},
       //ERROR
 			error: function(error){
-				removeSpinner();
-        alertify.alert("Error al iniciar sesión");
+        alertify.error("Error al iniciar sesión");
       },
       //SE HA COMPLETADO
       success:function(r){
-        showSpinner();
-        window.location.assign("home.htm");
+        alertify.success('Inicio de sesión correcto');
+        setTimeout(function(){
+          window.location.assign("home.htm");
+        }, 1200);
       }
     });
     return false;

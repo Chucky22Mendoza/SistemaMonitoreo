@@ -7,7 +7,11 @@ package Controller;
 
 import com.objects.controller.Login;
 import com.getdata.controller.GetDataUser;
+import com.getdata.controller.kiosco_agencia_usuario;
+import com.getdata.controller.kiosco_usuario_permiso;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -45,6 +49,11 @@ public class Controller_login extends HttpServlet {
              sesion.setAttribute("usuario", dataUser.getNombre());
              sesion.setAttribute("correo", dataUser.getCorreo());
              sesion.setAttribute("agencia", dataUser.getAgencia());
+             
+             List<Integer> listKioscoAgencia = new kiosco_agencia_usuario().obtenerKioscoAgencia(dataUser.getId_usuario());
+             List<Integer> listKioscoPermiso = new kiosco_usuario_permiso().obtenerKioscoPermiso(dataUser.getId_usuario());
+             sesion.setAttribute("kioscos_usuario_agencia",listKioscoAgencia);
+             sesion.setAttribute("kioscos_usuario_permiso",listKioscoPermiso);
              
              return new ModelAndView("redirect:/home.htm","command",dataUser);
 

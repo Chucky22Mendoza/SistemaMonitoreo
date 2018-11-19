@@ -25,12 +25,13 @@ public class GetKioscos {
         this.dbSource = new ConnectionDB();
     }
     
-    public List<Kiosco> obtenerKioscos(){
+    public List<Kiosco> obtenerKioscos(int id_usuario){
         List<Kiosco> kiosco = new ArrayList<>();
-        String sql ="select * from vw_kiosco_agencia order by id_kiosco";
+        String sql ="select id_kiosco,nombre,agencia from vw_kiosco_agencia_usuario where id_usuario = ?";
         try (   Connection dbConnection = dbSource.conectar().getConnection();
                  CallableStatement obtenerKioscos = dbConnection.prepareCall(sql);       )            {
-
+            
+          obtenerKioscos.setInt(1, id_usuario);
           //Variables de Entrada (IN)
           obtenerKioscos.execute();
           

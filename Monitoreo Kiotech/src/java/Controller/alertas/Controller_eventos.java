@@ -5,10 +5,10 @@
  */
 package Controller.alertas;
 
+import com.getdata.controller.Denominaciones;
 import com.objects.controller.Evento;
-import com.objects.controller.Historial;
-import com.getdata.controller.GetAlerts;
 import com.getdata.controller.GetEvents;
+import com.model.controller.denominacion;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,20 +38,84 @@ public class Controller_eventos {
             //OBTENEMOS LOS ARCHIVOS DE LA BASE DE DATOS Y LOS GUARDAMOS EN UN ARRAY TIPO ARCHIVO
             
             List<Evento> evento = new ArrayList<>();
-
+            
+            //Lista de id_kioscos a los que pertenece la agencia del usuario
+            List<Integer> listKioscoAgencia = (List<Integer>) session.getAttribute("kioscos_usuario_agencia");
+            List<Integer> listKioscoPermiso = (List<Integer>) session.getAttribute("kioscos_usuario_permiso");
+            int id_kiosco = listKioscoAgencia.get(0);
             //MÉTODO QUE RETORNA UNA LISTA TIPO ARCHIVO
             evento =new GetEvents().obtenerEventos();
-            
+            int folio = new Denominaciones().obtMinFolios(id_kiosco);
+            List<denominacion> denom = new Denominaciones().denominaciones();
             //System.err.println(historial.get(0));
             //NUEVA VISTA
             ModelAndView mav = new ModelAndView();
 
             //PASAMOS EL ARRAY A LA VISTA
             mav.addObject("evento", evento);
+            mav.addObject("denom", denom);
+            
+            if(folio > 0){
+                mav.addObject("minFolio", folio);
+            }else{
+                
+            }
             
             //ACCEDEMOS A HOME
             mav.setViewName("alertas/configuracion_eventos");
             
             return mav;
+    }
+    
+    @RequestMapping("min_folios.htm")
+    public ModelAndView min_folios(HttpServletRequest request, HttpServletResponse response) throws IOException{
+         
+            String minF = request.getParameter("minFolios");
+            int min_folios = Integer.parseInt(minF);
+            //System.err.println(min_folios);
+            //MÉTODO QUE RETORNA UNA LISTA TIPO ARCHIVO
+            HttpSession session = request.getSession();
+            //Lista de id_kioscos a los que pertenece la agencia del usuario
+            List<Integer> listKioscoAgencia = (List<Integer>) session.getAttribute("kioscos_usuario_agencia");
+            List<Integer> listKioscoPermiso = (List<Integer>) session.getAttribute("kioscos_usuario_permiso");
+            
+            
+            for(int i=0;i< listKioscoAgencia.size();i++){
+                new Denominaciones().minFolios(min_folios, listKioscoAgencia.get(i));
+            }
+            //int result =new Denominaciones().minFolios(min_folios);
+            
+            //System.err.println(result);
+            
+        //if(result == 1){
+            ModelAndView mav = new ModelAndView();
+        
+            mav.addObject("exTitle", 1);
+            mav.setViewName("templates/noresultado");
+            
+            return mav;
+        /*}else{
+            ModelAndView mav = new ModelAndView();
+        
+            mav.addObject("exTitle", 0);
+            mav.setViewName("templates/noresultado");
+            
+            return mav;
+        }*/
+            
+    }
+    
+    @RequestMapping("ver_denominaciones.htm")
+    public ModelAndView ver_denominaciones(HttpServletRequest request, HttpServletResponse response) throws IOException{
+            
+         List<denominacion> denom = new Denominaciones().denominaciones();
+         
+         ModelAndView mav = new ModelAndView();
+        
+         mav.addObject("exTitle", 1);
+         mav.setViewName("templates/noresultado");
+            
+         return mav;
+
     }
 }

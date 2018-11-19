@@ -1,5 +1,6 @@
 $(document).ready(function(){
   $('#btnGuardarConfigSMTP').on('click',function(){
+    
     var server_smtp = $('#servidor_smtp').val();
     var user = $('#usuario').val();
     var pass = $('#password').val();

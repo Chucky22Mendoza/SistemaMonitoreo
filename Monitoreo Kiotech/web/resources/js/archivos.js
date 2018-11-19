@@ -116,17 +116,15 @@ function eliminar_archivos(num_selects,archivos){
       data:datos,
       //MOSTRAMOS SPINNER SI ES TARDADO EL PROCESO
       beforeSend: function(){
-        showSpinner();
+        alertify.success('Cargando...');
       },
       //ERROR
       error: function(error){
-        removeSpinner();
         alertify.alert("Error en la transacción, asegurarse de que ya no pertenezcan a una lista de reproducción");
         return false;
       },
       //SE HA COMPLETADO
       success:function(r){
-        showSpinner();
         alertify.success("Guardado correctamente");
         //TIEMPO DE ESPERA DEL AVISO
         setTimeout(function(){

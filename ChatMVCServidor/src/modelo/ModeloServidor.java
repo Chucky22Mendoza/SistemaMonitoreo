@@ -119,7 +119,7 @@ public class ModeloServidor extends Thread {
    Session Usuario2;
    String NombreUsuario;
    Kiosco resultado;
-   int señal_bandera;
+   public static int señal_bandera;
     public void run(){
        
         while(true){
