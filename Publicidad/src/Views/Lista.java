@@ -47,7 +47,7 @@ public final class Lista extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "No hay medios de reproducción cargados en la lista de reproducción de este momento", "SIN LISTAS DE REPRODUCCION", JOptionPane.WARNING_MESSAGE);
         } else {
             llenadoTabla();
-        }        
+        }
     }
 
     //Método para regresar la lista de horas
@@ -88,25 +88,29 @@ public final class Lista extends javax.swing.JFrame {
         int hour = Integer.parseInt(prueba);
         Integer lista = 0, guardar = -1;
 
-        for (int i = 0; i < horaInicio.length; i++) {
-            if (hour == horaInicio[i]) {                
-                lista = i;
-                break;
-            } else {
-                if (hour < horaInicio[i]) {                    
-                    guardar = i;
+        if (horaInicio.length == 1) {
+            lista = 0;
+        } else {
+            for (int i = 0; i < horaInicio.length; i++) {
+                if (hour == horaInicio[i]) {
+                    lista = i;
+                    break;
                 } else {
-                    if (hour > horaInicio[i]) {                        
-                        if (guardar == -1) {
-                            lista = i;
-                        } else {
-                            lista = guardar;
-                            break;
-                        }            
+                    if (hour < horaInicio[i]) {
+                        guardar = i;
+                    } else {
+                        if (hour > horaInicio[i]) {
+                            if (guardar == -1) {
+                                lista = i;
+                            } else {
+                                lista = guardar;
+                                break;
+                            }
+                        }
                     }
                 }
             }
-        }        
+        }
         Envio.setHoraInicio(hora.get(lista).getHoraInicio());
         Envio.setMinutoInicio(hora.get(lista).getMinutosInicio());
     }

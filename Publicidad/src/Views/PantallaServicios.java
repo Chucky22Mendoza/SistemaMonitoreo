@@ -165,8 +165,8 @@ public final class PantallaServicios extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private EmbeddedMediaPlayerComponent player;
-    List<archivoVideo> file = new ArrayList<archivoVideo>();
+    private static EmbeddedMediaPlayerComponent player;
+    static List<archivoVideo> file = new ArrayList<archivoVideo>();
 
     //Método para reproducir el video en la pantalla
     public void reproducirVideo() {
@@ -185,10 +185,11 @@ public final class PantallaServicios extends javax.swing.JFrame {
             player.setVisible(true);
 
             try {
+                checarNuevasListas checar = new checarNuevasListas();
+                checar.start(); 
+                
                 //Prepara el video a reproducir
                 recargaLista();
-                checarNuevasListas checar = new checarNuevasListas();
-                checar.start();
                 cargarMedia(mediaPlayer);
 
             } catch (Exception e) {
@@ -197,14 +198,15 @@ public final class PantallaServicios extends javax.swing.JFrame {
         }
     }
 
-    static int archivo = -1;
+    static int archivo = -1, duracion;
     Lista list = new Lista();
+    static String ruta;    
 
-    public void cargarMedia(EmbeddedMediaPlayer mediaPlayer) {
+    public static void cargarMedia(EmbeddedMediaPlayer mediaPlayer) {
         archivo++;
-        String ruta = rutaArchivo();
+        ruta = rutaArchivo();
         if (!ruta.equalsIgnoreCase("")) {
-            int duracion = duracionMedio();
+            duracion = duracionMedio();
             player.getMediaPlayer().playMedia(ruta);
             System.out.println(ruta);
             //player.getMediaPlayer().playMedia("C:\\Users\\mario\\Desktop\\SistemaMonitoreo\\Publicidad\\src\\Video\\" + listOfFiles[archivo].getName());
@@ -231,14 +233,9 @@ public final class PantallaServicios extends javax.swing.JFrame {
                         recargaLista();
                         Lista.recargaLista();
                         archivo = -1;
-
-                        cargarMedia(mediaPlayer);
-
                         prueba.removeMediaPlayerEventListener(this);
                     } else {
-
                         cargarMedia(mediaPlayer);
-
                         System.out.println(archivo);
                         prueba.removeMediaPlayerEventListener(this);
                     }
@@ -251,9 +248,7 @@ public final class PantallaServicios extends javax.swing.JFrame {
 
                         recargaLista();
                         Lista.recargaLista();
-
-                        cargarMedia(mediaPlayer);
-
+                        
                         prueba.removeMediaPlayerEventListener(this);
                     } else {
                         cargarMedia(mediaPlayer);
@@ -265,7 +260,7 @@ public final class PantallaServicios extends javax.swing.JFrame {
     }
 
     //Método para obtener la ruta del archivo
-    public String rutaArchivo() {
+    public static String rutaArchivo() {
         if (file.isEmpty()) {
             return "";
         } else {
@@ -279,7 +274,7 @@ public final class PantallaServicios extends javax.swing.JFrame {
     }
 
     //Método para obtener la duracion del medio
-    public int duracionMedio() {
+    public static int duracionMedio() {
         return file.get(archivo).getDuracion();
     }
 
@@ -290,8 +285,8 @@ public final class PantallaServicios extends javax.swing.JFrame {
     }
 
     //Método para recargar
-    public void recargaLista() {
-        file = new GetFile().obtenerArchivo();
+    public static void recargaLista() {
+        file = new GetFile().obtenerArchivo();        
     }
 
     //Método para leer librerias directas del VLC de 64 bits

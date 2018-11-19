@@ -68,7 +68,7 @@ public final class PantallaExclusiva extends javax.swing.JFrame {
         video.setLayout(videoLayout);
         videoLayout.setHorizontalGroup(
             videoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 496, Short.MAX_VALUE)
+            .addGap(0, 516, Short.MAX_VALUE)
         );
         videoLayout.setVerticalGroup(
             videoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -79,9 +79,7 @@ public final class PantallaExclusiva extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 20, Short.MAX_VALUE)
-                .addComponent(video, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(video, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -91,18 +89,20 @@ public final class PantallaExclusiva extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    int duracion;
+    static int duracion;
     static int archivo = -1;
-    private EmbeddedMediaPlayerComponent player;
-
+    static private EmbeddedMediaPlayerComponent player;
+    
     //Método que ejecuta el video
     public void reproducirVideo() {
         List<archivoVideo> hora = new ArrayList<archivoVideo>();
         hora = new GetFile().obtenerHora();
 
         if (!hora.isEmpty()) {
+            
             MediaPlayerFactory mediaPlayerFactory = new MediaPlayerFactory();
             EmbeddedMediaPlayer mediaPlayer = mediaPlayerFactory.newEmbeddedMediaPlayer(new Win32FullScreenStrategy(this));
+            
             player = new EmbeddedMediaPlayerComponent();
             //se añade reproductor 
             video.add(player);
@@ -110,11 +110,12 @@ public final class PantallaExclusiva extends javax.swing.JFrame {
             player.setVisible(true);
 
             try {
-                file = new GetFile().obtenerArchivo();
-
                 checarNuevasListas checar = new checarNuevasListas();
-                checar.start();
+                checar.start();  
+                
+                recargaLista();
                 cargarMedia(mediaPlayer);
+                              
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Error en " + e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
                 reproducirVideo();
@@ -128,10 +129,10 @@ public final class PantallaExclusiva extends javax.swing.JFrame {
         //mediaPlayer.play();        
     }
 
-    List<archivoVideo> file = new ArrayList<archivoVideo>();
+    static List<archivoVideo> file = new ArrayList<archivoVideo>();
 
     //Método para obtener la ruta del archivo
-    public String rutaArchivo() {
+    public static String rutaArchivo() {
         if (file.isEmpty()) {
             return "";
         } else {
@@ -140,7 +141,7 @@ public final class PantallaExclusiva extends javax.swing.JFrame {
     }
 
     //Método para obtener la duracion del medio
-    public int duracionMedio() {
+    public static int duracionMedio() {
         return file.get(archivo).getDuracion();
     }
 
@@ -156,20 +157,20 @@ public final class PantallaExclusiva extends javax.swing.JFrame {
     }
 
     //Método para recargar lista de reproducción
-    public void recargaLista() {
-        file = new GetFile().obtenerArchivo();
+    public static void recargaLista() {
+        file = new GetFile().obtenerArchivo();        
     }
 
     ImageIcon img;
+    static String ruta;    
 
     //Método para cargar el video
     public void cargarMedia(EmbeddedMediaPlayer mediaPlayer) {
-        archivo++;
-        //mediaPlayer.prepareMedia("C:\\Users\\mario\\Desktop\\SistemaMonitoreo\\Publicidad\\src\\Video\\" + listOfFiles[archivo].getName());
-        String ruta = rutaArchivo();
+        archivo++;        
+        ruta = rutaArchivo();
         if (!ruta.equalsIgnoreCase("")) {
             //String extension = extensionArchivo(ruta);
-            int duracion = duracionMedio();
+            duracion = duracionMedio();
 
             /*if (!"".equals(ruta) || duracion != 0) {
             if (extension.equalsIgnoreCase("PNG") || extension.equalsIgnoreCase("ICO") || extension.equalsIgnoreCase("JPG") || extension.equalsIgnoreCase("BMP") || extension.equalsIgnoreCase("TIF") || extension.equalsIgnoreCase("JPGE")) {
@@ -199,8 +200,7 @@ public final class PantallaExclusiva extends javax.swing.JFrame {
                 System.out.println(archivo);
 
             } else {*/
-            //Método que se ejecuta si el archivo es video
-            player.setVisible(true);
+            //Método que se ejecuta si el archivo es video            
             player.getMediaPlayer().playMedia(ruta);
             System.out.println(ruta);
             player.getMediaPlayer().addMediaPlayerEventListener(new MediaPlayerEventAdapter() {
@@ -308,7 +308,7 @@ public final class PantallaExclusiva extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel video;
+    private static javax.swing.JPanel video;
     // End of variables declaration//GEN-END:variables
 
 }
