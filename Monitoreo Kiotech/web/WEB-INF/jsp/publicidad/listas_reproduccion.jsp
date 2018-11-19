@@ -87,7 +87,7 @@
             </label>
           </div>
           <div class="d-flex justify-content-end">
-            <button type="button" name="button" class="btn btn-danger" style="cursor:pointer;" ><i class="fas fa-ban"></i> Eliminar</button>
+            <button id="eliminarListas" type="button" name="button" class="btn btn-danger collapse" style="cursor:pointer;" ><i class="fas fa-ban"></i> Eliminar</button>
             <button type="button" name="button" class="btn btn-info ml-2" style="cursor:pointer;" href="#" data-toggle="modal" data-target="#modalNuevaLista"><i class="fas fa-plus"></i> Nueva Lista</button>
           </div>
         </div>
@@ -106,7 +106,7 @@
             <c:forEach items="${List}" var="dato">
               <c:set var="ultimoID" value="${dato.id}"></c:set>
               <tr>
-                <td class="text-center"><input type="checkbox" class="mt-1 cbSelec" name="cbSelec" style="cursor:pointer;"></td>
+                <td class="text-center"><input id="${dato.id}" type="checkbox" class="mt-1 cbSelec" name="cbSelec" style="cursor:pointer;"></td>
                 <td class="text-center">${dato.id}</td>
                 <td class="text-center">${dato.nombre}</td>
                 <td class="text-center">${dato.descripcion}</td>

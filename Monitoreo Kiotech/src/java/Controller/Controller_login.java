@@ -5,8 +5,8 @@
  */
 package Controller;
 
-import Objects.Login;
-import getData.GetDataUser;
+import com.objects.controller.Login;
+import com.getdata.controller.GetDataUser;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -41,6 +41,7 @@ public class Controller_login extends HttpServlet {
              //Request for session
              HttpSession sesion= request.getSession(true);
              //Here you set your values to the session
+             sesion.setAttribute("id_usuario", dataUser.getId_usuario());
              sesion.setAttribute("usuario", dataUser.getNombre());
              sesion.setAttribute("correo", dataUser.getCorreo());
              sesion.setAttribute("agencia", dataUser.getAgencia());

@@ -30,6 +30,24 @@ public class archivoVideo {
     private String tipo;
     private String nombre;
     private Timestamp hora;
+    private int horaInicio;
+        private int minutosInicio;
+
+    public int getMinutosInicio() {
+        return minutosInicio;
+    }
+
+    public void setMinutosInicio(int minutosInicio) {
+        this.minutosInicio = minutosInicio;
+    }
+
+    public int getHoraInicio() {
+        return horaInicio;
+    }
+
+    public void setHoraInicio(int horaInicio) {
+        this.horaInicio = horaInicio;
+    }
 
     public Timestamp getHora() {
         return hora;

@@ -348,6 +348,12 @@ public class Configuracion extends javax.swing.JFrame {
             }
         });
 
+        PosicionText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PosicionTextActionPerformed(evt);
+            }
+        });
+
         TamañoText.setToolTipText("");
 
         PosicionLabel.setText("Posición:");
@@ -588,10 +594,7 @@ public class Configuracion extends javax.swing.JFrame {
         Envio.setTamaño(t);
         
         //correoTLS();
-        //correoSSL();
-        
-        Lista lista = new Lista();
-        lista.setVisible(true);
+        //correoSSL();        
         
         if (RadioButton2.isSelected()==true) {          
 
@@ -692,6 +695,10 @@ public class Configuracion extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void PosicionTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PosicionTextActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PosicionTextActionPerformed
 
     /**
      * @param args the command line arguments

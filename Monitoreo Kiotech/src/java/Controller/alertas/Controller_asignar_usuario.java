@@ -5,10 +5,10 @@
  */
 package Controller.alertas;
 
-import Objects.Archivo;
-import Objects.Usuario;
-import getData.GetDataUser;
-import getData.GetFile;
+import com.objects.controller.Archivo;
+import com.objects.controller.Usuario;
+import com.getdata.controller.GetDataUser;
+import com.getdata.controller.GetFile;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +30,7 @@ public class Controller_asignar_usuario {
          
             //VALIDAR EL ACCESO CON VARIABLES DE SESIÓN
             HttpSession session = request.getSession();
+            String id = session.getAttribute("id_usuario").toString();
             String user = session.getAttribute("usuario").toString();
             String correo = session.getAttribute("correo").toString();
             String agencia = session.getAttribute("agencia").toString();            

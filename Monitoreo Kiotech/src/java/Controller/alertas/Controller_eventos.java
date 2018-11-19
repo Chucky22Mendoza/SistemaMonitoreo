@@ -5,10 +5,10 @@
  */
 package Controller.alertas;
 
-import Objects.Evento;
-import Objects.Historial;
-import getData.GetAlerts;
-import getData.GetEvents;
+import com.objects.controller.Evento;
+import com.objects.controller.Historial;
+import com.getdata.controller.GetAlerts;
+import com.getdata.controller.GetEvents;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +30,7 @@ public class Controller_eventos {
          
             //VALIDAR EL ACCESO CON VARIABLES DE SESIÓN
             HttpSession session = request.getSession();
+            String id = session.getAttribute("id_usuario").toString();
             String user = session.getAttribute("usuario").toString();
             String correo = session.getAttribute("correo").toString();
             String agencia = session.getAttribute("agencia").toString();            

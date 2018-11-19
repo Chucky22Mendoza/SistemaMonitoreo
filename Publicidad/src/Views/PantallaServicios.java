@@ -8,19 +8,15 @@ package Views;
 import GetData.GetFile;
 import Model.Envio;
 import Model.archivoVideo;
+import Model.checarNuevasListas;
 import com.sun.jna.Native;
 import com.sun.jna.NativeLibrary;
 import java.awt.Dimension;
 import java.awt.Image;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -51,6 +47,8 @@ public final class PantallaServicios extends javax.swing.JFrame {
         imagen(img);
         tamañoPantalla();
         cambiarLibrerias();
+
+        list.setVisible(true);
         reproducirVideo();
         setLocationRelativeTo(null);
     }
@@ -169,99 +167,115 @@ public final class PantallaServicios extends javax.swing.JFrame {
 
     private EmbeddedMediaPlayerComponent player;
     List<archivoVideo> file = new ArrayList<archivoVideo>();
-    
+
     //Método para reproducir el video en la pantalla
     public void reproducirVideo() {
-        MediaPlayerFactory mediaPlayerFactory = new MediaPlayerFactory();
-        EmbeddedMediaPlayer mediaPlayer = mediaPlayerFactory.newEmbeddedMediaPlayer(new Win32FullScreenStrategy(this));
-        player = new EmbeddedMediaPlayerComponent();
-        //se añade reproductor 
-        video.add(player);
-        player.setSize(video.getSize());
-        player.setVisible(true);
-        //player.getMediaPlayer().playMedia(file.getAbsolutePath());
-        //player.getMediaPlayer().playMedia("C:\\Users\\mario\\Desktop\\SistemaMonitoreo\\Publicidad\\src\\Video\\Prueba.mp4");
+        List<archivoVideo> hora = new ArrayList<archivoVideo>();
+        Envio envio = new Envio();
+        String hour;
+        hora = new GetFile().obtenerHora();
 
-        try {
-            //Prepara el video a reproducir
-            //File folder = new File("C:\\\\Users\\\\mario\\\\Desktop\\\\SistemaMonitoreo\\\\Publicidad\\\\src\\\\Video");
-            //File folder = new File("http://192.168.1.139:1080/smp/Publicidad/src/Video/Kiosco_2/");// + Envio.getKiosko());
-            //File[] listOfFiles = folder.listFiles();
+        if (!hora.isEmpty()) {
+            MediaPlayerFactory mediaPlayerFactory = new MediaPlayerFactory();
+            EmbeddedMediaPlayer mediaPlayer = mediaPlayerFactory.newEmbeddedMediaPlayer(new Win32FullScreenStrategy(this));
+            player = new EmbeddedMediaPlayerComponent();
+            //se añade reproductor 
+            video.add(player);
+            player.setSize(video.getSize());
+            player.setVisible(true);
 
-            recargaLista();
-            cargarMedia(mediaPlayer);            
+            try {
+                //Prepara el video a reproducir
+                recargaLista();
+                checarNuevasListas checar = new checarNuevasListas();
+                checar.start();
+                cargarMedia(mediaPlayer);
 
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error en " + e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Error en " + e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
         }
-
     }
 
-    int archivo = -1;
+    static int archivo = -1;
     Lista list = new Lista();
 
-    public void cargarMedia(EmbeddedMediaPlayer mediaPlayer) throws FileNotFoundException, IOException {
+    public void cargarMedia(EmbeddedMediaPlayer mediaPlayer) {
         archivo++;
         String ruta = rutaArchivo();
-        String extension = extensionArchivo(ruta);
-        int duracion = duracionMedio();
-        player.getMediaPlayer().playMedia(ruta);
-        System.out.println(ruta);
-        //player.getMediaPlayer().playMedia("C:\\Users\\mario\\Desktop\\SistemaMonitoreo\\Publicidad\\src\\Video\\" + listOfFiles[archivo].getName());
-        //mediaPlayer.prepareMedia("http://192.168.1.139:1080/smp/Publicidad/src/Video/Kiosco_" + kiosko + "/" + listOfFiles[archivo].getName()); //Servidor
-        player.getMediaPlayer().addMediaPlayerEventListener(new MediaPlayerEventAdapter() {
-            @Override
-            public void playing(MediaPlayer prueba) {
-                Timer timer = new Timer();
-                TimerTask task = new TimerTask() {
-                    @Override
-                    public void run() {
-                        if (!prueba.isPlaying()) {
-                            timer.cancel();                            
+        if (!ruta.equalsIgnoreCase("")) {
+            int duracion = duracionMedio();
+            player.getMediaPlayer().playMedia(ruta);
+            System.out.println(ruta);
+            //player.getMediaPlayer().playMedia("C:\\Users\\mario\\Desktop\\SistemaMonitoreo\\Publicidad\\src\\Video\\" + listOfFiles[archivo].getName());
+            //mediaPlayer.prepareMedia("http://192.168.1.139:1080/smp/Publicidad/src/Video/Kiosco_" + kiosko + "/" + listOfFiles[archivo].getName()); //Servidor
+            player.getMediaPlayer().addMediaPlayerEventListener(new MediaPlayerEventAdapter() {
+                @Override
+                public void playing(MediaPlayer prueba) {
+                    Timer timer = new Timer();
+                    TimerTask task = new TimerTask() {
+                        @Override
+                        public void run() {
+                            prueba.stop();
+                            if (!prueba.isPlaying()) {
+                                timer.cancel();
+                            }
                         }
-                    }
-                };
-                timer.schedule(task, 10, (duracion * 1000 - 800));
-            }
+                    };
+                    timer.schedule(task, 10, (duracion * 1000 - 800));
+                }
 
-            @Override
-            public void finished(MediaPlayer prueba) {
-                if (archivo == (file.size() - 1)) {
-                    recargaLista();                    
-                    list.recargaLista();
-                    archivo = -1;
-                    try {
+                @Override
+                public void finished(MediaPlayer prueba) {
+                    if (archivo == (file.size() - 1)) {
+                        recargaLista();
+                        Lista.recargaLista();
+                        archivo = -1;
+
                         cargarMedia(mediaPlayer);
-                    } catch (IOException ex) {
-                        Logger.getLogger(PantallaServicios.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    prueba.removeMediaPlayerEventListener(this);
-                } else {
-                    try {
+
+                        prueba.removeMediaPlayerEventListener(this);
+                    } else {
+
                         cargarMedia(mediaPlayer);
-                    } catch (IOException ex) {
-                        Logger.getLogger(PantallaServicios.class.getName()).log(Level.SEVERE, null, ex);
+
+                        System.out.println(archivo);
+                        prueba.removeMediaPlayerEventListener(this);
                     }
-                    System.out.println(archivo);
-                    prueba.removeMediaPlayerEventListener(this);
                 }
-            }
-            
-            @Override
-            public void error(MediaPlayer prueba) {
-                try {
-                    cargarMedia(mediaPlayer);
-                } catch (IOException ex) {
-                    Logger.getLogger(PantallaServicios.class.getName()).log(Level.SEVERE, null, ex);
+
+                @Override
+                public void error(MediaPlayer prueba) {
+                    if (archivo == (file.size() - 1)) {
+                        archivo = -1;
+
+                        recargaLista();
+                        Lista.recargaLista();
+
+                        cargarMedia(mediaPlayer);
+
+                        prueba.removeMediaPlayerEventListener(this);
+                    } else {
+                        cargarMedia(mediaPlayer);
+                        prueba.removeMediaPlayerEventListener(this);
+                    }
                 }
-                prueba.removeMediaPlayerEventListener(this);
-            }
-        });
+            });
+        }
     }
-    
+
     //Método para obtener la ruta del archivo
     public String rutaArchivo() {
-        return file.get(archivo).getUbicacion();
+        if (file.isEmpty()) {
+            return "";
+        } else {
+            return file.get(archivo).getUbicacion();
+        }
+    }
+
+    //Método para reinicializar variable archivo
+    public static void reinicializarArchivo() {
+        archivo = -1;
     }
 
     //Método para obtener la duracion del medio
@@ -274,17 +288,16 @@ public final class PantallaServicios extends javax.swing.JFrame {
         //Obtiene la extensión del archivo        
         return FilenameUtils.getExtension(ruta);
     }
-    
+
     //Método para recargar
-    public void recargaLista(){
-        Envio envio = new Envio();
-        file = new GetFile().obtenerArchivo(envio);
+    public void recargaLista() {
+        file = new GetFile().obtenerArchivo();
     }
 
     //Método para leer librerias directas del VLC de 64 bits
     static void cambiarLibrerias() {
         NativeLibrary.addSearchPath(
-        RuntimeUtil.getLibVlcLibraryName(), "C:\\Program Files\\VideoLAN\\VLC");
+                RuntimeUtil.getLibVlcLibraryName(), "C:\\Program Files\\VideoLAN\\VLC");
         Native.loadLibrary(RuntimeUtil.getLibVlcLibraryName(), LibVlc.class);
         LibXUtil.initialise();
     }

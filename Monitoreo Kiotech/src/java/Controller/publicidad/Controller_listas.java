@@ -5,16 +5,16 @@
  */
 package Controller.publicidad;
 
-import Objects.Archivo;
-import Objects.EditarArchivos;
-import Objects.ListaReproduccion;
-import Objects.ListasArchivos;
-import getData.DeletePlayList;
-import getData.GetFile;
-import getData.GetPlayList;
-import getData.NewPlayList;
-import getData.PlayListsFiles;
-import getData.UpdatePlayList;
+import com.objects.controller.Archivo;
+import com.objects.controller.EditarArchivos;
+import com.objects.controller.ListaReproduccion;
+import com.objects.controller.ListasArchivos;
+import com.getdata.controller.DeletePlayList;
+import com.getdata.controller.GetFile;
+import com.getdata.controller.GetPlayList;
+import com.getdata.controller.NewPlayList;
+import com.getdata.controller.PlayListsFiles;
+import com.getdata.controller.UpdatePlayList;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,10 +41,11 @@ public class Controller_listas {
         try{
             //VALIDAR EL ACCESO CON VARIABLES DE SESIÓN
             HttpSession session = request.getSession();
+            String id = session.getAttribute("id_usuario").toString();
             String user = session.getAttribute("usuario").toString();
             String correo = session.getAttribute("correo").toString();
-            String agencia = session.getAttribute("agencia").toString();            
-            System.err.println("USUARIO " + user + " CORREO " + correo + " AGENCIA " + agencia);
+            String agencia = session.getAttribute("agencia").toString(); 
+            //System.err.println("USUARIO " + user + " CORREO " + correo + " AGENCIA " + agencia);
             
             //OBTENEMOS LOS ARCHIVOS DE LA BASE DE DATOS Y LOS GUARDAMOS EN UN ARRAY TIPO ARCHIVO
             List<ListaReproduccion> lista = new ArrayList<>();

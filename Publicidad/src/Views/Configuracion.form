@@ -464,6 +464,9 @@
               </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="PosicionText">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="PosicionTextActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="YText">
             </Component>
