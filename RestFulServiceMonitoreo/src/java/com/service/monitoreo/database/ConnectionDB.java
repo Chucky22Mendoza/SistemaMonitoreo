@@ -47,8 +47,8 @@ public class ConnectionDB {
             
             // Realizar conexi'on con servidor
             try {
-                //connection = DriverManager.getConnection("jdbc:postgresql://localhost:5433/db_local", "postgres","1522");
-                connection = DriverManager.getConnection("jdbc:postgresql://192.168.1.139:5433/db_local", "postgres","12345");
+                connection = DriverManager.getConnection("jdbc:postgresql://localhost:5433/db_local", "postgres","1522");
+                //connection = DriverManager.getConnection("jdbc:postgresql://192.168.1.139:5433/db_local", "postgres","12345");
             } catch (SQLException e) {
                 
                 /*** LOG DE ARCHIVO ***/
