@@ -14,7 +14,9 @@ import java.awt.TrayIcon;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -44,32 +46,33 @@ public class Configuracion extends javax.swing.JFrame {
        
 		
                 try {
-                        prop.load(new FileInputStream("C:\\Users\\nipan\\OneDrive\\Documentos\\GitHub\\SistemaMonitoreo\\Publicidad\\src\\Views\\configuracion.properties"));
+                        InputStream propertiesStream = ClassLoader.getSystemResourceAsStream("properties/configuracion.properties");
+                        prop.load(propertiesStream);
                 } catch(IOException e) {
 			JOptionPane.showMessageDialog(this,e.toString());
 		}
                 
-                jTextField2.setText(prop.getProperty("conexiones.Host"));
-                jTextField4.setText(prop.getProperty("conexiones.usuario"));
-                jTextField3.setText(prop.getProperty("conexiones.Puerto"));
-                jTextField5.setText(prop.getProperty("conexiones.contraseña"));
+                txtHost.setText(prop.getProperty("conexiones.Host"));
+                txtUsuario.setText(prop.getProperty("conexiones.usuario"));
+                txtPuerto.setText(prop.getProperty("conexiones.Puerto"));
+                txtPassword.setText(prop.getProperty("conexiones.contraseña"));
                 
-                jTextField1.setText(prop.getProperty("conexiones.WSM"));
-                jTextField6.setText(prop.getProperty("conexiones.Archivos"));
+                txtLinkWS.setText(prop.getProperty("conexiones.WSM"));
+                txtDescarga.setText(prop.getProperty("conexiones.Archivos"));
                 
-                PosicionText.setText(prop.getProperty("pantalla.posicion"));
-                TamañoText.setText(prop.getProperty("pantalla.tamaño"));
-                XText.setText(prop.getProperty("pantalla.x"));
-                YText.setText(prop.getProperty("pantalla.y"));
+                txtPosicion.setText(prop.getProperty("pantalla.posicion"));
+                txtTamaño.setText(prop.getProperty("pantalla.tamaño"));
+                txtX.setText(prop.getProperty("pantalla.x"));
+                txtY.setText(prop.getProperty("pantalla.y"));
                 
-                ImagenHText.setText(prop.getProperty("pantalla.servicios.imagenHeader")); 
+                txtHeader.setText(prop.getProperty("pantalla.servicios.imagenHeader")); 
                 
         ////////////////////////
         
         ImagenHLabel.setVisible(false);
-        ImagenHText.setVisible(false);
+        txtHeader.setVisible(false);
         ExaminarBtn.setVisible(false);
-        RadioButton1.setSelected(true);
+        rbExclusiva.setSelected(true);
         setLocationRelativeTo(null);
         
         /////////////SEGUNDO PLANO////////////////////////////////////////////////777
@@ -133,30 +136,30 @@ public class Configuracion extends javax.swing.JFrame {
         menu5 = new java.awt.Menu();
         menu6 = new java.awt.Menu();
         popup = new java.awt.PopupMenu();
+        Configuración = new java.awt.MenuItem();
         Salir = new java.awt.MenuItem();
-        Abrir = new java.awt.MenuItem();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        txtHost = new javax.swing.JTextField();
+        txtUsuario = new javax.swing.JTextField();
+        txtPuerto = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
+        txtPassword = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtLinkWS = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
+        txtDescarga = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
-        RadioButton1 = new javax.swing.JRadioButton();
-        RadioButton2 = new javax.swing.JRadioButton();
-        PosicionText = new javax.swing.JTextField();
-        YText = new javax.swing.JTextField();
-        XText = new javax.swing.JTextField();
-        TamañoText = new javax.swing.JTextField();
+        rbExclusiva = new javax.swing.JRadioButton();
+        rbServicios = new javax.swing.JRadioButton();
+        txtPosicion = new javax.swing.JTextField();
+        txtY = new javax.swing.JTextField();
+        txtX = new javax.swing.JTextField();
+        txtTamaño = new javax.swing.JTextField();
         PosicionLabel = new javax.swing.JLabel();
         TamañoLabel = new javax.swing.JLabel();
         XLabel = new javax.swing.JLabel();
@@ -164,10 +167,10 @@ public class Configuracion extends javax.swing.JFrame {
         pxLabel1 = new javax.swing.JLabel();
         pxLabel2 = new javax.swing.JLabel();
         ImagenHLabel = new javax.swing.JLabel();
-        ImagenHText = new javax.swing.JTextField();
+        txtHeader = new javax.swing.JTextField();
         ExaminarBtn = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
+        btnGuardar = new javax.swing.JButton();
 
         menu1.setLabel("File");
         menuBar1.add(menu1);
@@ -205,6 +208,14 @@ public class Configuracion extends javax.swing.JFrame {
             }
         });
 
+        Configuración.setLabel("Abrir");
+        Configuración.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ConfiguraciónActionPerformed(evt);
+            }
+        });
+        popup.add(Configuración);
+
         Salir.setLabel("Salir");
         Salir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -212,14 +223,6 @@ public class Configuracion extends javax.swing.JFrame {
             }
         });
         popup.add(Salir);
-
-        Abrir.setLabel("Abrir");
-        Abrir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AbrirActionPerformed(evt);
-            }
-        });
-        popup.add(Abrir);
 
         setTitle("Reproductor Publicidad -  Configuraciones");
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -258,8 +261,8 @@ public class Configuracion extends javax.swing.JFrame {
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
-                    .addComponent(jTextField4))
+                    .addComponent(txtHost, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
+                    .addComponent(txtUsuario))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
@@ -267,10 +270,10 @@ public class Configuracion extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtPuerto, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(25, 25, 25))))
         );
         jPanel3Layout.setVerticalGroup(
@@ -278,16 +281,16 @@ public class Configuracion extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(19, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtHost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPuerto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20))
         );
 
@@ -306,8 +309,8 @@ public class Configuracion extends javax.swing.JFrame {
                     .addComponent(jLabel6))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtLinkWS, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDescarga, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(39, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
@@ -322,11 +325,11 @@ public class Configuracion extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtLinkWS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtDescarga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(44, Short.MAX_VALUE))
         );
 
@@ -334,27 +337,27 @@ public class Configuracion extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        RadioButton1.setText("Publicidad en Pantalla Exclusiva");
-        RadioButton1.addActionListener(new java.awt.event.ActionListener() {
+        rbExclusiva.setText("Publicidad en Pantalla Exclusiva");
+        rbExclusiva.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RadioButton1ActionPerformed(evt);
+                rbExclusivaActionPerformed(evt);
             }
         });
 
-        RadioButton2.setText("Publicidad en Pantalla de Servicios");
-        RadioButton2.addActionListener(new java.awt.event.ActionListener() {
+        rbServicios.setText("Publicidad en Pantalla de Servicios");
+        rbServicios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RadioButton2ActionPerformed(evt);
+                rbServiciosActionPerformed(evt);
             }
         });
 
-        PosicionText.addActionListener(new java.awt.event.ActionListener() {
+        txtPosicion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PosicionTextActionPerformed(evt);
+                txtPosicionActionPerformed(evt);
             }
         });
 
-        TamañoText.setToolTipText("");
+        txtTamaño.setToolTipText("");
 
         PosicionLabel.setText("Posición:");
         PosicionLabel.setName("PosicionLabel"); // NOI18N
@@ -387,28 +390,28 @@ public class Configuracion extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(RadioButton1)
+                            .addComponent(rbExclusiva)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(PosicionLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(PosicionText, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtPosicion, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(TamañoLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(TamañoText, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(txtTamaño, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(42, 42, 42)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(RadioButton2)
+                            .addComponent(rbServicios)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addComponent(YLabel)
                                         .addGap(28, 28, 28)
-                                        .addComponent(YText, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(txtY, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addComponent(XLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
-                                        .addComponent(XText, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(txtX, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(ExaminarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -417,7 +420,7 @@ public class Configuracion extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(ImagenHLabel)
                         .addGap(18, 18, 18)
-                        .addComponent(ImagenHText, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(35, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -425,43 +428,43 @@ public class Configuracion extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(RadioButton1)
-                    .addComponent(RadioButton2))
+                    .addComponent(rbExclusiva)
+                    .addComponent(rbServicios))
                 .addGap(35, 35, 35)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(PosicionText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(XText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPosicion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(PosicionLabel)
                     .addComponent(XLabel)
                     .addComponent(pxLabel1))
                 .addGap(37, 37, 37)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(YText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(TamañoText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTamaño, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(TamañoLabel)
                     .addComponent(YLabel)
                     .addComponent(pxLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ImagenHLabel)
-                    .addComponent(ImagenHText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ExaminarBtn))
                 .addGap(32, 32, 32))
         );
 
         jTabbedPane1.addTab("Pantalla", jPanel2);
 
-        jButton2.setText("Cancelar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnCancelarActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Guardar");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnGuardarActionPerformed(evt);
             }
         });
 
@@ -473,9 +476,9 @@ public class Configuracion extends javax.swing.JFrame {
                 .addContainerGap(26, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton2)
+                        .addComponent(btnCancelar)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton3)
+                        .addComponent(btnGuardar)
                         .addGap(28, 28, 28))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -488,8 +491,8 @@ public class Configuracion extends javax.swing.JFrame {
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
-                    .addComponent(jButton2))
+                    .addComponent(btnGuardar)
+                    .addComponent(btnCancelar))
                 .addContainerGap())
         );
 
@@ -498,25 +501,25 @@ public class Configuracion extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void RadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RadioButton1ActionPerformed
+    private void rbExclusivaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbExclusivaActionPerformed
        
         ImagenHLabel.setVisible(false);
-        ImagenHText.setVisible(false);
+        txtHeader.setVisible(false);
         ExaminarBtn.setVisible(false);
         
-        RadioButton2.setSelected(false);
+        rbServicios.setSelected(false);
         
         
-    }//GEN-LAST:event_RadioButton1ActionPerformed
+    }//GEN-LAST:event_rbExclusivaActionPerformed
 
-    private void RadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RadioButton2ActionPerformed
+    private void rbServiciosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbServiciosActionPerformed
        
         ImagenHLabel.setVisible(true);
-        ImagenHText.setVisible(true);
+        txtHeader.setVisible(true);
         ExaminarBtn.setVisible(true);
 
-        RadioButton1.setSelected(false);
-    }//GEN-LAST:event_RadioButton2ActionPerformed
+        rbExclusiva.setSelected(false);
+    }//GEN-LAST:event_rbServiciosActionPerformed
         
         File archivo;
         ImageIcon img;
@@ -537,7 +540,7 @@ public class Configuracion extends javax.swing.JFrame {
         
         if (JFileChooser.APPROVE_OPTION == resultado) {
             archivo = Buscador.fileChooser.getSelectedFile();
-            ImagenHText.setText(archivo.getAbsolutePath());
+            txtHeader.setText(archivo.getAbsolutePath());
             
             try{
                 img = new ImageIcon(archivo.toString());                
@@ -555,38 +558,40 @@ public class Configuracion extends javax.swing.JFrame {
     }//GEN-LAST:event_ExaminarBtnActionPerformed
  
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         ////////////modificacion o no la configuracion sera guardada 
-        prop.setProperty("conexiones.Host",jTextField2.getText());
-        prop.setProperty("conexiones.usuario",jTextField4.getText());
-        prop.setProperty("conexiones.Puerto", jTextField3.getText());
-        prop.setProperty("conexiones.contraseña",jTextField5.getText());
+        prop.setProperty("conexiones.Host",txtHost.getText());
+        prop.setProperty("conexiones.usuario",txtUsuario.getText());
+        prop.setProperty("conexiones.Puerto", txtPuerto.getText());
+        prop.setProperty("conexiones.contraseña",txtPassword.getText());
 
-        prop.setProperty("conexiones.WSM",jTextField1.getText());
-        prop.setProperty("conexiones.Archivos",jTextField6.getText());
+        prop.setProperty("conexiones.WSM",txtLinkWS.getText());
+        prop.setProperty("conexiones.Archivos",txtDescarga.getText());
 
-        prop.setProperty("pantalla.posicion",PosicionText.getText());
-        prop.setProperty("pantalla.tamaño",TamañoText.getText());
-        prop.setProperty("pantalla.x", XText.getText());
-        prop.setProperty("pantalla.y",YText.getText());
+        prop.setProperty("pantalla.posicion",txtPosicion.getText());
+        prop.setProperty("pantalla.tamaño",txtTamaño.getText());
+        prop.setProperty("pantalla.x", txtX.getText());
+        prop.setProperty("pantalla.y",txtY.getText());
 
-        prop.setProperty("pantalla.servicios.imagenHeader",ImagenHText.getText()); 
+        prop.setProperty("pantalla.servicios.imagenHeader",txtHeader.getText()); 
         
         //Cuando se cierra la aplicacion se debe de mandar a segundo plano
         //parte para guardar los datos si son o no modificados en el archivo de propiedades
             
         try {
-            prop.store(new FileOutputStream("C:\\Users\\nipan\\OneDrive\\Documentos\\GitHub\\SistemaMonitoreo\\Publicidad\\src\\Views\\configuracion.properties"),"Modificado en:");
+            InputStream propertiesStream = ClassLoader.getSystemResourceAsStream("properties/configuracion.properties");
+            prop.load(propertiesStream);
+            prop.store(new FileWriter("out.properties"),"Guardado correctamente");
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(this,ex.toString());
         }
         ///////////////////////////
         //parte de enviar a las pantallas de exclusiva y servicios
         
-        int x = Integer.parseInt(XText.getText());
-        int y = Integer.parseInt(YText.getText());
-        int p = Integer.parseInt(PosicionText.getText());
-        int t = Integer.parseInt(TamañoText.getText());
+        int x = Integer.parseInt(txtX.getText());
+        int y = Integer.parseInt(txtY.getText());
+        int p = Integer.parseInt(txtPosicion.getText());
+        int t = Integer.parseInt(txtTamaño.getText());
         
         Envio.setAlto(y);
         Envio.setAncho(x);
@@ -596,7 +601,7 @@ public class Configuracion extends javax.swing.JFrame {
         //correoTLS();
         //correoSSL();        
         
-        if (RadioButton2.isSelected()==true) {          
+        if (rbServicios.isSelected()) {          
 
            PantallaServicios abrir=new PantallaServicios(img);
            this.setVisible(false);
@@ -606,7 +611,7 @@ public class Configuracion extends javax.swing.JFrame {
            PantallaExclusiva a=new PantallaExclusiva();
            a.setVisible(true);
         }
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnGuardarActionPerformed
 
         final String fromEmail = Envio.getCorreo(); //requires valid gmail id
         final String password = Envio.getContrasena(); // correct password for gmail id
@@ -672,10 +677,10 @@ public class Configuracion extends javax.swing.JFrame {
 
     
     
-    private void AbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AbrirActionPerformed
+    private void ConfiguraciónActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfiguraciónActionPerformed
         // Cuando le da click en abrir en el popout
         this.setVisible(true);
-    }//GEN-LAST:event_AbrirActionPerformed
+    }//GEN-LAST:event_ConfiguraciónActionPerformed
 
     private void SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirActionPerformed
         // Cuando le da click en el cerrar en el popout
@@ -692,13 +697,13 @@ public class Configuracion extends javax.swing.JFrame {
        
     }//GEN-LAST:event_formWindowClosing
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
-    private void PosicionTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PosicionTextActionPerformed
+    private void txtPosicionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPosicionActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_PosicionTextActionPerformed
+    }//GEN-LAST:event_txtPosicionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -734,25 +739,18 @@ public class Configuracion extends javax.swing.JFrame {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private java.awt.MenuItem Abrir;
+    private java.awt.MenuItem Configuración;
     private javax.swing.JButton ExaminarBtn;
     private javax.swing.JLabel ImagenHLabel;
-    public static javax.swing.JTextField ImagenHText;
     private javax.swing.JLabel PosicionLabel;
-    private javax.swing.JTextField PosicionText;
-    private javax.swing.JRadioButton RadioButton1;
-    private javax.swing.JRadioButton RadioButton2;
     private java.awt.MenuItem Salir;
     private javax.swing.JLabel TamañoLabel;
-    private javax.swing.JTextField TamañoText;
     private javax.swing.JLabel XLabel;
-    private javax.swing.JTextField XText;
     private javax.swing.JLabel YLabel;
-    private javax.swing.JTextField YText;
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnGuardar;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;
@@ -766,12 +764,6 @@ public class Configuracion extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
     private java.awt.Menu menu1;
     private java.awt.Menu menu2;
     private java.awt.Menu menu3;
@@ -784,6 +776,19 @@ public class Configuracion extends javax.swing.JFrame {
     private java.awt.PopupMenu popup;
     private javax.swing.JLabel pxLabel1;
     private javax.swing.JLabel pxLabel2;
+    private javax.swing.JRadioButton rbExclusiva;
+    private javax.swing.JRadioButton rbServicios;
+    private javax.swing.JTextField txtDescarga;
+    public static javax.swing.JTextField txtHeader;
+    private javax.swing.JTextField txtHost;
+    private javax.swing.JTextField txtLinkWS;
+    private javax.swing.JTextField txtPassword;
+    private javax.swing.JTextField txtPosicion;
+    private javax.swing.JTextField txtPuerto;
+    private javax.swing.JTextField txtTamaño;
+    private javax.swing.JTextField txtUsuario;
+    private javax.swing.JTextField txtX;
+    private javax.swing.JTextField txtY;
     // End of variables declaration//GEN-END:variables
   
    

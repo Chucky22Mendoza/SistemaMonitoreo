@@ -75,20 +75,20 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="popupActionPerformed"/>
       </Events>
       <SubComponents>
+        <MenuItem class="java.awt.MenuItem" name="Configuraci&#xf3;n">
+          <Properties>
+            <Property name="label" type="java.lang.String" value="Abrir"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Configuraci&#xf3;nActionPerformed"/>
+          </Events>
+        </MenuItem>
         <MenuItem class="java.awt.MenuItem" name="Salir">
           <Properties>
             <Property name="label" type="java.lang.String" value="Salir"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SalirActionPerformed"/>
-          </Events>
-        </MenuItem>
-        <MenuItem class="java.awt.MenuItem" name="Abrir">
-          <Properties>
-            <Property name="label" type="java.lang.String" value="Abrir"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AbrirActionPerformed"/>
           </Events>
         </MenuItem>
       </SubComponents>
@@ -124,9 +124,9 @@
               <EmptySpace pref="26" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnCancelar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jButton3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnGuardar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
@@ -144,8 +144,8 @@
               <Component id="jTabbedPane1" min="-2" pref="286" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jButton3" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnGuardar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -191,8 +191,8 @@
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jTextField1" min="-2" pref="231" max="-2" attributes="0"/>
-                          <Component id="jTextField6" min="-2" pref="231" max="-2" attributes="0"/>
+                          <Component id="txtLinkWS" min="-2" pref="231" max="-2" attributes="0"/>
+                          <Component id="txtDescarga" min="-2" pref="231" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="39" max="32767" attributes="0"/>
                   </Group>
@@ -211,12 +211,12 @@
                       <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtLinkWS" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextField6" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtDescarga" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="44" max="32767" attributes="0"/>
                   </Group>
@@ -249,8 +249,8 @@
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jTextField2" pref="123" max="32767" attributes="0"/>
-                              <Component id="jTextField4" max="32767" attributes="0"/>
+                              <Component id="txtHost" pref="123" max="32767" attributes="0"/>
+                              <Component id="txtUsuario" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -260,11 +260,11 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
-                                  <Component id="jTextField5" min="-2" pref="112" max="-2" attributes="0"/>
+                                  <Component id="txtPassword" min="-2" pref="112" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
-                                  <Component id="jTextField3" min="-2" pref="112" max="-2" attributes="0"/>
+                                  <Component id="txtPuerto" min="-2" pref="112" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -276,17 +276,17 @@
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace pref="19" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jTextField2" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtHost" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTextField3" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtPuerto" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jTextField4" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTextField5" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtPassword" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                       </Group>
@@ -304,11 +304,11 @@
                     <Property name="text" type="java.lang.String" value="Usuario"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextField2">
+                <Component class="javax.swing.JTextField" name="txtHost">
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextField4">
+                <Component class="javax.swing.JTextField" name="txtUsuario">
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextField3">
+                <Component class="javax.swing.JTextField" name="txtPuerto">
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel3">
                   <Properties>
@@ -320,7 +320,7 @@
                     <Property name="text" type="java.lang.String" value="Contrase&#xf1;a"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextField5">
+                <Component class="javax.swing.JTextField" name="txtPassword">
                 </Component>
               </SubComponents>
             </Container>
@@ -329,14 +329,14 @@
                 <Property name="text" type="java.lang.String" value="Webservices de monitoreo"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="jTextField1">
+            <Component class="javax.swing.JTextField" name="txtLinkWS">
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel6">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Descarga de Archivos"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="jTextField6">
+            <Component class="javax.swing.JTextField" name="txtDescarga">
             </Component>
           </SubComponents>
         </Container>
@@ -364,32 +364,32 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="RadioButton1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="rbExclusiva" min="-2" max="-2" attributes="0"/>
                                   <Group type="102" attributes="0">
                                       <Component id="PosicionLabel" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="PosicionText" min="-2" pref="73" max="-2" attributes="0"/>
+                                      <Component id="txtPosicion" min="-2" pref="73" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" attributes="0">
                                       <Component id="TamañoLabel" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="TamañoText" min="-2" pref="73" max="-2" attributes="0"/>
+                                      <Component id="txtTamaño" min="-2" pref="73" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="RadioButton2" min="-2" max="-2" attributes="0"/>
+                                  <Component id="rbServicios" min="-2" max="-2" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="1" attributes="0">
                                           <Group type="102" attributes="0">
                                               <Component id="YLabel" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                                              <Component id="YText" min="-2" pref="62" max="-2" attributes="0"/>
+                                              <Component id="txtY" min="-2" pref="62" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="102" attributes="0">
                                               <Component id="XLabel" min="-2" pref="16" max="-2" attributes="0"/>
                                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                                              <Component id="XText" min="-2" pref="62" max="-2" attributes="0"/>
+                                              <Component id="txtX" min="-2" pref="62" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -404,7 +404,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="ImagenHLabel" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="ImagenHText" min="-2" pref="221" max="-2" attributes="0"/>
+                              <Component id="txtHeader" min="-2" pref="221" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace pref="35" max="32767" attributes="0"/>
@@ -416,21 +416,21 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="RadioButton1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="RadioButton2" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="rbExclusiva" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="rbServicios" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="PosicionText" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="XText" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtPosicion" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtX" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="PosicionLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="XLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="pxLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="YText" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="TamañoText" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtY" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtTamaño" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="TamañoLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="YLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="pxLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -438,7 +438,7 @@
                       <EmptySpace pref="36" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="ImagenHLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="ImagenHText" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtHeader" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="ExaminarBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
@@ -447,32 +447,32 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JRadioButton" name="RadioButton1">
+            <Component class="javax.swing.JRadioButton" name="rbExclusiva">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Publicidad en Pantalla Exclusiva"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="RadioButton1ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rbExclusivaActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JRadioButton" name="RadioButton2">
+            <Component class="javax.swing.JRadioButton" name="rbServicios">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Publicidad en Pantalla de Servicios"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="RadioButton2ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rbServiciosActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JTextField" name="PosicionText">
+            <Component class="javax.swing.JTextField" name="txtPosicion">
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="PosicionTextActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtPosicionActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JTextField" name="YText">
+            <Component class="javax.swing.JTextField" name="txtY">
             </Component>
-            <Component class="javax.swing.JTextField" name="XText">
+            <Component class="javax.swing.JTextField" name="txtX">
             </Component>
-            <Component class="javax.swing.JTextField" name="Tama&#xf1;oText">
+            <Component class="javax.swing.JTextField" name="txtTama&#xf1;o">
               <Properties>
                 <Property name="toolTipText" type="java.lang.String" value=""/>
               </Properties>
@@ -513,7 +513,7 @@
                 <Property name="text" type="java.lang.String" value="Imagen Header"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="ImagenHText">
+            <Component class="javax.swing.JTextField" name="txtHeader">
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
               </AuxValues>
@@ -530,20 +530,20 @@
         </Container>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="jButton2">
+    <Component class="javax.swing.JButton" name="btnCancelar">
       <Properties>
         <Property name="text" type="java.lang.String" value="Cancelar"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelarActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton3">
+    <Component class="javax.swing.JButton" name="btnGuardar">
       <Properties>
         <Property name="text" type="java.lang.String" value="Guardar"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGuardarActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
