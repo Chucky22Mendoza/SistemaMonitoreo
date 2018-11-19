@@ -8,7 +8,6 @@ package vista;
 import controlador.ControladorCliente;
 
 /**
-
  */
 public class VistaJFrame extends javax.swing.JFrame implements IVista {
     ControladorCliente controlador;
@@ -111,6 +110,7 @@ public class VistaJFrame extends javax.swing.JFrame implements IVista {
     private void jButtonEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEnviarActionPerformed
  
     }//GEN-LAST:event_jButtonEnviarActionPerformed
+
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
