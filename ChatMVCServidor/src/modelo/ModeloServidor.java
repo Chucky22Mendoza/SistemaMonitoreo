@@ -25,8 +25,8 @@ public class ModeloServidor extends Thread {
     Socket socket;
     BufferedReader br;
     BufferedWriter bw;
-    
-    
+
+   
     public void setControlador(ControladorServidor controlador){
         this.controlador = controlador;
     }
@@ -39,9 +39,9 @@ public class ModeloServidor extends Thread {
         }
     }
     public void esperarAlCliente(){
-        try {
+        try {  
             
-            socket = sk.accept();
+           socket = sk.accept();     
         } catch (IOException ex) {
             Logger.getLogger(ModeloServidor.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -91,6 +91,11 @@ public class ModeloServidor extends Thread {
         return "";
     }
     
+    public void Sincronizar(){
+     
+        
+    }
+    
     
      
     public Kiosco ConsultarStatusKiosco(int idUsuario){
@@ -118,8 +123,8 @@ public class ModeloServidor extends Thread {
    boolean bandera=false;
    Session Usuario2;
    String NombreUsuario;
-   Kiosco resultado;
-   public static int señal_bandera;
+   //Kiosco resultado;
+   //public static int señal_bandera;
     public void run(){
        
         while(true){
@@ -148,11 +153,17 @@ public class ModeloServidor extends Thread {
                 bandera=true;
               }
          }
-          
+      
             if (bandera==true) {
                 String mensaje=recibirMensaje();
+                if (mensaje.equals("Sincronizar todo")) {
+                    Sincronizar();
+                    System.out.println("estoy en sincronizar");
+                }
                 
+            }
                 
+            /*        
                 if(mensaje.equals("Solicito Status")){
                 controlador.agnadirMensajeATrasiego("El cliente"+ NombreUsuario +"solicito SU STATUS");
                 
@@ -183,7 +194,7 @@ public class ModeloServidor extends Thread {
                        }  
                         
                 }
-            }
+             */
      
         }
     }

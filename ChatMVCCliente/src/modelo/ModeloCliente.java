@@ -99,6 +99,16 @@ public class ModeloCliente extends Thread {
             Logger.getLogger(ModeloCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public void Sincronizar(){
+        try {
+            bw.write("Sincronizar todo");
+            bw.newLine();
+            bw.flush();
+        } catch (IOException ex) {
+            Logger.getLogger(ModeloCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     public String recibirMensaje(){
         try {
@@ -118,10 +128,11 @@ public class ModeloCliente extends Thread {
             controlador.agnadirMensajeATrasiego("El Servidor dice: " + mensaje);
             if(mensaje.equals("ACCESO PERMITIDO")){
             VistaJFrame.jButtonEnviar.setEnabled(false);
-            VistaJFrame.jButton1.setEnabled(true);
+           // VistaJFrame.jButton1.setEnabled(true);
             VistaJFrame.jTextFieldTextoAEnviar.setEnabled(false);
             VistaJFrame.jTextFieldTextoPassword.setEnabled(false);
-            VistaJFrame.jButton2.setEnabled(true);
+           //VistaJFrame.jButton2.setEnabled(true);
+           VistaJFrame.jButtonSinc.setEnabled(true);
             }
         }
     }

@@ -21,7 +21,7 @@ public class ChatMVCServidor {
      */
     public static void main(String[] args) {
         IVista vista = new VistaJFrame();
-        ModeloServidor modelo = new ModeloServidor();
+       ModeloServidor modelo = new ModeloServidor();
         
         ControladorServidor controlador = new ControladorServidor(vista, modelo);
         

@@ -34,10 +34,9 @@ public class VistaJFrame extends javax.swing.JFrame implements IVista {
         jTextFieldTextoAEnviar = new javax.swing.JTextField();
         jButtonEnviar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jTextFieldTextoPassword = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        jButtonSinc = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -58,18 +57,10 @@ public class VistaJFrame extends javax.swing.JFrame implements IVista {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setText("Cliente");
 
-        jButton1.setText("Solicitar Status");
-        jButton1.setEnabled(false);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         jLabel2.setText("Contraseña:");
 
-        jButton2.setText("Update Status");
-        jButton2.setEnabled(false);
+        jButtonSinc.setText("Sincronizar Datos");
+        jButtonSinc.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -78,7 +69,6 @@ public class VistaJFrame extends javax.swing.JFrame implements IVista {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonEnviar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel1)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
@@ -90,7 +80,7 @@ public class VistaJFrame extends javax.swing.JFrame implements IVista {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTextFieldTextoAEnviar)
                             .addComponent(jTextFieldTextoPassword)))
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButtonSinc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -110,11 +100,9 @@ public class VistaJFrame extends javax.swing.JFrame implements IVista {
                     .addComponent(jTextFieldTextoPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButtonEnviar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButtonSinc)
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         pack();
@@ -124,15 +112,10 @@ public class VistaJFrame extends javax.swing.JFrame implements IVista {
  
     }//GEN-LAST:event_jButtonEnviarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public static javax.swing.JButton jButton1;
-    public static javax.swing.JButton jButton2;
     public static javax.swing.JButton jButtonEnviar;
+    public static javax.swing.JButton jButtonSinc;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabelTextoAEnviar;
@@ -149,14 +132,14 @@ public class VistaJFrame extends javax.swing.JFrame implements IVista {
     
     @Override
     public void habilitarBtnStatus() {
-        jButton1.setEnabled(true);
+       // jButton1.setEnabled(true);
         jButtonEnviar.setEnabled(false);
     }
 
     @Override
     public void deshabilitarEnviar() {
         jButtonEnviar.setEnabled(false);
-        jButton1.setEnabled(true);
+        //jButton1.setEnabled(true);
         jTextFieldTextoAEnviar.setEnabled(false);
         jTextFieldTextoPassword.setEnabled(false);
     }
@@ -186,12 +169,16 @@ public class VistaJFrame extends javax.swing.JFrame implements IVista {
         jButtonEnviar.setActionCommand(ENVIAR);
         jButtonEnviar.addActionListener(controlador);
         
+        jButtonSinc.setActionCommand(Sincronizar);
+        jButtonSinc.addActionListener(controlador);
+        
+       /* 
         jButton1.setActionCommand(STATUSMantenimiento);
         jButton1.addActionListener(controlador);
         
         jButton2.setActionCommand(ModificarSTATUS);
         jButton2.addActionListener(controlador);
-
+        */
 
     }
 

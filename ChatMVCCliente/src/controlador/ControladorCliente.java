@@ -52,7 +52,13 @@ public class ControladorCliente implements ActionListener {
                 vista.borrarTextoAEnviar();
                 
                 break;
-
+                
+            case IVista.Sincronizar:
+                    vista.agnadirMensajeATrasiego("Sincronizando datos");
+                    modelo.Sincronizar();
+                     vista.agnadirMensajeATrasiego("......");
+                break;
+          /*
             case IVista.STATUSMantenimiento:
                 vista.agnadirMensajeATrasiego("Solicitando Status Al Servidor");
                 modelo.SolicitarStatus();
@@ -65,7 +71,7 @@ public class ControladorCliente implements ActionListener {
                 modelo.ModificarStatus();
                 vista.agnadirMensajeATrasiego("......");
                 
-                break;
+                break;*/
         }
     }
     
