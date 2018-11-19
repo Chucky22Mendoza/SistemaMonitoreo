@@ -7,6 +7,7 @@ package com.getdata.controller;
 
 import com.model.controller.ConnectionDB;
 import com.model.controller.denominacion;
+import com.objects.controller.Contenedor;
 import com.objects.controller.Historial;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -42,7 +43,7 @@ public class Denominaciones {
 
                     denominacion den= new denominacion();
                     den.setCantidad_min(denomsRS.getInt(1));
-                    den.setId_denonominacion(denomsRS.getInt(2));
+                    den.setId_denominacion(denomsRS.getInt(2));
                     den.setValor(denomsRS.getFloat(3));
                     den.setTipo(denomsRS.getString(4));
                     
@@ -132,6 +133,89 @@ public class Denominaciones {
             // System.out.println("Llamada a procedimiento almacenado finalizada correctamente.");
           }
           return folio;
+        }
+        catch(SQLException ex){
+            System.out.println("Excepcion: "+ ex.getMessage());
+            return 0;
+        }
+        
+    }
+    
+    public int updtCantMin(int id, int cant_min){
+        
+        String sql ="update denominacion_cambio set cantidad_minima = ? where id_denominacion = ?";
+        
+        try (   Connection dbConnection = dbSource.conectar().getConnection();
+                 CallableStatement cantMin = dbConnection.prepareCall(sql);       )            {
+          //Variables de Entrada (IN)
+//            System.err.println(id + " - " + cant_min);
+          cantMin.setInt(1, cant_min);
+          cantMin.setInt(2, id);
+          int res = cantMin.executeUpdate();
+            //System.err.println(res);
+          if(res >= 1){
+              return 1;
+          }else{
+              return 0;
+          }
+        }
+        catch(SQLException ex){
+            System.out.println("Excepcion: "+ ex.getMessage());
+            return 0;
+        }
+        
+    }
+    
+        public List<Contenedor> obtenerContenedor(){
+        
+        List<Contenedor> cont = new ArrayList<>();
+        String sql ="select * from contenedor";
+        try (   Connection dbConnection = dbSource.conectar().getConnection();
+                 CallableStatement obtenerCont = dbConnection.prepareCall(sql);       )            {
+
+          //Variables de Entrada (IN)
+          //System.out.println("Preparando llamada a procedimiento almacenado.");
+          obtenerCont.execute();
+          //System.out.println("Procesando resultados de llamada a procedimiento almacenado.");
+          try(  ResultSet contRS =(ResultSet)obtenerCont.getResultSet(); ){
+              while(contRS.next())
+                {
+
+                    Contenedor con= new Contenedor();
+                    con.setId_contenedor(contRS.getInt(1));
+                    con.setNombre(contRS.getString(2));
+                    con.setCantidad_maxima(contRS.getInt(3));                    
+                    
+                    cont.add(con);
+                }
+            // System.out.println("Llamada a procedimiento almacenado finalizada correctamente.");
+          }
+        }
+        catch(SQLException ex){
+            System.out.println("Excepcion: "+ ex.getMessage());
+            //ex.printStackTrace();
+        }
+        return cont;
+        
+    }
+        
+    public int updtContenedores(int id, int cant_max){
+        
+        String sql ="update contenedor set cantidad_maxima = ? where id_contenedor = ?";
+        
+        try (   Connection dbConnection = dbSource.conectar().getConnection();
+                 CallableStatement cantMax = dbConnection.prepareCall(sql);       )            {
+          //Variables de Entrada (IN)
+//            System.err.println(id + " - " + cant_min);
+          cantMax.setInt(1, cant_max);
+          cantMax.setInt(2, id);
+          int res = cantMax.executeUpdate();
+            //System.err.println(res);
+          if(res >= 1){
+              return 1;
+          }else{
+              return 0;
+          }
         }
         catch(SQLException ex){
             System.out.println("Excepcion: "+ ex.getMessage());

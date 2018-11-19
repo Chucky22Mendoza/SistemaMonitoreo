@@ -27,7 +27,7 @@ public class GetKioscos {
     
     public List<Kiosco> obtenerKioscos(int id_usuario){
         List<Kiosco> kiosco = new ArrayList<>();
-        String sql ="select id_kiosco,nombre,agencia from vw_kiosco_agencia_usuario where id_usuario = ?";
+        String sql ="select id_kiosco,nombre,agencia from vw_kiosco_agencia_usuario where id_usuario = ? order by id_kiosco";
         try (   Connection dbConnection = dbSource.conectar().getConnection();
                  CallableStatement obtenerKioscos = dbConnection.prepareCall(sql);       )            {
             

@@ -10,7 +10,7 @@ package com.model.controller;
  * @author Jesús Mendoza Verduzco
  */
 public class denominacion {
-    private int id_denonominacion;
+    private int id_denominacion;
     private float valor;
     private String tipo;
     private int cantidad_min;
@@ -18,19 +18,19 @@ public class denominacion {
     public denominacion() {
     }
 
-    public denominacion(int id_denonominacion, float valor, String tipo, int cantidad_min) {
-        this.id_denonominacion = id_denonominacion;
+    public denominacion(int id_denominacion, float valor, String tipo, int cantidad_min) {
+        this.id_denominacion = id_denominacion;
         this.valor = valor;
         this.tipo = tipo;
         this.cantidad_min = cantidad_min;
     }
 
-    public int getId_denonominacion() {
-        return id_denonominacion;
+    public int getId_denominacion() {
+        return id_denominacion;
     }
 
-    public void setId_denonominacion(int id_denonominacion) {
-        this.id_denonominacion = id_denonominacion;
+    public void setId_denominacion(int id_denominacion) {
+        this.id_denominacion = id_denominacion;
     }
 
     public float getValor() {
