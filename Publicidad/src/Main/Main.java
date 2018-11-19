@@ -5,12 +5,12 @@
  */
 package Main;
 
-import Views.Configuracion;
+import Views.Login;
+import Views.PantallaExclusiva;
+import Views.PantallaServicios;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Enumeration;
 import java.util.Properties;
 
 /**
@@ -30,8 +30,8 @@ public class Main {
         InputStream propertiesStream = ClassLoader.getSystemResourceAsStream("properties/configuracion.properties");
         p.load(propertiesStream);
         //getProperty devuelve un String
-        String pant_pos = p.getProperty("pantalla.posicion");
-        int pant_posicion = Integer.parseInt(pant_pos);
+        String tipo = p.getProperty("tipo.configuracion");
+        int con = Integer.parseInt(tipo);
         //System.out.println(pant_posicion);
         //Todos los valores
         /*Enumeration<Object> keys = p.keys();
@@ -45,8 +45,21 @@ public class Main {
         //Forma de guardar properties
         //p.store(new FileWriter("out.properties"),"un comentario");
         propertiesStream.close();
-        Configuracion ind=new Configuracion();
-        ind.setVisible(true);
+        //Configuracion ind=new Configuracion();
+        //ind.setVisible(true);
+        
+        if(con == 0){
+            Login log = new Login();
+            log.setVisible(true);
+        }else if(con == 1){
+            PantallaExclusiva ex = new PantallaExclusiva();
+            ex.setVisible(true);
+        }else if(con == 2) {
+            PantallaServicios ser = new PantallaServicios();
+            ser.setVisible(true);
+        }else{
+            System.err.println("No se encontró una configuración, favor de revisar los archivos de propiedades");
+        }
     }
     
 }

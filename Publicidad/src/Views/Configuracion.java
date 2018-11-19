@@ -23,6 +23,8 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.mail.Authenticator;
 import javax.mail.PasswordAuthentication;
@@ -38,34 +40,68 @@ public class Configuracion extends javax.swing.JFrame {
     private ImageIcon imgIcon;
     private TrayIcon trayIcon;
     private SystemTray sysTray;
-    static  Properties prop = new Properties();
-    public Configuracion() {
+    
+    public Configuracion() throws IOException {
+        
         initComponents();  
         ///////////////////////
         //parte para cargar el archivo de propiedades en cuanto inicia el programa
-       
-		
-                try {
-                        InputStream propertiesStream = ClassLoader.getSystemResourceAsStream("properties/configuracion.properties");
-                        prop.load(propertiesStream);
+        Properties p = new Properties();
+        InputStream propertiesStream = ClassLoader.getSystemResourceAsStream("properties/configuracion.properties");
+        p.load(propertiesStream);
+        String tipo = p.getProperty("tipo.configuracion");
+        int con = Integer.parseInt(tipo);
+        if(con == 1){
+            try {
+                  Properties prop = new Properties();
+                  InputStream propertiesStream2 = ClassLoader.getSystemResourceAsStream("properties/exclusiva.config.properties");
+                    prop.load(propertiesStream2);
+                    txtHost.setText(prop.getProperty("conexiones.Host"));
+                    txtUsuario.setText(prop.getProperty("conexiones.usuario"));
+                    txtPuerto.setText(prop.getProperty("conexiones.Puerto"));
+                    txtPassword.setText(prop.getProperty("conexiones.contraseña"));
+
+                    txtLinkWS.setText(prop.getProperty("conexiones.WSM"));
+                    txtDescarga.setText(prop.getProperty("conexiones.Archivos"));
+
+                    txtPosicion.setText(prop.getProperty("pantalla.posicion"));
+                    txtTamaño.setText(prop.getProperty("pantalla.tamaño"));
+                    txtX.setText(prop.getProperty("pantalla.x"));
+                    txtY.setText(prop.getProperty("pantalla.y"));
+                  
+                        
                 } catch(IOException e) {
-			JOptionPane.showMessageDialog(this,e.toString());
-		}
+	JOptionPane.showMessageDialog(this,e.toString());
+        
+                }
+        }else{
+             try {
+                  Properties prop = new Properties();
+                  InputStream propertiesStream2 = ClassLoader.getSystemResourceAsStream("properties/compartida.config.properties");
+                    prop.load(propertiesStream2);
+                    txtHost.setText(prop.getProperty("conexiones.Host"));
+                    txtUsuario.setText(prop.getProperty("conexiones.usuario"));
+                    txtPuerto.setText(prop.getProperty("conexiones.Puerto"));
+                    txtPassword.setText(prop.getProperty("conexiones.contraseña"));
+
+                    txtLinkWS.setText(prop.getProperty("conexiones.WSM"));
+                    txtDescarga.setText(prop.getProperty("conexiones.Archivos"));
+
+                    txtPosicion.setText(prop.getProperty("pantalla.posicion"));
+                    txtTamaño.setText(prop.getProperty("pantalla.tamaño"));
+                    txtX.setText(prop.getProperty("pantalla.x"));
+                    txtY.setText(prop.getProperty("pantalla.y"));
+
+                    txtHeader.setText(prop.getProperty("pantalla.servicios.imagenHeader")); 
+                  
+                        
+                } catch(IOException e) {
+	JOptionPane.showMessageDialog(this,e.toString());
+                }
+        }
                 
-                txtHost.setText(prop.getProperty("conexiones.Host"));
-                txtUsuario.setText(prop.getProperty("conexiones.usuario"));
-                txtPuerto.setText(prop.getProperty("conexiones.Puerto"));
-                txtPassword.setText(prop.getProperty("conexiones.contraseña"));
                 
-                txtLinkWS.setText(prop.getProperty("conexiones.WSM"));
-                txtDescarga.setText(prop.getProperty("conexiones.Archivos"));
                 
-                txtPosicion.setText(prop.getProperty("pantalla.posicion"));
-                txtTamaño.setText(prop.getProperty("pantalla.tamaño"));
-                txtX.setText(prop.getProperty("pantalla.x"));
-                txtY.setText(prop.getProperty("pantalla.y"));
-                
-                txtHeader.setText(prop.getProperty("pantalla.servicios.imagenHeader")); 
                 
         ////////////////////////
         
@@ -559,8 +595,16 @@ public class Configuracion extends javax.swing.JFrame {
  
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        if(rbExclusiva.isSelected()){
+            System.err.println(1);
+        }
+        
+        if(rbServicios.isSelected()){
+            System.err.println(2);
+        }
+        
         ////////////modificacion o no la configuracion sera guardada 
-        prop.setProperty("conexiones.Host",txtHost.getText());
+        /*prop.setProperty("conexiones.Host",txtHost.getText());
         prop.setProperty("conexiones.usuario",txtUsuario.getText());
         prop.setProperty("conexiones.Puerto", txtPuerto.getText());
         prop.setProperty("conexiones.contraseña",txtPassword.getText());
@@ -584,7 +628,7 @@ public class Configuracion extends javax.swing.JFrame {
             prop.store(new FileWriter("out.properties"),"Guardado correctamente");
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(this,ex.toString());
-        }
+        }*/
         ///////////////////////////
         //parte de enviar a las pantallas de exclusiva y servicios
         
@@ -734,7 +778,11 @@ public class Configuracion extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new Configuracion().setVisible(true);
+            try {
+                new Configuracion().setVisible(true);
+            } catch (IOException ex) {
+                Logger.getLogger(Configuracion.class.getName()).log(Level.SEVERE, null, ex);
+            }
         });
     }
     
