@@ -77,7 +77,7 @@
       <SubComponents>
         <MenuItem class="java.awt.MenuItem" name="Configuraci&#xf3;n">
           <Properties>
-            <Property name="label" type="java.lang.String" value="Abrir"/>
+            <Property name="label" type="java.lang.String" value="Configuracion"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Configuraci&#xf3;nActionPerformed"/>
@@ -95,6 +95,7 @@
     </Menu>
   </NonVisualComponents>
   <Properties>
+    <Property name="defaultCloseOperation" type="int" value="0"/>
     <Property name="title" type="java.lang.String" value="Reproductor Publicidad -  Configuraciones"/>
   </Properties>
   <SyntheticProperties>
