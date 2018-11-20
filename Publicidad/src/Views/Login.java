@@ -7,6 +7,10 @@ package Views;
 
 import GetData.GetDataUser;
 import Objects.Session;
+import java.awt.AWTException;
+import java.awt.SystemTray;
+import java.awt.TrayIcon;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -15,13 +19,51 @@ import javax.swing.JOptionPane;
  */
 public class Login extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Session
-     */
+     //COMPONENTES DEL SEGUNDO PLANO
+    private ImageIcon imgIcon;
+    private TrayIcon trayIcon;
+    private SystemTray sysTray;
+    
     public Login() {
         initComponents();
-        setLocationRelativeTo(null);
+        this.setLocationRelativeTo(null);        //COLOCAR LA APP EN EL CENTRO
+        imgIcon = new ImageIcon(getClass().getResource("../images/app.png")); //IMAGEN QUE SERÁ USADA COMO ICONO
+        try {
+            setIconImage(imgIcon.getImage());         //MANDAR IMAGEN AL FRAME
+        } catch (Exception e) {
+        }
+        this.setTitle("SEGUNDO PLANO"); //TÍTULO DE LA APP
+        instanciarTray(); //LLAMADO DEL MÉTODO AL INICIAR LA APP (DESDE ENTONCES LA APP YA SE ENCUENTRA EN SEGUNDO PLANO (VER A DETALLE ESTE MÉTODO)
     }
+    
+    //MÉTODO PARA INSTANCIAR SYSTEM TRAY
+    private void instanciarTray(){
+        //ANTES DE ESTA LINEA DE CODIGO DEBERÁ CREARSE UN POPUP MENÚ EN AWT DE JAVA
+        //SE INGRESA LA IMAGEN DE ICONO, UN TOOLTIP Y EL POPUP ANTES MENCIONADO QUE SERÁN LAS OPCIONES DEL USUARIO EN SEGUNDO PLANO
+        trayIcon = new TrayIcon(imgIcon.getImage(), "tooltip del icono", popup);
+        //ACOPLAR ICONO
+        trayIcon.setImageAutoSize(true);
+        //INSTANCIAR SYSTEM TRAY
+        sysTray = SystemTray.getSystemTray();
+        initSysTray(); //MANDAR A SEGUNDO PLANO LA APP DESDE QUE SE INICIA
+    }
+    
+    private void initSysTray(){
+        try {
+            //SOLO SE INICIALIZA SI EL SISTEMA SOPORTA SYSTEM TRAY
+            if(SystemTray.isSupported()){
+                //SE AGREGA LA VARIABLE QUE CONTIENE EL ÍCONO, TOOLTIP Y POPUP
+                sysTray.add(trayIcon);
+                //OCULTAR LA VENTANA
+                this.setVisible(false);
+            }
+        } catch (Exception e) {
+            //EN CASO DE ERROR, MOSTRARLO
+            JOptionPane.showMessageDialog(this,e.getMessage());
+        }
+    }
+        
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -32,6 +74,9 @@ public class Login extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        popup = new java.awt.PopupMenu();
+        Abrir = new java.awt.MenuItem();
+        Cerrar = new java.awt.MenuItem();
         txtUsuario = new javax.swing.JTextField();
         txtPass = new javax.swing.JPasswordField();
         jLabel1 = new javax.swing.JLabel();
@@ -39,8 +84,33 @@ public class Login extends javax.swing.JFrame {
         btnIngresar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        popup.setLabel("popupMenu1");
+
+        Abrir.setLabel("Abrir");
+        Abrir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AbrirActionPerformed(evt);
+            }
+        });
+        popup.add(Abrir);
+
+        Cerrar.setLabel("Cerrar");
+        Cerrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CerrarActionPerformed(evt);
+            }
+        });
+        popup.add(Cerrar);
+
         setTitle("Login");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         txtUsuario.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtUsuario.setText("Chucky22Mendoza");
@@ -121,7 +191,9 @@ public class Login extends javax.swing.JFrame {
     private void txtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtUsuarioActionPerformed
-
+    
+   
+    
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
         String usuario = txtUsuario.getText();
         String pass = txtPass.getText();
@@ -144,6 +216,22 @@ public class Login extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_btnIngresarActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        initSysTray();
+    }//GEN-LAST:event_formWindowClosed
+
+    private void CerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CerrarActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_CerrarActionPerformed
+
+    private void AbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AbrirActionPerformed
+        this.setVisible(true);
+    }//GEN-LAST:event_AbrirActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
@@ -181,10 +269,13 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private java.awt.MenuItem Abrir;
+    private java.awt.MenuItem Cerrar;
     private javax.swing.JButton btnIngresar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private java.awt.PopupMenu popup;
     private javax.swing.JPasswordField txtPass;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables

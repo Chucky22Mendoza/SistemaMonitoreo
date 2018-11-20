@@ -17,6 +17,7 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -36,22 +37,21 @@ import javax.mail.Session;
  */
 public class Configuracion extends javax.swing.JFrame {
 
-    //COMPONENTES DEL SEGUNDO PLANO
-    private ImageIcon imgIcon;
-    private TrayIcon trayIcon;
-    private SystemTray sysTray;
+   
     
     public Configuracion() throws IOException {
         
         initComponents();  
         ///////////////////////
-        //parte para cargar el archivo de propiedades en cuanto inicia el programa
+        //parte para cargar el archivo de qpropiedades en cuanto inicia el programa
         Properties p = new Properties();
         InputStream propertiesStream = ClassLoader.getSystemResourceAsStream("properties/configuracion.properties");
         p.load(propertiesStream);
         String tipo = p.getProperty("tipo.configuracion");
         int con = Integer.parseInt(tipo);
         if(con == 1){
+            rbExclusiva.setSelected(true);
+            rbServicios.setSelected(false);
             try {
                   Properties prop = new Properties();
                   InputStream propertiesStream2 = ClassLoader.getSystemResourceAsStream("properties/exclusiva.config.properties");
@@ -75,7 +75,10 @@ public class Configuracion extends javax.swing.JFrame {
         
                 }
         }else{
+            rbExclusiva.setSelected(false);
+            rbServicios.setSelected(true);
              try {
+                 
                   Properties prop = new Properties();
                   InputStream propertiesStream2 = ClassLoader.getSystemResourceAsStream("properties/compartida.config.properties");
                     prop.load(propertiesStream2);
@@ -99,10 +102,7 @@ public class Configuracion extends javax.swing.JFrame {
 	JOptionPane.showMessageDialog(this,e.toString());
                 }
         }
-                
-                
-                
-                
+                  
         ////////////////////////
         
         ImagenHLabel.setVisible(false);
@@ -111,43 +111,8 @@ public class Configuracion extends javax.swing.JFrame {
         rbExclusiva.setSelected(true);
         setLocationRelativeTo(null);
         
-        /////////////SEGUNDO PLANO////////////////////////////////////////////////777
-        imgIcon = new ImageIcon(getClass().getResource("../Images/app.png")); //IMAGEN QUE SERÁ USADA COMO ICONO
-        try {
-            setIconImage(imgIcon.getImage());         //MANDAR IMAGEN AL FRAME
-        } catch (Exception e) {
-        }
-        this.setTitle("Configuracion"); //TÍTULO DE LA APP
-        instanciarTray(); //LLAMADO DEL MÉTODO AL INICIAR LA APP (DESDE ENTONCES LA APP YA SE ENCUENTRA EN SEGUNDO PLANO (VER A DETALLE ESTE MÉTODO)
     }
-    
-    //MÉTODO PARA INSTANCIAR SYSTEM TRAY
-    private void instanciarTray(){
-        //ANTES DE ESTA LINEA DE CODIGO DEBERÁ CREARSE UN POPUP MENÚ EN AWT DE JAVA
-        //SE INGRESA LA IMAGEN DE ICONO, UN TOOLTIP Y EL POPUP ANTES MENCIONADO QUE SERÁN LAS OPCIONES DEL USUARIO EN SEGUNDO PLANO
-        trayIcon = new TrayIcon(imgIcon.getImage(), "tooltip del icono", popup);
-        //ACOPLAR ICONO
-        trayIcon.setImageAutoSize(true);
-        //INSTANCIAR SYSTEM TRAY
-        sysTray = SystemTray.getSystemTray();
-        initSysTray(); //MANDAR A SEGUNDO PLANO LA APP DESDE QUE SE INICIA
-    }
-    
-    private void initSysTray(){
-        try {
-            //SOLO SE INICIALIZA SI EL SISTEMA SOPORTA SYSTEM TRAY
-            if(SystemTray.isSupported()){
-                //SE AGREGA LA VARIABLE QUE CONTIENE EL ÍCONO, TOOLTIP Y POPUP
-                sysTray.add(trayIcon);
-                //OCULTAR LA VENTANA
-                this.setVisible(false);
-            }
-        } catch (AWTException e) {
-            //EN CASO DE ERROR, MOSTRARLO
-            JOptionPane.showMessageDialog(this,e.getMessage());
-        }
-    }
-    ///////////////////// SEGUNDO PLANO ////////////////////////////////////////////
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -244,7 +209,7 @@ public class Configuracion extends javax.swing.JFrame {
             }
         });
 
-        Configuración.setLabel("Abrir");
+        Configuración.setLabel("Configuracion");
         Configuración.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ConfiguraciónActionPerformed(evt);
@@ -260,6 +225,7 @@ public class Configuracion extends javax.swing.JFrame {
         });
         popup.add(Salir);
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Reproductor Publicidad -  Configuraciones");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
@@ -595,16 +561,14 @@ public class Configuracion extends javax.swing.JFrame {
  
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        
+        
         if(rbExclusiva.isSelected()){
-            System.err.println(1);
-        }
+        Properties prop2=new Properties();
+        Properties prop = new Properties();
+        prop2.setProperty("tipo.configuracion","1");
         
-        if(rbServicios.isSelected()){
-            System.err.println(2);
-        }
-        
-        ////////////modificacion o no la configuracion sera guardada 
-        /*prop.setProperty("conexiones.Host",txtHost.getText());
+        prop.setProperty("conexiones.Host",txtHost.getText());
         prop.setProperty("conexiones.usuario",txtUsuario.getText());
         prop.setProperty("conexiones.Puerto", txtPuerto.getText());
         prop.setProperty("conexiones.contraseña",txtPassword.getText());
@@ -619,17 +583,56 @@ public class Configuracion extends javax.swing.JFrame {
 
         prop.setProperty("pantalla.servicios.imagenHeader",txtHeader.getText()); 
         
-        //Cuando se cierra la aplicacion se debe de mandar a segundo plano
-        //parte para guardar los datos si son o no modificados en el archivo de propiedades
+            try {    
+                //cambiar la ruta en donde se encuentre la aplicacion
+                //la ruta corta no funciona por esa razon se ingreso la ruta larga
+                FileOutputStream os=new FileOutputStream("C:\\Users\\nipan\\OneDrive\\Documentos\\GitHub\\SistemaMonitoreo\\Publicidad\\src\\Properties\\configuracion.properties");
+                prop2.store(os,"Guardado correctamente");
+
+                FileOutputStream os2=new FileOutputStream("C:\\Users\\nipan\\OneDrive\\Documentos\\GitHub\\SistemaMonitoreo\\Publicidad\\src\\Properties\\exclusiva.config.properties");
+                prop.store(os2,"Guardado correctamente");
+                
+                System.err.println("entre al try");
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(this,ex.toString());
+            }
+            System.err.println("termine guardado la exclusiva");
+        }
+        
+        if(rbServicios.isSelected()){
             
-        try {
-            InputStream propertiesStream = ClassLoader.getSystemResourceAsStream("properties/configuracion.properties");
-            prop.load(propertiesStream);
-            prop.store(new FileWriter("out.properties"),"Guardado correctamente");
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(this,ex.toString());
-        }*/
-        ///////////////////////////
+            Properties prop2=new Properties();
+        Properties prop = new Properties();
+        prop2.setProperty("tipo.configuracion","2");
+            
+        prop.setProperty("conexiones.Host",txtHost.getText());
+        prop.setProperty("conexiones.usuario",txtUsuario.getText());
+        prop.setProperty("conexiones.Puerto", txtPuerto.getText());
+        prop.setProperty("conexiones.contraseña",txtPassword.getText());
+
+        prop.setProperty("conexiones.WSM",txtLinkWS.getText());
+        prop.setProperty("conexiones.Archivos",txtDescarga.getText());
+
+        prop.setProperty("pantalla.posicion",txtPosicion.getText());
+        prop.setProperty("pantalla.tamaño",txtTamaño.getText());
+        prop.setProperty("pantalla.x", txtX.getText());
+        prop.setProperty("pantalla.y",txtY.getText());
+        
+            try {
+                FileOutputStream os=new FileOutputStream("C:\\Users\\nipan\\OneDrive\\Documentos\\GitHub\\SistemaMonitoreo\\Publicidad\\src\\Properties\\configuracion.properties");
+                prop2.store(os,"Guardado correctamente");
+
+                FileOutputStream os2=new FileOutputStream("C:\\Users\\nipan\\OneDrive\\Documentos\\GitHub\\SistemaMonitoreo\\Publicidad\\src\\Properties\\compartida.config.properties");
+                prop.store(os2,"Guardado correctamente");
+
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(this,ex.toString());
+            }
+
+        }
+    /*    
+        /////////////////////////////////////////////
+        
         //parte de enviar a las pantallas de exclusiva y servicios
         
         int x = Integer.parseInt(txtX.getText());
@@ -641,6 +644,7 @@ public class Configuracion extends javax.swing.JFrame {
         Envio.setAncho(x);
         Envio.setPosicion(p);
         Envio.setTamaño(t);
+
         
         //correoTLS();
         //correoSSL();        
@@ -660,7 +664,9 @@ public class Configuracion extends javax.swing.JFrame {
         final String fromEmail = Envio.getCorreo(); //requires valid gmail id
         final String password = Envio.getContrasena(); // correct password for gmail id
         final String toEmail = "mariodeltoro2009@live.com.mx"; // can be any email id 
-    
+    */
+    }//eliminar esta llave al descomentar lo de arriba
+   /* 
     //Método para el envio de correo mediante autenticación TLS
     public void correoTLS(){
         System.out.println("TLSEmail Start");
@@ -715,26 +721,27 @@ public class Configuracion extends javax.swing.JFrame {
         //EnvioCorreo.sendImageEmail(session, toEmail,"SSLEmail Testing Subject with Image", "SSLEmail Testing Body with Image");
     }
     
+    */
+    //toda esta parte descomentar al funcionar propiedades
+    
     private void popupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_popupActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_popupActionPerformed
 
-    
-    
     private void ConfiguraciónActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfiguraciónActionPerformed
-        // Cuando le da click en abrir en el popout
-        this.setVisible(true);
+       
+       
     }//GEN-LAST:event_ConfiguraciónActionPerformed
 
     private void SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirActionPerformed
-        // Cuando le da click en el cerrar en el popout
-        System.exit(0);
+       
     }//GEN-LAST:event_SalirActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-
-         
-         initSysTray();
+        Login l=new Login();
+        l.setVisible(true);
+        this.setVisible(false);
+             
     }//GEN-LAST:event_formWindowClosed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -742,7 +749,10 @@ public class Configuracion extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosing
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        
+        Login l=new Login();
+        l.setVisible(true);     
+        this.setVisible(false);
+             
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void txtPosicionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPosicionActionPerformed
