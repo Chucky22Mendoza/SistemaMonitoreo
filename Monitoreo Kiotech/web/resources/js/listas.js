@@ -16,6 +16,7 @@ $(document).ready(function(){
         //$('#eliminarListas').show();
     } else {
         // Hacer algo si el checkbox no ha sido deseleccionado
+        $('.cbNewArc').prop('checked',false);
     }
   });
 
@@ -28,6 +29,7 @@ $(document).ready(function(){
         $('#eliminarListas').show();
     } else {
         // Hacer algo si el checkbox no ha sido deseleccionado
+        $('.cbNewArc').prop('checked',false);
     }
   });
 
@@ -234,8 +236,6 @@ $('.ico-program').on('click', function(){
           },
           //SE HA COMPLETADO
           success:function(r){
-
-
           }
         });
         //return false;

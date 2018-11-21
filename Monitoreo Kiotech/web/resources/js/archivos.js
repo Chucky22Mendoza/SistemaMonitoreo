@@ -12,6 +12,8 @@ $(document).ready(function(){
         $('#eliminarArchivos').show();
     } else {
         // Hacer algo si el checkbox no ha sido deseleccionado
+        $('.cbSelec').prop('checked',false);
+        $('#eliminarArchivos').show();
     }
   });
 
@@ -21,6 +23,37 @@ $(document).ready(function(){
       $('#eliminarArchivos').show();
     }else{
       $('#eliminarArchivos').hide();
+    }
+
+  });
+
+});
+
+$(document).ready(function(){
+  //$('#eliminarArchivos').hide();
+  $('.cbSeleccion').prop('checked',false);
+  $('#cbSeleccion').prop('checked',false);
+  //SELECCIONAR TODOS LOS ROWS
+  $('#cbSeleccion').on('change', function() {
+    var cb = $(this).is(':checked');
+
+    if(cb) {
+        // Hacer algo si el checkbox ha sido seleccionado
+        $('.cbSeleccion').prop('checked',true);
+        $('#asignarAlertaUsuario').show();
+    } else {
+        // Hacer algo si el checkbox no ha sido deseleccionado
+        $('.cbSeleccion').prop('checked',false);
+        $('#asignarAlertaUsuario').show();
+    }
+  });
+
+  $('.cbSeleccion').on('change', function(){
+    var countSel = $('.cbSeleccion:checked').get().length;
+    if(countSel > 1){
+      $('#asignarAlertaUsuario').show();
+    }else{
+      //$('#asignarAlertaUsuario').hide();
     }
 
   });
