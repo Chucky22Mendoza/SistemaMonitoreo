@@ -83,6 +83,40 @@ public class Controller_asignar_usuario {
 
         return mav;
     }
+    
+    @RequestMapping("ingresar_eventos.htm")
+    public ModelAndView ingresar_eventos(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        
+        //NUEVA VISTA
+        ModelAndView mav = new ModelAndView();
+        
+        //ACCEDEMOS A VISTA
+        mav.setViewName("templates/tabla_kioscos_usuario");
+        
+        return mav;
+    }
+    
+        @RequestMapping("ingresar_kioscos.htm")
+    public ModelAndView ingresar_kioscos(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        
+        String id_kiosco = request.getParameter("idKiosco");      
+        String id_usuario = request.getParameter("idUsuario");
+        String check = request.getParameter("check");
+        
+        
+        
+        //NUEVA VISTA
+        ModelAndView mav = new ModelAndView();
+        
+        System.out.println("IDKIOSCO = "+id_kiosco);
+        System.out.println("IDUSUARIO = "+id_usuario);
+        System.out.println("CHECK = "+check);
+        
+        //ACCEDEMOS A VISTA
+        mav.setViewName("alertas/asignar_usuario.htm");
+        
+        return mav;
+    }
     //AGREGAR UN NUEVO ARCHIVO
     /*@RequestMapping("/Asig_Eventos.htm")
 

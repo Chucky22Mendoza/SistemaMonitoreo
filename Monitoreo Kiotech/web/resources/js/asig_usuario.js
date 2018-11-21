@@ -27,6 +27,30 @@ $(document).ready(function(){
 
   });
 
+  $('#cbUser').on('change', function() {
+    var cb = $(this).is(':checked');
+
+    if(cb) {
+        // Hacer algo si el checkbox ha sido seleccionado
+        $('.cbUser').prop('checked',true);
+        $('#asignarAlertaUsuario').show();
+    } else {
+        // Hacer algo si el checkbox no ha sido deseleccionado
+        $('.cbUser').prop('checked',false);
+        $('#asignarAlertaUsuario').show();
+    }
+  });
+
+  $('.cbUser').on('change', function(){
+    var countSel = $('.cbUser:checked').get().length;
+    if(countSel > 1){
+      $('#asignarAlertaUsuario').show();
+    }else{
+      //$('#alertasUsuario').hide();
+    }
+
+  });
+
 
   //$('#eliminarArchivos').hide();
   $('.cbKiosco').prop('checked',false);
@@ -63,7 +87,7 @@ $(document).ready(function(){
     var id = $(this).attr('id');
     var nombreUsuario = $(this).attr('name');
 
-    $('#tituModal').replaceWith('<h5 id="tituModal">Kioscos asignados a '+nombreUsuario+'</h5>')
+    $('#tituModal').replaceWith('<h5 id="tituModal" name = "'+id+'">Kioscos asignados a '+nombreUsuario+'</h5>')
 
     var datos = {
       id_usuario : id
@@ -97,7 +121,7 @@ $(document).ready(function(){
     var id = $(this).attr('id');
     var nombreUsuario = $(this).attr('name');
 
-    $('#tituloModal').replaceWith('<h5 id="tituloModal">Alertas asignadas a '+nombreUsuario+'</h5>')
+    $('#tituloModal').replaceWith('<h5 id="tituloModal" name ="'+id+'">Alertas asignadas a '+nombreUsuario+'</h5>');
 
     $('#kioskoUsuario').modal('show');
     return false;
@@ -106,7 +130,43 @@ $(document).ready(function(){
 
   //Guardar los datos del Modal de kioscos asigandos al usuario
   $('#saveArchivo').on('click', function(){
+    var countSel = $('.cbKiosco:checked').get().length;
+    var idKiosco = $('.cbKiosco').attr('name');
+    var idUsuario = $('#tituloModal').attr('name');
+    var archivos = $('.cbKiosco:checked').get();
 
+    if(countSel > 0){
+
+      for (var i = 0; i < countSel; i++) {
+        var arch = archivos[i].value;
+        var datos = {
+          idKiosco : idKiosco,
+          idUsuario : idUsuario,
+          check : arch
+        };
+
+        $.ajax({
+          type:"POST",
+          url:"ingresar_eventos.htm",
+          data:datos,
+          //MOSTRAMOS SPINNER SI ES TARDADO EL PROCESO
+          beforeSend: function(){
+            alertify.success('Cargando...');
+          },
+          //ERROR
+          error: function(error){
+
+            alertify.alert("Error en la transacción");
+          },
+          //SE HA COMPLETADO
+          success:function(r){
+          }
+        });
+        //return false;
+      }
+      alertify.success("Guardado correctamente");
+      //TIEMPO DE ESPERA DEL AVISO
+    }
   });
   //Finalizado del guadado de los datos que se insertaron en los modales del kiosko
 
@@ -114,13 +174,50 @@ $(document).ready(function(){
 
   //Guardar los datos del Modal alertas asignadas a los KIOSCOS
   $('#guardarArchivo').on('click', function(){
+    var countSel = $('.cbAlerta:checked').get().length;
+    var idKiosco = $('.cbAlerta').attr('id');
+    var idUsuario = $('#tituModal').attr('name');
+    var archivos = $('.cbAlerta:checked').get();
 
+    if(countSel > 0){
+
+      for (var i = 0; i < countSel; i++) {
+        var arch = archivos[i].value;
+        var datos = {
+          idKiosco : idKiosco,
+          idUsuario : idUsuario,
+          check : arch
+        };
+
+        $.ajax({
+          type:"POST",
+          url:"ingresar_kioscos.htm",
+          data:datos,
+          //MOSTRAMOS SPINNER SI ES TARDADO EL PROCESO
+          beforeSend: function(){
+            alertify.success('Cargando...');
+          },
+          //ERROR
+          error: function(error){
+
+            alertify.alert("Error en la transacción");
+          },
+          //SE HA COMPLETADO
+          success:function(r){
+          }
+        });
+        //return false;
+      }
+      alertify.success("Guardado correctamente");
+    }
   });
   //Finalizado del guardado del Modal de alertas asignadas a los Kioscos
 
 
 
   //Guardado de los datos del Modal Kioscos asignar alertas a los Usuarios
+  $('#GuardarFile').on('click', function(){
 
+  });
   //Finalizado del guardado del Modal de Kioscos Asignar Alertas a los Usuarios
 });

@@ -165,10 +165,10 @@
                                         <td class="text-center">${dato.id}</td>
                                         <td class="text-center">${dato.nombre}</td>
                                         <c:if test="${dato.activo == true}">
-                                          <td class="text-center"><input type="checkbox" class="mt-1 cbKiosco" name="cbKiosco" checked></td>
+                                          <td class="text-center"><input type="checkbox" class="mt-1 cbKiosco" name="${dato.id}" value="" checked></td>
                                         </c:if>
                                         <c:if test="${dato.activo == false}">
-                                          <td class="text-center"><input type="checkbox" class="mt-1 cbKiosco" name="cbKiosco"></td>
+                                          <td class="text-center"><input type="checkbox" class="mt-1 cbKiosco" name="${dato.id}" value=""></td>
                                         </c:if>
                                     </tr>
                                   </c:forEach>
@@ -207,7 +207,7 @@
                                 <thead class="">
                                     <tr>
                                         <th scope="col" class="text-center">ID</th>
-                                        <th scope="col" class="text-center">Nombre Kiosco</th>
+                                        <th scope="col" class="text-center">Nombre kiosco</th>
                                         <th scope="col" class="text-center">Recibir alertas de este kiosco</th>
                                     </tr>
                                 </thead>
@@ -249,14 +249,14 @@
                                                         <c:set var="contador" value="${contador+1}"></c:set>
                                                     </c:forEach>
                                                     <tr>
-                                                        <th scope="col" class="text-center"></th>
+                                                        <th class="text-center"><input type="checkbox" class="mt-1 cbUser" id="cbUser" name="cbUser"></th>
                                                         <th scope="col" class="text-center">Usuarios seleccionados (${contador}) </th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <c:forEach items="${usuarios}" var="dato">
                                                         <tr>
-                                                            <td class="text-center"><input type="checkbox" class="mt-1 cbSelec" name="cbSelec"></td>
+                                                            <td class="text-center"><input type="checkbox" class="mt-1 cbUser" name="cbUser"></td>
                                                             <td class="text-center">${dato.nombre}</td>
                                                         </tr>
                                                     </c:forEach>
@@ -268,13 +268,13 @@
                                         <hr>
                                         <div class="form-check right float-center mt-2">
                                             <input class="form-check-input ml-4" type="checkbox" value="" id="cbCorreo" style="cursor:pointer;">
-                                            <label class="form-check-label ml-4" for="cbGen">
+                                            <label class="form-check-label ml-4" for="cbCorreo">
                                                 Correo electrónico
                                             </label>
                                         </div>
                                         <div class="form-check right float-center mt-2">
                                             <input class="form-check-input ml-4" type="checkbox" value="" id="cbMensaje" style="cursor:pointer;">
-                                            <label class="form-check-label ml-4" for="cbGen">
+                                            <label class="form-check-label ml-4" for="cbMensaje">
                                                 Mensajes de texto
                                             </label>
                                         </div>
@@ -315,7 +315,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                                <button id="GuradarFile" class="btn btn-success ml-2">Guardar</button>
+                                <button id="GuardarFile" class="btn btn-success ml-2">Guardar</button>
                             </div>
                         </form>
                     </div>

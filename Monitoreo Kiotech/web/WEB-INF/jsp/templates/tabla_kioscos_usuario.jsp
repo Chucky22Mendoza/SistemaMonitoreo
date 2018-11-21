@@ -14,10 +14,10 @@
           <td class="text-center">${dato.id_kiosco}</td>
           <td class="text-center">${dato.nombre}</td>
           <c:if test="${dato.recibir_alerta == true}">
-              <td class="text-center"><input id="${dato.id_kiosco}" value="${dato.id_usuario}" type="checkbox" class="mt-1 cbAlerta" name="${dato.id_usuario}" checked></td>
+              <td class="text-center"><input id="${dato.id_kiosco}" value="" type="checkbox" class="mt-1 cbAlerta" name="${dato.id_usuario}" checked></td>
           </c:if>
           <c:if test="${dato.recibir_alerta == false}">
-              <td class="text-center"><input id="${dato.id_kiosco}" value="${dato.id_usuario}" type="checkbox" class="mt-1 cbAlerta" name="${dato.id_usuario}"></td>
+              <td class="text-center"><input id="${dato.id_kiosco}" value="" type="checkbox" class="mt-1 cbAlerta" name="${dato.id_usuario}"></td>
           </c:if>
       </tr>
   </c:forEach>
