@@ -6,18 +6,13 @@
 package Views;
 
 import Model.Envio;
-import Model.EnvioCorreo;
-import java.awt.AWTException;
 import java.awt.SystemTray;
 import java.awt.TrayIcon;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -27,9 +22,6 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.mail.Authenticator;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
 
 /**
  *
@@ -38,23 +30,70 @@ import javax.mail.Session;
 public class Configuracion extends javax.swing.JFrame {
 
    
-    
+     //COMPONENTES DEL SEGUNDO PLANO
+    private ImageIcon imgIcon;
+    private TrayIcon trayIcon;
+    private SystemTray sysTray;
     public Configuracion() throws IOException {
         
-        initComponents();  
+        imgIcon = new ImageIcon(getClass().getResource("/images/app.png")); //IMAGEN QUE SERÁ USADA COMO ICONO
+        initComponents();
+        this.setIconImage(imgIcon.getImage());
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);        //COLOCAR LA APP EN EL CENTRO
+        this.setTitle("Configuracion"); //TÍTULO DE LA APP
         ///////////////////////
         //parte para cargar el archivo de qpropiedades en cuanto inicia el programa
+        prp();
+        
+        ImagenHLabel.setVisible(false);
+        txtHeader.setVisible(false);
+        ExaminarBtn.setVisible(false);
+        rbExclusiva.setSelected(true);
+        setLocationRelativeTo(null);
+        instanciarTray();
+        initSysTray(); //MANDAR A SEGUNDO PLANO LA APP DESDE QUE SE INICIA
+    }
+    
+    //MÉTODO PARA INSTANCIAR SYSTEM TRAY
+    private void instanciarTray(){
+        //ANTES DE ESTA LINEA DE CODIGO DEBERÁ CREARSE UN POPUP MENÚ EN AWT DE JAVA
+        //SE INGRESA LA IMAGEN DE ICONO, UN TOOLTIP Y EL POPUP ANTES MENCIONADO QUE SERÁN LAS OPCIONES DEL USUARIO EN SEGUNDO PLANO
+        trayIcon = new TrayIcon(imgIcon.getImage(), "Publicidad", popup);
+        //ACOPLAR ICONO
+        trayIcon.setImageAutoSize(true);
+        //INSTANCIAR SYSTEM TRAY
+        sysTray = SystemTray.getSystemTray();
+    }
+    
+    private void initSysTray(){
+        try {
+            //SOLO SE INICIALIZA SI EL SISTEMA SOPORTA SYSTEM TRAY
+            if(SystemTray.isSupported()){
+                //SE AGREGA LA VARIABLE QUE CONTIENE EL ÍCONO, TOOLTIP Y POPUP
+                sysTray.add(trayIcon);
+                //OCULTAR LA VENTANA
+                this.setVisible(false);
+            }
+        } catch (Exception e) {
+            //EN CASO DE ERROR, MOSTRARLO
+            JOptionPane.showMessageDialog(this,e.getMessage());
+        }
+    }
+    
+   void prp() throws IOException{
         Properties p = new Properties();
-        InputStream propertiesStream = ClassLoader.getSystemResourceAsStream("properties/configuracion.properties");
+        InputStream propertiesStream = ClassLoader.getSystemResourceAsStream("Properties/configuracion.properties");
         p.load(propertiesStream);
         String tipo = p.getProperty("tipo.configuracion");
+        propertiesStream.close();
         int con = Integer.parseInt(tipo);
         if(con == 1){
             rbExclusiva.setSelected(true);
             rbServicios.setSelected(false);
             try {
                   Properties prop = new Properties();
-                  InputStream propertiesStream2 = ClassLoader.getSystemResourceAsStream("properties/exclusiva.config.properties");
+                  InputStream propertiesStream2 = ClassLoader.getSystemResourceAsStream("Properties/exclusiva.config.properties");
                     prop.load(propertiesStream2);
                     txtHost.setText(prop.getProperty("conexiones.Host"));
                     txtUsuario.setText(prop.getProperty("conexiones.usuario"));
@@ -68,7 +107,7 @@ public class Configuracion extends javax.swing.JFrame {
                     txtTamaño.setText(prop.getProperty("pantalla.tamaño"));
                     txtX.setText(prop.getProperty("pantalla.x"));
                     txtY.setText(prop.getProperty("pantalla.y"));
-                  
+                  propertiesStream2.close();
                         
                 } catch(IOException e) {
 	JOptionPane.showMessageDialog(this,e.toString());
@@ -80,7 +119,7 @@ public class Configuracion extends javax.swing.JFrame {
              try {
                  
                   Properties prop = new Properties();
-                  InputStream propertiesStream2 = ClassLoader.getSystemResourceAsStream("properties/compartida.config.properties");
+                  InputStream propertiesStream2 = ClassLoader.getSystemResourceAsStream("Properties/compartida.config.properties");
                     prop.load(propertiesStream2);
                     txtHost.setText(prop.getProperty("conexiones.Host"));
                     txtUsuario.setText(prop.getProperty("conexiones.usuario"));
@@ -97,22 +136,12 @@ public class Configuracion extends javax.swing.JFrame {
 
                     txtHeader.setText(prop.getProperty("pantalla.servicios.imagenHeader")); 
                   
-                        
+                        propertiesStream2.close();
                 } catch(IOException e) {
 	JOptionPane.showMessageDialog(this,e.toString());
                 }
         }
-                  
-        ////////////////////////
-        
-        ImagenHLabel.setVisible(false);
-        txtHeader.setVisible(false);
-        ExaminarBtn.setVisible(false);
-        rbExclusiva.setSelected(true);
-        setLocationRelativeTo(null);
-        
-    }
-   
+   }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -225,7 +254,7 @@ public class Configuracion extends javax.swing.JFrame {
         });
         popup.add(Salir);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Reproductor Publicidad -  Configuraciones");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
@@ -565,7 +594,19 @@ public class Configuracion extends javax.swing.JFrame {
         
         if(rbExclusiva.isSelected()){
         Properties prop2=new Properties();
+        InputStream propertiesStream = ClassLoader.getSystemResourceAsStream("Properties/configuracion.properties");
+            try {
+                prop2.load(propertiesStream);
+            } catch (IOException ex) {
+                Logger.getLogger(Configuracion.class.getName()).log(Level.SEVERE, null, ex);
+            }
         Properties prop = new Properties();
+        InputStream propertiesStream2 = ClassLoader.getSystemResourceAsStream("Properties/exclusiva.config.properties");
+            try {
+                prop.load(propertiesStream2);
+            } catch (IOException ex) {
+                Logger.getLogger(Configuracion.class.getName()).log(Level.SEVERE, null, ex);
+            }
         prop2.setProperty("tipo.configuracion","1");
         
         prop.setProperty("conexiones.Host",txtHost.getText());
@@ -586,23 +627,37 @@ public class Configuracion extends javax.swing.JFrame {
             try {    
                 //cambiar la ruta en donde se encuentre la aplicacion
                 //la ruta corta no funciona por esa razon se ingreso la ruta larga
-                FileOutputStream os=new FileOutputStream("C:\\Users\\nipan\\OneDrive\\Documentos\\GitHub\\SistemaMonitoreo\\Publicidad\\src\\Properties\\configuracion.properties");
+                FileOutputStream os=new FileOutputStream("C:\\Users\\Jesús Mendoza\\Documents\\GitHub\\SistemaMonitoreo\\Publicidad\\src\\Properties\\configuracion.properties");
                 prop2.store(os,"Guardado correctamente");
 
-                FileOutputStream os2=new FileOutputStream("C:\\Users\\nipan\\OneDrive\\Documentos\\GitHub\\SistemaMonitoreo\\Publicidad\\src\\Properties\\exclusiva.config.properties");
+                FileOutputStream os2=new FileOutputStream("C:\\Users\\Jesús Mendoza\\Documents\\GitHub\\SistemaMonitoreo\\Publicidad\\src\\Properties\\exclusiva.config.properties");
                 prop.store(os2,"Guardado correctamente");
                 
-                System.err.println("entre al try");
+                System.err.println("entra al try");
+                propertiesStream2.close();
+                propertiesStream.close();
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(this,ex.toString());
             }
-            System.err.println("termine guardado la exclusiva");
+            System.err.println("termina guardado la exclusiva");
         }
         
         if(rbServicios.isSelected()){
             
-            Properties prop2=new Properties();
+        Properties prop2=new Properties();
+        InputStream propertiesStream = ClassLoader.getSystemResourceAsStream("Properties/configuracion.properties");
+            try {
+                prop2.load(propertiesStream);
+            } catch (IOException ex) {
+                Logger.getLogger(Configuracion.class.getName()).log(Level.SEVERE, null, ex);
+            }
         Properties prop = new Properties();
+        InputStream propertiesStream2 = ClassLoader.getSystemResourceAsStream("Properties/compartida.config.properties");
+            try {
+                prop.load(propertiesStream2);
+            } catch (IOException ex) {
+                Logger.getLogger(Configuracion.class.getName()).log(Level.SEVERE, null, ex);
+            }
         prop2.setProperty("tipo.configuracion","2");
             
         prop.setProperty("conexiones.Host",txtHost.getText());
@@ -624,13 +679,14 @@ public class Configuracion extends javax.swing.JFrame {
 
                 FileOutputStream os2=new FileOutputStream("C:\\Users\\nipan\\OneDrive\\Documentos\\GitHub\\SistemaMonitoreo\\Publicidad\\src\\Properties\\compartida.config.properties");
                 prop.store(os2,"Guardado correctamente");
-
+                propertiesStream2.close();
+                propertiesStream.close();
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(this,ex.toString());
             }
 
         }
-    /*    
+       
         /////////////////////////////////////////////
         
         //parte de enviar a las pantallas de exclusiva y servicios
@@ -660,99 +716,38 @@ public class Configuracion extends javax.swing.JFrame {
            a.setVisible(true);
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
-
-        final String fromEmail = Envio.getCorreo(); //requires valid gmail id
-        final String password = Envio.getContrasena(); // correct password for gmail id
-        final String toEmail = "mariodeltoro2009@live.com.mx"; // can be any email id 
-    */
-    }//eliminar esta llave al descomentar lo de arriba
-   /* 
-    //Método para el envio de correo mediante autenticación TLS
-    public void correoTLS(){
-        System.out.println("TLSEmail Start");
-        Properties props = new Properties();
-        props.put("mail.smtp.host", "smtp.gmail.com"); //SMTP Host
-        props.put("mail.smtp.port", "587"); //TLS Port
-        props.put("mail.smtp.auth", "true"); //enable authentication
-        props.put("mail.smtp.starttls.enable", "true"); //enable STARTTLS
-
-        //create Authenticator object to pass in Session.getInstance argument
-        Authenticator auth = new Authenticator() {
-                //override the getPasswordAuthentication method
-                @Override
-                protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(fromEmail, password);
-                }
-        };
-        Session session = Session.getInstance(props, auth);
-        
-        EnvioCorreo correo = new EnvioCorreo(session, toEmail,"TLSEmail Testing Subject", "TLSEmail Testing Body");
-        correo.start();
-    }
-    
-    //Método  para el envío de correo mediante autenticación SSL
-    public void correoSSL(){		
-        System.out.println("SSLEmail Start");
-        Properties props = new Properties();
-        props.put("mail.smtp.host", "smtp.gmail.com"); //SMTP Host
-        props.put("mail.smtp.socketFactory.port", "465"); //SSL Port
-        props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory"); //SSL Factory Class
-        props.put("mail.smtp.auth", "true"); //Enabling SMTP Authentication
-        props.put("mail.smtp.port", "465"); //SMTP Port
-
-        Authenticator auth = new Authenticator() {
-                //override the getPasswordAuthentication method
-                @Override
-                protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(fromEmail, password);
-                }
-        };
-
-        Session session = Session.getDefaultInstance(props, auth);
-        System.out.println("Session created");
-        
-        EnvioCorreo correo = new EnvioCorreo(session, toEmail,"SSLEmail Testing Subject", "SSLEmail Testing Body");
-        correo.start();
-        
-        //EnvioCorreo.sendEmail(session, toEmail,"SSLEmail Testing Subject", "SSLEmail Testing Body");
-
-        //EnvioCorreo.sendAttachmentEmail(session, toEmail,"SSLEmail Testing Subject with Attachment", "SSLEmail Testing Body with Attachment");
-
-        //EnvioCorreo.sendImageEmail(session, toEmail,"SSLEmail Testing Subject with Image", "SSLEmail Testing Body with Image");
-    }
-    
-    */
-    //toda esta parte descomentar al funcionar propiedades
     
     private void popupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_popupActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_popupActionPerformed
 
     private void ConfiguraciónActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfiguraciónActionPerformed
-       
-       
+       Login l = new Login();
+       l.setVisible(true);
     }//GEN-LAST:event_ConfiguraciónActionPerformed
 
     private void SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirActionPerformed
-       
+       System.exit(0);
     }//GEN-LAST:event_SalirActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        Login l=new Login();
-        l.setVisible(true);
-        this.setVisible(false);
-             
+        
     }//GEN-LAST:event_formWindowClosed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-       
+        Login l = new Login();
+        l.setVisible(true);
+        sysTray.remove(trayIcon);
+        initSysTray();
+        this.dispose();
     }//GEN-LAST:event_formWindowClosing
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         Login l=new Login();
         l.setVisible(true);     
-        this.setVisible(false);
-             
+        sysTray.remove(trayIcon);
+        initSysTray();
+        this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void txtPosicionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPosicionActionPerformed

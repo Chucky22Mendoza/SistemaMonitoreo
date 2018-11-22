@@ -92,7 +92,6 @@ public class ModeloServidor extends Thread {
     }
     
     public void Sincronizar(){
-     
         
     }
     

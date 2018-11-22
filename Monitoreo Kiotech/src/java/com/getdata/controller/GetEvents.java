@@ -59,4 +59,32 @@ public class GetEvents {
         }
         return evento;
     }
+    
+    public List<Integer> obtenerEventos_Usuario(int id){
+        List<Integer> evento = new ArrayList<>();
+        String sql ="select id_evento from permiso_alerta_evento order by id_evento";
+        try (   Connection dbConnection = dbSource.conectar().getConnection();
+                 CallableStatement obtenerEventos = dbConnection.prepareCall(sql);       )            {
+
+          //Variables de Entrada (IN)
+          //System.out.println("Preparando llamada a procedimiento almacenado.");
+          obtenerEventos.execute();
+          //System.out.println("Procesando resultados de llamada a procedimiento almacenado.");
+          try(  ResultSet eventosRS =(ResultSet)obtenerEventos.getResultSet(); ){
+              while(eventosRS.next())
+                {
+                    
+                    int ev = eventosRS.getInt(1);   
+                    
+                    evento.add(ev);
+                }
+             //System.out.println("Llamada a procedimiento almacenado finalizada correctamente.");
+          }
+        }
+        catch(SQLException ex){
+            System.out.println("Excepcion: "+ ex.getMessage());
+            //ex.printStackTrace();
+        }
+        return evento;
+    }
 }

@@ -86,13 +86,13 @@
             <h2 class="text-center pt-5">Asignacion de Usuarios</h2>
             <div id="" class="">
                 <div class="form-check">
-                    <input class="form-check-input ml-4" type="checkbox" value="" id="cbGen" style="cursor:pointer;">
-                    <label class="form-check-label ml-4" for="cbGen">
+                    <input class="form-check-input ml-4" type="checkbox" value="" id="cbUsuarios" style="cursor:pointer;">
+                    <label class="form-check-label ml-4" for="cbUsuarios">
                         Seleccionar todos
                     </label>
                 </div>
                 <div class="d-flex justify-content-end">
-                    <button type="button" name="button" class="btn btn-info" style="cursor:pointer;" data-toggle="modal" data-target="#asignarAlertaUsuario">
+                    <button id="btnUsuariosEventos" type="button" name="button" class="btn btn-info collapse" style="cursor:pointer;" data-toggle="modal" data-target="#asignarAlertaUsuario">
                         <i class="fa fa-users"> </i>
                         Asignar Elementos</button>
                 </div>
@@ -112,7 +112,7 @@
                 <tbody>
                     <c:forEach items="${usuarios}" var="dato">
                         <tr>
-                            <td class="text-center"><input type="checkbox" class="mt-1 cbSelec" name="cbSelec"></td>
+                            <td class="text-center"><input id="${dato.id}" type="checkbox" class="mt-1 cbUsuario" name="${dato.nombre}"></td>
                             <td class="text-center">${dato.id}</td>
                             <td class="text-center">${dato.nombre}</td>
                             <td class="text-center">${dato.agencia}</td>
@@ -134,7 +134,7 @@
         </div>
 
         <!-- MODAL KIOSCOS ASIGNADOS AL USUARIO-->
-        <div class="modal fade" id="kioskoUsuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="kioscoUsuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -143,11 +143,11 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form id="AsigarUsuario">
+
                         <div id="modal-body" class="modal-body">
                             <div class="form-check right float-right">
-                                <input class="form-check-input ml-4" type="checkbox" value="" id="cbKiosco" style="cursor:pointer;">
-                                <label class="form-check-label ml-4" for="cbKiosco">
+                                <input class="form-check-input ml-4" type="checkbox" value="" id="cbEv" style="cursor:pointer;">
+                                <label class="form-check-label ml-4" for="cbEv">
                                     Seleccionar todos
                                 </label>
                             </div>
@@ -159,27 +159,17 @@
                                         <th scope="col" class="text-center">Activo</th>
                                     </tr>
                                 </thead>
-                                <tbody id="llenadoEventos">
-                                  <c:forEach items="${evento}" var="dato">
-                                    <tr>
-                                        <td class="text-center">${dato.id}</td>
-                                        <td class="text-center">${dato.nombre}</td>
-                                        <c:if test="${dato.activo == true}">
-                                          <td class="text-center"><input type="checkbox" class="mt-1 cbKiosco" name="${dato.id}" value="" checked></td>
-                                        </c:if>
-                                        <c:if test="${dato.activo == false}">
-                                          <td class="text-center"><input type="checkbox" class="mt-1 cbKiosco" name="${dato.id}" value=""></td>
-                                        </c:if>
-                                    </tr>
-                                  </c:forEach>
+                                <tbody id="rows2">
+
                                 </tbody>
                             </table>
                         </div>
+                        <input type="hidden" id="usuarioHidden2" name="" value="">
                         <div class="modal-footer">
                             <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                            <button id="saveArchivo" class="btn btn-success ml-2">Guardar</button>
+                            <button id="btnEventos" class="btn btn-success ml-2">Guardar</button>
                         </div>
-                    </form>
+
                 </div>
             </div>
         </div>
@@ -195,7 +185,7 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form id="AlertaUsuario">
+
                         <div id="modal-cuerpo" class="modal-body">
                             <div class="form-check right float-right">
                                 <input class="form-check-input ml-4" type="checkbox" value="" id="cbAlerta" style="cursor:pointer;">
@@ -214,13 +204,15 @@
                                 <tbody id="rows">
 
                                 </tbody>
+                                <input type="hidden" id="usuarioHidden" name="" value="">
+
                             </table>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                             <button id="guardarArchivo" class="btn btn-success ml-2">Guardar</button>
                         </div>
-                    </form>
+
                 </div>
             </div>
         </div>
@@ -229,7 +221,7 @@
         <!-- MODAL KIOSCOS ASIGNAR ALERTAS AL USUARIO-->
         <div class="modal fade bd-example-modal-lg" id="asignarAlertaUsuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
-                <form id="asignarAlertas">
+
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 id="tiModal">Asignar alertas a usuarios</h5>
@@ -237,29 +229,20 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <form id="EditAlert">
+
                             <div id="modal-body" class="modal-body">
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="mt-2">
                                             <table class="table table-hover mt-2">
                                                 <thead class="">
-                                                    <c:set var="contador" value="${0}"></c:set>
-                                                    <c:forEach items="${usuarios}" var="dato">
-                                                        <c:set var="contador" value="${contador+1}"></c:set>
-                                                    </c:forEach>
                                                     <tr>
-                                                        <th class="text-center"><input type="checkbox" class="mt-1 cbUser" id="cbUser" name="cbUser"></th>
-                                                        <th scope="col" class="text-center">Usuarios seleccionados (${contador}) </th>
+                                                        <th class="text-center"><input type="checkbox" class="mt-1" id="cbUser" name="cbUser"></th>
+                                                        <th id="selUs" scope="col" class="text-center"> </th>
                                                     </tr>
                                                 </thead>
-                                                <tbody>
-                                                    <c:forEach items="${usuarios}" var="dato">
-                                                        <tr>
-                                                            <td class="text-center"><input type="checkbox" class="mt-1 cbUser" name="cbUser"></td>
-                                                            <td class="text-center">${dato.nombre}</td>
-                                                        </tr>
-                                                    </c:forEach>
+                                                <tbody id=usBody>
+
                                                 </tbody>
                                             </table>
                                         </div>
@@ -282,8 +265,8 @@
                                     </div>
                                     <div class="col-md-8">
                                         <div class="form-check right float-right">
-                                            <input class="form-check-input ml-4" type="checkbox" value="" id="cbSeleccion" style="cursor:pointer;">
-                                            <label class="form-check-label ml-4" for="cbSeleccion">
+                                            <input class="form-check-input ml-4" type="checkbox" value="" id="cbEventos" style="cursor:pointer;">
+                                            <label class="form-check-label ml-4" for="cbEventos">
                                                 Seleccionar todos
                                             </label>
                                         </div>
@@ -301,11 +284,11 @@
                                                         <td class="text-center">${evento.id}</td>
                                                         <td class="text-center">${evento.nombre}</td>
                                                         <c:if test="${evento.activo == true}">
-                                                            <td class="text-center"><input type="checkbox" class="mt-1 cbSeleccion" name="cbSeleccion" checked></td>
-                                                            </c:if>
-                                                            <c:if test="${evento.activo == false}">
-                                                            <td class="text-center"><input type="checkbox" class="mt-1 cbSeleccion" name="cbSeleccion"></td>
-                                                            </c:if>
+                                                            <td class="text-center"><input id="${evento.id}" type="checkbox" class="mt-1 cbEvento" name="cbEvento" checked></td>
+                                                        </c:if>
+                                                        <c:if test="${evento.activo == false}">
+                                                            <td class="text-center"><input id="${evento.id}" type="checkbox" class="mt-1 cbEvento" name="cbEvento"></td>
+                                                        </c:if>
                                                     </tr>
                                                 </c:forEach>
                                             </tbody>
@@ -315,24 +298,21 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                                <button id="GuardarFile" class="btn btn-success ml-2">Guardar</button>
+                                <button id="btnMultiEventos" class="btn btn-success ml-2">Guardar</button>
                             </div>
-                        </form>
+
                     </div>
-                </form>
+
             </div>
         </div>
         <!-- FIN DEL MODAL ASIGNAR ALERTAS AL USUARIO -->
 
         <script defer src="https://use.fontawesome.com/releases/v5.0.12/js/all.js" integrity="sha384-Voup2lBiiyZYkRto2XWqbzxHXwzcm4A5RfdfG6466bu5LqjwwrjXCMBQBLMWh7qR" crossorigin="anonymous"></script>
         <script src="${jquery}"></script>
-        <script src="${usuarioJS}"></script>
         <script src="${btJS}"></script>
         <script src="${alertifyJS}"></script>
-        <script src="${archivosJS}"></script>
-
-        <script src="${programacionJS}"></script>
         <script src="${menuJS}"></script>
         <script src="${AJAX}"></script>
+        <script src="${usuarioJS}"></script>
     </body>
 </html>
