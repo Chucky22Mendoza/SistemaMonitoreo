@@ -154,13 +154,15 @@
                   <div class="container">
                     <hr>
                     <div class="row">
-                      <div class="col-md-10">
+                      <div class="col-md-6">
                         <h5 class="text-success text-center">10</h5>
                         <h5 class="text-success text-center">Kioskos en Servicio</h5>
                       </div>
-                      <div class="col-md-2">
+                      <div class="col-md-6">
                         <!--Gráfica-->
-                        AQUI VA UNA GRAFICA DE PASTEL
+                        <canvas id="kioscosServicio">
+
+                        </canvas>
                       </div>
                     </div>
                     <hr>
@@ -171,13 +173,15 @@
                   <div class="container">
                     <hr>
                     <div class="row">
-                      <div class="col-md-10">
+                      <div class="col-md-6">
                         <h5 class="text-warning text-center">2</h5>
                         <h5 class="text-warning text-center">Kioskos en Mantenimiento</h5>
                       </div>
-                      <div class="col-md-2">
+                      <div class="col-md-6">
                         <!--Gráfica-->
-                        AQUI VA UNA GRAFICA DE PASTEL
+                        <canvas id="kioscosMantenimiento">
+
+                        </canvas>
                       </div>
                     </div>
                     <hr>
@@ -188,13 +192,15 @@
                   <div class="container">
                     <hr>
                     <div class="row">
-                      <div class="col-md-10">
+                      <div class="col-md-6">
                         <h5 class="text-danger text-center">3</h5>
                         <h5 class="text-danger text-center">Kioskos Desconectados</h5>
                       </div>
-                      <div class="col-md-2">
+                      <div class="col-md-6">
                         <!--Gráfica-->
-                        AQUI VA UNA GRAFICA DE PASTEL
+                        <canvas id="kioscoDesconectados">
+
+                        </canvas>
                       </div>
                     </div>
                     <hr>
@@ -212,7 +218,9 @@
 
 
                   -->
-                  AQUI VA UNA GRAFICA DE BARRAS
+                  <canvas id="alertasMes" >
+
+                  </canvas>
                   <hr>
                 </div>
                 <div class="col-md-6">
@@ -225,7 +233,9 @@
 
 
                   -->
-                  AQUI VA UNA GRAFICA LÍNEAL
+                  <canvas id="DisponibilidadKioscos">
+
+                  </canvas>
                   <hr>
                 </div>
               </div>
@@ -510,6 +520,7 @@
         </div>
       </footer>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.12/js/all.js" integrity="sha384-Voup2lBiiyZYkRto2XWqbzxHXwzcm4A5RfdfG6466bu5LqjwwrjXCMBQBLMWh7qR" crossorigin="anonymous"></script>
     <script src="${jquery}"></script>
     <script src="${btJS}"></script>
