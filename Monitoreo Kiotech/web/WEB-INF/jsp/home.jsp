@@ -90,7 +90,22 @@
         <div class="row">
           <!--Inicia código de barra lateral de kioskos-->
           <div class="col-md-2">
+            <h5 class="bg-dark text-center">Kioskos</h5>
             <hr>
+              <div class="container text-left">
+                <c:forEach items="" var="dato">
+                  <button type="button" class="btn btn-outline-light agencia">Agencia</button>
+
+                  <c:forEach items="" var="kiosco">
+                    <button type="button" class="btn btn-secondary kiosko ml-2"><i class="fas fa-desktop mr-1"></i>Kiosco 1</button>
+                  </c:forEach>
+                </c:forEach>
+                <button type="button" class="btn btn-secondary agencia">Agencia</button>
+                <button type="button" class="btn btn-secondary kiosko ml-2"><i class="fas fa-desktop mr-1"></i>Kiosco 1</button>
+                <button type="button" class="btn btn-secondary kiosko ml-2"><i class="fas fa-plug text-danger mr-1"></i>Kiosco 2</button>
+                <button type="button" class="btn btn-secondary kiosko ml-2"><i class="fas fa-exclamation-triangle text-warning mr-1"></i>Kiosco 3</button>
+              </div>
+            <!--<hr>
             <h5 class="bg-dark text-center">Kioskos</h5>
             <hr>
               <div class="contenedor-mainu">
@@ -110,7 +125,7 @@
             				</ul>
             			</li>
             		</ul>
-            	</div>
+            	</div>-->
           </div>
           <!--Termina código de barra lateral de kioskos-->
 
@@ -126,7 +141,12 @@
           <div id="vistaAgencia" class="col-md-10 collapse" >
             <div class="">
               <hr>
-              <h4 class="text-center font-weight-bold">Agencia Plaza Zentralia</h4>
+                <h4>
+                  <a>
+                    <a>Agencia</a>
+                    <a id="tituloAgencia">Plaza Zentralia</a>
+                  </a>
+                </h4>
               <hr>
             </div>
             <!--Inicia Código de la alerta-->
@@ -134,10 +154,15 @@
               <div class="container mt-2">
                 <div class="row">
                   <div class="col-md-1">
-                    <i class="icono izquierda fas fa-exclamation-triangle mt-2"></i>
+                    <p class="icono izquierda fas fa-exclamation-triangle mt-2"></p>
                   </div>
                   <div class="col-md-10 my-1">
-                    <h4>2 Kioskos presentan alertas</h4>
+                    <h4 id = "kioscoAlertas">
+                      <a>
+                        <a id="numeroKioscosAlerta">2 </a>
+                        <a>Kioscos presentan alertas</a>
+                      </a>
+                    </h4>
                   </div>
                   <div class="col-md-1">
                     <i class="icono izquierda fas fa-share-square mt-2"></i>
@@ -155,11 +180,10 @@
                     <hr>
                     <div class="row">
                       <div class="col-md-6">
-                        <h5 class="text-success text-center">10</h5>
+                        <h5 class="text-success text-center" id = "kioscosEnServicio">10</h5>
                         <h5 class="text-success text-center">Kioskos en Servicio</h5>
                       </div>
                       <div class="col-md-6">
-                        <!--Gráfica-->
                         <canvas id="kioscosServicio">
 
                         </canvas>
@@ -174,11 +198,10 @@
                     <hr>
                     <div class="row">
                       <div class="col-md-6">
-                        <h5 class="text-warning text-center">2</h5>
+                        <h5 class="text-warning text-center" id="kioscosEnMantenimiento">2</h5>
                         <h5 class="text-warning text-center">Kioskos en Mantenimiento</h5>
                       </div>
                       <div class="col-md-6">
-                        <!--Gráfica-->
                         <canvas id="kioscosMantenimiento">
 
                         </canvas>
@@ -193,11 +216,10 @@
                     <hr>
                     <div class="row">
                       <div class="col-md-6">
-                        <h5 class="text-danger text-center">3</h5>
+                        <h5 class="text-danger text-center" id="kioscosDesconexion">3</h5>
                         <h5 class="text-danger text-center">Kioskos Desconectados</h5>
                       </div>
                       <div class="col-md-6">
-                        <!--Gráfica-->
                         <canvas id="kioscoDesconectados">
 
                         </canvas>
@@ -212,12 +234,6 @@
                   <!--Alertas en el mes-->
                   <hr>
                   <h4 class="text-center">Alertas en el mes</h4>
-                  <!--
-
-                    AQUI VA UNA GRÁFICA
-
-
-                  -->
                   <canvas id="alertasMes" >
 
                   </canvas>
@@ -227,12 +243,6 @@
                   <!--Disponibilidad de kioskos en el mes-->
                   <hr>
                   <h4 class="text-center">Disponibilidad de kioskos en el mes</h4>
-                  <!--
-
-                    AQUI VA UNA GRÁFICA
-
-
-                  -->
                   <canvas id="DisponibilidadKioscos">
 
                   </canvas>
@@ -247,7 +257,13 @@
           <div id="vistaKiosko" class="col-md-10 collapse">
             <div class="">
               <hr>
-                <h4 class="font-weight-bold ml-4">Kiosko # - Agencia</h4>
+                <h4 id = "kioscoAgencia">
+                  <a>
+                    <a id="nombreKiosco">Kiosco 1</a>
+                    <a>- Agencia </a>
+                    <a id="nombreAgencia">----</a>
+                  </a>
+                </h4>
               <hr>
                 <div class="container">
                   <div class="row">
@@ -264,19 +280,19 @@
                             <a id="desconectado" class="text-danger" style="display: none;">Desconectado<i class="fas fa-plug ml-0"></i></a><br>
                           </div>
                           <div class="col-md-7">
-                            <a><a class="font-weight-bold">Nombre:</a><a class="ml-2">Kiosko --</a></a><br>
-                            <a><a class="font-weight-bold">Modelo:</a><a class="ml-2">-----------------------</a></a><br>
-                            <a><a class="font-weight-bold">Agencia:</a><a class="ml-2">-----------------------</a></a><br>
-                            <a><a class="font-weight-bold">Ubicación:</a><a class="ml-2">---------------------</a></a><br>
-                            <a><a class="font-weight-bold">IP:</a><a class="ml-2">---.---.---.---</a></a>
+                            <a><a class="font-weight-bold">Nombre:</a><a class="ml-2" id="nombreDelKiosco">Kiosko --</a></a><br>
+                            <a><a class="font-weight-bold">Modelo:</a><a class="ml-2" id="modeloKiosco">-----------------------</a></a><br>
+                            <a><a class="font-weight-bold">Agencia:</a><a class="ml-2" id="agenciaKiosco">-----------------------</a></a><br>
+                            <a><a class="font-weight-bold">Ubicación:</a><a class="ml-2" id="ubicacionKiosco">---------------------</a></a><br>
+                            <a><a class="font-weight-bold">IP:</a><a class="ml-2" id="IPKiosco">---.---.---.---</a></a>
                           </div>
                         </div>
                       </div>
                       <hr>
                         <section class="text-inline">
                           <a href="#">
-                            <a class="font-weight-bold">T. de refrescado: </a><a>-- seg.</a>
-                            <a class="font-weight-bold">Última actualización hace: </a><a>-- seg.</a>
+                            <a class="font-weight-bold">T. de refrescado: </a><a id="tiempoRefresacado">--</a> <a> seg.</a>
+                            <a class="font-weight-bold">Última actualización hace: </a><a id="ultimaActualizacion">--</a><a> seg.</a>
                           </a>
                         </section>
                         <!--Inicia Código de la alerta de la vista de Kioskos-->
@@ -287,7 +303,14 @@
                                 <i class="icono izquierda fas fa-exclamation-triangle mt-2"></i>
                               </div>
                               <div class="col-md-10 my-1">
-                                <h5 class="text-center">Este kiosko tiene -- alertas</h5>
+                                <h5 id = "kioscoAlerta">
+                                  <a>
+                                    <a>Este kiosco tiene </a>
+                                    <a id="numeroKioscoAlerta">-- </a>
+                                    <a>alertas</a>
+                                  </a>
+                                </h5>
+
                               </div>
                               <div class="col-md-1">
                                 <i class="fas fa-share-square mt-2 mr-2"></i>
@@ -384,7 +407,7 @@
                       <hr>
                         <div class="container">
                           <p href="#" class="text-right">
-                            <a class="">Total: $</a><a>45,254.00</a>
+                            <a class="">Total: $</a><a id="totalCambioDisponible">45,254.00</a>
                           </p>
 
                           <h5 class="font-weight-bold text-center">Denominaciones</h5>
@@ -397,16 +420,16 @@
                                   <h6>Monedas de $5:</h6>
                                 </div>
                                 <div class="col-md-1 text-left">
-                                  <h6>500</h6>
-                                  <h6>480</h6>
+                                  <h6 id="disponible1">500</h6>
+                                  <h6 id="disponible5">480</h6>
                                 </div>
                                 <div class="col-md-5 text-right">
                                   <h6>Monedas de $10:</h6>
                                   <h6>Billetes de $50:</h6>
                                 </div>
                                 <div class="col-md-1 text-left">
-                                  <h6>250</h6>
-                                  <h6 class="text-danger">10</h6>
+                                  <h6 id="disponible10">250</h6>
+                                  <h6 class="text-danger" id="disponible50">10</h6>
                                 </div>
                               </div>
                             </div>
@@ -420,7 +443,7 @@
                       <hr>
                         <div class="container">
                           <p href="#" class="text-right">
-                            <a class="">Total: $</a><a>45,254.00</a>
+                            <a class="">Total: $</a><a id="totalCambioRecibido">45,254.00</a>
                           </p>
 
                           <!--Inicia código de denominaciones del efectivo recibido-->
@@ -429,42 +452,42 @@
                             <div class="row">
                               <div class="col-md-6">
                                 <h6 href="#" class="text-left">
-                                  <a class="">Monedas de 50c: </a><a>500</a>
+                                  <a class="">Monedas de 50c: </a><a id="recibidoCincuenta">500</a>
                                 </h6>
                                 <h6 href="#" class="text-left">
-                                  <a class="">Monedas de $1: </a><a>480</a>
+                                  <a class="">Monedas de $1: </a><a id="recibido1">480</a>
                                 </h6>
                                 <h6 href="#" class="text-left">
-                                  <a class="">Monedas de $2: </a><a>500</a>
+                                  <a class="">Monedas de $2: </a><a id="recibido2">500</a>
                                 </h6>
                                 <h6 href="#" class="text-left">
-                                  <a class="">Monedas de $5: </a><a>480</a>
+                                  <a class="">Monedas de $5: </a><a id="recibido5">480</a>
                                 </h6>
                                 <h6 href="#" class="text-left">
-                                  <a class="">Monedas de $10: </a><a>500</a>
+                                  <a class="">Monedas de $10: </a><a id="recibido10">500</a>
                                 </h6>
                                 <h6 href="#" class="text-left">
-                                  <a class="">Monedas de $20: </a><a>480</a>
+                                  <a class="">Monedas de $20: </a><a id="recibido20">480</a>
                                 </h6>
                               </div>
                               <div left="col-md-6">
                                 <h6 href="#" class="text-left">
-                                  <a class="">Billetes de $20: </a><a>500</a>
+                                  <a class="">Billetes de $20: </a><a id="recibidosB20">500</a>
                                 </h6>
                                 <h6 href="#" class="text-left">
-                                  <a class="">Billetes de $50: </a><a>480</a>
+                                  <a class="">Billetes de $50: </a><a id="recibido50">480</a>
                                 </h6>
                                 <h6 href="#" class="text-left">
-                                  <a class="">Billetes de $100: </a><a>500</a>
+                                  <a class="">Billetes de $100: </a><a id="recibido100">500</a>
                                 </h6>
                                 <h6 href="#" class="text-left">
-                                  <a class="">Billetes de $200: </a><a>480</a>
+                                  <a class="">Billetes de $200: </a><a id="recibido200">480</a>
                                 </h6>
                                 <h6 href="#" class="text-left">
-                                  <a class="">Billetes de $500: </a><a>500</a>
+                                  <a class="">Billetes de $500: </a><a id="recibido500">500</a>
                                 </h6>
                                 <h6 href="#" class="text-left">
-                                  <a class="">Billetes de $1000: </a><a>480</a>
+                                  <a class="">Billetes de $1000: </a><a id="recibido1000">480</a>
                                 </h6>
                               </div>
                             </div>
@@ -474,29 +497,25 @@
                           <h5 class="text-center font-weight-bold mt-3">Nivel de contenedores</h5>
                           <hr>
                             <div class="row">
-                              <div class="col-md-4">
+                              <div class="col-md-3">
                                 <h6 href="#" class="text-center">
-                                  <a class="">Tot.monedas: </a><a>1500</a>
+                                  <a class="">Tot.monedas: </a><a id="totalMonedas">1500</a>
                                 </h6>
                               </div>
-                              <div class="col-md-2">
-                                <!--
+                              <div class="col-md-3">
+                                <canvas id="totMonedas">
 
-                                AQUI VA UNA GRÁFICA DE PASTEL
-
-                                -->
+                                </canvas>
                               </div>
-                              <div class="col-md-4">
+                              <div class="col-md-3">
                                 <h6 href="#" class="text-center">
-                                  <a class="">Tot.billetes: </a><a>1500</a>
+                                  <a class="">Tot.billetes: </a><a id="totalBilletes">1500</a>
                                 </h6>
                               </div>
-                              <div class="col-md-2">
-                                <!--
+                              <div class="col-md-3">
+                                <canvas id="totBilletes">
 
-                                AQUI VA UNA GRÁFICA DE PASTEL
-
-                                -->
+                                </canvas>
                               </div>
                             </div>
                           <!--Termina código de nivel de contenedores de efectivo recibido-->

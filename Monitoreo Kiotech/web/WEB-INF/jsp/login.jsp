@@ -8,7 +8,7 @@
     <!-- let's add tag srping:url -->
     <spring:url value="/resources/css/bootstrap/bootstrap.min.css" var="btCSS" />
     <spring:url value="/resources/css/login.css" var="login" />
-    <spring:url value="/resources/images/logo.png" var="logo" />
+    <spring:url value="/resources/images/logo2.png" var="logo" />
     <spring:url value="/resources/alertifyjs/css/alertify.css" var="alertifyCSS" />
     <spring:url value="/resources/css/spinner.css" var="spinnerCSS" />
     <spring:url value="/resources/js/jquery.js" var="jquery" />

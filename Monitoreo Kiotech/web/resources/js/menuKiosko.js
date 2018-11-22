@@ -15,17 +15,40 @@ $(document).ready(function(){
 
 	$(".kiosko").on('click', function(e) {
 		e.preventDefault();
-		$('#vistaAgencia').show();
-		$('#vistaSeleccion').show();
+		$('#vistaAgencia').hide();
+		$('#vistaSeleccion').hide();
 	  $("#vistaKiosko").show();
 
+		var canvas6 = document.getElementById('totMonedas').getContext('2d');
+		var canvas7 = document.getElementById('totBilletes').getContext('2d');
+
+		var oilData = {
+    datasets: [
+        {
+            data: [133.3, 86.2],
+            backgroundColor: [
+                "#FF6384",
+                "#63FF84",
+            ]
+        }]
+		};
+
+		var pieChart = new Chart(canvas6, {
+		  type: 'pie',
+		  data: oilData
+		});
+
+		var pieChart2 = new Chart(canvas7, {
+		  type: 'pie',
+		  data: oilData
+		});
 	});
 
 	$(".agencia").on('click', function(e) {
 		e.preventDefault();
-		$("#vistaSeleccion").show();
+		$("#vistaSeleccion").hide();
 		$('#vistaAgencia').show();
-		$('#vistaKiosko').show();
+		$('#vistaKiosko').hide();
 
 		var canvas = document.getElementById('kioscosServicio').getContext('2d');
 		var canvas2 = document.getElementById('kioscosMantenimiento').getContext('2d');
@@ -33,137 +56,139 @@ $(document).ready(function(){
 		var canvas4 = document.getElementById('alertasMes').getContext('2d');
 		var canvas5 = document.getElementById('DisponibilidadKioscos').getContext('2d');
 
-		var barChart = new Chart(canvas, {
-		    type: 'pie',
-		    data: {
-					datasets :[{
-						data : [
-							10,
-							2,
-							3,
-						], backgroundColor : [
-							"#03F72C",
-							"#FDFD00",
-							"#FD0000",
-						],
-						labels : [
-							"Servicio",
-							"Mantenimiento",
-							"Desconectado",
-						]
-					}]
-				},
-				options: {
-            responsive: true, //True por defecto
-        }
+		var oilData = {
+	    datasets: [
+	        {
+	            data: [133.3, 86.2, 52.2],
+	            backgroundColor: [
+	                "#FF6384",
+	                "#63FF84",
+	                "#84FF63",
+	            ]
+	        }]
+		};
+
+	var pieChart = new Chart(canvas, {
+	  type: 'pie',
+	  data: oilData
+	});
+
+	var pieChart2 = new Chart(canvas2, {
+		type: 'pie',
+		data: oilData
+	});
+
+	var pieChart3 = new Chart(canvas3, {
+		type: 'pie',
+		data: oilData
+	});
+
+ ////////////////////////////////////7
+		var densityData = {
+		  label: 'Alertas pendientes',
+		  data: [10, 7, 5, 2, 1, 0, 5, 3],
+		  backgroundColor: 'rgba(0, 99, 132, 0.6)',
+		  borderWidth: 0,
+		  yAxisID: "y-axis-density"
+		};
+
+		var gravityData = {
+		  label: 'Alertas atendidas',
+		  data: [9, 13, 1, 0, 5, 3, 7, 8],
+		  backgroundColor: 'rgba(99, 132, 0, 0.6)',
+		  borderWidth: 0,
+		  yAxisID: "y-axis-gravity"
+		};
+
+		var planetData = {
+		  labels: ["Kiosco 1", "Kiosco 2", "Kiosco 3", "Kiosco 4", "Kiosco 5", "Kiosco 6", "Kiosco 7", "Kiosco 8"],
+		  datasets: [densityData, gravityData]
+		};
+
+		var chartOptions = {
+		  scales: {
+		    xAxes: [{
+		      barPercentage: 1,
+		      categoryPercentage: 0.6
+		    }],
+		    yAxes: [{
+		      id: "y-axis-density"
+		    }, {
+		      id: "y-axis-gravity"
+		    }]
+		  },
+			legend: {
+		    display: true,
+		    position: 'bottom',
+		    labels: {
+		      boxWidth: 80,
+		      fontColor: 'black'
+		    }
+		  }
+		};
+
+		var barChart2 = new Chart(canvas4, {
+		  type: 'bar',
+		  data: planetData,
+		  options: chartOptions
 		});
+///////////////////////////////////////////////////////////
 
-		var barChart2 = new Chart(canvas2, {
-		    type: 'pie',
-		    data: {
-					datasets :[{
-						data : [
-							10,
-							2,
-							3,
-						], backgroundColor : [
-							"#03F72C",
-							"#FDFD00",
-							"#FD0000",
-						],
-						labels : [
-							"Servicio",
-							"Mantenimiento",
-							"Desconectado",
-						]
-					}]
-				},
-				options: {
-            responsive: true, //True por defecto
-        }
+//////////////////////////////////////////////////////////////////////7
+
+		var dataFirst = {
+		    label: "Kiosco 1",
+		    data: [0, 59, 75, 20, 20, 55, 40],
+		    lineTension: 0.3,
+		    fill: false,
+		    borderColor: 'red',
+		    backgroundColor: 'transparent',
+		    pointBorderColor: 'red',
+		    pointBackgroundColor: 'lightgreen',
+		    pointRadius: 5,
+		    pointHoverRadius: 15,
+		    pointHitRadius: 30,
+		    pointBorderWidth: 2,
+		    pointStyle: 'rect'
+		  };
+
+		var dataSecond = {
+		    label: "Kiosco 2)",
+		    data: [20, 15, 60, 60, 65, 30, 70],
+		    lineTension: 0.3,
+		    fill: false,
+		    borderColor: 'purple',
+		    backgroundColor: 'transparent',
+		    pointBorderColor: 'purple',
+		    pointBackgroundColor: 'lightgreen',
+		    pointRadius: 5,
+		    pointHoverRadius: 15,
+		    pointHitRadius: 30,
+		    pointBorderWidth: 2
+		  };
+
+		var speedData = {
+		  labels: ["Día 1", "Día 2", "Día 3", "Día 4", "Día 5", "Día 6", "Día 7"],
+		  datasets: [dataFirst, dataSecond, dataFirst]
+		};
+
+		var chartOptions = {
+		  legend: {
+		    display: true,
+		    position: 'bottom',
+		    labels: {
+		      boxWidth: 80,
+		      fontColor: 'black'
+		    }
+		  }
+		};
+
+		var lineChart = new Chart(canvas5, {
+		  type: 'line',
+		  data: speedData,
+		  options: chartOptions
 		});
-
-		var barChart3 = new Chart(canvas3, {
-		    type: 'pie',
-		    data: {
-					datasets :[{
-						data : [
-							10,
-							2,
-							3,
-						], backgroundColor : [
-							"#03F72C",
-							"#FDFD00",
-							"#FD0000",
-						],
-						labels : [
-							"Servicio",
-							"Mantenimiento",
-							"Desconectado",
-						]
-					}]
-				},
-				options: {
-            responsive: true, //True por defecto
-        }
-		});
-
-		var barChart4 = new Chart(canvas4, {
-		    type: 'bar',
-		    data: {
-					datasets :[{
-						data : [
-							10,
-							2,
-							3,
-						], backgroundColor : [
-							"#03F72C",
-							"#FDFD00",
-							"#FD0000",
-						],
-						labels : [
-							"Servicio",
-							"Mantenimiento",
-							"Desconectado",
-						]
-					}]
-				},
-				options: {
-            responsive: true, //True por defecto
-        }
-		});
-
-		var barChart5 = new Chart(canvas5, {
-		    type: 'line',
-		    data: {
-					datasets :[{
-						data : [
-							10,
-							2,
-							3,
-						], backgroundColor : [
-							"#03F72C",
-							"#FDFD00",
-							"#FD0000",
-						],
-						labels : [
-							"Servicio",
-							"Mantenimiento",
-							"Desconectado",
-						]
-					}]
-				},
-				options: {
-            responsive: true, //True por defecto
-        }
-		});
-
-		window.pie = new Chart(canvas, barChart);
-		window.pie = new Chart(canvas2, barChart2);
-		window.pie = new Chart(canvas3, barChart3);
-		window.pie = new Chart(canvas4, barChart4);
-		window.pie = new Chart(canvas5, barChart5);
-
+////////////////////////////////////////////////////////////////////////
 	});
 
 	$('.btn-mainu').click(function(){
