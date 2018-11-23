@@ -26,7 +26,7 @@ public class ConnectionDB {
     public String StackError = "";
     /*Ingresar datos del properties*/
     public ConnectionDB() throws IOException{
-        Properties p = new Properties();
+        /*Properties p = new Properties();
         InputStream propertiesStream = ClassLoader.getSystemResourceAsStream("com/monitoreo/properties/configuracion.properties");
         p.load(propertiesStream);
         
@@ -35,7 +35,7 @@ public class ConnectionDB {
         String port = p.getProperty("database.port");
         String db = p.getProperty("database.db");
         String user = p.getProperty("database.user");
-        String pass = p.getProperty("database.password");
+        String pass = p.getProperty("database.password");*/
         
         System.out.println("--- PostgreSQL JDBC Connection ---");
         if  (connection == null){
@@ -61,8 +61,9 @@ public class ConnectionDB {
             
             // Realizar conexi'on con servidor
             try {
-                connection = DriverManager.getConnection("jdbc:postgresql://"+host+":"+port+"/"+db, user,pass);
+                //connection = DriverManager.getConnection("jdbc:postgresql://"+host+":"+port+"/"+db, user,pass);
                 //connection = DriverManager.getConnection("jdbc:postgresql://192.168.1.139:5433/db_local", "postgres","12345");
+                connection = DriverManager.getConnection("jdbc:postgresql://localhost:5433/db_local", "postgres","1522");
             } catch (SQLException e) {
                 
                 /*** LOG DE ARCHIVO ***/

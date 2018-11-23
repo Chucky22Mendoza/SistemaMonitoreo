@@ -6,6 +6,7 @@
 package com.monitoreo.cliente.model.objects;
 
 import com.monitoreo.cliente.controller.ControladorCliente;
+import com.monitoreo.cliente.database.Sincronizacion;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -17,6 +18,7 @@ import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import com.monitoreo.cliente.views.BackFrame;
+import java.util.List;
 
 /**
 
@@ -53,6 +55,17 @@ public class ModeloCliente extends Thread {
             OutputStream os = socket.getOutputStream();
             OutputStreamWriter osw = new OutputStreamWriter(os);
             bw = new BufferedWriter(osw);
+        } catch (IOException ex) {
+            Logger.getLogger(ModeloCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void enviarMensaje(String mensaje){
+        try {
+            bw.write(mensaje);
+            System.err.println(mensaje);
+            bw.newLine();
+            bw.flush();
         } catch (IOException ex) {
             Logger.getLogger(ModeloCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -98,8 +111,10 @@ public class ModeloCliente extends Thread {
         }
     }
     
-    public void Sincronizar(){
+    public void Sincronizar() {
         try {
+             
+             
             bw.write("Sincronizar todo");
             bw.newLine();
             bw.flush();
@@ -117,6 +132,8 @@ public class ModeloCliente extends Thread {
         }
         return "";
     }
+    
+    
     
     
     @Override

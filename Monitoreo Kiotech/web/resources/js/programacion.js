@@ -1,7 +1,21 @@
 $(document).ready(function(){
 
 	//primero();
+	$('#cbGenKiosco').on('change',function(){
+		var cb = $(this).is(':checked');
+		if(cb){
+			$('.cbKio').prop('checked',true);
+
+		}else{
+
+			$('.cbKio').prop('checked',false);
+
+		}
+
+		checks();
+	});
 	checks();
+
 
 	$('.select').on('click', function(){
 		$('#rightSection').show();

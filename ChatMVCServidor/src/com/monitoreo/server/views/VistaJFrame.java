@@ -31,7 +31,7 @@ public class VistaJFrame extends javax.swing.JFrame implements IVista {
     public VistaJFrame() {
         initComponents();
         this.setLocationRelativeTo(null);        //COLOCAR LA APP EN EL CENTRO
-        imgIcon = new ImageIcon(getClass().getResource("../img/app.png")); //IMAGEN QUE SERÁ USADA COMO ICONO
+        imgIcon = new ImageIcon(getClass().getResource("/com/monitoreo/utils/app.png")); //IMAGEN QUE SERÁ USADA COMO ICONO
         try {
             setIconImage(imgIcon.getImage());         //MANDAR IMAGEN AL FRAME
         } catch (Exception e) {
