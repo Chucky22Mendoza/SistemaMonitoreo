@@ -49,18 +49,18 @@ public class Controller_home {
 
             //OBTENEMOS LOS ARCHIVOS DE LA BASE DE DATOS Y LOS GUARDAMOS EN UN ARRAY TIPO ARCHIVO
             List<Kiosco_Agencia> kiosco = new ArrayList<>();
-            List<Agencia> Agencia = new ArrayList<>();
+            List<Agencia> Ag = new ArrayList<>();
 
             //MÉTODO QUE RETORNA UNA LISTA TIPO ARCHIVO
             kiosco =new GetKioscos().obtenerKioscos();
-            Agencia = new GetKioscos().obtenerAgencias();
+            Ag = new GetKioscos().obtenerAgencias();
             //System.err.println(Agencia.get(0).getId_agencia());
             //NUEVA VISTA
             ModelAndView mav = new ModelAndView();
 
             //PASAMOS EL ARRAY A LA VISTA
             mav.addObject("kiosco", kiosco);
-            mav.addObject("agencia", Agencia);
+            mav.addObject("ag", Ag);
 
             //ACCEDEMOS A HOME
             mav.setViewName("home");
@@ -84,10 +84,7 @@ public class Controller_home {
             return mav;
 
     }
-}
 
-
-    }
 
     @RequestMapping("kiosko.htm")
     public ModelAndView kiosko(HttpServletRequest request, HttpServletResponse response) throws IOException{
@@ -98,12 +95,5 @@ public class Controller_home {
         return mav;
     }
 
-    @RequestMapping("agencia.htm")
-    public ModelAndView agencia(HttpServletRequest request, HttpServletResponse response) throws IOException{
-
-
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("home.htm");
-        return mav;
-    }
+    
 }

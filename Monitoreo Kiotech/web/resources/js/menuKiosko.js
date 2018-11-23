@@ -13,6 +13,12 @@ $(document).ready(function(){
 		}
 	});
 
+/*	$(".divAgencia").on('click', function(){
+
+		$(this).children('div').slideDown();
+
+	});*/
+
 	$(".kiosko").on('click', function(e) {
 		e.preventDefault();
 
@@ -75,7 +81,7 @@ $(document).ready(function(){
 		});
 		return false;
 	});
-
+/*
 	$(".agencia").on('click', function(e) {
 		e.preventDefault();
 
@@ -248,7 +254,7 @@ $(document).ready(function(){
 		});
 		return false;
 	});
-
+*/
 	$('.btn-mainu').click(function(){
 		$('.contenedor-mainu .mainu').slideToggle();
 	});
