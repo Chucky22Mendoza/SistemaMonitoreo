@@ -53,6 +53,10 @@ public class ControladorCliente implements ActionListener {
                 vista.borrarTextoAEnviar();
                 
                 break;
+            
+            case IVista.Sincronizar:
+                modelo.Sincronizar();
+                break;
                 
            
         }

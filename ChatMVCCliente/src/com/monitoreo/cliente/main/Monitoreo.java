@@ -35,7 +35,7 @@ public class Monitoreo {
     }
     
     public static void main(String[] args) throws  FileNotFoundException, IOException {
-        
+    /*    
          IVista vista = new BackFrame();
         ModeloCliente modelo = new ModeloCliente();
         
@@ -45,7 +45,7 @@ public class Monitoreo {
         modelo.setControlador(controlador);
         
         controlador.arrancar();
-        
+      */  
         Properties p = new Properties();
         InputStream propertiesStream = ClassLoader.getSystemResourceAsStream("com/monitoreo/properties/configuracion.properties");
         p.load(propertiesStream);
