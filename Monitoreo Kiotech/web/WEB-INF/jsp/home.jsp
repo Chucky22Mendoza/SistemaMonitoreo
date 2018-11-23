@@ -90,7 +90,7 @@
         <div class="row">
           <!--Inicia código de barra lateral de kioskos-->
           <div class="col-md-2">
-            <h5 class="bg-dark text-center">Kioskos</h5>
+            <h5 class="bg-dark text-center">Kioscos</h5>
             <hr>
               <div class="container text-left">
                 <c:forEach items="" var="dato">
@@ -104,28 +104,7 @@
                 <button type="button" class="btn btn-secondary kiosko ml-2"><i class="fas fa-desktop mr-1"></i>Kiosco 1</button>
                 <button type="button" class="btn btn-secondary kiosko ml-2"><i class="fas fa-plug text-danger mr-1"></i>Kiosco 2</button>
                 <button type="button" class="btn btn-secondary kiosko ml-2"><i class="fas fa-exclamation-triangle text-warning mr-1"></i>Kiosco 3</button>
-              </div>
-            <!--<hr>
-            <h5 class="bg-dark text-center">Kioskos</h5>
-            <hr>
-              <div class="contenedor-mainu">
-            		<ul class="mainu">
-            			<li class="agencia"><a href="#">Plaza Zentralia<i class="icono derecha fa fa-chevron-down"></i></a>
-            				<ul>
-            					<li class="kiosko"><a href="#"><i class="fas fa-desktop mr-1"></i>Kiosko 1</a></li>
-            					<li class="kiosko"><a href="#"><i class="fas fa-plug text-danger mr-1"></i>Kiosko 2</a></li>
-            					<li class="kiosko"><a href="#"><i class="fas fa-exclamation-triangle text-warning mr-1"></i>Kiosko 3</a></li>
-            				</ul>
-            			</li>
-            			<li class="agencia"><a href="#">Presidencia<i class="icono derecha fa fa-chevron-down"></i></a>
-            				<ul>
-            					<li class="kiosko"><a href="#"><i class="fas fa-desktop mr-1"></i>Kiosko 4</a></li>
-            					<li class="kiosko"><a href="#"><i class="fas fa-plug text-danger mr-1"></i>Kiosko 5</a></li>
-            					<li class="kiosko"><a href="#"><i class="fas fa-exclamation-triangle text-warning mr-1"></i>Kiosko 6</a></li>
-            				</ul>
-            			</li>
-            		</ul>
-            	</div>-->
+              </div>            
           </div>
           <!--Termina código de barra lateral de kioskos-->
 

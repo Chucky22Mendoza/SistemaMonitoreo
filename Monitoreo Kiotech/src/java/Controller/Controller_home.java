@@ -25,7 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 public class Controller_home {
-    
+
     //PÁGINA PRINCIPAL
     @RequestMapping("home.htm")
     public ModelAndView home(HttpServletRequest request, HttpServletResponse response) throws IOException{
@@ -35,41 +35,55 @@ public class Controller_home {
             String id = session.getAttribute("id_usuario").toString();
             String user = session.getAttribute("usuario").toString();
             String correo = session.getAttribute("correo").toString();
-            String agencia = session.getAttribute("agencia").toString();   
+            String agencia = session.getAttribute("agencia").toString();
             //Lista de id_kioscos a los que pertenece la agencia del usuario
             List<Integer> listKioscoAgencia = (List<Integer>) session.getAttribute("kioscos_usuario_agencia");
             List<Integer> listKioscoPermiso = (List<Integer>) session.getAttribute("kioscos_usuario_permiso");
-            
+
             System.err.println(listKioscoAgencia);
             System.err.println(listKioscoPermiso);
-            
+
             //OBTENEMOS LOS ARCHIVOS DE LA BASE DE DATOS Y LOS GUARDAMOS EN UN ARRAY TIPO ARCHIVO
             List<Archivo> archivo = new ArrayList<>();
             List<ListaReproduccion> lista = new ArrayList<>();
-            
+
             //MÉTODO QUE RETORNA UNA LISTA TIPO ARCHIVO
             archivo =new GetFile().obtenerArchivo();
             lista = new GetPlayList().obtenerPlayLists();
             //NUEVA VISTA
             ModelAndView mav = new ModelAndView();
-            
+
             //PASAMOS EL ARRAY A LA VISTA
             mav.addObject("File", archivo);
             mav.addObject("List", lista);
-            
+
             //ACCEDEMOS A HOME
             mav.setViewName("home");
-            
+
             return mav;
-            
+
         }catch(Exception e){
             System.err.println("ERROR INTENTANDO INICIAR SESIÓN");
             return new ModelAndView("/");
         }
+
+    }
+
+    @RequestMapping("kiosko.htm")
+    public ModelAndView kiosko(HttpServletRequest request, HttpServletResponse response) throws IOException{
         
-    }        
+        
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("home.htm");
+        return mav;
+    }
+
+    @RequestMapping("agencia.htm")
+    public ModelAndView agencia(HttpServletRequest request, HttpServletResponse response) throws IOException{
+        
+        
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("home.htm");
+        return mav;
+    }
 }
-
-
-
-
