@@ -8,7 +8,11 @@ package Controller;
 import com.objects.controller.Archivo;
 import com.objects.controller.ListaReproduccion;
 import com.getdata.controller.GetFile;
+import com.getdata.controller.GetKioscos;
 import com.getdata.controller.GetPlayList;
+import com.objects.controller.Agencia;
+import com.objects.controller.Kiosco;
+import com.objects.controller.Kiosco_Agencia;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,18 +48,19 @@ public class Controller_home {
             System.err.println(listKioscoPermiso);
 
             //OBTENEMOS LOS ARCHIVOS DE LA BASE DE DATOS Y LOS GUARDAMOS EN UN ARRAY TIPO ARCHIVO
-            List<Archivo> archivo = new ArrayList<>();
-            List<ListaReproduccion> lista = new ArrayList<>();
+            List<Kiosco_Agencia> kiosco = new ArrayList<>();
+            List<Agencia> Agencia = new ArrayList<>();
 
             //MÉTODO QUE RETORNA UNA LISTA TIPO ARCHIVO
-            archivo =new GetFile().obtenerArchivo();
-            lista = new GetPlayList().obtenerPlayLists();
+            kiosco =new GetKioscos().obtenerKioscos();
+            Agencia = new GetKioscos().obtenerAgencias();
+            //System.err.println(Agencia.get(0).getId_agencia());
             //NUEVA VISTA
             ModelAndView mav = new ModelAndView();
 
             //PASAMOS EL ARRAY A LA VISTA
-            mav.addObject("File", archivo);
-            mav.addObject("List", lista);
+            mav.addObject("kiosco", kiosco);
+            mav.addObject("agencia", Agencia);
 
             //ACCEDEMOS A HOME
             mav.setViewName("home");
@@ -69,10 +74,25 @@ public class Controller_home {
 
     }
 
+    @RequestMapping("agencia.htm")
+    public ModelAndView agencia(HttpServletRequest request, HttpServletResponse response) throws IOException{
+
+            ModelAndView mav = new ModelAndView();
+            //ACCEDEMOS A HOME
+            mav.setViewName("home");
+
+            return mav;
+
+    }
+}
+
+
+    }
+
     @RequestMapping("kiosko.htm")
     public ModelAndView kiosko(HttpServletRequest request, HttpServletResponse response) throws IOException{
-        
-        
+
+
         ModelAndView mav = new ModelAndView();
         mav.setViewName("home.htm");
         return mav;
@@ -80,8 +100,8 @@ public class Controller_home {
 
     @RequestMapping("agencia.htm")
     public ModelAndView agencia(HttpServletRequest request, HttpServletResponse response) throws IOException{
-        
-        
+
+
         ModelAndView mav = new ModelAndView();
         mav.setViewName("home.htm");
         return mav;

@@ -93,18 +93,27 @@
             <h5 class="bg-dark text-center">Kioscos</h5>
             <hr>
               <div class="container text-left">
-                <c:forEach items="" var="dato">
-                  <button type="button" class="btn btn-outline-light agencia">Agencia</button>
 
-                  <c:forEach items="" var="kiosco">
-                    <button type="button" class="btn btn-secondary kiosko ml-2"><i class="fas fa-desktop mr-1"></i>Kiosco 1</button>
+                <c:forEach items="${agencia}" var="dato">
+                  <button id="${dato.id_agencia}"type="button" class="btn btn-secondary agencia">${dato.nombre}</button>
+                  <c:forEach items="${kiosco}" var="dato2">
+                    <c:if test="${dato.id_agencia == dato2.id_agencia}">
+                      <c:if test="${dato2.id_status == 1}">
+                        <button id="${dato2.id_kiosco}" name="${dato2.nombre}" value="${dato.nombre}" type="button" class="btn btn-secondary kiosko ml-2"><i class="fas fa-desktop mr-1"></i>${dato2.nombre}</button>
+                      </c:if>
+                      <c:if test="${dato2.id_status == 2}">
+                        <button id="${dato2.id_kiosco}" name="${dato2.nombre}" value="${dato.nombre}" type="button" class="btn btn-secondary kiosko ml-2"><i class="fas fa-plug text-danger mr-1"></i>${dato2.nombre}</button>
+                      </c:if>
+                      <c:if test="${dato2.id_status == 3}">
+                        <button id="${dato2.id_kiosco}" name="${dato2.nombre}" value="${dato.nombre}" type="button" class="btn btn-secondary kiosko ml-2"><i class="fas fa-exclamation-triangle text-warning mr-1"></i>${dato2.nombre}</button>
+                      </c:if>
+                      <c:if test="${dato2.id_status == 4}">
+                        <button id="${dato2.id_kiosco}" name="${dato2.nombre}" value="${dato.nombre}" type="button" class="btn btn-secondary kiosko ml-2"><i class="fas fa-exclamation-triangle text-warning mr-1"></i>${dato2.nombre}</button>
+                      </c:if>
+                    </c:if>
                   </c:forEach>
                 </c:forEach>
-                <button type="button" class="btn btn-secondary agencia">Agencia</button>
-                <button type="button" class="btn btn-secondary kiosko ml-2"><i class="fas fa-desktop mr-1"></i>Kiosco 1</button>
-                <button type="button" class="btn btn-secondary kiosko ml-2"><i class="fas fa-plug text-danger mr-1"></i>Kiosco 2</button>
-                <button type="button" class="btn btn-secondary kiosko ml-2"><i class="fas fa-exclamation-triangle text-warning mr-1"></i>Kiosco 3</button>
-              </div>            
+              </div>
           </div>
           <!--Termina código de barra lateral de kioskos-->
 

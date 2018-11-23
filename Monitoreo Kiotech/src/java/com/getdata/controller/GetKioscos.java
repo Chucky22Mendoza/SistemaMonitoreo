@@ -6,7 +6,9 @@
 package com.getdata.controller;
 
 import com.model.controller.ConnectionDB;
+import com.objects.controller.Agencia;
 import com.objects.controller.Kiosco;
+import com.objects.controller.Kiosco_Agencia;
 import com.objects.controller.Programadas;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -54,6 +56,68 @@ public class GetKioscos {
             //ex.printStackTrace();
         }
         return kiosco;
+    }
+    
+    public List<Kiosco_Agencia> obtenerKioscos(){
+        List<Kiosco_Agencia> kiosco = new ArrayList<>();
+        String sql ="select id_kiosco,nombre,id_agencia,id_status from kiosco order by id_kiosco";
+        try (   Connection dbConnection = dbSource.conectar().getConnection();
+                 CallableStatement obtenerKioscos = dbConnection.prepareCall(sql);       )            {
+            
+          
+          //Variables de Entrada (IN)
+          obtenerKioscos.execute();
+          
+          try(  ResultSet kioscosRS =(ResultSet)obtenerKioscos.getResultSet(); ){
+              while(kioscosRS.next())
+                {
+                  
+                    Kiosco_Agencia kioscos= new Kiosco_Agencia();
+                    kioscos.setId_kiosco(kioscosRS.getInt(1));
+                    kioscos.setNombre(kioscosRS.getString(2));
+                    kioscos.setId_agencia(kioscosRS.getInt(3));
+                    kioscos.setId_status(kioscosRS.getInt(4));
+                    
+                    kiosco.add(kioscos);
+                }
+             //System.out.println("Llamada a procedimiento almacenado finalizada correctamente.");
+          }
+        }
+        catch(SQLException ex){
+            System.out.println("Excepcion: "+ ex.getMessage());
+            //ex.printStackTrace();
+        }
+        return kiosco;
+    }
+    
+        public List<Agencia> obtenerAgencias(){
+        List<Agencia> agencia = new ArrayList<>();
+        String sql ="select id_agencia, nombre from agencia order by id_agencia";
+        try (   Connection dbConnection = dbSource.conectar().getConnection();
+                 CallableStatement obtenerKioscos = dbConnection.prepareCall(sql);       )            {
+            
+          
+          //Variables de Entrada (IN)
+          obtenerKioscos.execute();
+          
+          try(  ResultSet kioscosRS =(ResultSet)obtenerKioscos.getResultSet(); ){
+              while(kioscosRS.next())
+                {
+                  
+                    Agencia ag= new Agencia();
+                    ag.setId_agencia(kioscosRS.getInt(1));
+                    ag.setNombre(kioscosRS.getString(2));
+                    
+                    agencia.add(ag);
+                }
+             //System.out.println("Llamada a procedimiento almacenado finalizada correctamente.");
+          }
+        }
+        catch(SQLException ex){
+            System.out.println("Excepcion: "+ ex.getMessage());
+            //ex.printStackTrace();
+        }
+        return agencia;
     }
     
     public List<Programadas> obtenerProgramadas(int id){
