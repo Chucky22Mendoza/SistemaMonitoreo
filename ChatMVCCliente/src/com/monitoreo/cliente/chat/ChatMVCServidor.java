@@ -6,9 +6,13 @@
 package com.monitoreo.cliente.chat;
 
 import com.monitoreo.cliente.controller.ControladorCliente;
+import com.monitoreo.cliente.main.Monitoreo;
 import com.monitoreo.cliente.model.objects.ModeloCliente;
 import com.monitoreo.cliente.views.IVista;
 import com.monitoreo.cliente.views.BackFrame;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -20,7 +24,7 @@ public class ChatMVCServidor {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        IVista vista = new BackFrame();
+         IVista vista = new BackFrame();
         ModeloCliente modelo = new ModeloCliente();
         
         ControladorCliente controlador = new ControladorCliente(vista, modelo);

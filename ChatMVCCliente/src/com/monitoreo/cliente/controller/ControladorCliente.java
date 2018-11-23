@@ -30,10 +30,11 @@ public class ControladorCliente implements ActionListener {
     public void arrancar(){
         vista.hacerVisible();
         vista.inicializar();
-        vista.agnadirMensajeATrasiego("conectando con el Servidor...");
+        System.out.println("conectando con el Servidor...");
         modelo.conectarConElServidor();
-        vista.agnadirMensajeATrasiego("Conectado al servidor.");
+        System.out.println("Conectado al servidor.");
         modelo.crearFlujos();
+         System.out.println("Flujos creados");
         modelo.start();
     }
 
@@ -53,11 +54,7 @@ public class ControladorCliente implements ActionListener {
                 
                 break;
                 
-            case IVista.Sincronizar:
-                    vista.agnadirMensajeATrasiego("Sincronizando datos");
-                    modelo.Sincronizar();
-                     vista.agnadirMensajeATrasiego("......");
-                break;
+           
         }
     }
     

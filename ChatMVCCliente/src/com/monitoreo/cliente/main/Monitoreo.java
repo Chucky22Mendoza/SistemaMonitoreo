@@ -5,9 +5,13 @@
  */
 package com.monitoreo.cliente.main;
 
+import com.monitoreo.cliente.chat.ChatMVCServidor;
+import com.monitoreo.cliente.controller.ControladorCliente;
 import com.monitoreo.cliente.database.ConnectionDB;
+import com.monitoreo.cliente.model.objects.ModeloCliente;
 import com.monitoreo.cliente.views.InizialateConfig;
 import com.monitoreo.cliente.views.BackFrame;
+import com.monitoreo.cliente.views.IVista;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,6 +35,17 @@ public class Monitoreo {
     }
     
     public static void main(String[] args) throws  FileNotFoundException, IOException {
+        
+         IVista vista = new BackFrame();
+        ModeloCliente modelo = new ModeloCliente();
+        
+        ControladorCliente controlador = new ControladorCliente(vista, modelo);
+        
+        vista.setControlador(controlador);
+        modelo.setControlador(controlador);
+        
+        controlador.arrancar();
+        
         Properties p = new Properties();
         InputStream propertiesStream = ClassLoader.getSystemResourceAsStream("com/monitoreo/properties/configuracion.properties");
         p.load(propertiesStream);
@@ -66,6 +81,7 @@ public class Monitoreo {
             BackFrame ex = new BackFrame();
             ex.setVisible(true);
         }
+    
     }
         
         
