@@ -6,25 +6,9 @@
 package com.monitoreo.cliente.views;
 
 import com.monitoreo.cliente.controller.ControladorCliente;
-import com.monitoreo.cliente.database.Sincronizacion;
 import com.monitoreo.cliente.model.objects.ModeloCliente;
-import com.monitoreo.cliente.model.objects.fn_registrar_alertaModel;
-import com.monitoreo.cliente.model.objects.fn_registrar_alerta_enviadaModel;
-import com.monitoreo.cliente.model.objects.fn_registrar_corte_cajaModel;
-import com.monitoreo.cliente.model.objects.fn_sincronizar_configuracion_envioModel;
 import com.monitoreo.cliente.model.objects.fn_sincronizar_dispositivo_vendingModel;
-import com.monitoreo.cliente.model.objects.fn_sincronizar_dispositivo_vending_kioscoModel;
-import com.monitoreo.cliente.model.objects.fn_sincronizar_impresoraModel;
-import com.monitoreo.cliente.model.objects.fn_sincronizar_kioscoModel;
 import com.monitoreo.restful.set.WebService;
-import java.io.IOException;
-import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.ws.rs.core.Response;
 
@@ -153,11 +137,11 @@ public class BackFrame extends javax.swing.JFrame implements IVista {
         obj.setId_evento(historial_alerta.get(i).getId_evento());
         obj.setId_kiosco(historial_alerta.get(i).getId_kiosco());
         */
-        
-        
+        ModeloCliente model = new ModeloCliente();
+        model.enviarMensaje("OK");
+        /*
         fn_sincronizar_dispositivo_vendingModel obj = new fn_sincronizar_dispositivo_vendingModel(2,"prueba desde cliente");
-        Response stts = ws.fn_registrar_alerta(obj);
-        int status = stts.getStatus();
+        int status = ws.fn_sincronizar_dispositivo_vending(obj).getStatus();
         
         if(status == 200){
             ModeloCliente model=new ModeloCliente();
@@ -170,7 +154,7 @@ public class BackFrame extends javax.swing.JFrame implements IVista {
             //String response = "Status: 404 \n Sincronizado: ''''''fn_registrar_alerta'''''' \n Response: ERROR";
             model.enviarMensaje("ERROR");
         }
-        //}
+        //}*/
         /*
         List<fn_registrar_alerta_enviadaModel> alerta_enviada = new Sincronizacion().get_alerta_enviada();
         int ae_lng = alerta_enviada.size();

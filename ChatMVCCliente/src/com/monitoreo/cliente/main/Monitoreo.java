@@ -5,7 +5,6 @@
  */
 package com.monitoreo.cliente.main;
 
-import com.monitoreo.cliente.chat.ChatMVCServidor;
 import com.monitoreo.cliente.controller.ControladorCliente;
 import com.monitoreo.cliente.database.ConnectionDB;
 import com.monitoreo.cliente.model.objects.ModeloCliente;

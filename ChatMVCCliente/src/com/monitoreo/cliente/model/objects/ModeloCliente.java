@@ -62,8 +62,8 @@ public class ModeloCliente extends Thread {
     
     public void enviarMensaje(String mensaje){
         try {
-            bw.write(mensaje);
             System.err.println(mensaje);
+            bw.write(mensaje);
             bw.newLine();
             bw.flush();
         } catch (IOException ex) {
