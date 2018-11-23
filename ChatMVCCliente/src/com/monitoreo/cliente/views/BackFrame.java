@@ -122,7 +122,7 @@ public class BackFrame extends javax.swing.JFrame implements IVista {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSincronizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSincronizarActionPerformed
-        WebService ws = new WebService();
+       //WebService ws = new WebService();
         /*List<fn_registrar_alertaModel> historial_alerta = new Sincronizacion().get_alertas();
         
         int ha_lng = historial_alerta.size();
@@ -137,24 +137,24 @@ public class BackFrame extends javax.swing.JFrame implements IVista {
         obj.setId_evento(historial_alerta.get(i).getId_evento());
         obj.setId_kiosco(historial_alerta.get(i).getId_kiosco());
         */
-        ModeloCliente model = new ModeloCliente();
-        model.enviarMensaje("OK");
-        /*
-        fn_sincronizar_dispositivo_vendingModel obj = new fn_sincronizar_dispositivo_vendingModel(2,"prueba desde cliente");
-        int status = ws.fn_sincronizar_dispositivo_vending(obj).getStatus();
         
-        if(status == 200){
-            ModeloCliente model=new ModeloCliente();
+        
+       //fn_sincronizar_dispositivo_vendingModel obj = new fn_sincronizar_dispositivo_vendingModel(2,"prueba desde cliente");
+       // Response stts = ws.fn_registrar_alerta(obj);
+       // int status = stts.getStatus();
+        
+       // if(status == 200){
+           
             //String response = "OK";
             //String response = "Status: 200 Sincronizado: ''''''fn_registrar_alerta'''''' Response: OK";
-            model.enviarMensaje("OK");
-        }else{
-            ModeloCliente model=new ModeloCliente();
+           
+       // }else{
+         //   ModeloCliente model=new ModeloCliente();
             //String response = "ERROR";
             //String response = "Status: 404 \n Sincronizado: ''''''fn_registrar_alerta'''''' \n Response: ERROR";
-            model.enviarMensaje("ERROR");
-        }
-        //}*/
+           
+       // }
+        //}
         /*
         List<fn_registrar_alerta_enviadaModel> alerta_enviada = new Sincronizacion().get_alerta_enviada();
         int ae_lng = alerta_enviada.size();
@@ -367,7 +367,6 @@ public class BackFrame extends javax.swing.JFrame implements IVista {
     public void inicializar(){
         btnSincronizar.setActionCommand(Sincronizar);
         btnSincronizar.addActionListener(controlador);
-
     }
 
     @Override

@@ -110,17 +110,15 @@ public class ModeloCliente extends Thread {
             Logger.getLogger(ModeloCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+    //////
+    /////
+    ///aqui tienes que hacer todo wey para que se envie bien
+    ////
+    /////
     public void Sincronizar() {
-        try {
-             
-             
-            bw.write("Sincronizar todo");
-            bw.newLine();
-            bw.flush();
-        } catch (IOException ex) {
-            Logger.getLogger(ModeloCliente.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
+       String mensaje="OK"; 
+       enviarMensaje(mensaje);
     }
 
     public String recibirMensaje(){
