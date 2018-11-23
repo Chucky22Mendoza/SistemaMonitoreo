@@ -90,10 +90,6 @@ public class ModeloServidor extends Thread {
         return "";
     }
     
-    public void Sincronizar(){
-       
-    }
-    
     
      
     public Kiosco ConsultarStatusKiosco(int idUsuario){
@@ -131,6 +127,7 @@ public class ModeloServidor extends Thread {
                 String mensaje=recibirMensaje();
                 if (mensaje.equals("Status: 200 \n Sincronizado: ''''''fn_registrar_alerta'''''' \n Response: OK")) {
                      enviarMensaje("Sincronización Correcta");
+                     controlador.agnadirMensajeATrasiego("Sincronizacion correcta");
                 }
                 if(mensaje.equals("Status: 404 \n Sincronizado: ''''''fn_registrar_alerta'''''' \n Response: ERROR")){
                     enviarMensaje("Sincronización Fallida");

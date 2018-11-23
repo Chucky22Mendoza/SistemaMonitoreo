@@ -332,6 +332,7 @@ public class ModeloCliente extends Thread {
     public String recibirMensaje() {
         try {
             String mensaje = br.readLine();
+            controlador.agnadirMensajeATrasiego("El Servidor dice: " + mensaje);
             return mensaje;
         } catch (IOException ex) {
             Logger.getLogger(ModeloCliente.class.getName()).log(Level.SEVERE, null, ex);
