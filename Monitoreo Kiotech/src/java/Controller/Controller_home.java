@@ -32,36 +32,36 @@ public class Controller_home {
         try{
             //VALIDAR EL ACCESO CON VARIABLES DE SESIÓN
             HttpSession session = request.getSession();
-            
-                String id = session.getAttribute("id_usuario").toString();
-                String user = session.getAttribute("usuario").toString();
-                String correo = session.getAttribute("correo").toString();
-                String agencia = session.getAttribute("agencia").toString();
-                //Lista de id_kioscos a los que pertenece la agencia del usuario
-                List<Integer> listKioscoAgencia = (List<Integer>) session.getAttribute("kioscos_usuario_agencia");
-                List<Integer> listKioscoPermiso = (List<Integer>) session.getAttribute("kioscos_usuario_permiso");
+            String id = session.getAttribute("id_usuario").toString();
+            String user = session.getAttribute("usuario").toString();
+            String correo = session.getAttribute("correo").toString();
+            String agencia = session.getAttribute("agencia").toString();
+            //Lista de id_kioscos a los que pertenece la agencia del usuario
+            List<Integer> listKioscoAgencia = (List<Integer>) session.getAttribute("kioscos_usuario_agencia");
+            List<Integer> listKioscoPermiso = (List<Integer>) session.getAttribute("kioscos_usuario_permiso");
 
-                System.err.println(listKioscoAgencia);
-                System.err.println(listKioscoPermiso);
+            System.err.println(listKioscoAgencia);
+            System.err.println(listKioscoPermiso);
 
-                //OBTENEMOS LOS ARCHIVOS DE LA BASE DE DATOS Y LOS GUARDAMOS EN UN ARRAY TIPO ARCHIVO
-                List<Kiosco_Agencia> kiosco = new ArrayList<>();
-                List<Agencia> Agencia = new ArrayList<>();
+            //OBTENEMOS LOS ARCHIVOS DE LA BASE DE DATOS Y LOS GUARDAMOS EN UN ARRAY TIPO ARCHIVO
+            List<Kiosco_Agencia> kiosco = new ArrayList<>();
+            List<Agencia> Ag = new ArrayList<>();
 
-                //MÉTODO QUE RETORNA UNA LISTA TIPO ARCHIVO
-                kiosco =new GetKioscos().obtenerKioscos();
-                Agencia = new GetKioscos().obtenerAgencias();
-                //System.err.println(Agencia.get(0).getId_agencia());
-                ModelAndView mav = new ModelAndView();
+            //MÉTODO QUE RETORNA UNA LISTA TIPO ARCHIVO
+            kiosco =new GetKioscos().obtenerKioscos();
+            Ag = new GetKioscos().obtenerAgencias();
+            //System.err.println(Agencia.get(0).getId_agencia());
+            //NUEVA VISTA
+            ModelAndView mav = new ModelAndView();
 
-                //PASAMOS EL ARRAY A LA VISTA
-                mav.addObject("kiosco", kiosco);
-                mav.addObject("agencia", Agencia);
- 
-                //ACCEDEMOS A HOME
-                mav.setViewName("home");
+            //PASAMOS EL ARRAY A LA VISTA
+            mav.addObject("kiosco", kiosco);
+            mav.addObject("ag", Ag);
 
-                return mav;    
+            //ACCEDEMOS A HOME
+            mav.setViewName("home");
+
+            return mav;
 
         }catch(Exception e){
             //mav.setViewName("login.htm");
@@ -82,6 +82,7 @@ public class Controller_home {
 
     }
 
+
     @RequestMapping("kiosko.htm")
     public ModelAndView kiosko(HttpServletRequest request, HttpServletResponse response) throws IOException{
 
@@ -89,16 +90,16 @@ public class Controller_home {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("home.htm");
         return mav;
-    }   
-    
+    }
+
     @RequestMapping("cerrar_sesion.htm")
     public ModelAndView cerrar_sesion(HttpServletRequest request, HttpServletResponse response) throws IOException{
         HttpSession session = request.getSession();
-        
+
             ModelAndView mav = new ModelAndView();
             mav.setViewName("login");
             session.invalidate();
             System.out.println("LLEGO");
             return mav;
-    }   
+    }
 }

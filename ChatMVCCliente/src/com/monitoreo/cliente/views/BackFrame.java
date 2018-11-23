@@ -118,7 +118,7 @@ public class BackFrame extends javax.swing.JFrame implements IVista {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSincronizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSincronizarActionPerformed
-
+       
     }//GEN-LAST:event_btnSincronizarActionPerformed
 
 
