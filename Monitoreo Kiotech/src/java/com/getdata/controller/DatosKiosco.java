@@ -6,6 +6,8 @@
 package com.getdata.controller;
 
 import com.model.controller.ConnectionDB;
+import com.objects.controller.Contenedor_Actual;
+import com.objects.controller.Denom_Dispensada;
 import com.objects.controller.Disp_Vending;
 import com.objects.controller.Impresora;
 import com.objects.controller.Kiosco_Gen;
@@ -228,5 +230,139 @@ public class DatosKiosco {
             //ex.printStackTrace();
         }
         return lista;
+    }
+    
+    public List<Contenedor_Actual> contenedorActual(int id_kiosco){
+        List<Contenedor_Actual> lista = new ArrayList<>();
+        String sql ="select * from vw_contenedor_actual where id_kiosco = ?";
+        try (   Connection dbConnection = dbSource.conectar().getConnection();
+                 CallableStatement CStmt = dbConnection.prepareCall(sql);       )            {
+            
+          CStmt.setInt(1, id_kiosco);
+          //Variables de Entrada (IN)
+          CStmt.execute();
+          
+          try(  ResultSet rs =(ResultSet)CStmt.getResultSet(); ){
+              while(rs.next())
+                {
+                    Contenedor_Actual obj = new Contenedor_Actual();
+                    
+                    obj.setNombre(rs.getString(2));
+                    obj.setCantidad_actual(rs.getInt(3));
+                    obj.setCantidad_total(rs.getInt(4));
+                    lista.add(obj);
+                }
+          }
+        }
+        catch(SQLException ex){
+            System.out.println("Excepcion: "+ ex.getMessage());
+            //ex.printStackTrace();
+        }
+        return lista;
+    }
+    
+    private String efec_disponible;
+    public String efectivoDisponible(int id_kiosco){
+        String sql ="select * from vw_total_dispensado where id_kiosco = ?";
+        try (   Connection dbConnection = dbSource.conectar().getConnection();
+                 CallableStatement CStmt = dbConnection.prepareCall(sql);       )            {
+            
+          CStmt.setInt(1, id_kiosco);
+          //Variables de Entrada (IN)
+          CStmt.execute();
+          
+          try(  ResultSet rs =(ResultSet)CStmt.getResultSet(); ){
+              while(rs.next())
+                {
+                    efec_disponible = rs.getString(2);
+                }
+          }
+        }
+        catch(SQLException ex){
+            System.out.println("Excepcion: "+ ex.getMessage());
+            return "Es posible que aún no exista alguna transacción";
+            //ex.printStackTrace();
+        }
+        return efec_disponible;
+    }
+    
+    public List<Denom_Dispensada> denominacionDispensada(int id_kiosco){
+        List<Denom_Dispensada> lista = new ArrayList<>();
+        String sql ="select * from vw_total_x_denom_dispensada where id_kiosco = ?";
+        try (   Connection dbConnection = dbSource.conectar().getConnection();
+                 CallableStatement CStmt = dbConnection.prepareCall(sql);       )            {
+            
+          CStmt.setInt(1, id_kiosco);
+          //Variables de Entrada (IN)
+          CStmt.execute();
+          
+          try(  ResultSet rs =(ResultSet)CStmt.getResultSet(); ){
+              while(rs.next())
+                {
+                    Denom_Dispensada obj = new Denom_Dispensada();
+                    
+                    obj.setCantidad_total(rs.getInt(2));
+                    obj.setNombre(rs.getString(3));
+                    obj.setCantidad_minima(rs.getInt(4));
+                    
+                    lista.add(obj);
+                }
+          }
+        }
+        catch(SQLException ex){
+            System.out.println("Excepcion: "+ ex.getMessage());
+            //ex.printStackTrace();
+        }
+        return lista;
+    }
+    
+     public int mantenimiento(int id_kiosco){
+        
+        String sql ="update kiosco set status_mantenimiento=true where id_kiosco = ?";
+        try (   Connection dbConnection = dbSource.conectar().getConnection();
+                 CallableStatement CStmt = dbConnection.prepareCall(sql);       )            {
+            
+          dbConnection.setAutoCommit(false);
+          CStmt.setInt(1, id_kiosco);
+          //Variables de Entrada (IN)
+          int res = CStmt.executeUpdate();
+          if(res > 0){
+              dbConnection.commit();
+              return 1;
+          }else{
+              dbConnection.rollback();
+              return 0;
+          }
+        }
+        catch(SQLException ex){
+            System.out.println("Excepcion: "+ ex.getMessage());
+            return 0;
+        }
+        
+    }
+     
+     public int apagado(int id_kiosco){
+        
+        String sql ="update kiosco set id_status=3 where id_kiosco = ?";
+        try (   Connection dbConnection = dbSource.conectar().getConnection();
+                 CallableStatement CStmt = dbConnection.prepareCall(sql);       )            {
+            
+          dbConnection.setAutoCommit(false);
+          CStmt.setInt(1, id_kiosco);
+          //Variables de Entrada (IN)
+          int res = CStmt.executeUpdate();
+          if(res > 0){
+              dbConnection.commit();
+              return 1;
+          }else{
+              dbConnection.rollback();
+              return 0;
+          }
+        }
+        catch(SQLException ex){
+            System.out.println("Excepcion: "+ ex.getMessage());
+            return 0;
+        }
+        
     }
 }
