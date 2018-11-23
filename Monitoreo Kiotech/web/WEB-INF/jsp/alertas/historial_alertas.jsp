@@ -68,7 +68,7 @@
 
       		</ul>
       	    </li>
-      	    <li><a id="salir" class="" href="<c:url value='archivos.htm' />"><i class=" icono izquierda fas fa-sign-out-alt "></i> Cerrar Sesión</a></li>
+      	    <li><a id="salir" class="" href="<c:url value='cerrar_sesion.htm' />"><i class=" icono izquierda fas fa-sign-out-alt "></i> Cerrar Sesión</a></li>
       	  </ul>
 
       	  <div class="userCar text-center mt-5">
@@ -187,7 +187,7 @@
                       <!--<c:out value="${dato.status}"></c:out>-->
                     <c:if test = "${contador <=  15}">
                     <tr>
-                      
+
                       <td class="text-center">${dato.id}</td>
                       <td class="text-center">${dato.fechaHora}</td>
                       <td class="text-center">${dato.tipoAlerta}</td>
