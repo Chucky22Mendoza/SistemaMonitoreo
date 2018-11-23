@@ -125,88 +125,57 @@ public class ModeloServidor extends Thread {
    //public static int señal_bandera;
     public void run(){
        
-        while(true){
-            
-            
-            
-     /*   if (bandera==false){
-            NombreUsuario = recibirMensaje();
-            String password = recibirPassword();
-             //System.out.println(NombreUsuario);
-              //System.out.println(password);
-            
-              
-            //AQUI SE CHECA SI EL USUARIO ES CORRECTO
-            Usuario2 = VerificarKiosco(NombreUsuario,password);
-            //System.out.println(Usuario2.getStatus());
-            //System.out.println(Usuario2.getId());
-            
-              if (Usuario2.getStatus()==null){
-                  
-                  enviarMensaje("ACCESO DENEGADO --DATOS NO ENCONTRADOS-- ");
-                bandera=false;
-              }else{
-                  controlador.agnadirMensajeATrasiego( NombreUsuario +" Se conecto");
-                enviarMensaje("ACCESO PERMITIDO");
-                bandera=true;
-              }
-         }*/
-      
+        while(bandera){
+           
             if (bandera) {
                 String mensaje=recibirMensaje();
-                /*if (mensaje.equals("Status: 200 \n Sincronizado: ''''''fn_registrar_alerta'''''' \n Response: OK")) {
-                     controlador.agnadirMensajeATrasiego(mensaje);
+                if (mensaje.equals("Status: 200 \n Sincronizado: ''''''fn_registrar_alerta'''''' \n Response: OK")) {
+                     enviarMensaje("Sincronización Correcta");
                 }
                 if(mensaje.equals("Status: 404 \n Sincronizado: ''''''fn_registrar_alerta'''''' \n Response: ERROR")){
-                    controlador.agnadirMensajeATrasiego(mensaje);
+                    enviarMensaje("Sincronización Fallida");
                 }
                 if (mensaje.equals("Status: 200 \n Sincronizado: ''''''fn_registrar_alerta_enviada'''''' \n Response: OK")) {
-                     controlador.agnadirMensajeATrasiego(mensaje);
+                     enviarMensaje("Sincronización Correcta");
                 }
                 if(mensaje.equals("Status: 404 \n Sincronizado: ''''''fn_registrar_alerta_enviada'''''' \n Response: ERROR")){
-                    controlador.agnadirMensajeATrasiego(mensaje);
+                    enviarMensaje("Sincronización Fallida");
                 }
                 if (mensaje.equals("Status: 200 \n Sincronizado: ''''''fn_registrar_corte_caja'''''' \n Response: OK")) {
-                     controlador.agnadirMensajeATrasiego(mensaje);
+                     enviarMensaje("Sincronización Correcta");
                 }
                 if(mensaje.equals("Status: 404 \n Sincronizado: ''''''fn_registrar_corte_caja'''''' \n Response: ERROR")){
-                    controlador.agnadirMensajeATrasiego(mensaje);
+                    enviarMensaje("Sincronización Fallida");
                 }
                 if (mensaje.equals("Status: 200 \n Sincronizado: ''''''fn_sincronizar_configuracion_envio'''''' \n Response: OK")) {
-                     controlador.agnadirMensajeATrasiego(mensaje);
+                     enviarMensaje("Sincronización Correcta");
                 }
                 if(mensaje.equals("Status: 404 \n Sincronizado: ''''''fn_sincronizar_configuracion_envio'''''' \n Response: ERROR")){
-                    controlador.agnadirMensajeATrasiego(mensaje);
+                    enviarMensaje("Sincronización Fallida");
                 }
                 if (mensaje.equals("Status: 200 \n Sincronizado: ''''''fn_sincronizar_dispositivo_vending'''''' \n Response: OK")) {
-                     controlador.agnadirMensajeATrasiego(mensaje);
+                     enviarMensaje("Sincronización Correcta");
                 }
                 if(mensaje.equals("Status: 404 \n Sincronizado: ''''''fn_sincronizar_dispositivo_vending'''''' \n Response: ERROR")){
-                    controlador.agnadirMensajeATrasiego(mensaje);
+                    enviarMensaje("Sincronización Fallida");
                 }
                 if (mensaje.equals("Status: 200 \n Sincronizado: ''''''fn_sincronizar_dispositivo_vending_kiosco'''''' \n Response: OK")) {
-                     controlador.agnadirMensajeATrasiego(mensaje);
+                     enviarMensaje("Sincronización Correcta");
                 }
                 if(mensaje.equals("Status: 404 \n Sincronizado: ''''''fn_sincronizar_dispositivo_vending_kiosco'''''' \n Response: ERROR")){
-                    controlador.agnadirMensajeATrasiego(mensaje);
+                    enviarMensaje("Sincronización Fallida");
                 }
                 if (mensaje.equals("Status: 200 \n Sincronizado: ''''''fn_sincronizar_kiosco'''''' \n Response: OK")) {
-                     controlador.agnadirMensajeATrasiego(mensaje);
+                     enviarMensaje("Sincronización Correcta");
                 }
                 if(mensaje.equals("Status: 404 \n Sincronizado: ''''''fn_sincronizar_kiosco'''''' \n Response: ERROR")){
-                    controlador.agnadirMensajeATrasiego(mensaje);
+                    enviarMensaje("Sincronización Fallida");
                 }
                 if (mensaje.equals("Status: 200 \n Sincronizado: ''''''fn_sincronizar_impresora'''''' \n Response: OK")) {
-                     controlador.agnadirMensajeATrasiego(mensaje);
+                     enviarMensaje("Sincronización Correcta");
                 }
                 if(mensaje.equals("Status: 404 \n Sincronizado: ''''''fn_sincronizar_impresora'''''' \n Response: ERROR")){
-                    controlador.agnadirMensajeATrasiego(mensaje);
-                }*/
-                if(mensaje.equals("ERROR")){
-                    controlador.agnadirMensajeATrasiego("ERROR DE SINCRONIZACION");
-                }
-                if(mensaje.equals("OK")){
-                    controlador.agnadirMensajeATrasiego("SINCRONIZACION CORRECTA");
+                    enviarMensaje("Sincronización Fallida");
                 }
                 
             }
