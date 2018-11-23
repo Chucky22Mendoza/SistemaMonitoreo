@@ -9,6 +9,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import com.monitoreo.cliente.model.objects.ModeloCliente;
 import com.monitoreo.cliente.views.IVista;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -55,7 +58,13 @@ public class ControladorCliente implements ActionListener {
                 break;
             
             case IVista.Sincronizar:
+        {
+            try {
                 modelo.Sincronizar();
+            } catch (IOException ex) {
+                Logger.getLogger(ControladorCliente.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
                 break;
                 
            
