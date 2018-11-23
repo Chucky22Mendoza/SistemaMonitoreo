@@ -60,5 +60,5 @@ public class Controller_login extends HttpServlet {
         } catch (NullPointerException e) {
             return new ModelAndView("/");
         }
-    } 
+    }
 }

@@ -19,6 +19,9 @@ import com.objects.controller.Denom_Dispensada;
 import com.objects.controller.Disp_Vending;
 import com.objects.controller.Impresora;
 import com.objects.controller.Kiosco;
+import com.getdata.controller.GetKioscos;
+import com.getdata.controller.GetPlayList;
+import com.objects.controller.Agencia;
 import com.objects.controller.Kiosco_Agencia;
 import com.objects.controller.Kiosco_Gen;
 import com.objects.controller.Total_X_Denomimacion_Recibida;
@@ -77,8 +80,9 @@ public class Controller_home {
             return mav;
 
         }catch(Exception e){
+            //mav.setViewName("login.htm");
             System.err.println("ERROR INTENTANDO INICIAR SESIÓN");
-            return new ModelAndView("/");
+            return new ModelAndView("login");
         }
 
     }
@@ -218,5 +222,14 @@ public class Controller_home {
             mav.setViewName("templates/noresultado");
             return mav;
         }   
+    }
+    @RequestMapping("cerrar_sesion.htm")
+    public ModelAndView cerrar_sesion(HttpServletRequest request, HttpServletResponse response) throws IOException{
+        HttpSession session = request.getSession();
+        
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("login");
+        session.invalidate();
+        return mav;
     }
 }
