@@ -113,7 +113,16 @@ public class ModeloCliente extends Thread {
     }
 
     public void Sincronizar() throws IOException {
+        /*WebService ws = new WebService();
+        fn_sincronizar_dispositivo_vendingModel obj = new fn_sincronizar_dispositivo_vendingModel(8,"prueba desde WS");
+        int status = ws.fn_sincronizar_dispositivo_vending(obj).getStatus();
         
+        if(status == 200){
+            enviarMensaje("HOLA");
+        }else{
+            enviarMensaje("ERROR");
+        }*/
+            
         WebService ws = new WebService();
         List<fn_registrar_alertaModel> historial_alerta = new Sincronizacion().get_alertas();
 
