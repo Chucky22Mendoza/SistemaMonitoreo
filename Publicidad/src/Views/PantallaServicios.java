@@ -13,10 +13,13 @@ import com.sun.jna.Native;
 import com.sun.jna.NativeLibrary;
 import java.awt.Dimension;
 import java.awt.Image;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -42,12 +45,12 @@ public final class PantallaServicios extends javax.swing.JFrame {
      *
      * @param img
      */
-    public PantallaServicios(ImageIcon img) {
+    public PantallaServicios(ImageIcon img) throws IOException {
         initComponents();
         imagen(img);
         tamañoPantalla();
         cambiarLibrerias();
-
+        Lista list = new Lista();
         list.setVisible(true);
         reproducirVideo();
         setLocationRelativeTo(null);
@@ -169,7 +172,7 @@ public final class PantallaServicios extends javax.swing.JFrame {
     static List<archivoVideo> file = new ArrayList<archivoVideo>();
 
     //Método para reproducir el video en la pantalla
-    public void reproducirVideo() {
+    public void reproducirVideo() throws IOException {
         List<archivoVideo> hora = new ArrayList<archivoVideo>();
         Envio envio = new Envio();
         String hour;
@@ -186,8 +189,8 @@ public final class PantallaServicios extends javax.swing.JFrame {
 
             try {
                 checarNuevasListas checar = new checarNuevasListas();
-                checar.start(); 
-                
+                checar.start();
+
                 //Prepara el video a reproducir
                 recargaLista();
                 cargarMedia(mediaPlayer);
@@ -199,8 +202,7 @@ public final class PantallaServicios extends javax.swing.JFrame {
     }
 
     static int archivo = -1, duracion;
-    Lista list = new Lista();
-    static String ruta;    
+    static String ruta;
 
     public static void cargarMedia(EmbeddedMediaPlayer mediaPlayer) {
         archivo++;
@@ -218,8 +220,8 @@ public final class PantallaServicios extends javax.swing.JFrame {
                     TimerTask task = new TimerTask() {
                         @Override
                         public void run() {
-                            prueba.stop();
                             if (!prueba.isPlaying()) {
+                                prueba.stop();
                                 timer.cancel();
                             }
                         }
@@ -230,15 +232,23 @@ public final class PantallaServicios extends javax.swing.JFrame {
                 @Override
                 public void finished(MediaPlayer prueba) {
                     if (archivo == (file.size() - 1)) {
-                        recargaLista();
-                        Lista.recargaLista();
                         archivo = -1;
+
+                        try {
+                            recargaLista();
+                            Lista.recargaLista();
+                        } catch (IOException ex) {
+                            Logger.getLogger(PantallaExclusiva.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+
+                        cargarMedia(mediaPlayer);
+
                         prueba.removeMediaPlayerEventListener(this);
                     } else {
                         cargarMedia(mediaPlayer);
-                        System.out.println(archivo);
                         prueba.removeMediaPlayerEventListener(this);
                     }
+
                 }
 
                 @Override
@@ -246,9 +256,15 @@ public final class PantallaServicios extends javax.swing.JFrame {
                     if (archivo == (file.size() - 1)) {
                         archivo = -1;
 
-                        recargaLista();
-                        Lista.recargaLista();
-                        
+                        try {
+                            recargaLista();
+                            Lista.recargaLista();
+                        } catch (IOException ex) {
+                            Logger.getLogger(PantallaExclusiva.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+
+                        cargarMedia(mediaPlayer);
+
                         prueba.removeMediaPlayerEventListener(this);
                     } else {
                         cargarMedia(mediaPlayer);
@@ -285,8 +301,8 @@ public final class PantallaServicios extends javax.swing.JFrame {
     }
 
     //Método para recargar
-    public static void recargaLista() {
-        file = new GetFile().obtenerArchivo();        
+    public static void recargaLista() throws IOException {
+        file = new GetFile().obtenerArchivo();
     }
 
     //Método para leer librerias directas del VLC de 64 bits
@@ -341,7 +357,7 @@ public final class PantallaServicios extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
 
-            public void run(ImageIcon img) {
+            public void run(ImageIcon img) throws IOException {
                 new PantallaServicios(img).setVisible(true);
             }
 

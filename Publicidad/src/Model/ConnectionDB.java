@@ -24,7 +24,7 @@ public class ConnectionDB {
         String host = "";
         String user = "";
         String port = "";
-        String pass = "";
+        //String pass = "";
         Connection conn = null;
         Properties p = new Properties();
         InputStream propertiesStream = ClassLoader.getSystemResourceAsStream("Properties/configuracion.properties");
@@ -32,7 +32,7 @@ public class ConnectionDB {
         String tipo = p.getProperty("tipo.configuracion");
         propertiesStream.close();
         int con = Integer.parseInt(tipo);
-        if(con == 1){
+        /*if(con == 1){
             
             try {
                     Properties prop = new Properties();
@@ -63,16 +63,16 @@ public class ConnectionDB {
                 } catch(IOException e) {
 	  System.err.println(e);
                 }
-        }
-         String urlDatabase = "jdbc:postgresql://"+ host;
+        }*/
+         //String urlDatabase = "jdbc:postgresql://"+ host;
          //String urlDatabase =  "jdbc:postgresql://localhost:5433/db_local";
-         //String urlDatabase =  "jdbc:postgresql://localhost:5432/db_local";
+         String urlDatabase =  "jdbc:postgresql://localhost:5432/db_local";
          //String urlDatabase =  "jdbc:postgresql://localhost:5432/db_local2";
          //String urlDatabase = "jdbc:postgresql://192.168.1.139:5433/db_local"; //Servidor Prueba
          //String urlDatabase =  "jdbc:postgresql://localhost:5432/Publicidad";
-         //String usuario = "postgres";
+         String usuario = "postgres";
          //String pass = "1522";
-         //String pass = "123";
+         String pass = "123";
          //String pass = "12345"; //Servidor Prueba
          
          //String pass = "21octubre97";
@@ -80,7 +80,7 @@ public class ConnectionDB {
          
          try {
                 Class.forName("org.postgresql.Driver");
-                conn = DriverManager.getConnection(urlDatabase,  user, pass);
+                conn = DriverManager.getConnection(urlDatabase,  usuario, pass);
             } catch (Exception e) {
                 System.out.println("Ocurrio un error : "+e.getMessage());
             }

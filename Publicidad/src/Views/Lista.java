@@ -8,9 +8,12 @@ package Views;
 import GetData.GetFile;
 import Model.Envio;
 import Model.archivoVideo;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -22,8 +25,10 @@ public final class Lista extends javax.swing.JFrame {
 
     /**
      * Creates new form Lista
+     *
+     * @throws java.io.IOException
      */
-    public Lista() {
+    public Lista() throws IOException {
         initComponents();
         recargaLista();
         setLocationRelativeTo(null);
@@ -38,11 +43,10 @@ public final class Lista extends javax.swing.JFrame {
     static List<archivoVideo> hora = new ArrayList<archivoVideo>();
 
     //Método para recargar lista de reproducción
-    public static void recargaLista() {
+    public static void recargaLista() throws IOException {
         obtencionDia();
         llenadoHoras();
         file = new GetFile().obtenerArchivo();
-        System.out.println(file.size());
         if (file.isEmpty()) {
             JOptionPane.showMessageDialog(null, "No hay medios de reproducción cargados en la lista de reproducción de este momento", "SIN LISTAS DE REPRODUCCION", JOptionPane.WARNING_MESSAGE);
         } else {
@@ -55,7 +59,7 @@ public final class Lista extends javax.swing.JFrame {
         return hora;
     }
 
-    public static void recargaHora() {
+    public static void recargaHora() throws IOException {
         hora = new GetFile().obtenerHora();
         horaInicio = new int[hora.size()];
     }
@@ -63,7 +67,7 @@ public final class Lista extends javax.swing.JFrame {
     static int horaInicio[];
 
     //Método para el llenado del vextor de la hora de inicio
-    public static void llenadoHoras() {
+    public static void llenadoHoras() throws IOException {
         String hour;
         recargaHora();
 
@@ -71,7 +75,12 @@ public final class Lista extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "No hay listas cargadas en el servidor para este kiosko", "SIN LISTAS DE REPRODUCCION", JOptionPane.WARNING_MESSAGE);
         } else {
             for (int i = 0; i < hora.size(); i++) {
-                hour = "" + hora.get(i).getHoraInicio() + hora.get(i).getMinutosInicio();
+
+                if (hora.get(i).getMinutosInicio() >= 0 && hora.get(i).getMinutosInicio() < 10) {
+                    hour = "" + hora.get(i).getHoraInicio() + "0" + hora.get(i).getMinutosInicio();
+                } else {
+                    hour = "" + hora.get(i).getHoraInicio() + hora.get(i).getMinutosInicio();
+                }
                 horaInicio[i] = Integer.parseInt(hour);
             }
             obtencionLista();
@@ -252,7 +261,11 @@ public final class Lista extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new Lista().setVisible(true);
+            try {
+                new Lista().setVisible(true);
+            } catch (IOException ex) {
+                Logger.getLogger(Lista.class.getName()).log(Level.SEVERE, null, ex);
+            }
         });
     }
 

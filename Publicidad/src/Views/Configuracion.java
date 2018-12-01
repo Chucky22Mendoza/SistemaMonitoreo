@@ -707,12 +707,22 @@ public class Configuracion extends javax.swing.JFrame {
         
         if (rbServicios.isSelected()) {          
 
-           PantallaServicios abrir=new PantallaServicios(img);
+           PantallaServicios abrir = null;
+            try {
+                abrir = new PantallaServicios(img);
+            } catch (IOException ex) {
+                Logger.getLogger(Configuracion.class.getName()).log(Level.SEVERE, null, ex);
+            }
            this.setVisible(false);
            abrir.setVisible(true);
         }else{
             this.setVisible(false);
-           PantallaExclusiva a=new PantallaExclusiva();
+           PantallaExclusiva a = null;
+            try {
+                a = new PantallaExclusiva();
+            } catch (IOException ex) {
+                Logger.getLogger(Configuracion.class.getName()).log(Level.SEVERE, null, ex);
+            }
            a.setVisible(true);
         }
     }//GEN-LAST:event_btnGuardarActionPerformed

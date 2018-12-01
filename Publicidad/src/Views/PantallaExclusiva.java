@@ -12,11 +12,14 @@ import Model.checarNuevasListas;
 import java.awt.Dimension;
 import com.sun.jna.Native;
 import com.sun.jna.NativeLibrary;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import org.apache.commons.io.FilenameUtils;
 import uk.co.caprica.vlcj.binding.LibVlc;
@@ -37,8 +40,10 @@ public final class PantallaExclusiva extends javax.swing.JFrame {
 
     /**
      * Creates new form PantallaExclusiva
+     *
+     * @throws java.io.IOException
      */
-    public PantallaExclusiva() {
+    public PantallaExclusiva() throws IOException {
         initComponents();
         tamañoPantalla();
         setLocationRelativeTo(null);
@@ -92,17 +97,17 @@ public final class PantallaExclusiva extends javax.swing.JFrame {
     static int duracion;
     static int archivo = -1;
     static private EmbeddedMediaPlayerComponent player;
-    
+
     //Método que ejecuta el video
-    public void reproducirVideo() {
+    public void reproducirVideo() throws IOException {
         List<archivoVideo> hora = new ArrayList<archivoVideo>();
         hora = new GetFile().obtenerHora();
 
         if (!hora.isEmpty()) {
-            
+
             MediaPlayerFactory mediaPlayerFactory = new MediaPlayerFactory();
             EmbeddedMediaPlayer mediaPlayer = mediaPlayerFactory.newEmbeddedMediaPlayer(new Win32FullScreenStrategy(this));
-            
+
             player = new EmbeddedMediaPlayerComponent();
             //se añade reproductor 
             video.add(player);
@@ -111,11 +116,11 @@ public final class PantallaExclusiva extends javax.swing.JFrame {
 
             try {
                 checarNuevasListas checar = new checarNuevasListas();
-                checar.start();  
-                
+                checar.start();
+
                 recargaLista();
                 cargarMedia(mediaPlayer);
-                              
+
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Error en " + e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
                 reproducirVideo();
@@ -157,16 +162,16 @@ public final class PantallaExclusiva extends javax.swing.JFrame {
     }
 
     //Método para recargar lista de reproducción
-    public static void recargaLista() {
-        file = new GetFile().obtenerArchivo();        
+    public static void recargaLista() throws IOException {
+        file = new GetFile().obtenerArchivo();
     }
 
     ImageIcon img;
-    static String ruta;    
+    static String ruta;
 
     //Método para cargar el video
     public void cargarMedia(EmbeddedMediaPlayer mediaPlayer) {
-        archivo++;        
+        archivo++;
         ruta = rutaArchivo();
         if (!ruta.equalsIgnoreCase("")) {
             //String extension = extensionArchivo(ruta);
@@ -210,9 +215,9 @@ public final class PantallaExclusiva extends javax.swing.JFrame {
                     TimerTask task = new TimerTask() {
                         @Override
                         public void run() {
-                            prueba.stop();
                             if (!prueba.isPlaying()) {
                                 timer.cancel();
+                                prueba.stop();
                             }
                         }
                     };
@@ -224,15 +229,18 @@ public final class PantallaExclusiva extends javax.swing.JFrame {
                     if (archivo == (file.size() - 1)) {
                         archivo = -1;
 
-                        recargaLista();
-                        Lista.recargaLista();
+                        try {
+                            recargaLista();
+                            Lista.recargaLista();
+                        } catch (IOException ex) {
+                            Logger.getLogger(PantallaExclusiva.class.getName()).log(Level.SEVERE, null, ex);
+                        }
 
                         cargarMedia(mediaPlayer);
 
                         prueba.removeMediaPlayerEventListener(this);
                     } else {
                         cargarMedia(mediaPlayer);
-                        System.out.println(archivo);
                         prueba.removeMediaPlayerEventListener(this);
                     }
 
@@ -243,8 +251,12 @@ public final class PantallaExclusiva extends javax.swing.JFrame {
                     if (archivo == (file.size() - 1)) {
                         archivo = -1;
 
-                        recargaLista();
-                        Lista.recargaLista();
+                        try {
+                            recargaLista();
+                            Lista.recargaLista();
+                        } catch (IOException ex) {
+                            Logger.getLogger(PantallaExclusiva.class.getName()).log(Level.SEVERE, null, ex);
+                        }
 
                         cargarMedia(mediaPlayer);
 
@@ -303,7 +315,11 @@ public final class PantallaExclusiva extends javax.swing.JFrame {
         //</editor-fold>
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new PantallaExclusiva().setVisible(true);
+            try {
+                new PantallaExclusiva().setVisible(true);
+            } catch (IOException ex) {
+                Logger.getLogger(PantallaExclusiva.class.getName()).log(Level.SEVERE, null, ex);
+            }
         });
     }
 
